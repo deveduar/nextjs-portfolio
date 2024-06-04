@@ -26,7 +26,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
                   View My Work
                 </Link>
               </div>
-              <div className="flex justify-center space-x-4">
+              {/* <div className="flex justify-center space-x-4">
                 <Link
                   href="https://github.com/deveduar"
                   passHref
@@ -72,7 +72,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
                     className="filter invert dark:invert-1"
                   />
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="hidden md:block md:w-1/2 mt-8 md:mt-0 ml-auto">

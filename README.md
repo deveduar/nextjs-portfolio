@@ -1,4 +1,4 @@
-# My portdolio
+# My portfolio
 Developed with Nextjs, Typescript and Tailwind
 
 # Status
