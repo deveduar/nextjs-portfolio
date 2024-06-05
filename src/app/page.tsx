@@ -3,6 +3,8 @@ import Card from "@/components/card";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer"
+import FooterB from "@/components/footerB"
+import About from "@/components/about"
 
 const Home: React.FC = () => {
   return (
@@ -14,10 +16,18 @@ const Home: React.FC = () => {
           Deveduar Portfolio
         </h1> */}
         <Hero
-          title="Welcome to My Portfolio"
+          title="Hey 👋 I am deveduar"
           subtitle="I'm a Full-Stack Developer specialized in building amazing web applications."
           imageSrc="/images/pc-1.png"
         />
+          <About />
+
+
+
+        <h2 className="text-4xl font-bold text-center text-gray-100 my-8">
+            Projects
+        </h2>
+
         <div
           id="projects"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-7 justify-items-center"
@@ -42,7 +52,9 @@ const Home: React.FC = () => {
           />
         </div>
       </div>
-      <Footer/>
+      {/* <FooterB /> */}
+      <Footer />
+
     </section>
   );
 };
