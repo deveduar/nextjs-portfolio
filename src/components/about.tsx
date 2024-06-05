@@ -5,7 +5,7 @@ import Link from "next/link";
 const About: React.FC = () => {
   return (
     <>
-      <section className="bg-secondary pt-20 pb-[120px]" data-aos="zoom-in">
+      {/* <section className="bg-secondary pt-20 pb-[120px]" data-aos="zoom-in">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[60px] xl:gap-[134px]">
           <div className="mx-auto">
@@ -40,16 +40,9 @@ const About: React.FC = () => {
           </div>
         </div>
       </div>
-    </section>
-    <section className="overflow-x-hidden bg-white py-14 dark:bg-gray-dark">
-                <div className="container">
-                    <div className="items-center lg:flex">
-                        <h2 className="flex-none border-gray/20 text-center text-xl font-black uppercase text-black dark:text-white lg:ltr:mr-12 lg:ltr:border-r-[3px] lg:ltr:pr-12 lg:ltr:text-left lg:rtl:ml-12 lg:rtl:border-l-[3px] lg:rtl:pl-12 lg:rtl:text-right">
-                            PREVIOUSLY WORKED ON
-                        </h2>
-                    </div>
-                </div>
-            </section>
+    </section> */}
+
+    
     </>
   );
 };
