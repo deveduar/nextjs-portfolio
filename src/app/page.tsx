@@ -8,10 +8,10 @@ import About from "@/components/about"
 
 const Home: React.FC = () => {
   return (
-    <section>
+    <section className=" bg-gray-300 dark:bg-gray-950">
       <Navbar />
 
-      <div className="container mx-auto py-7">
+      <div className="container mx-auto py-6 bg-gray-300 dark:bg-gray-950	">
         {/* <h1 className="text-4xl font-bold text-center my-8">
           Deveduar Portfolio
         </h1> */}
@@ -24,13 +24,13 @@ const Home: React.FC = () => {
 
 
 
-        <h2 className="text-4xl font-bold text-center text-gray-100 my-8">
+        <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-gray-100 my-8">
             Projects
         </h2>
 
         <div
           id="projects"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-7 justify-items-center"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-1 justify-items-center"
         >
           <Card
             title="Project 1"
