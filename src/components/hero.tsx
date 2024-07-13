@@ -11,10 +11,20 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
   return (
     <div className="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white py-7 space-y-2 rounded-xl">
-      <div className="container mx-auto flex flex-col md:flex-row items-center md:px-12 px-20">
-        <div className="justify-center md:w-1/1">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
-          <p className="text-xl md:text-2xl mb-6">{subtitle}</p>
+      <div className="container mx-auto flex flex-col lg:flex-row items-center md:px-12 px-6">
+        <div className="flex flex-col items-center lg:items-start lg:w-1/2">
+        <div className="w-full flex justify-center lg:justify-end">
+          {/* Imagen visible solo en pantallas pequeñas */}
+          <div className="block lg:hidden">
+            <Image className="rounded-full" src={imageSrc} alt={title} height={200} width={200} />
+          </div>
+          {/* Imagen visible solo en pantallas grandes */}
+          <div className="hidden lg:block lg-w-full lg:w-1/2 lg-mt-8 lg:mt-0 lg-flex lg-justify-center ">
+            {/* <Image className="rounded-full" src={imageSrc} alt={title} height={200} width={200} /> */}
+          </div>
+        </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center lg:text-left">{title}</h1>
+          <p className="text-xl md:text-2xl mb-6 text-center lg:text-left">{subtitle}</p>
 
           <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-7 py-2">
             <div className="flex items-center justify-center">
@@ -44,8 +54,8 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
             </div>
           </div>
         </div>
-        <div className="hidden md:block md:w-1/2 mt-8 md:mt-0 ml-auto">
-          <Image src={imageSrc} alt={title} height={500} width={500} />
+        <div className="hidden lg:block lg:ml-32 w-full lg:w-1/2 mt-1 lg:mt-0 justify-center ">
+          <Image className="rounded-full" src={imageSrc} alt={title} height={250} width={250} />
         </div>
       </div>
     </div>

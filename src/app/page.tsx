@@ -12,46 +12,50 @@ const Home: React.FC = () => {
       <Navbar />
 
       <div className="container mx-auto py-6 bg-gray-300 dark:bg-gray-950	">
-        {/* <h1 className="text-4xl font-bold text-center my-8">
-          Deveduar Portfolio
-        </h1> */}
+
+        <div id="about">
         <Hero
           title="Hey 👋 I am deveduar"
           subtitle="I'm a Full-Stack Developer specialized in building amazing web applications."
-          imageSrc="/images/pc-1.png"
+          imageSrc="/images/profile.jpeg"
         />
-          <About />
-
-
-
-        <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-gray-100 my-8">
-            Projects
-        </h2>
-
-        <div
-          id="projects"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-1 justify-items-center"
-        >
-          <Card
-            title="Project 1"
-            description="Description for project 1"
-            imageSrc="/images/pc-1.png"
-            detailedDescription="This is a detailed description for project 1"
-          />
-          <Card
-            title="Project 2"
-            description="Description for project 2"
-            imageSrc="/images/pc-1.png"
-            detailedDescription="This is a detailed description for project 1"
-          />
-          <Card
-            title="Project 3"
-            description="Description for project 3"
-            imageSrc="/images/pc-1.png"
-            detailedDescription="This is a detailed description for project 1"
-          />
+          
         </div>
+
+
+
+
+        {/* <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-gray-100 my-8">
+            Projects
+        </h2> */}
+        
+          <div id="projects" className="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white py-7 space-y-2 rounded-xl mt-7 text-center">
+            <h2 className="text-3xl font-bold text-black dark:text-white mb-8 ml-4">Projects</h2>
+            <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-1 justify-items-center px-4">
+              <Card
+                title="Personal Blog"
+                description="Description for project 1"
+                imageSrc="/images/blog-1.png"
+                detailedDescription="This is a detailed description for project 1"
+              />
+              <Card
+                title="Ecomerce Site"
+                description="Description for project 2"
+                imageSrc="/images/blog-1.png"
+                detailedDescription="This is a detailed description for project 2"
+              />
+              <Card
+                title="Music Platform"
+                description="Description for project 3"
+                imageSrc="/images/blog-1.png"
+                detailedDescription="This is a detailed description for project 3"
+              />
+            </div>
+          </div>
+      <About />
+
       </div>
+
       {/* <FooterB /> */}
       <Footer />
 
