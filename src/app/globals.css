@@ -31,3 +31,7 @@ body {
     text-wrap: balance;
   }
 }
+
+/* .dark {
+  @apply bg-gray-900 text-white;
+} */
