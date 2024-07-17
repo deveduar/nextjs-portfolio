@@ -44,7 +44,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
               }}
             />
           </h3>
-          <p className="text-xl md:text-2xl mb-6 text-center lg:text-left">{subtitle}</p>
+          <p className="text-xl md:text-2xl mb-6 mt-2 text-center lg:text-left">{subtitle}</p>
           <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-7 py-2">
             <div className="flex items-center justify-center lg:justify-start">
               <Link
@@ -95,9 +95,8 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
           </div>
         </div>
 
-        {/* Sección de la imagen oculta en pantallas pequeñas */}
-        <div className="hidden lg:block lg:absolute lg:right-0 lg:top-52 lg:transform lg:-translate-y-1/2 lg:mr-32 ">
-          <Image className="rounded-full" src={imageSrc} alt={title} height={220} width={220} />
+        <div className=" hidden lg:block lg:pl-20">
+          <Image className="rounded-full" src={imageSrc} alt={title} height={200} width={250} />
         </div>
       </div>
     </div>

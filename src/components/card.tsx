@@ -43,7 +43,7 @@ const Card: React.FC<CardProps> = ({
           height={200}
         />
         {/* Overlay permanente a la derecha */}
-        <div className="absolute top-0 right-5 h-1/3 w-16 bg-black bg-opacity-50 flex flex-col items-center justify-center space-y-2">
+        {/* <div className=" rounded-md absolute top-1 right-1 h-1/3 w-10 bg-gray-900 bg-opacity-60 flex flex-col items-center justify-center space-y-1">
           {links.map((link, index) => (
             <Link
               key={index}
@@ -54,15 +54,15 @@ const Card: React.FC<CardProps> = ({
               {link.svg}
             </Link>
           ))}
-        </div>
+        </div> */}
         <div
-          className={`absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 transition-all duration-300 ease-in-out ${
-            isHovered ? 'h-1/2' : 'h-1/4'
+          className={`absolute bottom-0 left-0 right-0 bg-gray-900 bg-opacity-60 text-white p-4 transition-all duration-300 ease-in-out ${
+            isHovered ? 'h-1/1' : 'h-1/2'
           }`}
         >
           <div className="font-bold text-xl mb-2">{title}</div>
           <p className="text-base">{description}</p>
-          <p className="mt-4 text-sm">{detailedDescription}</p>
+          {/* <p className="mt-4 text-sm">{detailedDescription}</p> */}
           <div className="flex justify-center space-x-3 mt-2">
             {links.map((link, index) => (
               <Link
@@ -75,9 +75,9 @@ const Card: React.FC<CardProps> = ({
               </Link>
             ))}
           </div>
-          {/* {isHovered && (
+          {isHovered && (
             <p className="mt-4 text-sm">{detailedDescription}</p>
-          )} */}
+          )}
         </div>
       </div>
     </div>

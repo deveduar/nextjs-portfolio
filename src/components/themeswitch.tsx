@@ -1,19 +1,24 @@
 "use client";
-
 import React from "react";
 import { useTheme } from "../context/ThemeContext";
+import Image from "next/image";
 
 const ThemeSwitch: React.FC = () => {
   const { darkMode, toggleDarkMode } = useTheme();
 
   return (
     <div className="flex items-center">
-      <span className="mr-2 text-sm text-gray-700 dark:text-gray-300">Light</span>
       <label className="relative inline-flex items-center cursor-pointer">
         <input type="checkbox" className="sr-only peer" checked={darkMode} onChange={toggleDarkMode} />
-        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-500"></div>
+        <div className="w-6 h-6 "></div>
+        <Image
+          src={darkMode ? "/images/sun-medium.svg" : "/images/moon.svg"}
+          alt={darkMode ? "Moon icon" : "Sun icon"}
+          className="w-6 h-6 absolute   pointer-events-none"
+          width={10}
+          height={10}
+        />
       </label>
-      <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Dark</span>
     </div>
   );
 };
