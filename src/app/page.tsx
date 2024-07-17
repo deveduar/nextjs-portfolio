@@ -10,7 +10,9 @@ import About from "@/components/about"
 
 const Home: React.FC = () => {
   return (
-    <section className=" bg-gray-300 dark:bg-gray-950">
+
+    <>
+      <section className=" bg-gray-300 dark:bg-gray-950">
       <Navbar />
       <div className="container mx-auto py-6 bg-gray-300 dark:bg-gray-950	">
 
@@ -22,19 +24,12 @@ const Home: React.FC = () => {
           // imageSrc="/images/pc-1.png"
         />
           
-        </div>
-        <div id="about">
-        <About />
-        </div>
-
-
-
         {/* <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-gray-100 my-8">
             Projects
         </h2> */}
         
           <div id="projects" className="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white py-7 space-y-2 rounded-xl mt-7 text-center">
-            <h2 className="text-3xl font-bold text-black dark:text-white mb-8 ml-4">Projects</h2>
+            <h2 className="text-3xl font-bold text-black dark:text-white mb-8 ml-4">Portfolio</h2>
             <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-1 justify-items-center px-4">
               <Card
                 title="Deveduar Blog"
@@ -63,13 +58,13 @@ const Home: React.FC = () => {
                 ]}         
               />
               <Card
-                title="Ecomerce VisualEvoke"
-                description="A ecomerce shop made with next js and medusa js"
-                imageSrc="/images/blog-1.png"
-                detailedDescription="This is a detailed description for project 2"
+                title="VisualEvoke Shop"
+                description="Ecomerce site made with next.js and node.js"
+                imageSrc="/images/ecomerce-1.png"
+                detailedDescription="Developed with next js (Frontend) and Medusa js (backend) with Api drop shiping integration"
                 links={[
                   {
-                    href: "https://github.com/deveduar/nextjs-blog",
+                    href: "https://github.com/deveduar",
                     label: "GitHub",
                     svg: (
                       <svg className="hover:scale-110 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
@@ -78,7 +73,7 @@ const Home: React.FC = () => {
                     )
                   },
                   {
-                    href: "https://nextjs-blog-xi-indol.vercel.app/",
+                    href: "https://github.com/deveduar",
                     label: "Demo",
                     svg: (
                       <svg className="hover:scale-110 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -89,13 +84,13 @@ const Home: React.FC = () => {
                 ]}  
               />
               <Card
-                title="Music Platform"
+                title="Art gallery"
                 description="Description for project 3"
                 imageSrc="/images/blog-1.png"
                 detailedDescription="This is a detailed description for project 3"
                 links={[
                   {
-                    href: "https://github.com/deveduar/nextjs-blog",
+                    href: "https://github.com/deveduar",
                     label: "GitHub",
                     svg: (
                       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
@@ -104,7 +99,7 @@ const Home: React.FC = () => {
                     )
                   },
                   {
-                    href: "https://nextjs-blog-xi-indol.vercel.app/",
+                    href: "https://github.com/deveduar",
                     label: "Demo",
                     svg: (
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -116,13 +111,21 @@ const Home: React.FC = () => {
               />
             </div>
           </div>
-
+    <div id="about">
+      <About /> 
+    </div>
       </div>
 
-      {/* <FooterB /> */}
-      <Footer />
+    </div>
 
+
+    <div id="contact" >
+      <Footer />
+    {/* <FooterB /> */}
+    </div>
     </section>
+
+    </>
   );
 };
 
