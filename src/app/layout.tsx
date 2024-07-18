@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import ClientLayout from '../components/ClientLayout';
 import "./globals.css";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer"
 
 
 export const metadata: Metadata = {
@@ -16,7 +18,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ClientLayout>{children}</ClientLayout>
+      <ClientLayout>
+      <Navbar />
+        <div className="flex flex-col min-h-screen  bg-gray-300 dark:bg-gray-950">
+        <main className="flex-grow">
+          {children}
+        </main>
+        <Footer />
+        </div>
+
+        </ClientLayout>
+
       </body>
     </html>
   );
