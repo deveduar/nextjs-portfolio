@@ -55,7 +55,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
       <div className="container mx-auto flex flex-col lg:flex-row md:px-12 px-6">
         {/* Sección de la imagen visible solo en pantallas pequeñas */}
         <div className="lg:hidden">
-          <Image className="rounded-full mx-auto mb-6" src={imageSrc} alt={title} height={200} width={200} />
+          <Image className="rounded-full mx-auto mb-6" src={imageSrc} alt={title} height={200} width={200} priority={false} />
         </div>
 
         {/* Sección del texto */}

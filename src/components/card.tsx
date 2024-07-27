@@ -32,10 +32,11 @@ const Card: React.FC<CardProps> = ({
       <div className="relative w-full h-40 overflow-hidden">
         <div className="absolute inset-0 transition-transform duration-300 transform hover:scale-110 hover:-translate-y-1/1">
           <Image
-            className="object-cover object-top w-full h-full"
+            className="object-cover object-top w-full h-full fill"
             src={imageSrc}
             alt={title}
-            layout="fill"
+           width={300}
+           height={300}
           />
         </div>
       </div>
