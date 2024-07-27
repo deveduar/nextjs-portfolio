@@ -43,22 +43,23 @@ const About: React.FC = () => {
             />
           </div>
           <div className="w-full md:w-2/3 md:pl-10">
-            <h2 className="text-4xl font-bold mb-4">About Me</h2>
-            <p className="text-lg mb-6">
-              Hi, I'm Eduardo, a passionate web developer with expertise in creating responsive and scalable web applications. I enjoy working with modern technologies and always eager to learn and improve my skills.
-            </p>
-            <p>
+          <h2 className="text-4xl font-bold mb-4">About Me</h2>
+          <p className="text-lg mb-6">
+            Hi, I&apos;m Eduardo, a passionate web developer with expertise in creating responsive and scalable web applications. I enjoy working with modern technologies and am always eager to learn and improve my skills.
+          </p>
+          <p>
             You can contact me on{" "}
             <a className="font-bold" href="http://www.linkedin.com/in/deveduar" target="_blank">
-              Linkedin{" "}
-            </a>
-            or see my activity{" "}
+              Linkedin
+            </a>{" "}
+            or see my activity on{" "}
             <a className="font-bold" href="https://github.com/deveduar" target="_blank">
               Github
             </a>
             .
           </p>
-          </div>
+        </div>
+
         </div>
 
         {/* Tech Stack Section */}
