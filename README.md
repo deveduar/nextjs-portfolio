@@ -1,5 +1,2 @@
 # My portfolio
-Developed with Nextjs, Typescript and Tailwind
-
-# Status
-- In construction 👷‍♀️
+SPA web app Developed with Nextjs, Typescript and Tailwind

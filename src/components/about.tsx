@@ -45,7 +45,7 @@ const About: React.FC = () => {
           <div className="w-full md:w-2/3 md:pl-10">
             <h2 className="text-4xl font-bold mb-4">About Me</h2>
             <p className="text-lg mb-6">
-              Hi, I'm Eduardo, a passionate web developer with expertise in creating responsive and scalable web applications. I enjoy working with modern technologies and am always eager to learn and improve my skills.
+              Hi, I'm Eduardo, a passionate web developer with expertise in creating responsive and scalable web applications. I enjoy working with modern technologies and always eager to learn and improve my skills.
             </p>
             <p>
             You can contact me on{" "}
