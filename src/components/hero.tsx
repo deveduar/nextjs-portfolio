@@ -12,7 +12,7 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
   return (
-    <div className="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white py-7 space-y-2 rounded-xl">
+    <div className="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white py-7 space-y-2 rounded-xl ">
       <div className="container mx-auto flex flex-col lg:flex-row md:px-12 px-6">
         {/* Sección de la imagen visible solo en pantallas pequeñas */}
         <div className="lg:hidden">
@@ -20,7 +20,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
         </div>
 
         {/* Sección del texto */}
-        <div className="flex flex-col items-center lg:items-start lg:w-1/2 relative">
+        <div className="flex flex-col items-center lg:items-start lg:w-1/2 relative lg:mr-40">
           <h3 className="text-4xl md:text-5xl font-bold mb-1 text-center lg:text-left whitespace-nowrap">
             <Typewriter
               options={{
@@ -95,7 +95,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
           </div>
         </div>
 
-        <div className=" hidden lg:block lg:pl-20">
+        <div className=" hidden lg:block ">
           <Image className="rounded-full" src={imageSrc} alt={title} height={200} width={250} />
         </div>
       </div>
