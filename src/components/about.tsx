@@ -29,7 +29,7 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <section className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white pt-10 pb-10 mt-10 rounded-xl" data-aos="zoom-in">
+    <section  id="about" className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white pt-10 pb-10 mt-10 rounded-xl" data-aos="zoom-in">
       <div className="container mx-auto px-8">
         {/* About Me Section */}
         <div className="flex flex-col md:flex-row items-center mb-16">
@@ -45,7 +45,7 @@ const About: React.FC = () => {
           <div className="w-full md:w-2/3 md:pl-10">
             <h2 className="text-4xl font-bold mb-4">About Me</h2>
             <p className="text-lg mb-6">
-              Hi, I'm Eduardo, a passionate web developer with expertise in creating responsive and scalable web applications. I enjoy working with modern technologies and am always eager to learn and improve my skills.
+              Hi, I'm Eduardo, a passionate web developer with expertise in creating responsive and scalable web applications. I enjoy working with modern technologies and always eager to learn and improve my skills.
             </p>
             <p>
             You can contact me on{" "}

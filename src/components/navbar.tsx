@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
   }, [isOpen]);
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 mb-4"> 
+    <nav className="bg-white border-gray-200 dark:bg-gray-900 "> 
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 lg:px-24 relative">
         <div className="flex items-center md:space-x-8 lg:space-x-72 xl:space-x-96">
           <Link href="/" passHref className="flex items-center space-x-3 rtl:space-x-reverse pr-20">
@@ -51,13 +51,13 @@ const Navbar: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="#about" passHref className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0 md:hover:gray-900 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" onClick={closeMenu}>
-                  About
+                <Link href="#projects" passHref className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0 md:hover:text-blue-900 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" onClick={closeMenu}>
+                  Projects
                 </Link>
               </li>
               <li>
-                <Link href="#projects" passHref className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0 md:hover:text-blue-900 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" onClick={closeMenu}>
-                  Projects
+                <Link href="#about" passHref className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0 md:hover:gray-900 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" onClick={closeMenu}>
+                  About
                 </Link>
               </li>
               <li>
