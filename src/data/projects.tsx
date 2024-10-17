@@ -26,7 +26,7 @@ export const projects = [
     },
     {
       id: 2,
-      title: "VisualEvoke Shop",
+      title: "VisualEvoke Ecomerce",
       description: "Ecomerce site made with next.js and node.js",
       imageSrc: "https://i.ibb.co/YZDFk2K/clark-street-mercantile-qn-Kh-ZJPKFD8-unsplash-min.jpg",
       detailedDescription: "Developed with next js (Frontend) and Medusa js (backend) with Api drop shipping integration",
@@ -76,7 +76,7 @@ export const projects = [
     {
       id: 4,
       title: "Inventory System",
-      description: "Inventory management for dropshipping store",
+      description: "Inventory management for dropshipping store created with angular.",
       imageSrc: "https://i.ibb.co/d0Ntdkj/priscilla-du-preez-dlx-LGIy-2-VU-unsplash-min.jpg",
       detailedDescription: "Developed with TypeScript, Angular, Node.js",
       technologies: ["Angular", "NodeJS", "Typescript", "SASS"],

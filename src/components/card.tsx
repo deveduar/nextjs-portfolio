@@ -31,9 +31,9 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     
-<div className="">
+<div className="max-w-sm w-full">
   {/* Imagen */}
-  <Link href={`/projects/${id}`}  className=" max-w-sm w-full rounded-xl overflow-hidden shadow-lg  transition-transform transform hover:scale-105 hover:shadow-2xl flex flex-col cursor-pointer h-40 
+  <Link href={`/projects/${id}`}  className="rounded-xl overflow-hidden shadow-lg  transition-transform transform hover:scale-105 hover:shadow-2xl flex flex-col cursor-pointer h-40 
   " >
     <Image
       className="object-cover object-top w-full h-full"
@@ -47,8 +47,8 @@ const Card: React.FC<CardProps> = ({
   {/* Información */}
   <div className="p-2 flex flex-col">
     <div className=" text-black dark:text-white">
-      <div className="font-bold text-xl mb-2 text-black dark:text-white">{title}</div>
-      <p className="text-base text-black dark:text-gray-300">{description}</p>
+      <div className="font-bold text-xl mb-2 text-black dark:text-white truncate">{title}</div>
+      <p className="text-base text-black dark:text-gray-300 line-clamp-2 break-words">{description}</p>
     </div>
   </div>
 </div>
