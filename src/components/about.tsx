@@ -29,7 +29,7 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <section  id="about" className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white pt-10 pb-10 mt-10 rounded-xl mx-4" data-aos="zoom-in">
+    <section  id="about" className=" text-gray-900 dark:text-white pt-10 pb-10 mt-10 rounded-xl mx-4" data-aos="zoom-in">
       <div className="container mx-auto px-8">
         {/* About Me Section */}
         <div className="flex flex-col md:flex-row items-center mb-16">

@@ -11,6 +11,7 @@ interface ProjectDetailsProps {
     technologies: string[];
     links: { href: string; label: string; svg: JSX.Element }[];
     gallery: string[]; 
+    features?: string[]; 
   };
 }
 
@@ -31,7 +32,16 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       {/* Descripción detallada del proyecto */}
       <p className="mt-4 text-base leading-normal px-4">{project.description}</p>
       <p className="mt-2 text-base leading-normal px-4">{project.detailedDescription}</p>
-
+      <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white px-4 pb-2 pt-4">
+        Key Features
+      </h3>
+      <ul className="list-disc list-inside px-4">
+        {project.features?.map((feature, index) => (
+          <li key={index} className="text-base leading-normal dark:text-gray-300">
+            {feature}
+          </li>
+        ))}
+      </ul>
 
 
       {/* Tecnologías utilizadas */}

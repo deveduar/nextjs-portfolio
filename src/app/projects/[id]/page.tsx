@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'; // Importa si quieres manejar proyec
 import ProjectDetails from '@/components/projectDetails';
 import { projects } from '@/data/projects'; 
 import Card from "@/components/card";
-
+import About from "@/components/about";
 
 interface ProjectPageProps {
   params: {
@@ -40,6 +40,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
           ))}
         </div>
       </div>
+      <About></About>
     </div>
   );
 };
