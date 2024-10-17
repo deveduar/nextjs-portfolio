@@ -51,16 +51,16 @@ const GitHubIcon = (
 
 const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
   return (
-    <div className="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white py-7 space-y-2 rounded-xl">
-      <div className="container mx-auto flex flex-col lg:flex-row md:px-12 px-6">
+    <div className=" text-gray-900  dark:text-white py-5 space-y-2 rounded-xl lg:mx-16 ">
+      <div className="container flex flex-col md:px-12 px-6">
         {/* Sección de la imagen visible solo en pantallas pequeñas */}
-        <div className="lg:hidden">
+        {/* <div className="lg:hidden">
           <Image className="rounded-full mx-auto mb-6" src={imageSrc} alt={title} height={200} width={200} priority={false} />
-        </div>
+        </div> */}
 
         {/* Sección del texto */}
-        <div className="flex flex-col items-center lg:items-start lg:w-1/2 relative lg:mr-40">
-          <h3 className="text-4xl md:text-5xl font-bold mb-1 text-center lg:text-left whitespace-nowrap">
+        <div className="flex flex-col  ">
+          <h3 className="text-4xl md:text-5xl font-bold mb-1 text-center whitespace-nowrap">
             <Typewriter
               options={{
                 autoStart: true,
@@ -83,9 +83,11 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
               }}
             />
           </h3>
-          <p className="text-xl md:text-2xl mb-6 mt-2 text-center lg:text-left">{subtitle}</p>
-          <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-7 py-2">
-            <div className="flex items-center justify-center lg:justify-start">
+          <div className=" w-full">
+          <p className="text-xl md:text-2xl mb-2 mt-4 ">{subtitle}</p>
+          <div className="flex flex-col md:flex-row  space-y-4 md:space-y-0  py-4 justify-between">
+            
+            <div className="flex items-center justify-center">
               <Link
                 href="#projects"
                 className="inline-flex dark:bg-gray-200 dark:hover:bg-gray-400 bg-gray-800 hover:bg-gray-500 dark:text-gray-900 text-white font-bold py-2 px-4 rounded-full"
@@ -93,7 +95,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
                 View My Work
               </Link>
             </div>
-            <div className="flex justify-center lg:justify-start space-x-3 mt-4 sm:mt-0">
+            <div className="flex justify-center space-x-3 mt-4 sm:mt-0">
               <Link href="http://www.linkedin.com/in/deveduar" target="_blank" className="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-900 dark:text-white hover:bg-primary transition-all duration-300">
                 {LinkedInIcon}
               </Link>
@@ -105,10 +107,8 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
               </Link>
             </div>
           </div>
-        </div>
+          </div>
 
-        <div className="hidden lg:block">
-          <Image className="rounded-full" src={imageSrc} alt={title} height={200} width={250} />
         </div>
       </div>
     </div>

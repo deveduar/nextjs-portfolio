@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
   }, [isOpen, closeMenu]);
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900">
+    <nav className="bg-gray-100 border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 lg:px-24 relative">
         <div className="flex items-center md:space-x-8 lg:space-x-72 xl:space-x-96">
           <Link href="/" passHref className="flex items-center space-x-3 rtl:space-x-reverse pr-20">

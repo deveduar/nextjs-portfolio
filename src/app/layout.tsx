@@ -20,7 +20,7 @@ export default function RootLayout({
       <body>
       <ClientLayout>
       <Navbar />
-        <div className="flex flex-col min-h-screen  bg-gray-300 dark:bg-gray-950">
+        <div className="flex flex-col min-h-screen  bg-white dark:bg-gray-950">
         <main className="flex-grow">
           {children}
         </main>
