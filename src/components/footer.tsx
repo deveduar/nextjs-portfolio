@@ -21,8 +21,8 @@ const Footer: React.FC = () => {
 
           <div className="mt-2 sm:mt-2 grid gap-y-2 sm:gap-y-0 sm:flex sm:justify-between sm:items-center text-center sm:text-left">
             <div className="flex justify-center sm:justify-between items-center w-full sm:w-auto">
-              <p className="text-lg dark:text-gray-400 text-gray-900">
-                Personal portfolio by <Link href="/" className="dark:text-gray-300 hover:none text-gray-900">©deveduar</Link> - 2024.
+              <p className="text-lg  dark:text-gray-400 text-gray-900">
+                Personal portfolio developed by <Link href="/" className="dark:text-gray-300 hover:none text-gray-900 font-bold">deveduar</Link> - 2024.
               </p>
             </div>
 
@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
             <Link href="http://www.linkedin.com/in/deveduar" target="_blank" className="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-900 dark:text-white hover:bg-primary transition-all duration-300">
             {LinkedInIcon}
               </Link>
-              <Link href="https://twitter.c1m/deveduar" target="_blank" className="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-900 dark:text-white hover:bg-primary transition-all duration-300">
+              <Link href="https://x.com/deveduar" target="_blank" className="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-900 dark:text-white hover:bg-primary transition-all duration-300">
                {TwitterIcon}
               </Link>
               <Link href="https://github.com/deveduar" target="_blank" className="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-900 dark:text-white hover:bg-primary transition-all duration-300">

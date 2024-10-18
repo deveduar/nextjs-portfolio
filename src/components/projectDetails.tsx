@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link'; // Asegúrate de importar Link correctamente
 
 interface ProjectDetailsProps {
@@ -21,6 +21,21 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false); // Estado para controlar el zoom
+
+    // Efecto para deshabilitar el scroll cuando el modal esté abierto
+    useEffect(() => {
+      if (isModalOpen) {
+        document.body.style.overflow = 'hidden'; 
+      } else {
+        document.body.style.overflow = '';
+      }
+      // Limpiar el efecto cuando el modal se cierre
+      return () => {
+        document.body.style.overflow = ''; 
+      };
+    }, [isModalOpen]);
+  
+
 
   const openModal = (index: number) => {
     setCurrentImageIndex(index);
@@ -45,14 +60,15 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
   };
 
   return (
-    <div className="  text-black rounded-xl dark:text-white">
+    <div className="px-4 text-black rounded-xl dark:text-white">
           {/* Título del proyecto */}
-      <div
-        className="w-full h-64 bg-center bg-no-repeat bg-cover flex justify-end overflow-hidden bg-slate-50 rounded-xl"
-        style={{
-          backgroundImage: `url(${project.imageSrc})`,
-        }}
-      ></div>
+      <div className=" h-64 bg-slate-50 rounded-xl flex justify-end overflow-hidden mx-4 ">
+        <img
+          src={project.imageSrc}
+          alt="Project"
+          className="object-cover w-full h-full"
+        />
+      </div>
 
 
     <h2 className="text-3xl font-bold mt-4 px-4">{project.title}</h2>
@@ -117,7 +133,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white pb-4 ">
         Project Images
       </h3>
-      <div className="px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {project.gallery.map((image, index) => (
           <div
             key={index}

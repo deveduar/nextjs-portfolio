@@ -14,9 +14,9 @@ export const projects = [
         { href: "https://nextjs-blog-xi-indol.vercel.app/", label: "Demo", svg: DemoIcon },
       ],
       gallery: [
-        "https://i.ibb.co/s10RNQM/blog-5.png",
-        "https://i.ibb.co/s10RNQM/blog-5.png0",
-        "https://i.ibb.co/JzLWDP8/blog-7.png",
+        "https://i.ibb.co/NKdSZpt/blog-1-images-proyectos-4.png",
+        "https://i.ibb.co/F4Gf6yq/blog-1-images-proyectos-3.png",
+        "https://i.ibb.co/y5pzHXG/blog-1-images-proyectos.png",
       ],
       features: [
         "Implemented a custom markdown parser.",
@@ -32,7 +32,8 @@ export const projects = [
       detailedDescription: "Developed with next js (Frontend) and Medusa js (backend) with Api drop shipping integration",
       technologies: ["Next.js", "React", "drop shipping", "Medusa.js"],
       links: [
-        { href: "https://github.com/deveduar", label: "GitHub", svg: GitHubIcon },
+        { href: "https://github.com/deveduar/medusa-store-backend", label: "GitHub Backend", svg: GitHubIcon },
+        { href: "https://github.com/deveduar/medusa-store-frontend", label: "GitHub Frontend", svg: GitHubIcon },
       ],
       gallery: [
         "https://placehold.co/600x400",
@@ -79,9 +80,10 @@ export const projects = [
       description: "Inventory management for dropshipping store created with angular.",
       imageSrc: "https://i.ibb.co/d0Ntdkj/priscilla-du-preez-dlx-LGIy-2-VU-unsplash-min.jpg",
       detailedDescription: "Developed with TypeScript, Angular, Node.js",
-      technologies: ["Angular", "NodeJS", "Typescript", "SASS"],
+      technologies: ["Angular", "NodeJS", "Typescript", "SASS", "Express"],
       links: [
-        { href: "https://github.com/deveduar/angular-SGI-front", label: "GitHub", svg: GitHubIcon },
+        { href: "https://github.com/deveduar/angular-SGI-front", label: "GitHub Frontend", svg: GitHubIcon },
+        { href: "https://github.com/deveduar/inventory-backend.git", label: "GitHub Backend", svg: GitHubIcon },
       ],
       gallery: [
         "https://i.ibb.co/JcrtNTN/localhost-4200-inventory-8-min.png",

@@ -18,23 +18,23 @@ const Home: React.FC = () => {
         subtitle="I'm a Full-Stack Developer specialized in building amazing web applications."
         imageSrc="/images/pc-1-opa.png"
       />
-      <div id="projects" className="  py-4 space-y-2 rounded-xl px-3 md:px-2 lg:px-4">
-        <h1 className="text-2xl font-bold text-black dark:text-white mb-4 ml-4">Projects</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-1 justify-items-center sm:px-2 md:px-4 lg:px-4">
+    <div id="projects" className="flex flex-col items-center rounded-xl px-4 md:px-4 lg:px-4 lg:mx-14">
+      <h1 className="text-3xl font-bold text-black dark:text-white mb-4 flex text-left md:text-center w-full">Projects</h1> 
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-1">
         {projects.map((project) => (
-            <Card
-              id={project.id}
-              key={project.id}
-              title={project.title}
-              description={project.description}
-              imageSrc={project.imageSrc}
-              detailedDescription={project.detailedDescription}
-              links={project.links}
-          
-            />
-          ))}
-        </div>
+          <Card
+            id={project.id}
+            key={project.id}
+            title={project.title}
+            description={project.description}
+            imageSrc={project.imageSrc}
+            detailedDescription={project.detailedDescription}
+            links={project.links}
+          />
+        ))}
       </div>
+    </div>
+
       {/* <ProjectDetails project={projects} /> */}
       <About />
     </section>
