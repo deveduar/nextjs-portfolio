@@ -1,4 +1,5 @@
-import React from 'react';
+"use client"
+import React, { useState } from 'react';
 import Link from 'next/link'; // Asegúrate de importar Link correctamente
 
 interface ProjectDetailsProps {
@@ -16,8 +17,35 @@ interface ProjectDetailsProps {
 }
 
 const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false); // Estado para controlar el zoom
+
+  const openModal = (index: number) => {
+    setCurrentImageIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setIsZoomed(false); // Desactivar el zoom al cerrar
+  };
+
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % project.gallery.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + project.gallery.length) % project.gallery.length);
+  };
+
+  const toggleZoom = () => {
+    setIsZoomed((prevZoom) => !prevZoom); // Alternar zoom
+  };
+
   return (
-    <div className="mt-4 p-4 text-black rounded-xl dark:text-white">
+    <div className="  text-black rounded-xl dark:text-white">
           {/* Título del proyecto */}
       <div
         className="w-full h-64 bg-center bg-no-repeat bg-cover flex justify-end overflow-hidden bg-slate-50 rounded-xl"
@@ -45,7 +73,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
 
       {/* Tecnologías utilizadas */}
-      <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white px-4 pb-2 pt-4">
+      <h3 className="text-lg font-bold tracking-tight dark:text-white px-4 pb-2 pt-4">
         Technologies Used
       </h3>
       <div className="flex gap-3 flex-wrap px-4">
@@ -57,7 +85,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       </div>
 
       {/* Enlaces del proyecto */}
-      <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white px-4 pt-4">Links</h3>
+      <h3 className="text-lg font-bold tracking-tight dark:text-white px-4 pt-4">Links</h3>
       <div className="mt-4 px-4">
         {project.links.map((link, index) => (
           <Link
@@ -71,8 +99,8 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
           </Link>
         ))}
       </div>
-            {/* Galería de imágenes */}
-            <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white px-4 pb-2 pt-4">Project Images</h3>
+
+      {/* <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white px-4 pb-2 pt-4">Project Images</h3>
         <div className="px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {project.gallery.map((image, index) => (
             <div key={index} className="w-full h-64 bg-gray-200 rounded-lg overflow-hidden">
@@ -83,7 +111,79 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
                 />
             </div>
             ))}
+        </div> */}
+ <div className="mt-4 px-4 text-black rounded-xl dark:text-white">
+      {/* Galería de imágenes */}
+      <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white pb-4 ">
+        Project Images
+      </h3>
+      <div className="px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {project.gallery.map((image, index) => (
+          <div
+            key={index}
+            className="w-full h-64 bg-gray-200 rounded-lg overflow-hidden cursor-pointer"
+            onClick={() => openModal(index)} // Abre el modal al hacer clic en la imagen
+          >
+            <img
+              src={image}
+              alt={`Gallery image ${index + 1}`}
+              className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Modal para las imágenes */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80" onClick={closeModal} >
+          {/* Contenedor absoluto para los botones */}
+          <div className="absolute top-4 right-4 z-20 flex space-x-4" onClick={(e) => e.stopPropagation()}>
+            {/* Botón para cerrar el modal */}
+                        {/* Botón de zoom */}
+            <button
+              className="text-white text-2xl"
+              onClick={toggleZoom}
+            >
+              {isZoomed ? '-' : '+'}
+            </button>
+            <button
+              className="text-white text-3xl"
+              onClick={closeModal}
+            >
+              &times;
+            </button>
+
+          </div>
+
+          {/* Botones de navegación izquierda y derecha */}
+          <div onClick={(e) => e.stopPropagation()}>
+          <button
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-white text-4xl px-6 py-4 rounded-full hover:bg-opacity-70 z-20"
+            onClick={prevImage}
+          >
+            &#8249;
+          </button>
+
+          <button
+          className="flex items-center justify-center text-center absolute right-4 top-1/2 transform -translate-y-1/2  bg-opacity-50 text-white text-4xl px-6 py-2 rounded-full hover:bg-opacity-70 z-20"
+          onClick={nextImage}
+        >
+          &#8250;
+        </button>
+          </div>
+
+
+          {/* Imagen actual */}
+          <div className="flex justify-center items-center max-h-[85vh] max-w-[85vw]" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={project.gallery[currentImageIndex]}
+              alt={`Modal image ${currentImageIndex + 1}`}
+              className={`transition-transform duration-300 ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
+            />
+          </div>
         </div>
+      )}
+    </div>
     </div>
   );
 };
