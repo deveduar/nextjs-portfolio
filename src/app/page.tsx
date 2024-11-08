@@ -21,7 +21,7 @@ const Home: React.FC = () => {
     <div id="projects" className="flex flex-col items-center rounded-xl px-4 md:px-4 lg:px-4 lg:mx-14">
       <h1 className="text-3xl font-bold text-black dark:text-white mb-4 flex text-left md:text-center w-full">Projects</h1> 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-1">
-        {projects.map((project) => (
+        {projects.slice().reverse().map((project) => (
           <Card
             id={project.id}
             key={project.id}

@@ -77,7 +77,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       <p className="mt-4 text-base leading-normal px-4">{project.description}</p>
       <p className="mt-2 text-base leading-normal px-4">{project.detailedDescription}</p>
       <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white px-4 pb-2 pt-4">
-        Key Features
+        Key Features:
       </h3>
       <ul className="list-disc list-inside px-4">
         {project.features?.map((feature, index) => (
@@ -90,7 +90,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
       {/* Tecnologías utilizadas */}
       <h3 className="text-lg font-bold tracking-tight dark:text-white px-4 pb-2 pt-4">
-        Technologies Used
+        Technologies:
       </h3>
       <div className="flex gap-3 flex-wrap px-4">
         {project.technologies.map((tech, index) => (
@@ -101,7 +101,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       </div>
 
       {/* Enlaces del proyecto */}
-      <h3 className="text-lg font-bold tracking-tight dark:text-white px-4 pt-4">Links</h3>
+      <h3 className="text-lg font-bold tracking-tight dark:text-white px-4 pt-4">Links:</h3>
       <div className="mt-4 px-4">
         {project.links.map((link, index) => (
           <Link
