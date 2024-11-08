@@ -25,7 +25,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
 
         {/* Sección del texto */}
         <div className="flex flex-col  ">
-          <h3 className="sm:text-xl md:text-2xl  lg:text-4xl font-bold mb-1  whitespace-nowrap">
+          <h3 className="text-3xl md:text-4xl  lg:text-4xl font-bold mb-1  whitespace-nowrap">
             <Typewriter
               options={{
                 autoStart: true,

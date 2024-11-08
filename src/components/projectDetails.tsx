@@ -77,7 +77,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       <p className="mt-4 text-base leading-normal px-4">{project.description}</p>
       <p className="mt-2 text-base leading-normal px-4">{project.detailedDescription}</p>
       <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white px-4 pb-2 pt-4">
-        Key Features
+        Key Features:
       </h3>
       <ul className="list-disc list-inside px-4">
         {project.features?.map((feature, index) => (
@@ -90,7 +90,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
       {/* Tecnologías utilizadas */}
       <h3 className="text-lg font-bold tracking-tight dark:text-white px-4 pb-2 pt-4">
-        Technologies Used
+        Technologies:
       </h3>
       <div className="flex gap-3 flex-wrap px-4">
         {project.technologies.map((tech, index) => (
@@ -101,7 +101,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       </div>
 
       {/* Enlaces del proyecto */}
-      <h3 className="text-lg font-bold tracking-tight dark:text-white px-4 pt-4">Links</h3>
+      <h3 className="text-lg font-bold tracking-tight dark:text-white px-4 pt-4">Links:</h3>
       <div className="mt-4 px-4">
         {project.links.map((link, index) => (
           <Link
@@ -128,12 +128,18 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
             </div>
             ))}
         </div> */}
- <div className="mt-4 px-4 text-black rounded-xl dark:text-white">
-      {/* Galería de imágenes */}
-      <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white pb-4 ">
+        
+        <div className="mt-4 px-4 text-black rounded-xl dark:text-white">
+  {/* Verificar si hay imágenes en la galería antes de renderizar */}
+  {project.gallery && project.gallery.length > 0 && (
+    <>
+      {/* Encabezado de la Galería de Imágenes */}
+      <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white pb-4">
         Project Images
       </h3>
-      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+      {/* Galería de Imágenes */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {project.gallery.map((image, index) => (
           <div
             key={index}
@@ -148,58 +154,57 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
           </div>
         ))}
       </div>
+    </>
+  )}
 
-      {/* Modal para las imágenes */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80" onClick={closeModal} >
-          {/* Contenedor absoluto para los botones */}
-          <div className="absolute top-4 right-4 z-20 flex space-x-4" onClick={(e) => e.stopPropagation()}>
-            {/* Botón para cerrar el modal */}
-                        {/* Botón de zoom */}
-            <button
-              className="text-white text-2xl"
-              onClick={toggleZoom}
-            >
-              {isZoomed ? '-' : '+'}
-            </button>
-            <button
-              className="text-white text-3xl"
-              onClick={closeModal}
-            >
-              &times;
-            </button>
+  {/* Modal para las imágenes */}
+  {isModalOpen && (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80"
+      onClick={closeModal}
+    >
+      {/* Contenedor absoluto para los botones */}
+      <div className="absolute top-4 right-4 z-20 flex space-x-4" onClick={(e) => e.stopPropagation()}>
+        {/* Botón de Zoom */}
+        <button className="text-white text-2xl" onClick={toggleZoom}>
+          {isZoomed ? '-' : '+'}
+        </button>
+        
+        {/* Botón para cerrar el modal */}
+        <button className="text-white text-3xl" onClick={closeModal}>
+          &times;
+        </button>
+      </div>
 
-          </div>
+      {/* Botones de navegación izquierda y derecha */}
+      <div onClick={(e) => e.stopPropagation()}>
+        <button
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-white text-4xl px-6 py-4 rounded-full hover:bg-opacity-70 z-20"
+          onClick={prevImage}
+        >
+          &#8249;
+        </button>
 
-          {/* Botones de navegación izquierda y derecha */}
-          <div onClick={(e) => e.stopPropagation()}>
-          <button
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-white text-4xl px-6 py-4 rounded-full hover:bg-opacity-70 z-20"
-            onClick={prevImage}
-          >
-            &#8249;
-          </button>
-
-          <button
-          className="flex items-center justify-center text-center absolute right-4 top-1/2 transform -translate-y-1/2  bg-opacity-50 text-white text-4xl px-6 py-2 rounded-full hover:bg-opacity-70 z-20"
+        <button
+          className="flex items-center justify-center text-center absolute right-4 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-white text-4xl px-6 py-2 rounded-full hover:bg-opacity-70 z-20"
           onClick={nextImage}
         >
           &#8250;
         </button>
-          </div>
+      </div>
 
-
-          {/* Imagen actual */}
-          <div className="flex justify-center items-center max-h-[85vh] max-w-[85vw]" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={project.gallery[currentImageIndex]}
-              alt={`Modal image ${currentImageIndex + 1}`}
-              className={`transition-transform duration-300 ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
-            />
-          </div>
-        </div>
-      )}
+      {/* Imagen actual */}
+      <div className="flex justify-center items-center max-h-[85vh] max-w-[85vw]" onClick={(e) => e.stopPropagation()}>
+        <img
+          src={project.gallery[currentImageIndex]}
+          alt={`Modal image ${currentImageIndex + 1}`}
+          className={`transition-transform duration-300 ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
+        />
+      </div>
     </div>
+  )}
+</div>
+
     </div>
   );
 };

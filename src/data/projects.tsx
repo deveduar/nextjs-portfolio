@@ -36,9 +36,7 @@ export const projects = [
         { href: "https://github.com/deveduar/medusa-store-frontend", label: "GitHub Frontend", svg: GitHubIcon },
       ],
       gallery: [
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400",
+        
       ],
       features: [
         "Backend and frontend connection",
@@ -96,4 +94,26 @@ export const projects = [
         "Static site generation with Angular.",
       ],
     },
+    {
+      id: 5,
+      title: "Python Tools",
+      description: "A collection of Python scripts for various file and media conversions.",
+      imageSrc: "https://i.ibb.co/TLQwWzb/luca-bravo-XJXWbf-So2f0-unsplash-1.jpg",
+      detailedDescription: "Scripts developed to automate and simplify common tasks such as file conversions and media extraction.",
+      technologies: ["Python", "Scripting", "Automation"],
+      links: [
+        { href: "https://github.com/deveduar/omnivore-to-raindrop", label: "Omnivore to Raindrop", svg: GitHubIcon },
+        { href: "https://github.com/deveduar/pdf-to-cbr.git", label: "PDF to CBR Converter", svg: GitHubIcon },
+        { href: "https://github.com/deveduar/you-mp3-python", label: "YouTube to MP3 Converter", svg: GitHubIcon }
+      ],
+      gallery: [
+        
+      ],
+      features: [
+        "Convert PDFs to CBR format for digital reading.",
+        "Extract audio from YouTube videos to MP3 format.",
+        "Convert JSON files or format data for easier handling."
+      ]
+    }
+    
   ];
