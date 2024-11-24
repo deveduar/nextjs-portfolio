@@ -6,7 +6,7 @@ export const projects = [
       id: 1,
       title: "Deveduar Blog",
       description: "Responsive blog created with Next.js and React.js",
-      imageSrc: "https://i.ibb.co/xzG58fw/lum3n-RBu-Q2-PK-L8-unsplash.jpg",
+      imageSrc: "https://i.postimg.cc/VvY14GGS/lum3n-RBu-Q2-PK-L8-unsplash.jpg",
       detailedDescription: "My Personal blog for reading markdown posts from the file system with tags and date system",
       technologies: ["Next.js", "React.js", "Tailwind", "Markdown"],
       links: [
@@ -14,9 +14,9 @@ export const projects = [
         { href: "https://nextjs-blog-xi-indol.vercel.app/", label: "Demo", svg: DemoIcon },
       ],
       gallery: [
-        "https://i.ibb.co/NKdSZpt/blog-1-images-proyectos-4.png",
-        "https://i.ibb.co/F4Gf6yq/blog-1-images-proyectos-3.png",
-        "https://i.ibb.co/y5pzHXG/blog-1-images-proyectos.png",
+        "https://i.postimg.cc/2Sqg775z/blog-1-images-proyectos-4.png",
+        "https://i.postimg.cc/Vk3pG0SX/blog-1-images-proyectos-3.png",
+        "https://i.postimg.cc/c4kV3b09/blog-1-images-proyectos.png",
       ],
       features: [
         "Implemented a custom markdown parser.",
@@ -28,7 +28,7 @@ export const projects = [
       id: 2,
       title: "VisualEvoke Ecomerce",
       description: "Ecomerce site made with next.js and node.js",
-      imageSrc: "https://i.ibb.co/YZDFk2K/clark-street-mercantile-qn-Kh-ZJPKFD8-unsplash-min.jpg",
+      imageSrc: "https://i.postimg.cc/HkfgFsv1/clark-street-mercantile-qn-Kh-ZJPKFD8-unsplash.jpg",
       detailedDescription: "Developed with next js (Frontend) and Medusa js (backend) with Api drop shipping integration",
       technologies: ["Next.js", "React", "drop shipping", "Medusa.js"],
       links: [
@@ -47,7 +47,7 @@ export const projects = [
       id: 3,
       title: "Todo app",
       description: "Simple todo app with dates and reminders",
-      imageSrc: "https://i.ibb.co/BncDyCR/kier-in-sight-archives-a53b-WJk1sz0-unsplash-min.jpg",
+      imageSrc: "https://i.postimg.cc/4dpVpdqf/glenn-carstens-peters-RLw-UC03-Gwc-unsplash.jpg",
       detailedDescription: "Developed with Next.js and Supabase .",
       technologies: [
         "Next.js", 
@@ -62,9 +62,9 @@ export const projects = [
         { href: "https://github.com/deveduar/todo-app", label: "GitHub", svg: GitHubIcon },
       ],
       gallery: [
-        "https://i.ibb.co/6mSmsYX/todo-1-min.png",
-        "https://i.ibb.co/GvfxcTg/todo-2-min.png",
-        "https://i.ibb.co/X4pqfDh/todo-4-min.png",
+        "https://i.postimg.cc/kXSHpFSw/todo-1-min.png",
+        "https://i.postimg.cc/DfHD6YS8/todo-4-min.png",
+        "https://i.postimg.cc/ZYG7pBQN/todo-notes-7-min.png",
       ],
       features: [
         "Dates and reminders.",
@@ -76,7 +76,7 @@ export const projects = [
       id: 4,
       title: "Inventory System",
       description: "Inventory management for dropshipping store created with angular.",
-      imageSrc: "https://i.ibb.co/d0Ntdkj/priscilla-du-preez-dlx-LGIy-2-VU-unsplash-min.jpg",
+      imageSrc: "https://i.postimg.cc/7ZC4BTVN/priscilla-du-preez-dlx-LGIy-2-VU-unsplash.jpg",
       detailedDescription: "Developed with TypeScript, Angular, Node.js",
       technologies: ["Angular", "NodeJS", "Typescript", "SASS", "Express"],
       links: [
@@ -84,9 +84,9 @@ export const projects = [
         { href: "https://github.com/deveduar/inventory-backend.git", label: "GitHub Backend", svg: GitHubIcon },
       ],
       gallery: [
-        "https://i.ibb.co/JcrtNTN/localhost-4200-inventory-8-min.png",
-        "https://i.ibb.co/Q6dRMjn/localhost-4200-inventory-3-min.png",
-        "https://i.ibb.co/L0zVPCL/localhost-4200-inventory-5-min.png",
+        "https://i.postimg.cc/1zXXHTq8/localhost-4200-inventory-2-min.png",
+        "https://i.postimg.cc/QdXHBVNk/localhost-4200-inventory-6-min.png",
+        "https://i.postimg.cc/5ydtf2kz/localhost-4200-inventory-7-min.png",
       ],
       features: [
         "Backend connection with Printfull API.",
@@ -98,7 +98,7 @@ export const projects = [
       id: 5,
       title: "Python Tools",
       description: "A collection of Python scripts for various file and media conversions.",
-      imageSrc: "https://i.ibb.co/TLQwWzb/luca-bravo-XJXWbf-So2f0-unsplash-1.jpg",
+      imageSrc: "https://i.postimg.cc/660BTKqC/luca-bravo-XJXWbf-So2f0-unsplash-1.jpg",
       detailedDescription: "Scripts developed to automate and simplify common tasks such as file conversions and media extraction.",
       technologies: ["Python", "Scripting", "Automation"],
       links: [
