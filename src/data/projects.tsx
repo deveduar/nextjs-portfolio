@@ -26,7 +26,7 @@ export const projects = [
     },
     {
       id: 2,
-      title: "VisualEvoke Ecomerce",
+      title: "Ecomerce",
       description: "Ecomerce site made with next.js and node.js",
       imageSrc: "https://i.postimg.cc/HkfgFsv1/clark-street-mercantile-qn-Kh-ZJPKFD8-unsplash.jpg",
       detailedDescription: "Developed with next js (Frontend) and Medusa js (backend) with Api drop shipping integration",
@@ -114,6 +114,29 @@ export const projects = [
         "Extract audio from YouTube videos to MP3 format.",
         "Convert JSON files or format data for easier handling."
       ]
+    },
+    {
+      id: 6,
+      title: "Services Booking App",
+      description: "A Vue 3 and Vuetify application for browsing and booking services.",
+      imageSrc: "https://i.postimg.cc/d1F76gzp/samantha-borges-Ul-QPnp-P2-Erg-unsplash.jpg",
+      detailedDescription: "A modern service booking application built with Vue 3 and Vuetify, featuring dynamic filtering, sorting, and interactive UI elements. Users can browse services, filter by category, sort by price or duration, and proceed with booking seamlessly.",
+      technologies: ["Vue 3", "TypeScript", "Vuetify", "Composition API"],
+      links: [
+        { href: "https://github.com/deveduar/booking-app", label: "GitHub Repository", svg: GitHubIcon }
+      ],
+      gallery: [
+        "https://i.postimg.cc/Y2FH0CmX/service-booking-1.jpg",
+        "https://i.postimg.cc/NFkBybf0/service-booking-2.jpg",
+        "https://i.postimg.cc/qv6pT9Vp/service-booking-3.jpg"
+      ],
+      features: [
+        "Dynamically filter and sort services.",
+        "Interactive UI with Vuetify components.",
+        "Easily extendable with additional service categories.",
+        "Efficient state management using Vue Composition API."
+      ]
     }
+    
     
   ];
