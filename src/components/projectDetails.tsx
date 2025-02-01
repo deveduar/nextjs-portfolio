@@ -1,6 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link'; // Asegúrate de importar Link correctamente
+import Link from 'next/link';
+import Image from "next/image";
+
 
 interface ProjectDetailsProps {
   project: {
@@ -63,7 +65,9 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
     <div className=" text-black rounded-xl dark:text-white">
           {/* Título del proyecto */}
       <div className=" h-64 bg-slate-50 rounded-xl flex justify-end overflow-hidden mx-4 ">
-        <img
+        <Image
+          width={1200}
+          height={800}
           src={project.imageSrc}
           alt="Project"
           className="object-cover w-full h-full"
@@ -146,7 +150,9 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
             className="w-full h-64 bg-gray-200 rounded-lg overflow-hidden cursor-pointer"
             onClick={() => openModal(index)} // Abre el modal al hacer clic en la imagen
           >
-            <img
+            <Image
+              width={600}
+              height={600}
               src={image}
               alt={`Gallery image ${index + 1}`}
               className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
@@ -195,7 +201,9 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
       {/* Imagen actual */}
       <div className="flex justify-center items-center max-h-[85vh] max-w-[85vw]" onClick={(e) => e.stopPropagation()}>
-        <img
+        <Image
+          width={540}
+          height={700}
           src={project.gallery[currentImageIndex]}
           alt={`Modal image ${currentImageIndex + 1}`}
           className={`transition-transform duration-300 ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
