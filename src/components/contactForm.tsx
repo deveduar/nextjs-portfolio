@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 import emailjs from '@emailjs/browser';
@@ -9,7 +9,7 @@ interface FormData {
     name: string;
     email: string;
     message: string;
-    [key: string]: string;  // Esta línea permite cualquier propiedad de tipo string
+    [key: string]: string; 
   }
 
 const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
@@ -19,14 +19,22 @@ const userID = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
 export default function ContactForm() {
 
-    const [lastSent, setLastSent] = useState<number | null>(null);
-    const cooldownTime = 5 * 60 * 1000;
+  const [lastSent, setLastSent] = useState<number | null>(null);
+  const cooldownTime = 5 * 60 * 1000;
 
   const [userInput, setUserInput] = useState<FormData>({
     name: "",
     email: "",
     message: ""
   });
+
+    // Cargar lastSent desde localStorage cuando el componente se monta
+    useEffect(() => {
+        const storedLastSent = localStorage.getItem("lastSent");
+        if (storedLastSent) {
+            setLastSent(parseInt(storedLastSent, 10));
+        }
+    }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -66,7 +74,9 @@ export default function ContactForm() {
           email: "",
           message: ""
         });
-        setLastSent(Date.now());
+        const now = Date.now();
+        setLastSent(now);
+        localStorage.setItem("lastSent", now.toString());
       }
     } catch (error) {
       toast.error("Failed to send message. Please try again later.");
