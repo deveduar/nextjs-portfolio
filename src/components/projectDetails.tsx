@@ -60,7 +60,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
   };
 
   return (
-    <div className="px-4 text-black rounded-xl dark:text-white">
+    <div className=" text-black rounded-xl dark:text-white">
           {/* Título del proyecto */}
       <div className=" h-64 bg-slate-50 rounded-xl flex justify-end overflow-hidden mx-4 ">
         <img

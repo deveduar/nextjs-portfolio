@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
   return (
     <footer id="contact" className=" flex items-end justify-center mt-auto ">
       <div className="w-full dark:bg-gray-900 bg-gray-100">
-        <div className="container py-5 px-2 sm:px-5 lg:px-8 lg:pt-1 mx-auto">
+        <div className="container py-5 px-2 sm:px-5 lg:px-8  mx-auto">
           {/* <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-center">
             <div className="col-span-full lg:col-span-1 flex justify-center lg:justify-start">
               <div className="flex items-center">
@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
           <div className="mt-2 sm:mt-2 grid gap-y-2 sm:gap-y-0 sm:flex sm:justify-between sm:items-center text-center sm:text-left">
             <div className="flex justify-center sm:justify-between items-center w-full sm:w-auto">
               <p className="text-lg  dark:text-gray-400 text-gray-900">
-                Personal portfolio developed by <Link href="/" className="dark:text-gray-300 hover:none text-gray-900 font-bold">deveduar</Link> - 2024.
+                Personal portfolio developed by <Link href="/" className="dark:text-gray-300 hover:none text-gray-900 font-bold">deveduar</Link> - 2025.
               </p>
             </div>
 
