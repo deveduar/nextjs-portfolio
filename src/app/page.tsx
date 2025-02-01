@@ -21,7 +21,7 @@ const Home: React.FC = () => {
         subtitle="I'm a Full-Stack Developer specialized in building amazing web applications."
         imageSrc="/images/pc-1-opa.png"
       />
-    <div id="projects" className="flex flex-col  rounded-xl sm:items-center lg:items-start md:items-start  ">
+    <div id="projects" className="flex flex-col  rounded-xl ">
       {/* <h2 className="text-4xl font-bold text-black dark:text-white flex text-center sm:text-center lg:text-left">Projects</h2>  */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10 w-full ">
         {projects.slice().reverse().map((project) => (

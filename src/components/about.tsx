@@ -76,14 +76,14 @@ const About: React.FC<AboutProps> = ({ technologies}) => {
             <FaTrophy className="text-4xl mb-4 text-yellow-500 dark:text-yellow-300" />
             <h3 className="text-2xl font-bold mb-4">Problem Solving</h3>
             <p className="text-lg mb-6">
-              I excel in identifying challenges and finding creative solutions through structured problem-solving techniques. Whether it's optimizing performance or building scalable systems, I always aim for the most efficient solution.
+            I excel in identifying challenges and finding creative solutions through structured problem-solving techniques. Whether it&apos;s optimizing performance or building scalable systems, I always aim for the most efficient solution.  
             </p>
           </div>
           <div className="flex flex-col items-start text-left p-6 bg-white text-gray-900 rounded-xl shadow-lg hover:shadow-xl  transition-all duration-300 dark:bg-gray-800 dark:text-white  dark:hover:shadow-gray-900">
             <FaCode className="text-4xl mb-4 text-teal-500 dark:text-teal-300" />
             <h3 className="text-2xl font-bold mb-4">Development</h3>
             <p className="text-lg mb-6">
-              My passion for coding drives me to build clean, maintainable, and performant code. I'm proficient in modern web technologies, and I continuously learn to stay ahead of industry trends. Whether it's backend, frontend, or full-stack, I'm comfortable in all.
+            My passion for coding drives me to build clean, maintainable, and performant code. I&apos;m proficient in modern web technologies, and I continuously learn to stay ahead of industry trends. Whether it&apos;s backend, frontend, or full-stack, I&apos;m comfortable in all.
             </p>
           </div>
           <div className="flex flex-col items-start text-left p-6 bg-white text-gray-900 rounded-xl shadow-lg hover:shadow-2xl  transition-all duration-300 dark:bg-gray-800 dark:text-white   
@@ -91,7 +91,7 @@ const About: React.FC<AboutProps> = ({ technologies}) => {
             <FaUsers className="text-4xl mb-4 text-blue-500 dark:text-blue-300" />
             <h3 className="text-2xl font-bold mb-4">Team Collaboration</h3>
             <p className="text-lg mb-6">
-              I believe in the power of teamwork. I collaborate effectively with cross-functional teams to achieve project goals. Communication, empathy, and adaptability are key to creating a harmonious and productive working environment.
+            I believe in the power of teamwork. I collaborate effectively with cross-functional teams to achieve project goals. Communication, empathy, and adaptability are key to creating a harmonious and productive working environment.  
             </p>
           </div>
         </div>

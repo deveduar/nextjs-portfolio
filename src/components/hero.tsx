@@ -55,7 +55,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
                     Let’s Connect
                   </Link>
                 </div>
-                <div className="flex justify-center space-x-3 mt-4 sm:mt-0">
+                <div className="flex justify-center space-x-3 mt-4 sm:mt-0 ">
                   <Link href="http://www.linkedin.com/in/deveduar" target="_blank" className="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-900 dark:text-white hover:bg-primary transition-all duration-300">
                     {LinkedInIcon}
                   </Link>
