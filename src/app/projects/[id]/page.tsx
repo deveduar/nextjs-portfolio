@@ -26,8 +26,8 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
     <div className="container mx-auto py-6">
       <ProjectDetails project={project} />
       <div id="projects" className="  py-4 space-y-2 rounded-xl px-3 md:px-2 lg:px-4">
-        <h1 className="text-2xl font-bold text-black dark:text-white mb-4 ml-4">Related Projects</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-1 justify-items-center sm:px-2 md:px-4 lg:px-4">
+        <h1 className="text-2xl font-bold text-black dark:text-white mb-4 ">Related Projects</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-1 justify-items-center  ">
         {projects
           .filter((proj) => proj.id !== projectId)
           .slice()
@@ -41,12 +41,13 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
               imageSrc={project.imageSrc}
               detailedDescription={project.detailedDescription}
               links={project.links}
+              technologies={project.technologies}
           
             />
           ))}
         </div>
       </div>
-      <About></About>
+      {/* <About></About> */}
     </div>
   );
 };

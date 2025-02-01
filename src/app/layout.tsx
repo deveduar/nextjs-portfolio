@@ -21,7 +21,7 @@ export default function RootLayout({
       <ClientLayout>
       <Navbar />
         <div className="flex flex-col min-h-screen  bg-white dark:bg-gray-950">
-        <main className="flex-grow">
+        <main className="flex-grow container mx-auto py-6 space-y-8 px-2 md:px-12 lg:px-20">
           {children}
         </main>
         <Footer />
