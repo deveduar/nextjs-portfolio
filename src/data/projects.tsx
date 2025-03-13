@@ -136,7 +136,30 @@ export const projects = [
         "Easily extendable with additional service categories.",
         "Efficient state management using Vue Composition API."
       ]
+    },
+    {
+      id: 7,
+      title: "Merakikrea Cerámica - Landing Page",
+      description: "A landing page inspired by Google Business Profile to showcase store information and facilitate easy contact.",
+      imageSrc: "https://i.postimg.cc/5NT9x7s9/courtney-cook-QRVSQH7-Oe-X4-unsplash.jpg",
+      detailedDescription: "An optimized landing page built with Next.js and Tailwind CSS, presenting key information about Merakikrea Cerámica. It includes location details, social media links, opening hours, direct WhatsApp contact, and an Instagram feed.",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "ShadCN UI", "Framer Motion"],
+      links: [
+        { href: "https://github.com/deveduar/merakikrea-landing", label: "GitHub Repository", svg: GitHubIcon },
+        { href: "https://meraki-krea-ceramica-six.vercel.app", label: "Live Demo", svg: DemoIcon }
+      ],
+      gallery: [
+        "https://i.postimg.cc/7YgQKXft/cera-3-images-proyectos.jpg",
+        "https://i.postimg.cc/vHRN7CH6/cera-1-images-proyectos.jpg",
+        "https://i.postimg.cc/tRncx9yj/cera-2-images-proyectos.jpg"
+      ],
+      features: [
+        "Responsive and accessible design.",
+        "Light/Dark mode with Tailwind CSS.",
+        "Integration with Google Maps and WhatsApp.",
+        "SEO optimized for better visibility.",
+        "Google reviews and social media section.",
+        "Floating WhatsApp button for quick contact."
+      ],
     }
-    
-    
   ];

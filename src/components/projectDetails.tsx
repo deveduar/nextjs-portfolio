@@ -151,8 +151,8 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
             onClick={() => openModal(index)} // Abre el modal al hacer clic en la imagen
           >
             <Image
-              width={600}
-              height={600}
+              width={800}
+              height={800}
               src={image}
               alt={`Gallery image ${index + 1}`}
               className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
@@ -202,11 +202,11 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       {/* Imagen actual */}
       <div className="flex justify-center items-center max-h-[85vh] max-w-[85vw]" onClick={(e) => e.stopPropagation()}>
         <Image
-          width={540}
-          height={700}
+          width={400}
+          height={400}
           src={project.gallery[currentImageIndex]}
           alt={`Modal image ${currentImageIndex + 1}`}
-          className={`transition-transform duration-300 ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
+          className={`object-contain transition-transform duration-300 ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
         />
       </div>
     </div>
