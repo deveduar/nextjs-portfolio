@@ -17,8 +17,8 @@ const Home: React.FC = () => {
   const techStack = Array.from(new Set(projects.flatMap((project) => project.technologies)));
 
   return (
-    <>
-        <section className="rounded-xl   flex items-center  justify-center px-2 md:px-12 lg:px-20 bg-gray-100 dark:bg-gray-950  ">
+    <div className="px-2 md:px-12 lg:px-20">
+        <section className="rounded-xl   flex items-center  justify-center  bg-gray-100 dark:bg-gray-950  ">
          <Hero
             title="Hey, I am deveduar"
             subtitle="I'm a Full-Stack Developer specialized in building amazing web applications."
@@ -26,22 +26,22 @@ const Home: React.FC = () => {
           />
       </section>
 
-    <section id="projects" className="flex  rounded-xl  px-2 md:px-12 lg:px-20   items-center justify-center bg-gray-100 dark:bg-gray-950 ">
+    <section id="projects" className="flex  rounded-xl    items-center justify-center bg-gray-100 dark:bg-gray-950 ">
       {/* <h2 className="text-4xl font-bold text-black dark:text-white flex text-center sm:text-center lg:text-left">Projects</h2>  */}
     <ProjectList />
     </section>
-    <section  id="about" className="rounded-xl bg-gray-100 dark:bg-gray-950 px-2 md:px-12 lg:px-20  " >
+    <section  id="about" className="rounded-xl bg-gray-100 dark:bg-gray-950  " >
     <About technologies={techStack} />
     </section>
   
 
-    <section id="connect" className="flex flex-col  rounded-xl  px-2 md:px-12 lg:px-20 bg-gray-100 dark:bg-gray-950  justify-center pt-6 items-center">
+    <section id="connect" className="flex flex-col  rounded-xl  bg-gray-100 dark:bg-gray-950  justify-center pt-6 items-center">
     <Connect />
 
     </section>
       {/* <ContactForm /> */}
       {/* <ProjectDetails project={projects} /> */}
-  </>
+  </div>
   );
 };
 

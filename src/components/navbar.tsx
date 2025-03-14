@@ -38,13 +38,17 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="bg-white dark:bg-gray-800 ">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 lg:px-24 relative">
-        <div className="flex items-center md:space-x-8 lg:space-x-72 xl:space-x-96">
-          <Link href="/" passHref className="flex items-center space-x-3 rtl:space-x-reverse pr-20">
-            <span className="self-center text-2xl font-bold whitespace-nowrap text-gray-900 dark:text-white">Deveduar</span>
+      <div className="w-full  flex flex-wrap items-center justify-between  px-2 md:px-12 lg:px-20 py-6 relative">
+        <div className="flex items-center md:space-x-8 lg:space-x-72 xl:space-x-96 px-4">
+          <Link href="/" passHref className="flex items-center space-x-3 rtl:space-x-reverse ">
+            <span className="self-center text-2xl font-bold whitespace-nowrap text-gray-900 dark:text-white">Deveduar Portfolio</span>
           </Link>
-          <div
-            className={`${isOpen ? "block" : "hidden"} absolute top-16 left-0 right-0 bg-white bg-opacity-50 dark:bg-gray-900 dark:bg-opacity-50 md:static md:block md:w-auto md:bg-transparent dark:md:bg-transparent transform transition-transform duration-300 ${
+
+        </div>
+
+        <div className="flex items-center space-x-3">
+        <div
+            className={`${isOpen ? "block" : "hidden"} absolute top-16 left-0 right-0 bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 md:static md:block md:w-auto md:bg-transparent dark:md:bg-transparent transform transition-transform duration-300 ${
               isOpen ? "translate-x-0" : "-translate-x-full"
             } md:translate-x-0`}
             id="navbar-default"
@@ -72,9 +76,8 @@ const Navbar: React.FC = () => {
               </li>
             </ul>
           </div>
-        </div>
 
-        <div className="flex items-center space-x-3 ml-auto">
+
           <button
             data-collapse-toggle="navbar-default"
             type="button"
@@ -88,7 +91,7 @@ const Navbar: React.FC = () => {
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
             </svg>
           </button>
-          <span className="py-2 px-3 text-gray-900 rounded  md:border-0 md:p-0 dark:text-white   dark:hover:text-white  transform transition-transform duration-300 hover:scale-105">
+          <span className="py-2 px-3 text-gray-900 rounded  md:border-0  dark:text-white   dark:hover:text-white  transform transition-transform duration-300 hover:scale-110">
             <ThemeSwitch />
           </span>
         </div>
