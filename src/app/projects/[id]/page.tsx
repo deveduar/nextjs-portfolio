@@ -23,11 +23,11 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
   }
 
   return (
-    <section className="w-full mx-auto px-2 md:px-12 lg:px-20">
+    <section className="w-full mx-auto pt-6">
       <ProjectDetails project={project} />
       <div id="projects" className="  py-4 space-y-2 rounded-xl ">
         <h1 className="text-2xl font-bold text-black dark:text-white mb-4 ">Related Projects</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-1 justify-items-center  ">
+        <div className="w-full flex flex-wrap gap-6 md:gap-6  -mb-12  sm:-mb-12 md:pb-12 px-4">
         {projects
           .filter((proj) => proj.id !== projectId)
           .slice()

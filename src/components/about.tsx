@@ -101,7 +101,7 @@ const About: React.FC<AboutProps> = ({ technologies}) => {
         <div className="w-full bg-white dark:bg-gray-800 pt-6 pb-3 rounded-lg my-6 px-6"> 
   <div className="flex gap-3 flex-wrap justify-between">
     {technologies.map((tech, index) => (
-      <div key={index} className="flex h-8 items-center justify-center rounded-xl bg-gray-200 dark:bg-gray-700 px-4 transition-transform transform hover:scale-105">
+      <div key={index} className="flex h-8 items-center justify-between rounded-xl bg-gray-200 dark:bg-gray-700 px-4 transition-transform transform hover:scale-105 basis-[calc(50%-0.375rem)] sm:basis-auto">
         <a className="text-sm font-medium dark:text-white">{tech}</a>
       </div>
     ))}

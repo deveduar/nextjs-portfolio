@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   const techStack = Array.from(new Set(projects.flatMap((project) => project.technologies)));
 
   return (
-    <div className="px-2 md:px-12 lg:px-20">
+    <div className="justify-center py-6">
         <section className="rounded-xl   flex items-center  justify-center  bg-gray-100 dark:bg-gray-950  ">
          <Hero
             title="Hey, I am deveduar"
