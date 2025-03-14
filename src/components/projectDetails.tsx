@@ -64,7 +64,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
   return (
     <div className=" text-black rounded-xl dark:text-white">
           {/* Título del proyecto */}
-      <div className=" h-64 bg-slate-50 rounded-xl flex justify-end overflow-hidden mx-4 ">
+      <div className=" h-64 bg-slate-50 rounded-xl flex justify-end overflow-hidden ">
         <Image
           width={1200}
           height={800}
@@ -75,12 +75,12 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       </div>
 
 
-    <h2 className="text-3xl font-bold mt-4 px-4">{project.title}</h2>
+    <h2 className="text-3xl font-bold mt-4 ">{project.title}</h2>
 
       {/* Descripción detallada del proyecto */}
-      <p className="mt-4 text-base leading-normal px-4">{project.description}</p>
-      <p className="mt-2 text-base leading-normal px-4">{project.detailedDescription}</p>
-      <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white px-4 pb-2 pt-4">
+      <p className="mt-4 text-base leading-normal ">{project.description}</p>
+      <p className="mt-2 text-base leading-normal ">{project.detailedDescription}</p>
+      <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white pb-2 pt-4">
         Key Features:
       </h3>
       <ul className="list-disc list-inside px-4">
@@ -93,7 +93,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
 
       {/* Tecnologías utilizadas */}
-      <h3 className="text-lg font-bold tracking-tight dark:text-white px-4 pb-2 pt-4">
+      <h3 className="text-lg font-bold tracking-tight dark:text-white pb-2 pt-4">
         Technologies:
       </h3>
       <div className="flex gap-3 flex-wrap px-4">
@@ -105,7 +105,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       </div>
 
       {/* Enlaces del proyecto */}
-      <h3 className="text-lg font-bold tracking-tight dark:text-white px-4 pt-4">Links:</h3>
+      <h3 className="text-lg font-bold tracking-tight dark:text-white  pt-4">Links:</h3>
       <div className="mt-4 px-4">
         {project.links.map((link, index) => (
           <Link
@@ -133,7 +133,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
             ))}
         </div> */}
         
-        <div className="mt-4 px-4 text-black rounded-xl dark:text-white">
+        <div className="mt-4  text-black rounded-xl dark:text-white">
   {/* Verificar si hay imágenes en la galería antes de renderizar */}
   {project.gallery && project.gallery.length > 0 && (
     <>
@@ -143,7 +143,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       </h3>
 
       {/* Galería de Imágenes */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-4">
         {project.gallery.map((image, index) => (
           <div
             key={index}

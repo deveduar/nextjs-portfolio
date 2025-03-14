@@ -86,7 +86,7 @@ export default function ContactForm() {
   return (
     <>
     <ToastContainer />
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md mx-auto align-middle ">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4  mx-auto align-middle ">
     <div>
         <label className="block text-gray-700 dark:text-gray-300">Your Name:</label>
         <input

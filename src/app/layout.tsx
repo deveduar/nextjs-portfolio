@@ -20,13 +20,10 @@ export default function RootLayout({
       <body>
       <ClientLayout>
       <Navbar />
-        <div className="flex flex-col min-h-screen  bg-white dark:bg-gray-950">
-        <main className="flex-grow container mx-auto py-6 space-y-8 px-2 md:px-12 lg:px-20">
+        <main className="flex-grow  flex flex-col min-h-screen  bg-gray-100 dark:bg-gray-950 py-6 justify-center">
           {children}
         </main>
         <Footer />
-        </div>
-
         </ClientLayout>
 
       </body>

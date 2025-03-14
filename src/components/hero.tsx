@@ -16,11 +16,11 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
   return (
-      <div className=" text-gray-900 dark:text-white rounded-xl  flex items-center my-2 lg:py-10 justify-center ">
-        <div className="w-full  flex flex-col">
+ 
+        <div className="w-full  flex flex-col text-gray-900 dark:text-white bg-white dark:bg-gray-800 h-64 justify-center  rounded-xl px-4">
           {/* Sección del texto */}
-          <div className="flex flex-col px-2 lg:px-0">
-            <h3 className="text-2xl md:text-4xl lg:text-6xl font-bold whitespace-nowrap text-center py-4">
+          <div className="flex flex-col px-2 lg:px-0 ">
+            <h3 className="text-2xl md:text-4xl lg:text-4xl font-bold whitespace-nowrap text-left py-4">
               <Typewriter
                 options={{
                   autoStart: true,
@@ -42,8 +42,8 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
               />
             </h3>
             <div className="w-full mx-0">
-              <p className="text-lg  md:text-2xl lg:text-4xl mt-1 lg:mt-4">{subtitle}</p>
-              <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 py-8 justify-between">
+              <p className="text-lg  md:text-2xl lg:text-2xl mt-1 lg:mt-4">{subtitle}</p>
+              <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 pt-8 pb-3 justify-between">
                 <div className="flex items-center justify-center">
                   <Link
                     href="/projectView"
@@ -70,9 +70,6 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
             </div>
           </div>
         </div>
-      </div>
-
-
   );
 };
 
