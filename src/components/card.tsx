@@ -32,10 +32,21 @@ const Card: React.FC<CardProps> = ({
   
 }) => {
   return (
+    <Link href={`/projects/${id}`} className="w-full border  dark:border-gray-900 rounded-xl cursor-pointer transition-transform transform lg:hover:scale-105 hover:shadow-lg bg-white dark:bg-gray-800 
+    grow 
+    basis-full min-w-[300px] max-w-full 
     
-<div className=" w-full border  dark:border-gray-900 rounded-xl cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg bg-white dark:bg-gray-800 grow basis-[380px] min-w-[380px] max-w-[800px] lg:basis-[300px] lg:min-w-[300px] lg:max-w-[500px] xl:basis-[300px] xl:min-w-[300px] xl:max-w-[400px] ">
+    md:basis-[calc(50%-1rem)] md:min-w-[calc(50%-1rem)] md:max-w-[calc(50%-1rem)]
+    
+    lg:basis-[calc(25%-1rem)] lg:min-w-[calc(25%-1rem)] lg:max-w-[calc(40%-1rem)]
+    
+    xl:basis-[calc(25%-1rem)] xl:min-w-[calc(25%-1rem)] xl:max-w-[calc(40%-1rem)]
+    
+    2xl:basis-[calc(25%-1rem)] 2xl:min-w-[calc(20%-1rem)] 2xl:max-w-[calc(40%-1rem)]
+    ">
+
   {/* Imagen */}
-  <Link href={`/projects/${id}`}  className="rounded-t-xl overflow-hidden  flex flex-col  h-40 
+  <div  className="rounded-t-xl overflow-hidden  flex flex-col  h-40 
   " >
     <Image
       className="object-cover object-top w-full h-full"
@@ -44,7 +55,7 @@ const Card: React.FC<CardProps> = ({
       width={300}
       height={300}
     />
-  </Link>
+  </div>
   
   {/* Información */}
   <div className="p-2 flex flex-col">
@@ -67,7 +78,9 @@ const Card: React.FC<CardProps> = ({
         )}
 
   </div>
-</div>
+
+
+</Link>
   );
 };
 
