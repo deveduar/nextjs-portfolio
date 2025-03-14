@@ -8,43 +8,40 @@ import Link from "next/link";
 import ProjectDetails from "@/components/projectDetails";
 import { projects } from "@/data/projects";
 // SVG variables
-
+import Connect from "@/components/connect";
+import ProjectList
+ from "@/components/projectList";
 
 const Home: React.FC = () => {
 
   const techStack = Array.from(new Set(projects.flatMap((project) => project.technologies)));
 
   return (
-    <section className="">
-      <Hero
-        title="Hey, I am deveduar"
-        subtitle="I'm a Full-Stack Developer specialized in building amazing web applications."
-        imageSrc="/images/pc-1-opa.png"
-      />
-    <div id="projects" className="flex flex-col  rounded-xl ">
-      {/* <h2 className="text-4xl font-bold text-black dark:text-white flex text-center sm:text-center lg:text-left">Projects</h2>  */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10 w-full ">
-        {projects.slice().reverse().map((project) => (
-          <Card
-            id={project.id}
-            key={project.id}
-            title={project.title}
-            description={project.description}
-            imageSrc={project.imageSrc}
-            detailedDescription={project.detailedDescription}
-            links={project.links}
-            technologies={project.technologies}
+    <div className="px-2 md:px-12 lg:px-20">
+        <section className="rounded-xl   flex items-center  justify-center  bg-gray-100 dark:bg-gray-950  ">
+         <Hero
+            title="Hey, I am deveduar"
+            subtitle="I'm a Full-Stack Developer specialized in building amazing web applications."
+            imageSrc="/images/pc-1-opa.png"
           />
-        ))}
-      </div>
-    </div>
-    <div>
-     <About technologies={techStack} />
+      </section>
 
-    </div>
+    <section id="projects" className="flex  rounded-xl    items-center justify-center bg-gray-100 dark:bg-gray-950 ">
+      {/* <h2 className="text-4xl font-bold text-black dark:text-white flex text-center sm:text-center lg:text-left">Projects</h2>  */}
+    <ProjectList />
+    </section>
+    <section  id="about" className="rounded-xl bg-gray-100 dark:bg-gray-950  " >
+    <About technologies={techStack} />
+    </section>
+  
+
+    <section id="connect" className="flex flex-col  rounded-xl  bg-gray-100 dark:bg-gray-950  justify-center pt-6 items-center">
+    <Connect />
+
+    </section>
       {/* <ContactForm /> */}
       {/* <ProjectDetails project={projects} /> */}
-    </section>
+  </div>
   );
 };
 

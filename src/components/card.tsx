@@ -33,7 +33,7 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     
-<div className="max-w-sm w-full border  dark:border-none rounded-xl cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg">
+<div className=" w-full border  dark:border-gray-900 rounded-xl cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg bg-white dark:bg-gray-800 grow basis-[380px] min-w-[380px] max-w-[800px] lg:basis-[300px] lg:min-w-[300px] lg:max-w-[500px] xl:basis-[300px] xl:min-w-[300px] xl:max-w-[400px] ">
   {/* Imagen */}
   <Link href={`/projects/${id}`}  className="rounded-t-xl overflow-hidden  flex flex-col  h-40 
   " >
