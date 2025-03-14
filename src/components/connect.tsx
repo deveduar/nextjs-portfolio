@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Connect() {
   return (
-        <div className=" flex flex-col items-center justify-center bg-white dark:bg-gray-800 p-20 rounded-xl w-full">
+        <div className=" flex flex-col items-center justify-center bg-white dark:bg-gray-800 p-6 lg:px-20 rounded-xl w-full">
           <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">Why Choose Me?</h3>
           <p className="text-lg max-w-5xl mb-8 text-left text-black dark:text-white ">
             I&apos;m a versatile developer who can handle a wide range of challenges, from architecting complex systems to ensuring smooth user experiences. I take pride in writing code that is both functional and elegant, ensuring that the end product is not only effective but also easy to maintain.
