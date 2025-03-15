@@ -6,7 +6,7 @@ export const projects = [
       id: 1,
       title: "Deveduar Blog",
       description: "Responsive blog created with Next.js and React.js",
-      imageSrc: "https://i.postimg.cc/VvY14GGS/lum3n-RBu-Q2-PK-L8-unsplash.jpg",
+      imageSrc: "https://i.postimg.cc/43sRYWBk/color-banner-icon.jpg",
       detailedDescription: "My Personal blog for reading markdown posts from the file system with tags and date system",
       technologies: ["Next.js", "React.js", "Tailwind", "Markdown"],
       links: [
@@ -28,7 +28,7 @@ export const projects = [
       id: 2,
       title: "Ecomerce",
       description: "Ecomerce site made with next.js and node.js",
-      imageSrc: "https://i.postimg.cc/HkfgFsv1/clark-street-mercantile-qn-Kh-ZJPKFD8-unsplash.jpg",
+      imageSrc: "https://i.postimg.cc/YSRN7SvK/color-banner-icon-10.jpg",
       detailedDescription: "Developed with next js (Frontend) and Medusa js (backend) with Api drop shipping integration",
       technologies: ["Next.js", "React", "drop shipping", "Medusa.js"],
       links: [
@@ -47,7 +47,7 @@ export const projects = [
       id: 3,
       title: "Todo app",
       description: "Simple todo app with dates and reminders",
-      imageSrc: "https://i.postimg.cc/4dpVpdqf/glenn-carstens-peters-RLw-UC03-Gwc-unsplash.jpg",
+      imageSrc: "https://i.postimg.cc/t40jjq6g/color-banner-icon3.jpg",
       detailedDescription: "Developed with Next.js and Supabase .",
       technologies: [
         "Next.js", 
@@ -76,7 +76,7 @@ export const projects = [
       id: 4,
       title: "Inventory System",
       description: "Inventory management for dropshipping store created with angular.",
-      imageSrc: "https://i.postimg.cc/7ZC4BTVN/priscilla-du-preez-dlx-LGIy-2-VU-unsplash.jpg",
+      imageSrc: "https://i.postimg.cc/8zhVk2dm/color-banner-icon4.jpg",
       detailedDescription: "Developed with TypeScript, Angular, Node.js",
       technologies: ["Angular", "NodeJS", "Typescript", "SASS", "Express"],
       links: [
@@ -98,7 +98,7 @@ export const projects = [
       id: 5,
       title: "Python Tools",
       description: "A collection of Python scripts for various file and media conversions.",
-      imageSrc: "https://i.postimg.cc/660BTKqC/luca-bravo-XJXWbf-So2f0-unsplash-1.jpg",
+      imageSrc: "https://i.postimg.cc/pTcw1RxR/color-banner-icon6.jpg",
       detailedDescription: "Scripts developed to automate and simplify common tasks such as file conversions and media extraction.",
       technologies: ["Python", "Scripting", "Automation"],
       links: [
@@ -119,7 +119,7 @@ export const projects = [
       id: 6,
       title: "Services Booking App",
       description: "A Vue 3 and Vuetify application for browsing and booking services.",
-      imageSrc: "https://i.postimg.cc/d1F76gzp/samantha-borges-Ul-QPnp-P2-Erg-unsplash.jpg",
+      imageSrc: "https://i.postimg.cc/C1KyNd3c/color-banner-icon5.jpg",
       detailedDescription: "A modern service booking application built with Vue 3 and Vuetify, featuring dynamic filtering, sorting, and interactive UI elements. Users can browse services, filter by category, sort by price or duration, and proceed with booking seamlessly.",
       technologies: ["Vue 3", "TypeScript", "Vuetify", "Composition API"],
       links: [
@@ -139,9 +139,9 @@ export const projects = [
     },
     {
       id: 7,
-      title: "Merakikrea Cerámica - Landing Page",
+      title: "Merakikrea Cerámica",
       description: "A landing page inspired by Google Business Profile to showcase store information and facilitate easy contact.",
-      imageSrc: "https://i.postimg.cc/5NT9x7s9/courtney-cook-QRVSQH7-Oe-X4-unsplash.jpg",
+      imageSrc: "https://i.postimg.cc/1XLLsBfd/color-banner-icon8.jpg",
       detailedDescription: "An optimized landing page built with Next.js and Tailwind CSS, presenting key information about Merakikrea Cerámica. It includes location details, social media links, opening hours, direct WhatsApp contact, and an Instagram feed.",
       technologies: ["Next.js", "TypeScript", "Tailwind CSS", "ShadCN UI", "Framer Motion"],
       links: [
@@ -149,9 +149,10 @@ export const projects = [
         { href: "https://meraki-krea-ceramica-six.vercel.app", label: "Live Demo", svg: DemoIcon }
       ],
       gallery: [
-        "https://i.postimg.cc/7YgQKXft/cera-3-images-proyectos.jpg",
-        "https://i.postimg.cc/vHRN7CH6/cera-1-images-proyectos.jpg",
-        "https://i.postimg.cc/tRncx9yj/cera-2-images-proyectos.jpg"
+        "https://i.postimg.cc/5032x1kZ/pc-meraki-mockup.webp",
+        "https://i.postimg.cc/jqJdfFtB/iphone-meraki-mockup.webp",
+        "https://i.postimg.cc/tRncx9yj/cera-2-images-proyectos.jpg",
+        "https://i.postimg.cc/jqJdfFtB/iphone-meraki-mockup.webp"
       ],
       features: [
         "Responsive and accessible design.",

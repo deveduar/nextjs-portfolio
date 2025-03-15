@@ -63,105 +63,118 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
   return (
     <div className=" text-black rounded-xl dark:text-white">
-          {/* Título del proyecto */}
-      <div className=" h-64 bg-slate-50 rounded-xl flex justify-end overflow-hidden ">
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Imagen Principal - Ocupa todo el ancho en móvil, 2 columnas en md/lg */}
+
+      {/* Información Principal - 2 columnas en md */}
+      <div className="md:col-span-2  bg-white dark:bg-gray-800  rounded-xl ">
+      {/* <div className="md:col-span-2 lg:col-span-3  bg-slate-50 rounded-t-xl overflow-hidden ">
         <Image
           width={1200}
           height={800}
           src={project.imageSrc}
           alt="Project"
-          className="object-cover w-full h-full"
+          className="object-cover h-40 w-30"
         />
-      </div>
+      </div> */}
+      <div className="p-6 space-y-4">
+      <h2 className="text-3xl font-bold">{project.title}</h2>
 
-
-    <h2 className="text-3xl font-bold mt-4 ">{project.title}</h2>
-
-      {/* Descripción detallada del proyecto */}
-      <p className="mt-4 text-base leading-normal ">{project.description}</p>
-      <p className="mt-2 text-base leading-normal ">{project.detailedDescription}</p>
-      <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white pb-2 pt-4">
-        Key Features:
-      </h3>
-      <ul className="list-disc list-inside px-4">
+      <p className="text-base leading-normal">{project.description}</p>
+      <p className="text-base leading-normal">{project.detailedDescription}</p>
+      <ul className="list-disc list-inside space-y-2">
         {project.features?.map((feature, index) => (
-          <li key={index} className="text-base leading-normal dark:text-gray-300">
-            {feature}
-          </li>
+          <li key={index} className="text-base dark:text-gray-300">{feature}</li>
         ))}
       </ul>
-
-
-      {/* Tecnologías utilizadas */}
-      <h3 className="text-lg font-bold tracking-tight dark:text-white pb-2 pt-4">
-        Technologies:
-      </h3>
-      <div className="flex gap-3 flex-wrap px-4">
+      <div className="flex flex-wrap gap-2">
         {project.technologies.map((tech, index) => (
           <div key={index} className="flex h-8 items-center justify-center rounded-xl bg-gray-700 px-4">
-            <a className="text-sm font-medium text-white">{tech}</a>
+            <span className="text-sm font-medium text-white">{tech}</span>
           </div>
         ))}
       </div>
 
-      {/* Enlaces del proyecto */}
-      <h3 className="text-lg font-bold tracking-tight dark:text-white  pt-4">Links:</h3>
-      <div className="mt-4 px-4">
-        {project.links.map((link, index) => (
-          <Link
-            key={index}
-            href={link.href}
-            className="mr-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent dark:text-white hover:bg-primary transition-all duration-300"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {link.svg} {link.label}
-          </Link>
-        ))}
       </div>
 
-      {/* <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white px-4 pb-2 pt-4">Project Images</h3>
-        <div className="px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {project.gallery.map((image, index) => (
-            <div key={index} className="w-full h-64 bg-gray-200 rounded-lg overflow-hidden">
-                <img
-                src={image}
-                alt={`Gallery image ${index + 1}`}
-                className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
-                />
+      </div>
+
+      {/* Technologies - 1 columna */}
+      {/* <div className="bg-white dark:bg-gray-800 p-6 rounded-xl">
+        <h3 className="text-lg font-bold mb-4">Technologies</h3>
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech, index) => (
+            <div key={index} className="flex h-8 items-center justify-center rounded-xl bg-gray-700 px-4">
+              <span className="text-sm font-medium text-white">{tech}</span>
             </div>
-            ))}
-        </div> */}
-        
-        <div className="mt-4  text-black rounded-xl dark:text-white">
-  {/* Verificar si hay imágenes en la galería antes de renderizar */}
-  {project.gallery && project.gallery.length > 0 && (
-    <>
-      {/* Encabezado de la Galería de Imágenes */}
-      <h3 className="text-lg font-bold leading-tight tracking-tight dark:text-white pb-4">
-        Project Images
-      </h3>
+          ))}
+        </div>
+      </div> */}
 
-      {/* Galería de Imágenes */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-4">
-        {project.gallery.map((image, index) => (
-          <div
-            key={index}
-            className="w-full h-64 bg-gray-200 rounded-lg overflow-hidden cursor-pointer"
-            onClick={() => openModal(index)} // Abre el modal al hacer clic en la imagen
-          >
-            <Image
-              width={800}
-              height={800}
-              src={image}
-              alt={`Gallery image ${index + 1}`}
-              className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
-            />
-          </div>
-        ))}
-      </div>
-    </>
-  )}
+{/* Links - 1 columna */}
+<div className="rounded-xl">
+  <div className="grid gap-4">
+    {project.links.map((link, index) => (
+      <Link
+        key={index}
+        href={link.href}
+        className={`p-4 rounded-xl hover:scale-105 transition-all duration-300 flex items-center gap-3 
+          ${link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live')
+            ? 'bg-blue-100 dark:bg-blue-900' 
+            : 'bg-white dark:bg-gray-800'}
+          ${index === 0 ? 'row-span-2' : ''}
+          ${index === 1 ? 'col-span-1' : ''}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div className={`text-2xl ${link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? 'text-blue-600 dark:text-blue-400' : ''}`}>
+          {link.svg}
+        </div>
+        <span className="text-sm font-medium dark:text-white whitespace-nowrap">{link.label}</span>
+      </Link>
+    ))}
+  </div>
+</div>
+
+      {/* Features - 2 columnas en lg */}
+      {/* <div className="lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-xl">
+        <h3 className="text-lg font-bold mb-4">Key Features</h3>
+
+      </div> */}
+
+
+
+      {/* Galería de imágenes - Ocupa todo el ancho */}
+{/* Galería de imágenes - Ocupa todo el ancho */}
+{project.gallery && project.gallery.length > 0 && (
+  <div className="md:col-span-2 lg:col-span-3  rounded-xl">
+    <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] gap-4">
+      {project.gallery.map((image, index) => (
+        <div
+          key={index}
+          className={`rounded-xl overflow-hidden cursor-pointer transition-transform hover:scale-[1.02] ${
+            index === 0 ? 'col-span-2 row-span-2' : // Primera imagen más grande
+            index === 3 ? 'col-span-2' : // Cuarta imagen ancha
+            index === 5 ? 'row-span-2' : // Sexta imagen alta
+            ''
+          }`}
+          onClick={() => openModal(index)}
+        >
+          <Image
+            width={800}
+            height={800}
+            src={image}
+            alt={`Gallery image ${index + 1}`}
+            className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+    </div>
+ 
 
   {/* Modal para las imágenes */}
   {isModalOpen && (
@@ -202,18 +215,20 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       {/* Imagen actual */}
       <div className="flex justify-center items-center max-h-[85vh] max-w-[85vw]" onClick={(e) => e.stopPropagation()}>
         <Image
-          width={400}
-          height={400}
+          key={currentImageIndex} // Añadido key para forzar re-render
+          width={961}
+          height={4021}
           src={project.gallery[currentImageIndex]}
           alt={`Modal image ${currentImageIndex + 1}`}
-          className={`object-contain transition-transform duration-300 ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
+          className={`object-contain transition-all duration-500 ease-in-out animate-slideIn
+            ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
         />
       </div>
     </div>
   )}
 </div>
 
-    </div>
+    
   );
 };
 
