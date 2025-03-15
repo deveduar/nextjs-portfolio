@@ -6,8 +6,8 @@ import { GitHubIcon, LinkedInIcon, TwitterIcon } from "@/data/icons";
 const Footer: React.FC = () => {
   return (
     <footer id="contact" className=" flex items-end justify-center mt-auto ">
-      <div className="w-full bg-white border-gray-200 dark:bg-gray-800">
-        <div className="container py-5 px-2 sm:px-5 lg:px-8  mx-auto">
+      <div className="w-full bg-gray-100 border-gray-200 dark:bg-gray-950 px-2 md:px-12 lg:px-50 xl:px-60">
+        <div className=" py-5  justify-between">
           {/* <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-center">
             <div className="col-span-full lg:col-span-1 flex justify-center lg:justify-start">
               <div className="flex items-center">

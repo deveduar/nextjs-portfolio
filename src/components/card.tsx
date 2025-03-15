@@ -49,7 +49,14 @@ const Card: React.FC<CardProps> = ({
   <div  className="rounded-t-xl overflow-hidden  flex flex-col  h-40 
   " >
     <Image
-      className="object-cover object-top w-full h-full"
+      className="object-cover 
+      w-full h-full
+      object-[center_-40px]
+      sm:object-[center_-40px]
+      md:object-[center_-30px]
+      lg:object-[center_-30px]
+      
+      "
       src={imageSrc}
       alt={title}
       width={300}
