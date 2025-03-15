@@ -215,11 +215,13 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
       {/* Imagen actual */}
       <div className="flex justify-center items-center max-h-[85vh] max-w-[85vw]" onClick={(e) => e.stopPropagation()}>
         <Image
-          width={400}
-          height={400}
+          key={currentImageIndex} // Añadido key para forzar re-render
+          width={961}
+          height={4021}
           src={project.gallery[currentImageIndex]}
           alt={`Modal image ${currentImageIndex + 1}`}
-          className={`object-contain transition-transform duration-300 ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
+          className={`object-contain transition-all duration-500 ease-in-out animate-slideIn
+            ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
         />
       </div>
     </div>
