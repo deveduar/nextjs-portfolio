@@ -18,7 +18,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="justify-center py-6">
-        <section className="rounded-xl   flex items-center  justify-center  bg-gray-100 dark:bg-gray-950  pb-6">
+        <section className="rounded-xl   flex   bg-gray-100 dark:bg-gray-950  pb-6">
          <Hero
             title="Hey, I am deveduar"
             subtitle="I'm a Full-Stack Developer specialized in building amazing web applications."
