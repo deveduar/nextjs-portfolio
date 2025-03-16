@@ -23,7 +23,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false); // Estado para controlar el zoom
-
+  const [slideDirection, setSlideDirection] = useState<'right' | 'left' | 'zoom'>('zoom');
     // Efecto para deshabilitar el scroll cuando el modal esté abierto
     useEffect(() => {
       if (isModalOpen) {
@@ -39,10 +39,11 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
   
 
 
-  const openModal = (index: number) => {
-    setCurrentImageIndex(index);
-    setIsModalOpen(true);
-  };
+    const openModal = (index: number) => {
+      setSlideDirection('zoom');
+      setCurrentImageIndex(index);
+      setIsModalOpen(true);
+    };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -50,10 +51,12 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
   };
 
   const nextImage = () => {
+    setSlideDirection('right');
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % project.gallery.length);
   };
 
   const prevImage = () => {
+    setSlideDirection('left');
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + project.gallery.length) % project.gallery.length);
   };
 
@@ -214,15 +217,18 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
       {/* Imagen actual */}
       <div className="flex justify-center items-center max-h-[85vh] max-w-[85vw]" onClick={(e) => e.stopPropagation()}>
-        <Image
-          key={currentImageIndex} // Añadido key para forzar re-render
-          width={961}
-          height={4021}
-          src={project.gallery[currentImageIndex]}
-          alt={`Modal image ${currentImageIndex + 1}`}
-          className={`object-contain transition-all duration-500 ease-in-out animate-slideIn
-            ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
-        />
+      <Image
+    key={currentImageIndex}
+    width={961}
+    height={4021}
+    src={project.gallery[currentImageIndex]}
+    alt={`Modal image ${currentImageIndex + 1}`}
+    className={`object-contain transition-all duration-500 ease-in-out
+      ${slideDirection === 'right' ? 'animate-slideRight' : 
+        slideDirection === 'left' ? 'animate-slideLeft' : 
+        'animate-zoomIn'}
+      ${isZoomed ? 'scale-125 max-h-[80vh] max-w-[70vw]' : 'max-h-[85vh] max-w-[85vw]'}`}
+  />
       </div>
     </div>
   )}
