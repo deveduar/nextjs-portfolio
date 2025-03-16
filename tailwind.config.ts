@@ -19,14 +19,23 @@ const config: Config = {
           '0%': { opacity: '0', transform: 'scale(0.95)' },
           '100%': { opacity: '1', transform: 'scale(1)' }
         },
-        slideIn: {
+        slideRight: {
+          '0%': { opacity: '0', transform: 'translateX(-30px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' }
+        },
+        slideLeft: {
           '0%': { opacity: '0', transform: 'translateX(30px)' },
           '100%': { opacity: '1', transform: 'translateX(0)' }
+        },
+        zoomIn: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' }
         }
       },
       animation: {
-        fadeIn: 'fadeIn 0.3s ease-in-out',
-        slideIn: 'slideIn 0.5s ease-out'
+        slideRight: 'slideRight 0.5s ease-out',
+        slideLeft: 'slideLeft 0.5s ease-out',
+        zoomIn: 'zoomIn 0.5s ease-out'
       }
     },
   },
