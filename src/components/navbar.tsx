@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/projectView" passHref className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0 md:hover:text-blue-900 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" onClick={closeMenu}>
+                <Link href="/projectsView" passHref className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0 md:hover:text-blue-900 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" onClick={closeMenu}>
                   Projects
                 </Link>
               </li>

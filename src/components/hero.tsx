@@ -125,8 +125,8 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
                
 
                 <Link 
-                  href="/about"
-                  className="inline-flex items-center px-4 py-2 bg-blue-100 dark:bg-blue-900 text-gray-900 dark:text-white rounded-lg hover:scale-105 transition-all duration-300 text-sm font-medium"
+                  href="/aboutView"
+                  className="inline-flex items-center px-4 py-2 bg-blue-200 dark:bg-blue-900 text-gray-900 dark:text-white rounded-lg hover:scale-105 transition-all duration-300 text-sm font-medium"
                 >
                   More About Me
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -174,21 +174,21 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageSrc }) => {
 
         {/* Botones de acción */}
         <Link
-          href="/projectView"
+          href="/projectsView"
           className="bg-white dark:bg-gray-800 rounded-xl p-4 flex items-center justify-center font-bold hover:scale-105 transition-all duration-300 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
         >
           View My Work
         </Link>
         <Link 
           href="/contactView" 
-          className="bg-blue-100 dark:bg-blue-900 rounded-xl p-4 flex items-center justify-center font-bold hover:scale-105 transition-all duration-300 text-gray-900 dark:text-white"
+          className="bg-blue-200 dark:bg-blue-900 rounded-xl p-4 flex items-center justify-center font-bold hover:scale-105 transition-all duration-300 text-gray-900 dark:text-white"
         >
           Let&#39;s Connect
         </Link>
         <Link 
            href="http://www.linkedin.com/in/deveduar" 
            target="_blank" 
-           className="bg-white dark:bg-gray-800 rounded-xl  md:p-3 flex md:aspect-auto gap-6  shadow-lg hover:scale-105 transition-all duration-300 "
+           className="bg-white dark:bg-gray-800 rounded-xl  md:p-3 flex md:aspect-auto gap-6   hover:scale-105 transition-all duration-300 "
           >
             {/* <Image
               src="/images/profile.jpeg"
