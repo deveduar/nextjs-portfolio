@@ -30,7 +30,34 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .slide-left {
+    animation: slideLeft 0.3s ease-in-out;
+  }
+  
+  .slide-right {
+    animation: slideRight 0.3s ease-in-out;
+  }
+  
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
 }
+
+
 
 /* .dark {
   @apply bg-gray-900 text-white;
