@@ -12,6 +12,7 @@ import Connect from "@/components/connect";
 import ProjectList
  from "@/components/projectList";
 import ProjectListSimple from '@/components/projectListSimple';
+import profile from '@/data/profile';
 
 const Home: React.FC = () => {
 
@@ -21,11 +22,12 @@ const Home: React.FC = () => {
   return (
     <div className="justify-center ">
         <section className="rounded-xl   flex   bg-gray-100 dark:bg-gray-950  pb-6">
-         <Hero
-            title="Hey, I am deveduar"
-            subtitle="Full Stack Developer with over 5 years of experience in the design, development, implementation, and deployment of web applications."
-            imageSrc="/images/pc-1-opa.png"
-          />
+        <Hero
+          name={profile.name}
+          specialty={profile.specialty}
+          description={profile.description}
+          socialLinks={profile.socialLinks}
+        />
       </section>
 
     <section id="projects" className="flex  rounded-xl    items-center justify-center bg-gray-100 dark:bg-gray-950 ">
