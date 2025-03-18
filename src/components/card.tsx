@@ -46,46 +46,43 @@ const Card: React.FC<CardProps> = ({
     ">
 
   {/* Imagen */}
-  <div  className="rounded-t-xl overflow-hidden  flex flex-col  h-40 
+  <div  className="rounded-t-xl overflow-hidden  flex flex-col   
   " >
     <Image
       className="object-cover 
-      w-full h-full
-      object-[center_-40px]
-      sm:object-[center_-40px]
-      md:object-[center_-30px]
-      lg:object-[center_-30px]
-      
+     w-full h-20
+    
       "
       src={imageSrc}
       alt={title}
       width={300}
-      height={300}
+      height={200}
     />
   </div>
   
   {/* Información */}
   <div className="p-2 flex flex-col">
-    <div className=" text-black dark:text-white">
-      <div className="font-bold text-xl mb-2 text-black dark:text-white truncate">{title}</div>
-      <p className="text-base text-black dark:text-gray-300 line-clamp-2 break-words">{description}</p>
+    <div className=" text-black dark:text-white ">
+      <h3 className="font-bold text-md  text-black dark:text-white truncate">{title}</h3>
+
+      <p className="text-xs text-black dark:text-gray-300 line-clamp-2 break-words h-12">{description}</p>
     </div>
+
+
+  </div>
         {/* Tecnologías */}
         {technologies.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-2">
-            {technologies.map((tech, index) => (
+          <div className="flex flex-wrap gap-2 p-2">
+            {technologies.slice(0, 3).map((tech, index) => (
               <span
                 key={index}
-                className="bg-gray-200 dark:bg-gray-700 text-sm text-gray-900 dark:text-gray-100 px-2 py-1 rounded-lg"
+                className="bg-gray-200 dark:bg-gray-700 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 rounded-lg"
               >
                 {tech}
               </span>
             ))}
           </div>
         )}
-
-  </div>
-
 
 </Link>
   );

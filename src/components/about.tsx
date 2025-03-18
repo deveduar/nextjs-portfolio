@@ -84,59 +84,23 @@ const About: React.FC<AboutProps> = ({ technologies, profile }) => {
       <div className="col-span-4 md:col-span-6 bg-white dark:bg-gray-800 rounded-xl p-6">
         <div className="flex flex-col gap-4">
 
-          <div className="flex flex-row gap-4 justify-between">
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <Image
-                src="/images/profile.jpeg"
-                width={80}
-                height={80}
-                alt="Profile Picture"
-                className="rounded-full shadow-lg"
-              />
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{profile.name}</h2>
-                <p className="text-gray-500 dark:text-gray-400">{profile.specialty}</p>
+        <div className="flex flex-row gap-4 ">
+            <div className="flex  flex-row  gap-4 w-full">
+              <div className="flex items-center  gap-4">
+                <Image
+                  src="/images/profile.jpeg"
+                  width={80}
+                  height={80}
+                  alt="Profile Picture"
+                  className="rounded-full shadow-lg"
+                />
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{profile.name}</h2>
+                  <p className="text-gray-500 dark:text-gray-400">{profile.specialty}</p>
+                </div>
               </div>
-            </div>
-            {/* Social Links */}
-            <div className="flex gap-4">
-              <Link 
-                href={profile.socialLinks.linkedin}
-                className="bg-gray-100 dark:bg-gray-700 rounded-xl px-3  flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="text-xs scale-75">
-                  <FaLinkedin className="w-5 h-5 text-gray-900 dark:text-white" />
-                </div>
-                <span className="text-xs font-medium text-gray-900 dark:text-white">LinkedIn</span>
-              </Link>
-              <Link 
-                href={profile.socialLinks.twitter}
-                className="bg-gray-100 dark:bg-gray-700 rounded-xl px-3 py-1.5 flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="text-xs scale-75">
-                  <FaTwitter className="w-5 h-5 text-gray-900 dark:text-white" />
-                </div>
-                <span className="text-xs font-medium text-gray-900 dark:text-white">Twitter</span>
-              </Link>
-              <Link 
-                href={profile.socialLinks.github}
-                className="bg-gray-100 dark:bg-gray-700 rounded-xl px-3 py-1.5 flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="text-xs scale-75">
-                  <FaGithub className="w-5 h-5 text-gray-900 dark:text-white" />
-                </div>
-                <span className="text-xs font-medium text-gray-900 dark:text-white">GitHub</span>
-              </Link>
-            </div>
-          </div>
-          <div className=" rounded-full lg:rounded-s-full lg:my-6 marquee relative overflow-hidden whitespace-nowrap w-16 h-16 sm:w-full sm:h-full" ref={marqueeRef}>
+           </div>
+          <div className=" rounded-full lg:rounded-s-full  marquee relative overflow-hidden whitespace-nowrap w-16 h-16 sm:w-full sm:h-full" ref={marqueeRef}>
               <div className="inline-flex items-center animate-marquee  ">
                 <StackIcon name="nextjs" className="w-16 h-16 md:w-20 md:h-20 mx-2 dark:invert" />
                 <StackIcon name="reactjs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
@@ -184,6 +148,42 @@ const About: React.FC<AboutProps> = ({ technologies, profile }) => {
               </p>
             ))}
           </div>
+                    {/* Social Links */}
+                    <div className="flex gap-4">
+              <Link 
+                href={profile.socialLinks.linkedin}
+                className="bg-gray-100 dark:bg-gray-700 rounded-xl px-3  flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="text-xs scale-75">
+                  <FaLinkedin className="w-5 h-5 text-gray-900 dark:text-white" />
+                </div>
+                <span className="text-xs font-medium text-gray-900 dark:text-white">LinkedIn</span>
+              </Link>
+              <Link 
+                href={profile.socialLinks.twitter}
+                className="bg-gray-100 dark:bg-gray-700 rounded-xl px-3 py-1.5 flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="text-xs scale-75">
+                  <FaTwitter className="w-5 h-5 text-gray-900 dark:text-white" />
+                </div>
+                <span className="text-xs font-medium text-gray-900 dark:text-white">Twitter</span>
+              </Link>
+              <Link 
+                href={profile.socialLinks.github}
+                className="bg-gray-100 dark:bg-gray-700 rounded-xl px-3 py-1.5 flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="text-xs scale-75">
+                  <FaGithub className="w-5 h-5 text-gray-900 dark:text-white" />
+                </div>
+                <span className="text-xs font-medium text-gray-900 dark:text-white">GitHub</span>
+              </Link>
+            </div>
           <div className="flex gap-4">
             <span className="text-sm text-gray-500 dark:text-gray-400">📍 Spain</span>
             <span className="text-sm text-gray-500 dark:text-gray-400">💼 Available for projects</span>

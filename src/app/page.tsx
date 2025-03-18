@@ -21,7 +21,7 @@ const Home: React.FC = () => {
  
   return (
     <div className="justify-center ">
-        <section className="rounded-xl   flex   bg-gray-100 dark:bg-gray-950  pb-6">
+        <section className="rounded-xl   flex   bg-gray-100 dark:bg-gray-950  pb-4">
         <Hero
           name={profile.name}
           specialty={profile.specialty}
@@ -30,12 +30,12 @@ const Home: React.FC = () => {
         />
       </section>
 
-    <section id="projects" className="flex  rounded-xl    items-center justify-center bg-gray-100 dark:bg-gray-950 ">
+    {/* <section id="projects" className="flex  rounded-xl    items-center justify-center bg-gray-100 dark:bg-gray-950 ">
     <ProjectListSimple 
       projects={recentProjects} 
       variant="detailed" // o "simple"
     />
-    </section>
+    </section> */}
 
 
     {/* <section  id="about" className="rounded-xl bg-gray-100 dark:bg-gray-950  " >

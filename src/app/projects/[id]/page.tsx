@@ -25,29 +25,29 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
   }
 
   return (
-    <section className="w-full mx-auto pt-6">
+    <section className="w-full mx-auto ">
           {/* Navegación entre proyectos */}
           <div className="flex justify-between items-center p-4 rounded-xl mb-6 text-black dark:text-white">
-  <Link
-    href={`/projects/${projectId < projects.length ? projectId + 1 : 1}`}
-    className="flex items-center gap-2 hover:scale-105 transition-all duration-300"
-  >
-    <IoArrowBackCircleOutline size={24} />
-    <span className="text-sm font-medium">
-      {projects.find(p => p.id === (projectId < projects.length ? projectId + 1 : 1))?.title}
-    </span>
-  </Link>
-  
-  <Link
-    href={`/projects/${projectId > 1 ? projectId - 1 : projects.length}`}
-    className="flex items-center gap-2 hover:scale-105 transition-all duration-300"
-  >
-    <span className="text-sm font-medium">
-      {projects.find(p => p.id === (projectId > 1 ? projectId - 1 : projects.length))?.title}
-    </span>
-    <IoArrowForwardCircleOutline size={24} />
-  </Link>
-</div>
+            <Link
+              href={`/projects/${projectId < projects.length ? projectId + 1 : 1}`}
+              className="flex items-center gap-2 hover:scale-105 transition-all duration-300"
+            >
+              <IoArrowBackCircleOutline size={24} />
+              <span className="text-sm font-medium">
+                {projects.find(p => p.id === (projectId < projects.length ? projectId + 1 : 1))?.title}
+              </span>
+            </Link>
+            
+            <Link
+              href={`/projects/${projectId > 1 ? projectId - 1 : projects.length}`}
+              className="flex items-center gap-2 hover:scale-105 transition-all duration-300"
+            >
+              <span className="text-sm font-medium">
+                {projects.find(p => p.id === (projectId > 1 ? projectId - 1 : projects.length))?.title}
+              </span>
+              <IoArrowForwardCircleOutline size={24} />
+            </Link>
+          </div>
       <ProjectDetails project={project} />
       <div id="projects" className="  py-4 space-y-2 rounded-xl ">
         <h1 className="text-2xl font-bold text-black dark:text-white mb-4 ">Related Projects</h1>

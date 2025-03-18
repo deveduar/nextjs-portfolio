@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
 
         <div className="flex items-center space-x-3">
         <div
-            className={`${isOpen ? "block" : "hidden"} absolute top-16 left-0 right-0 bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 md:static md:block md:w-auto md:bg-transparent dark:md:bg-transparent transform transition-transform duration-300 ${
+            className={`${isOpen ? "block" : "hidden"} z-20 absolute top-16 left-0 right-0 bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 md:static md:block md:w-auto md:bg-transparent dark:md:bg-transparent transform transition-transform duration-300 ${
               isOpen ? "translate-x-0" : "-translate-x-full"
             } md:translate-x-0`}
             id="navbar-default"

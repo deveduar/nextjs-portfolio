@@ -57,7 +57,7 @@ const ProjectList: React.FC = () => {
           transition-all duration-300"
       />
     </div>
-    <div className="w-full flex flex-wrap gap-6 md:gap-6 pt-6 -mb-12 sm:-mb-12 md:pb-12">
+    <div className="w-full flex flex-wrap gap-4 md:gap-4 pt-4 -mb-12 sm:-mb-12 md:pb-12">
         {filteredProjects.slice().reverse().map((project) => (
           <Card
             id={project.id}
