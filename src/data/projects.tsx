@@ -20,7 +20,7 @@ export const projects = [
       ],
       features: [
         "Implemented a custom markdown parser.",
-        "Responsive design with Tailwind CSS.",
+        "Responsive design with Tailwind",
         "Static site generation with Next.js.",
       ],
     },
@@ -141,9 +141,10 @@ export const projects = [
       id: 7,
       title: "Merakikrea Cerámica",
       description: "A landing page inspired by Google Business Profile to showcase store information and facilitate easy contact.",
-      imageSrc: "https://i.postimg.cc/1XLLsBfd/color-banner-icon8.jpg",
+      // imageSrc: "https://i.postimg.cc/1XLLsBfd/color-banner-icon8.jpg",
+      imageSrc: "https://i.postimg.cc/jqJdfFtB/iphone-meraki-mockup.webp",
       detailedDescription: "An optimized landing page built with Next.js and Tailwind CSS, presenting key information about Merakikrea Cerámica. It includes location details, social media links, opening hours, direct WhatsApp contact, and an Instagram feed.",
-      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "ShadCN UI", "Framer Motion"],
+      technologies: ["Next.js", "TypeScript", "Tailwind", "ShadCN UI", "Framer Motion"],
       links: [
         { href: "https://github.com/deveduar/merakikrea-landing", label: "GitHub Repository", svg: GitHubIcon },
         { href: "https://meraki-krea-ceramica-six.vercel.app", label: "Live Demo", svg: DemoIcon }

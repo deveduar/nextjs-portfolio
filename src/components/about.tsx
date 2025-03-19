@@ -3,12 +3,56 @@ import React, { useEffect, useRef } from "react";
 import StackIcon from "tech-stack-icons";
 import Image from "next/image";
 import { FaTrophy, FaCode, FaUsers } from "react-icons/fa";
+import Typewriter from 'typewriter-effect';
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import Link from "next/link";
 
 interface AboutProps {
   technologies: string[];
+  profile: {
+    name: string;
+    specialty: string;
+    description: string[];
+    workExperience: Array<{
+      title: string;
+      company: string;
+      period: string;
+      responsibilities?: string[];
+    }>;
+    education: Array<{
+      title: string;
+      institution: string;
+      year: number;
+    }>;
+    skills: {
+      programmingLanguages: string[];
+      frontend: {
+        frameworks: string[];
+        styles: string[];
+        uiux: string[];
+        tools: string[];
+      };
+      backend: {
+        frameworks: string[];
+        apis: string[];
+        databases: string[];
+        others: string[];
+      };
+      devOps: string[];
+      testing: string[];
+      methodologies: string[];
+      architectures: string[];
+    };
+    languages: string[];
+    socialLinks: {
+      linkedin: string;
+      twitter: string;
+      github: string;
+    };
+  };
 }
 
-const About: React.FC<AboutProps> = ({ technologies}) => {
+const About: React.FC<AboutProps> = ({ technologies, profile }) => {
   const marqueeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,120 +79,273 @@ const About: React.FC<AboutProps> = ({ technologies}) => {
 
   return (
 
-      <div className=" mx-auto text-gray-900 dark:text-white " data-aos="zoom-in">
-        {/* About Me Section */}
-        <div className="flex flex-col sm:flex-col 
-        md:flex-row-reverse bg-white  dark:bg-gray-800 rounded-3xl justify-between p-6 items-center ">
-          <div className="  flex justify-center  md:mb-0 mx-0 p-0" >
-            <Image
-              src="/images/profile.jpeg"
-              width={300}
-              height={300}
-              alt="Profile Picture"
-              className="rounded-full  shadow-lg"
-            />
-          </div>
-          <div className="w-full md:w-2/3 ">
-          <h2 className="text-4xl font-bold mb-4">About Me</h2>
-          <p className="text-lg mb-6 leading-relaxed">
-            Hi, I&apos;m Eduardo, a passionate web developer with expertise in creating responsive and scalable web applications. I enjoy working with modern technologies and am always eager to learn and improve my skills.
-          </p>
-          <p className="text-lg leading-relaxed">
-            You can contact me on{" "}
-            <a className="font-bold" href="http://www.linkedin.com/in/deveduar" target="_blank">
-              Linkedin
-            </a>{" "}
-            or see my activity on{" "}
-            <a className="font-bold" href="https://github.com/deveduar" target="_blank">
-              Github
-            </a>
-            .
-          </p>
-        </div>
+    <div className="w-full grid grid-cols-4 md:grid-cols-6 gap-4" data-aos="zoom-in">
+      {/* Panel Principal */}
+      <div className="col-span-4 md:col-span-6 bg-white dark:bg-gray-800 rounded-xl p-6">
+        <div className="flex flex-col gap-4">
 
-      </div>
+        <div className="flex flex-row gap-4 ">
+            <div className="flex  flex-row  gap-4 w-full">
+              <div className="flex items-center  gap-4">
+                <Image
+                  src="/images/profile.jpeg"
+                  width={80}
+                  height={80}
+                  alt="Profile Picture"
+                  className="rounded-full shadow-lg"
+                />
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{profile.name}</h2>
+                  <p className="text-gray-500 dark:text-gray-400">{profile.specialty}</p>
+                </div>
+              </div>
+           </div>
+          <div className=" rounded-full lg:rounded-s-full  marquee relative overflow-hidden whitespace-nowrap w-16 h-16 sm:w-full sm:h-full" ref={marqueeRef}>
+              <div className="inline-flex items-center animate-marquee  ">
+                <StackIcon name="nextjs" className="w-16 h-16 md:w-20 md:h-20 mx-2 dark:invert" />
+                <StackIcon name="reactjs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="typescript" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="js" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="css3" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="tailwindcss" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="sass" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="python" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="nodejs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="html5" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="github" className="w-16 h-16 md:w-20 md:h-20 mx-2 dark:invert" />
+                <StackIcon name="mysql" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="postgresql" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="mongodb" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="vuejs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
 
-        {/* <h2 className="text-2xl font-bold text-black dark:text-white  mt-6">Skills</h2> */}
-
-        {/* Skill Highlights */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4 lg:gap-6 my-6">
-          <div className="flex flex-col items-start text-left p-6 bg-white dark:bg-gray-800  text-gray-900 rounded-xl shadow-lg hover:shadow-lg  transition-all duration-300 dark:text-white  dark:hover:shadow-gray-900">
-            <FaTrophy className="text-4xl mb-4 text-yellow-500 dark:text-yellow-300" />
-            <h3 className="text-2xl font-bold mb-4">Problem Solving</h3>
-            <p className="text-lg mb-6">
-            I excel in identifying challenges and finding creative solutions through structured problem-solving techniques. Whether it&apos;s optimizing performance or building scalable systems, I always aim for the most efficient solution.  
-            </p>
-          </div>
-          <div className="flex flex-col items-start text-left p-6 bg-white text-gray-900 rounded-xl shadow-lg hover:shadow-lg  transition-all duration-300 dark:bg-gray-800 dark:text-white  dark:hover:shadow-gray-900">
-            <FaCode className="text-4xl mb-4 text-teal-500 dark:text-teal-300" />
-            <h3 className="text-2xl font-bold mb-4">Development</h3>
-            <p className="text-lg mb-6">
-            My passion for coding drives me to build clean, maintainable, and performant code. I&apos;m proficient in modern web technologies, and I continuously learn to stay ahead of industry trends. Whether it&apos;s backend, frontend, or full-stack, I&apos;m comfortable in all.
-            </p>
-          </div>
-          <div className="flex flex-col items-start text-left p-6 bg-white text-gray-900 rounded-xl shadow-lg hover:shadow-lg  transition-all duration-300 dark:bg-gray-800 dark:text-white   
-          dark:hover:shadow-gray-900 ">
-            <FaUsers className="text-4xl mb-4 text-blue-500 dark:text-blue-300" />
-            <h3 className="text-2xl font-bold mb-4">Team Collaboration</h3>
-            <p className="text-lg mb-6">
-            I believe in the power of teamwork. I collaborate effectively with cross-functional teams to achieve project goals. Communication, empathy, and adaptability are key to creating a harmonious and productive working environment.  
-            </p>
-          </div>
-        </div>
-
-        {/* <h2 className="text-2xl font-bold text-black dark:text-white mb-6 ">Tech Stack</h2> */}
-  
-        <div className="w-full bg-white dark:bg-gray-800 pt-6 pb-3 rounded-lg my-6 px-6"> 
-  <div className="flex gap-3 flex-wrap justify-between">
-    {technologies.map((tech, index) => (
-      <div key={index} className="flex h-8 items-center justify-between rounded-xl bg-gray-200 dark:bg-gray-700 px-4 transition-transform transform hover:scale-105 basis-[calc(50%-0.375rem)] sm:basis-auto">
-        <a className="text-sm font-medium dark:text-white">{tech}</a>
-      </div>
-    ))}
-    {/* Placeholders para mantener la distribución uniforme */}
-    {[...Array(10)].map((_, index) => (
-      <div key={`placeholder-${index}`} className="w-0 h-0 basis-24 opacity-0" />
-    ))}
-  </div>
-</div>
-        {/* Tech Stack Animated Section */}
-        <div className="marquee relative overflow-hidden whitespace-nowrap py-6" ref={marqueeRef}>
-            <div className="inline-flex items-center animate-marquee">
-              <StackIcon name="nextjs" className="w-20 h-20 mx-4 dark:invert" />
-              <StackIcon name="reactjs" className="w-20 h-20 mx-4 " />
-              <StackIcon name="typescript" className="w-20 h-20 mx-4" />
-              <StackIcon name="js" className="w-20 h-20 mx-4" />
-              <StackIcon name="css3" className="w-20 h-20 mx-4" />
-              <StackIcon name="tailwindcss" className="w-20 h-20 mx-4" />
-              <StackIcon name="sass" className="w-20 h-20 mx-4" />
-              <StackIcon name="python" className="w-20 h-20 mx-4" />
-              <StackIcon name="nodejs" className="w-20 h-20 mx-4" />
-              <StackIcon name="html5" className="w-20 h-20 mx-4" />
-              <StackIcon name="github" className="w-20 h-20 mx-4 dark:invert" />
-              <StackIcon name="mysql" className="w-20 h-20 mx-4" />
-              <StackIcon name="postgresql" className="w-20 h-20 mx-4" />
-              <StackIcon name="mongodb" className="w-20 h-20 mx-4" />
-              <StackIcon name="vuejs" className="w-20 h-20 mx-4" />
-
-              {/* Duplicated icons for continuous effect */}
-              <StackIcon name="nextjs" className="w-20 h-20 mx-4 dark:invert" />
-              <StackIcon name="reactjs" className="w-20 h-20 mx-4" />
-              <StackIcon name="typescript" className="w-20 h-20 mx-4" />
-              <StackIcon name="js" className="w-20 h-20 mx-4" />
-              <StackIcon name="css3" className="w-20 h-20 mx-4" />
-              <StackIcon name="tailwindcss" className="w-20 h-20 mx-4" />
-              <StackIcon name="sass" className="w-20 h-20 mx-4" />
-              <StackIcon name="python" className="w-20 h-20 mx-4" />
-              <StackIcon name="nodejs" className="w-20 h-20 mx-4" />
-              <StackIcon name="html5" className="w-20 h-20 mx-4" />
-              <StackIcon name="github" className="w-20 h-20 mx-4 dark:invert" />
-              <StackIcon name="mysql" className="w-20 h-20 mx-4" />
-              <StackIcon name="postgresql" className="w-20 h-20 mx-4" />
-              <StackIcon name="mongodb" className="w-20 h-20 mx-4" />
-              <StackIcon name="vuejs" className="w-20 h-20 mx-4" />
+                {/* Duplicated icons for continuous effect */}
+                <StackIcon name="nextjs" className="w-16 h-16 md:w-20 md:h-20 mx-2 dark:invert" />
+                <StackIcon name="reactjs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="typescript" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="js" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="css3" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="tailwindcss" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="sass" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="python" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="nodejs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="html5" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="github" className="w-16 h-16 md:w-20 md:h-20 mx-2 dark:invert" />
+                <StackIcon name="mysql" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="postgresql" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="mongodb" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+                <StackIcon name="vuejs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+              </div>
             </div>
           </div>
 
+
+
+          <div className="space-y-2 text-sm">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-300">My Resume</h3>
+            {profile.description.map((paragraph, index) => (
+              <p key={index} className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+                    {/* Social Links */}
+                    <div className="flex gap-2 flex-row justify-start items-center">
+              <Link 
+                href={profile.socialLinks.linkedin}
+                className=" rounded-xl  flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="text-xs scale-75">
+                  <FaLinkedin className="w-5 h-5 text-gray-900 dark:text-white" />
+                </div>
+                <span className="text-xs font-medium text-gray-900 dark:text-white">LinkedIn</span>
+              </Link>
+              <Link 
+                href={profile.socialLinks.twitter}
+                className="rounded-xl  flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="text-xs scale-75">
+                  <FaTwitter className="w-5 h-5 text-gray-900 dark:text-white" />
+                </div>
+                <span className="text-xs font-medium text-gray-900 dark:text-white">Twitter</span>
+              </Link>
+              <Link 
+                href={profile.socialLinks.github}
+                className="rounded-xl  flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="text-xs scale-75">
+                  <FaGithub className="w-5 h-5 text-gray-900 dark:text-white" />
+                </div>
+                <span className="text-xs font-medium text-gray-900 dark:text-white">GitHub</span>
+              </Link>
+            </div>
+          <div className="flex gap-4">
+            <span className="text-sm text-gray-500 dark:text-gray-400">📍 Spain</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">💼 Available for projects</span>
+          </div>
+          {/* Experience and Education section */}
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Experience */}
+              <div className="space-y-2">
+                <h3 className="text-md font-bold mb-4 text-gray-900 dark:text-gray-300">Experience</h3>
+                {profile.workExperience.map((exp, index) => (
+                  <div key={index} className="border-l-2 border-gray-200 dark:border-gray-700 pl-4">
+                    <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-300">{exp.title}</h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{exp.company}</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500">{exp.period}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Education */}
+              <div className="space-y-2">
+                <h3 className="text-md font-bold mb-4 text-gray-900 dark:text-gray-300">Education</h3>
+                {profile.education.slice(0, 3).map((edu, index) => (
+                  <div key={index} className="border-l-2 border-gray-200 dark:border-gray-700 pl-4">
+                    <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-300">{edu.title}</h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{edu.institution}</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500">{edu.year}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Skills Section */}
+          <div className="space-y-4">
+            <h3 className="text-md font-bold mb-4 text-gray-900 dark:text-gray-300">Skills</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Programming Languages */}
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-300">Programming</h4>
+                <div className="flex flex-wrap gap-2">
+                  {profile.skills.programmingLanguages.map((lang, index) => (
+                    <span key={index} className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700/50 rounded-full text-gray-700 dark:text-gray-300">
+                      {lang}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Frontend */}
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-300">Frontend</h4>
+                <div className="flex flex-wrap gap-2">
+                  {[...profile.skills.frontend.frameworks, ...profile.skills.frontend.styles].map((tech, index) => (
+                    <span key={index} className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700/50 rounded-full text-gray-700 dark:text-gray-300">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Backend */}
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-300">Backend</h4>
+                <div className="flex flex-wrap gap-2">
+                  {[...profile.skills.backend.frameworks, ...profile.skills.backend.databases].map((tech, index) => (
+                    <span key={index} className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700/50 rounded-full text-gray-700 dark:text-gray-300">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* DevOps & Tools */}
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-300">DevOps & Tools</h4>
+                <div className="flex flex-wrap gap-2">
+                  {[...profile.skills.devOps, ...profile.skills.methodologies].slice(0, 8).map((tech, index) => (
+                    <span key={index} className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700/50 rounded-full text-gray-700 dark:text-gray-300">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+  
+          {/* <div className="flex gap-4">
+            <Link
+              href="/projectsView"
+              className="bg-gray-100 dark:bg-gray-700 rounded-xl px-3 py-1.5 flex items-center justify-center gap-1 font-medium hover:scale-105 transition-all duration-300"
+            >
+              <span className="text-xs font-medium text-gray-900 dark:text-white">View Work</span>
+            </Link>
+            <Link 
+              href="/contactView" 
+              className="bg-blue-200 dark:bg-blue-900 rounded-xl px-3 py-1.5 flex items-center justify-center gap-1 font-medium hover:scale-105 transition-all duration-300"
+            >
+              <span className="text-xs font-medium text-gray-900 dark:text-white">Contact</span>
+            </Link>
+          </div> */}
+
+          
+        </div>
+      </div>
+
+
+      {/* Panel de Tecnologías */}
+      {/* <div className="col-span-4 md:col-span-6 bg-white dark:bg-gray-800 rounded-xl p-6">
+        <div className="flex flex-wrap gap-2">
+          {technologies.map((tech, index) => (
+            <span
+              key={index}
+              className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-full text-gray-700 dark:text-gray-300"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div> */}
+        {/* Tech Stack Animated Section */}
+      {/* <div className="col-span-4 md:col-span-6 bg-white dark:bg-gray-800 rounded-xl overflow-hidden">
+        <div className="marquee relative overflow-hidden whitespace-nowrap py-6" ref={marqueeRef}>
+            <div className="inline-flex items-center animate-marquee">
+              <StackIcon name="nextjs" className="w-16 h-16 md:w-20 md:h-20 mx-4 dark:invert" />
+              <StackIcon name="reactjs" className="w-16 h-16 md:w-20 md:h-20 mx-4 " />
+              <StackIcon name="typescript" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="js" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="css3" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="tailwindcss" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="sass" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="python" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="nodejs" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="html5" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="github" className="w-16 h-16 md:w-20 md:h-20 mx-4 dark:invert" />
+              <StackIcon name="mysql" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="postgresql" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="mongodb" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="vuejs" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+
+
+
+
+              <StackIcon name="nextjs" className="w-16 h-16 md:w-20 md:h-20 mx-4 dark:invert" />
+              <StackIcon name="reactjs" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="typescript" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="js" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="css3" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="tailwindcss" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="sass" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="python" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="nodejs" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="html5" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="github" className="w-16 h-16 md:w-20 md:h-20 mx-4 dark:invert" />
+              <StackIcon name="mysql" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="postgresql" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="mongodb" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+              <StackIcon name="vuejs" className="w-16 h-16 md:w-20 md:h-20 mx-4" />
+            </div>
+          </div>
+      </div> */}
       </div>
   );
 };
