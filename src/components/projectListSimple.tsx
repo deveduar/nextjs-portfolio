@@ -30,7 +30,30 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
   const [isDragging, setIsDragging] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
+   const [autoPlay, setAutoPlay] = useState(true);
+   const [slideDirection, setSlideDirection] = useState<'right' | 'left' | null>(null);
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    if (autoPlay) {
+      intervalId = setInterval(() => {
+        setIsTransitioning(true);
+        setSlideDirection('right');
+        setCurrentIndex((prev) => (prev + 1) % projects.length);
+      }, 9000); // Cambia de card cada 3 segundos
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [autoPlay, projects.length]);
+
+
   const handleTouchStart = (e: TouchEvent) => {
+    setAutoPlay(false);
     e.preventDefault();
     setIsDragging(true);
     setIsTransitioning(false);
@@ -91,6 +114,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
   const [isTransitioning, setIsTransitioning] = useState(true);
 
   const handleMouseDown = (e: MouseEvent) => {
+    setAutoPlay(false);
     e.preventDefault();
     setIsDragging(true);
     setIsTransitioning(false);
@@ -125,6 +149,8 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
   };
   
   const handleMouseUp = (e: MouseEvent) => {
+    setAutoPlay(true);
+
     e.preventDefault();
     if (!isDragging) return;
   
@@ -280,14 +306,25 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
       {projects.map((project) => (
         <div
           key={project.id}
-          className="flex-shrink-0 w-full p-6 bg-white dark:bg-gray-800 rounded-xl relative group"
+          className="flex-shrink-0 w-full  bg-white dark:bg-gray-800 rounded-xl relative group"
         >
-              <div className="absolute left-1/2 -translate-x-1/2 top-2 text-gray-400 dark:text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity">
+              {/* <div className="absolute left-1/2 -translate-x-1/2 top-2 text-gray-400 dark:text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity">
               <TbGripHorizontal className="w-5 h-5" />
-            </div>
-
-          <div className="flex flex-col w-full">
+            </div> */}
+             {/* Imagen del proyecto */}
+             <div className="w-full h-28  rounded-t-lg overflow-hidden">
+                <Image
+                  src={project.imageSrc}
+                  alt={`${project.title} preview`}
+                  width={800}
+                  height={400}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+          <div className="flex flex-col w-full p-4">
             <div className="flex-1">
+ 
+              
         <div className='flex flex-row justify-between mb-2'>
 
      

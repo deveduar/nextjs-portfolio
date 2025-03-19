@@ -16,7 +16,7 @@ import profile from '@/data/profile';
 
 const Home: React.FC = () => {
 
-  // const techStack = Array.from(new Set(projects.flatMap((project) => project.technologies)));
+  const techStack = Array.from(new Set(projects.flatMap((project) => project.technologies)));
   const recentProjects = projects.slice(-4).reverse();
  
   return (
@@ -30,24 +30,25 @@ const Home: React.FC = () => {
         />
       </section>
 
-    {/* <section id="projects" className="flex  rounded-xl    items-center justify-center bg-gray-100 dark:bg-gray-950 ">
+    <section id="projects" className="flex  rounded-xl    items-center justify-center bg-gray-100 dark:bg-gray-950 ">
     <ProjectListSimple 
       projects={recentProjects} 
       variant="detailed" // o "simple"
     />
-    </section> */}
+    </section>
 
 
     {/* <section  id="about" className="rounded-xl bg-gray-100 dark:bg-gray-950  " >
-    <About technologies={techStack} />
+    <About 
+    technologies={techStack} 
+    profile={profile}/>
     </section> */}
   
 
-    {/* <section id="connect" className="flex flex-col  rounded-xl    justify-center pt-6 items-center">
-    <Connect />
+    <section id="contact" className="flex flex-col  rounded-xl    justify-center pt-6 items-center">
+    <ContactForm />
 
-    </section> */}
-      {/* <ContactForm /> */}
+    </section>
       {/* <ProjectDetails project={projects} /> */}
   </div>
   );
