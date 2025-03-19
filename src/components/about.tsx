@@ -149,10 +149,10 @@ const About: React.FC<AboutProps> = ({ technologies, profile }) => {
             ))}
           </div>
                     {/* Social Links */}
-                    <div className="flex gap-4">
+                    <div className="flex gap-2 flex-row justify-start items-center">
               <Link 
                 href={profile.socialLinks.linkedin}
-                className="bg-gray-100 dark:bg-gray-700 rounded-xl px-3  flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
+                className=" rounded-xl  flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -163,7 +163,7 @@ const About: React.FC<AboutProps> = ({ technologies, profile }) => {
               </Link>
               <Link 
                 href={profile.socialLinks.twitter}
-                className="bg-gray-100 dark:bg-gray-700 rounded-xl px-3 py-1.5 flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
+                className="rounded-xl  flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -174,7 +174,7 @@ const About: React.FC<AboutProps> = ({ technologies, profile }) => {
               </Link>
               <Link 
                 href={profile.socialLinks.github}
-                className="bg-gray-100 dark:bg-gray-700 rounded-xl px-3 py-1.5 flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
+                className="rounded-xl  flex items-center justify-center gap-1 hover:scale-105 transition-all duration-300"
                 target="_blank"
                 rel="noopener noreferrer"
               >
