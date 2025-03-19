@@ -65,7 +65,7 @@ const Card: React.FC<CardProps> = ({
     <div className=" text-black dark:text-white ">
       <h3 className="font-bold text-md  text-black dark:text-white truncate">{title}</h3>
 
-      <p className="text-xs text-black dark:text-gray-300 line-clamp-2 break-words h-12">{description}</p>
+      <p className="text-xs text-black dark:text-gray-300 line-clamp-1 lg:line-clamp-2  ">{description}</p>
     </div>
 
 
