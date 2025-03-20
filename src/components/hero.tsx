@@ -183,7 +183,7 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
    
              />
           </Link> */}
-                <div className="rounded-xl  h-full">
+                <div className="rounded-xl  h-1/2">
           <ProjectListSimple 
             projects={recentProjects} 
             variant="simple" 

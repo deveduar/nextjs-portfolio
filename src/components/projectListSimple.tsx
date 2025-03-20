@@ -212,7 +212,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
 
   if (variant === 'simple') {
     return (
-      <div className="overflow-hidden rounded-xl   md:h-52 lg:h-[7rem] ">
+      <div className="overflow-hidden rounded-xl   h-full">
        <div 
           className="flex items-stretch w-full h-full"
           ref={cardRef}
@@ -247,8 +247,8 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                 />
 
               </div>
-              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300">
-                  <div className="p-2 md:p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col h-full">
+              <div className="absolute inset-0 bg-black bg-opacity-70 group-hover:bg-opacity-70 transition-all duration-300">
+                  <div className="p-2 md:p-3 opacity-1 group-hover:opacity-100 transition-opacity duration-300 flex flex-col h-full">
                     <div className='space-y-1'>
                       <Link href={`/projects/${project.id}`}>
                         <h3 className="font-semibold text-xs md:text-sm text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-1">
