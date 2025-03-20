@@ -86,7 +86,7 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="w-full grid grid-cols-6 gap-4" data-aos="zoom-in">
+    <div className="w-full grid grid-cols-6 gap-4" data-aos="fade-up">
     {/* Panel Principal */}
     <div className="col-span-6 md:col-span-4 bg-white dark:bg-gray-800 rounded-xl p-6">
       <div className="flex flex-col gap-6">
@@ -163,10 +163,10 @@ export default function ContactForm() {
     <div className="col-span-6 md:col-span-2 flex flex-col gap-4">
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 ">
         <div className="flex flex-row md:flex-col justify-between">
-          <div className="flex flex-col md:justify-between ">
+          <div className="flex flex-col justify-between w-full">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h3>
           
-          <div className="flex flex-row md:flex-row items-center md:items-center gap-4 md:gap-6 ">
+          <div className="flex flex-row md:flex-row items-center md:items-center gap-4 md:gap-6 w-full ">
             <div className="flex-shrink-0 w-20 h-20">
               <Image
                 src="/images/profile.jpeg"
@@ -183,21 +183,18 @@ export default function ContactForm() {
             </div>
           </div>
 
-          <div className="flex flex-row md:flex-col gap-4 md:gap-3 mt-4  ">
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
+        <div className="flex  justify-between flex-row md:flex-col w-full">
+          <div className="flex flex-col gap-4 md:gap-3 mt-4">
+            <p className="text-gray-600 dark:text-gray-300 text-sm truncate">
               📍 Based in Spain
             </p>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
+            <p className="text-gray-600 dark:text-gray-300 text-sm truncate">
               🕒 Available for projects
             </p>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
+            <p className="text-gray-600 dark:text-gray-300 text-sm truncate">
               💼 Open to collaborations
             </p>
           </div>
-
-          </div>
-
-          
           <div className="flex flex-col md:flex-row gap-2 md:gap-6 mt-4 md:mt-6 md:justify-center">
             <Link href={profile.socialLinks.github} target="_blank" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
               <FaGithub size={28} />
@@ -209,6 +206,12 @@ export default function ContactForm() {
               <FaTwitter size={28} />
             </Link>
           </div>
+        </div>
+
+          </div>
+
+          
+
         </div>
       </div>
     </div>
