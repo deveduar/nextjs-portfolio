@@ -248,32 +248,25 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
 
               </div>
               <div className="absolute inset-0 bg-black bg-opacity-70 group-hover:bg-opacity-70 transition-all duration-300">
-                  <div className="p-2 md:p-3 opacity-1 group-hover:opacity-100 transition-opacity duration-300 flex flex-col h-full">
-                    <div className='space-y-1'>
+                  <div className="p-2 md:px-3 opacity-1 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center h-full">
+                    <div className='space-y-2 flex flex-col justify-center '>
                       <Link href={`/projects/${project.id}`}>
-                        <h3 className="font-semibold text-xs md:text-sm text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-1">
+                        <h3 className="font-semibold text-xs md:text-lg text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-1">
                           {project.title}
                         </h3>
                       </Link>
-                      <p className="text-gray-200 text-[10px] md:text-xs line-clamp-2">{project.description}</p>
+                      <p className="text-gray-200 text-xs md:text-md line-clamp-2">{project.description}</p>
                       <div className="flex flex-wrap gap-1">
                         {project.technologies.slice(0, 3).map((tech) => (
                           <span 
                             key={tech}
-                            className="px-1 py-0.5 text-[8px] md:text-[10px] rounded bg-gray-100/20 text-white"
+                            className="px-1 py-0.5 text-xs md:text-md rounded bg-gray-100/20 text-white"
                           >
                             {tech}
                           </span>
                         ))}
+                      </div>
                     </div>
-                    </div>
-
-                    {/* <Link
-                      href={`/projects/${project.id}`}
-                      className="text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
-                    >
-                      View Details →
-                    </Link> */}
                   </div>
                 </div>
             </div>

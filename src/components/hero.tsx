@@ -65,7 +65,7 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
                 </div>
     
               </div>
-              <div className="space-y-4 text-md">
+              <div className="space-y-4 sm:text-sm md:text-md ">
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Welcome to my portfolio! I&#39;m a Full Stack Developer with over 5 years of experience crafting innovative and functional web applications. Here, you&#39;ll find some of my key projects and insights into my approach to clean code and efficient solutions. Enjoy exploring!
               </p>
@@ -136,7 +136,7 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
           <Link 
             href={socialLinks.linkedin}
             target="_blank" 
-            className="bg-white dark:bg-gray-800 rounded-xl hover:scale-105 transition-all duration-300 p-3 md:p-0 flex items-center justify-center md:aspect-square md:h-auto "
+            className="bg-white dark:bg-gray-800 rounded-xl hover:scale-105 transition-all duration-300 p-3 md:p-0 flex items-center justify-center aspect-auto "
           >
             <FaLinkedin className="
             w-5 h-5 md:w-8 md:h-8
@@ -146,14 +146,14 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
           <Link 
             href={socialLinks.twitter}
             target="_blank" 
-            className="bg-white dark:bg-gray-800 rounded-xl p-2 md:p-4 flex items-center justify-center hover:scale-105 transition-all duration-300 md:aspect-square md:h-auto"
+            className="bg-white dark:bg-gray-800 rounded-xl p-2 md:p-4 flex items-center justify-center hover:scale-105 transition-all duration-300 "
           >
             <FaTwitter className="w-5 h-5 md:w-8 md:h-8 text-gray-900 dark:text-white" />
           </Link>
           <Link 
             href={socialLinks.github}
             target="_blank" 
-            className="bg-white dark:bg-gray-800 rounded-xl p-2 md:p-4 flex items-center justify-center hover:scale-105 transition-all duration-300 md:aspect-square  md:h-auto"
+            className="bg-white dark:bg-gray-800 rounded-xl p-2 md:p-4 flex items-center justify-center hover:scale-105 transition-all duration-300 "
           >
             <FaGithub className="w-5 h-5 md:w-8 md:h-8 text-gray-900 dark:text-white" />
           </Link>
@@ -183,7 +183,7 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
    
              />
           </Link> */}
-                <div className="rounded-xl  h-1/2">
+                <div className="rounded-xl  h-1/2 hover:scale-105 transition-all duration-300 ">
           <ProjectListSimple 
             projects={recentProjects} 
             variant="simple" 
