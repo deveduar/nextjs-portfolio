@@ -210,18 +210,62 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
 
   if (variant === 'simple') {
     return (
-      <div className="p-3 md:p-0">
-        <h4 className="text-sm text-gray-900 dark:text-gray-300 font-bold">Recent Projects</h4>
-        <div className="flex flex-col">
+      <div className="relative w-full overflow-hidden rounded-xl">
+        <div 
+          className="flex items-center w-full"
+          ref={cardRef}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          style={{ 
+            userSelect: 'none',
+            transform: `translateX(-${currentIndex * 103}%)`,
+            transition: isTransitioning ? 'transform 300ms ease-in-out' : 'none',
+            gap: '3%'
+          }}
+        >
           {projects.map((project) => (
-            <Link 
+            <div
               key={project.id}
-              href={`/projects/${project.id}`}
-              className="hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200
-               text-gray-500 dark:text-gray-400"
+              className="flex-shrink-0 w-full relative group overflow-hidden rounded-xl"
             >
-              <p className="text-sm">{project.title}</p>
-            </Link>
+              <div className="relative h-48 w-full">
+                <Image
+                  src={project.imageSrc}
+                  alt={project.title}
+                  fill
+                  className="object-cover rounded-xl"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300">
+                  <div className="absolute inset-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-white font-semibold text-lg mb-2">{project.title}</h3>
+                      <p className="text-gray-200 text-sm line-clamp-2">{project.description}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.slice(0, 3).map((tech) => (
+                        <span 
+                          key={tech}
+                          className="px-2 py-1 text-xs rounded-md bg-gray-100/20 text-white"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <Link
+                      href={`/projects/${project.id}`}
+                      className="text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
+                    >
+                      View Details →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>

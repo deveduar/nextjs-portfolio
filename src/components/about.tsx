@@ -79,7 +79,7 @@ const About: React.FC<AboutProps> = ({ technologies, profile }) => {
 
   return (
 
-    <div className="w-full grid grid-cols-4 md:grid-cols-6 gap-4" data-aos="zoom-in">
+    <div className="w-full grid grid-cols-4 md:grid-cols-6 gap-4" data-aos="fade-up">
       {/* Panel Principal */}
       <div className="col-span-4 md:col-span-6 bg-white dark:bg-gray-800 rounded-xl p-6">
         <div className="flex flex-col gap-4">

@@ -48,12 +48,12 @@ const Navbar: React.FC = () => {
 
         <div className="flex items-center space-x-3">
         <div
-            className={`${isOpen ? "block" : "hidden"} z-20 absolute top-16 left-0 right-0 bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 md:static md:block md:w-auto md:bg-transparent dark:md:bg-transparent transform transition-transform duration-300 ${
-              isOpen ? "translate-x-0" : "-translate-x-full"
-            } md:translate-x-0`}
+            className={`${
+              isOpen ? "block animate-menuSlideDown" : "hidden"
+            } z-20 absolute top-16 left-0 right-0 md:static md:block md:w-auto`}
             id="navbar-default"
           >
-            <ul className="font-medium flex flex-col p-3 md:p-0 mt-2 md:mt-0 md:flex-row md:space-x-8 rtl:space-x-reverse md:border-0 bg-gray-50 bg-opacity-90 md:bg-transparent dark:bg-gray-800 dark:bg-opacity-90 md:dark:bg-transparent dark:border-gray-700">
+            <ul className="font-medium flex flex-col p-3 md:p-0 mt-2 md:mt-0 md:flex-row md:space-x-8 rtl:space-x-reverse md:border-0 bg-gray-100 bg-opacity-90 md:bg-transparent dark:bg-gray-950 rounded-b-xl dark:bg-opacity-90 md:dark:bg-transparent dark:border-gray-700 backdrop-blur-sm shadow-lg md:shadow-none">
               <li>
                 <Link href="/" passHref className="block py-2 px-3 text-gray-800 rounded md:bg-transparent md:text-gray-900 md:p-0 dark:text-white" onClick={closeMenu}>
                   Home

@@ -126,9 +126,9 @@ export const projects = [
         { href: "https://github.com/deveduar/booking-app", label: "GitHub Repository", svg: GitHubIcon }
       ],
       gallery: [
-        "https://i.postimg.cc/Y2FH0CmX/service-booking-1.jpg",
-        "https://i.postimg.cc/NFkBybf0/service-booking-2.jpg",
-        "https://i.postimg.cc/qv6pT9Vp/service-booking-3.jpg"
+        // "https://i.postimg.cc/Y2FH0CmX/service-booking-1.jpg",
+        // "https://i.postimg.cc/NFkBybf0/service-booking-2.jpg",
+        // "https://i.postimg.cc/qv6pT9Vp/service-booking-3.jpg"
       ],
       features: [
         "Dynamically filter and sort services.",

@@ -1,21 +1,38 @@
-import ProjectList
- from "@/components/projectList";
- import ProjectListSimple from '@/components/projectListSimple';
- import { projects } from "@/data/projects";
+"use client";
+
+import ProjectList from "@/components/projectList";
+import ProjectListSimple from '@/components/projectListSimple';
+import { projects } from "@/data/projects";
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function ProjectsView() {
-
   const recentProjects = projects.slice(-4).reverse();
 
-    return (
-      <section id="projects" className="flex flex-col  rounded-xl gap-4">
-    <ProjectListSimple 
-      projects={recentProjects} 
-      variant="detailed" // o "simple"
-    />
-      {/* <h2 className="text-4xl font-bold text-black dark:text-white flex text-center sm:text-center lg:text-left pb-6">Projects</h2>  */}
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-out'
+    });
+  }, []);
+
+  return (
+    <section 
+      id="projects" 
+      className="flex flex-col rounded-xl gap-4"
+      data-aos="fade-up"
+    >
+
+      {/* <ProjectListSimple 
+        projects={recentProjects} 
+        variant="detailed"
+      /> */}
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white px-4 py-6" data-aos="fade-right">
+        Projects
+    </h2>
       <ProjectList />
     </section>
-    );
-  }
-  
+  );
+}
