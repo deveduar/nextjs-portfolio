@@ -145,7 +145,7 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
           View My Work
         </Link>
 
-        <Link 
+        {/* <Link 
            href="http://www.linkedin.com/in/deveduar" 
            target="_blank" 
            className="bg-white dark:bg-gray-800 rounded-xl  md:p-3 flex md:aspect-auto gap-6   hover:scale-105 transition-all duration-300 "
@@ -154,7 +154,10 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
              projects={recentProjects} variant="simple" 
    
              />
-          </Link>
+          </Link> */}
+          <ProjectListSimple 
+             projects={recentProjects} variant="simple" />
+          
       </div>
     </div>
   );
