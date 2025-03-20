@@ -50,16 +50,6 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
                 </div>
               ))}
             </div>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{project.description}</p>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{project.detailedDescription}</p>
-            <ul className="list-disc leading-relaxed list-inside space-y-2 ">
-              {project.features?.map((feature, index) => (
-                <li key={index} className="leading-relaxed text-base text-gray-600 dark:text-gray-300">{feature}</li>
-              ))}
-            </ul>
-            <div className=' w-full pt-4'>
-          <Gallery images={project.gallery} />
-      </div>
             <div className="flex items-center justify-between w-full sm:w-auto">
             <div className="flex flex-wrap gap-1">
           {project.links
@@ -96,24 +86,36 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
             </Link>
           )}
             </div>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{project.description}</p>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{project.detailedDescription}</p>
+            <ul className="list-disc leading-relaxed list-inside space-y-2 ">
+              {project.features?.map((feature, index) => (
+                <li key={index} className="leading-relaxed text-base text-gray-600 dark:text-gray-300">{feature}</li>
+              ))}
+            </ul>
+            <div className=' w-full pt-4'>
+          <Gallery images={project.gallery} />
+      </div>
           </div>
         </div>
         {/* Panel 2 Links - 1 columna */}
         <div className="md:col-span-1 lg:col-span-1 rounded-xl">
+          {/* links 1 */}
         <ProjectNavigation currentId={project.id} projects={projects} variant="vertical" />
-        <div className="grid gap-4 mt-4">
+        {/* links 2 */}
+        <div className="grid md:flex md:flex-col gap-4 mt-4 ">
             {project.links.map((link, index) => (
               <Link
                 key={index}
                 href={link.href}
-                className={`p-4 rounded-xl hover:scale-105 transition-all duration-300 flex items-center gap-3 
+                className={`p-4 rounded-xl hover:scale-105 mr-2transition-all duration-300 flex items-center gap-2 w-full 
                   ${link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live')
                     ? 'bg-blue-100 dark:bg-blue-900' 
                     : 'bg-white dark:bg-gray-800'}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className={`text-2xl flex-shrink-0 ${link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? 'text-blue-600 dark:text-blue-400' : ''}`}>
+                <div className={`text-sm scale-125 flex-shrink-0 ${link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? 'text-blue-600 dark:text-blue-400' : ''}`}>
                   {link.svg}
                 </div>
                 <span className="text-sm font-medium dark:text-white truncate max-w-[150px]">{link.label}</span>

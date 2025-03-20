@@ -19,7 +19,7 @@ const ProjectNavigation: React.FC<ProjectNavigationProps> = ({ currentId, projec
         href={`/projects/${currentId < projects.length ? currentId + 1 : 1}`}
         className={`flex items-center gap-2 hover:scale-105 transition-all duration-300 ${isVertical ? 'w-full justify-start bg-white dark:bg-gray-800 p-4  rounded-xl' : ''}`}
       >
-        <IoArrowBackCircleOutline size={24} />
+        <IoArrowBackCircleOutline size={20} />
         <span className="text-sm font-medium truncate">
           {projects.find(p => p.id === (currentId < projects.length ? currentId + 1 : 1))?.title}
         </span>
@@ -27,9 +27,9 @@ const ProjectNavigation: React.FC<ProjectNavigationProps> = ({ currentId, projec
       
       <Link
         href={`/projects/${currentId > 1 ? currentId - 1 : projects.length}`}
-        className={`flex items-center gap-2 hover:scale-105 transition-all duration-300 ${isVertical ? 'w-full justify-start bg-white dark:bg-gray-800 p-4  rounded-xl' : ''}`}
+        className={`flex items-center gap-2 hover:scale-105 p-4 transition-all duration-300 ${isVertical ? 'w-full justify-start bg-white dark:bg-gray-800 p-4  rounded-xl' : ''}`}
       >
-        <IoArrowForwardCircleOutline size={24} />
+        <IoArrowForwardCircleOutline size={20} />
         <span className="text-sm font-medium truncate">
           {projects.find(p => p.id === (currentId > 1 ? currentId - 1 : projects.length))?.title}
         </span>

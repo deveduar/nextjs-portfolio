@@ -123,6 +123,8 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
   };
   
   const handleMouseMove = (e: MouseEvent) => {
+    setAutoPlay(false);
+
     e.preventDefault();
     if (!isDragging || !cardRef.current) return;
   
@@ -210,9 +212,9 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
 
   if (variant === 'simple') {
     return (
-      <div className="relative w-full overflow-hidden rounded-xl">
-        <div 
-          className="flex items-center w-full"
+      <div className="overflow-hidden rounded-xl   h-full">
+       <div 
+          className="flex items-stretch w-full h-full"
           ref={cardRef}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -228,43 +230,52 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
             gap: '3%'
           }}
         >
-          {projects.map((project) => (
-            <div
+     {projects.map((project) => (
+             <div
               key={project.id}
-              className="flex-shrink-0 w-full relative group overflow-hidden rounded-xl"
+              className="flex-shrink-0 w-full relative group overflow-hidden rounded-xl 
+             "
             >
-              <div className="relative h-48 w-full">
+              <div className="relative w-full h-full">
                 <Image
                   src={project.imageSrc}
                   alt={project.title}
                   fill
-                  className="object-cover rounded-xl"
+                  className="object-cover  "
+                  //  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300">
-                  <div className="absolute inset-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-white font-semibold text-lg mb-2">{project.title}</h3>
-                      <p className="text-gray-200 text-sm line-clamp-2">{project.description}</p>
+
+              </div>
+              <div className="absolute inset-0 bg-black bg-opacity-70 group-hover:bg-opacity-70 transition-all duration-300">
+                  <div className="p-2 md:p-3 opacity-1 group-hover:opacity-100 transition-opacity duration-300 flex flex-col h-full">
+                    <div className='space-y-1'>
+                      <Link href={`/projects/${project.id}`}>
+                        <h3 className="font-semibold text-xs md:text-sm text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-1">
+                          {project.title}
+                        </h3>
+                      </Link>
+                      <p className="text-gray-200 text-[10px] md:text-xs line-clamp-2">{project.description}</p>
+                      <div className="flex flex-wrap gap-1">
+                        {project.technologies.slice(0, 3).map((tech) => (
+                          <span 
+                            key={tech}
+                            className="px-1 py-0.5 text-[8px] md:text-[10px] rounded bg-gray-100/20 text-white"
+                          >
+                            {tech}
+                          </span>
+                        ))}
                     </div>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.slice(0, 3).map((tech) => (
-                        <span 
-                          key={tech}
-                          className="px-2 py-1 text-xs rounded-md bg-gray-100/20 text-white"
-                        >
-                          {tech}
-                        </span>
-                      ))}
                     </div>
-                    <Link
+
+                    {/* <Link
                       href={`/projects/${project.id}`}
                       className="text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
                     >
                       View Details →
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
-              </div>
             </div>
           ))}
         </div>

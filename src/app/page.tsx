@@ -33,7 +33,7 @@ const Home: React.FC = () => {
   return (
 <div className="flex flex-col w-full ">
       {/* Hero Section */}
-      <section className="
+      <section className="h-[calc(100vh-6rem)]
        md:h-[calc(100vh-6rem)] flex items-center justify-center" data-aos="fade-up">
         <div className="w-full">
           <Hero
@@ -85,7 +85,7 @@ const Home: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <div className="text-xs scale-75 font-medium">
+                        <div className="text-xs  font-medium">
                           {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.svg}
                         </div>
                         <span className="text-xs font-medium">
@@ -113,7 +113,7 @@ const Home: React.FC = () => {
                   </p>
                   
                   <div className="mt-auto flex items-center justify-between w-full gap-4 text-black dark:text-white pt-4">
-                    <div className="flex-1 flex items-center gap-1 min-w-0">
+                    <div className="flex-1 flex items-center gap-2 min-w-0">
                       {project.links
                         .filter(link => !link.label.toLowerCase().includes('demo') && !link.label.toLowerCase().includes('live'))
                         .slice(0, 2)
@@ -121,11 +121,11 @@ const Home: React.FC = () => {
                           <Link
                             key={idx}
                             href={link.href}
-                            className="flex items-center gap-1 py-1 truncate hover:scale-105 transition-all duration-300"
+                            className="flex items-center gap-1 py-1 truncate hover:text-gray-800 dark:hover:text-gray-400 transition-all duration-300"
                             target="_blank"
                             rel="noopener noreferrer "
                           >
-                            <div className="flex-shrink-0 text-xs scale-75">
+                            <div className="flex-shrink-0 text-xs ">
                               {link.svg}
                             </div>
                             <span className="text-xs font-medium truncate ">
