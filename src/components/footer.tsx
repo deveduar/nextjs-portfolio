@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { GitHubIcon, LinkedInIcon, TwitterIcon } from "@/data/icons";
+import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
@@ -27,14 +27,14 @@ const Footer: React.FC = () => {
             </div>
 
             <div className="flex justify-center space-x-3 mt-4 sm:mt-0">
-            <Link href="http://www.linkedin.com/in/deveduar" target="_blank" className="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-900 dark:text-white hover:bg-primary transition-all duration-300">
-            {LinkedInIcon}
+            <Link href="http://www.linkedin.com/in/deveduar" target="_blank" className="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent ">
+            <FaLinkedin className="w-5 h-5 text-gray-900 dark:text-white transition-all duration-300 hover:scale-125" />
               </Link>
               <Link href="https://x.com/deveduar" target="_blank" className="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-900 dark:text-white hover:bg-primary transition-all duration-300">
-               {TwitterIcon}
+              <FaTwitter className="w-5 h-5 text-gray-900 dark:text-white transition-all duration-300 hover:scale-125" />
               </Link>
               <Link href="https://github.com/deveduar" target="_blank" className="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-900 dark:text-white hover:bg-primary transition-all duration-300">
-                {GitHubIcon}
+              <FaGithub className="w-5 h-5 text-gray-900 dark:text-white transition-all duration-300 hover:scale-125" />
               </Link>
             </div>
           </div>

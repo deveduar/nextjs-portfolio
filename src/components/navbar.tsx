@@ -3,10 +3,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import ThemeSwitch from "./themeswitch";
+import { usePathname } from 'next/navigation';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const pathname = usePathname();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -53,28 +54,60 @@ const Navbar: React.FC = () => {
             } z-20 absolute top-16 left-0 right-0 md:static md:block md:w-auto`}
             id="navbar-default"
           >
-            <ul className="font-medium flex flex-col p-3 md:p-0 mt-2 md:mt-0 md:flex-row md:space-x-8 rtl:space-x-reverse md:border-0 bg-gray-100 bg-opacity-90 md:bg-transparent dark:bg-gray-950 rounded-b-xl dark:bg-opacity-90 md:dark:bg-transparent dark:border-gray-700 backdrop-blur-sm shadow-lg md:shadow-none">
-              <li>
-                <Link href="/" passHref className="block py-2 px-3 text-gray-800 rounded md:bg-transparent md:text-gray-900 md:p-0 dark:text-white" onClick={closeMenu}>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/projectsView" passHref className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0 md:hover:text-blue-900 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" onClick={closeMenu}>
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link href="/aboutView" passHref className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0 md:hover:gray-900 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" onClick={closeMenu}>
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/contactView" passHref className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0 md:hover:text-blue-900 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" onClick={closeMenu}>
-                  Contact
-                </Link>
-              </li>
-            </ul>
+               <ul className="font-medium flex flex-col p-3 md:p-0 mt-2 md:mt-0 md:flex-row md:space-x-8 rtl:space-x-reverse md:border-0 bg-gray-100 bg-opacity-90 md:bg-transparent dark:bg-gray-950 rounded-b-xl dark:bg-opacity-90 md:dark:bg-transparent dark:border-gray-700 backdrop-blur-sm shadow-lg md:shadow-none">
+        <li>
+          <Link 
+            href="/" 
+            className={`block py-2 px-3 rounded md:p-0 transition-colors
+              ${pathname === '/' 
+                ? 'text-blue-600 dark:text-blue-400 hover:cursor-default' 
+                : 'text-gray-900 dark:text-white hover:bg-gray-300 md:hover:bg-transparent md:hover:text-blue-900  md:dark:hover:text-gray-400 dark:hover:bg-gray-700 md:dark:hover:bg-transparent'
+              }`}
+            onClick={closeMenu}
+          >
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link 
+            href="/projectsView" 
+            className={`block py-2 px-3 rounded md:p-0 transition-colors
+              ${pathname === '/projectsView' 
+                ? 'text-blue-600 dark:text-blue-400 hover:cursor-default' 
+                : 'text-gray-900 dark:text-white hover:bg-gray-300 md:hover:bg-transparent md:hover:text-blue-900  md:dark:hover:text-gray-400 dark:hover:bg-gray-700 md:dark:hover:bg-transparent'
+              }`}
+            onClick={closeMenu}
+          >
+            Projects
+          </Link>
+        </li>
+        <li>
+          <Link 
+            href="/aboutView" 
+            className={`block py-2 px-3 rounded md:p-0 transition-colors
+              ${pathname === '/aboutView' 
+                ? 'text-blue-600 dark:text-blue-400 hover:cursor-default' 
+                : 'text-gray-900 dark:text-white hover:bg-gray-300 md:hover:bg-transparent md:hover:text-blue-900  md:dark:hover:text-gray-400 dark:hover:bg-gray-700 md:dark:hover:bg-transparent'
+              }`}
+            onClick={closeMenu}
+          >
+            About
+          </Link>
+        </li>
+        <li>
+          <Link 
+            href="/contactView" 
+            className={`block py-2 px-3 rounded md:p-0 transition-colors
+              ${pathname === '/contactView' 
+                ? 'text-blue-600 dark:text-blue-400 hover:cursor-default' 
+                : 'text-gray-900 dark:text-white hover:bg-gray-300 md:hover:bg-transparent md:hover:text-blue-900  md:dark:hover:text-gray-400 dark:hover:bg-gray-700 md:dark:hover:bg-transparent'
+              }`}
+            onClick={closeMenu}
+          >
+            Contact
+          </Link>
+        </li>
+      </ul>
           </div>
 
 
