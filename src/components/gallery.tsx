@@ -56,7 +56,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
   return (
     <>
 {images && images.length > 0 && (
-        <div className="md:col-span-2 lg:col-span-3 rounded-xl">
+        <div className="md:col-span-2 lg:col-span-3 rounded-xl  w-full pt-4">
          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 h-[300px] md:h-[150px]">
             {/* Primera imagen */}
             <div className="rounded-xl overflow-hidden cursor-pointer transition-transform hover:scale-[1.02]" onClick={() => openModal(0)}>

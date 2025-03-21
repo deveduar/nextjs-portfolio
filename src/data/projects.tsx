@@ -6,7 +6,7 @@ export const projects = [
       id: 1,
       title: "Deveduar Blog",
       description: "Responsive blog created with Next.js and React.js",
-      imageSrc: "https://i.postimg.cc/43sRYWBk/color-banner-icon.jpg",
+      imageSrc: "https://i.postimg.cc/CKC7ymvM/tablet-blog-mockup.webp",
       detailedDescription: "My Personal blog for reading markdown posts from the file system with tags and date system",
       technologies: ["Next.js", "React.js", "Tailwind", "Markdown"],
       links: [
@@ -14,9 +14,8 @@ export const projects = [
         { href: "https://nextjs-blog-xi-indol.vercel.app/", label: "Demo", svg: DemoIcon },
       ],
       gallery: [
-        "https://i.postimg.cc/2Sqg775z/blog-1-images-proyectos-4.png",
-        "https://i.postimg.cc/Vk3pG0SX/blog-1-images-proyectos-3.png",
-        "https://i.postimg.cc/c4kV3b09/blog-1-images-proyectos.png",
+        "https://i.postimg.cc/CKC7ymvM/tablet-blog-mockup.webp",
+        "https://i.postimg.cc/DZ2g7LDr/iphone-blog-mockup.webp",
       ],
       features: [
         "Implemented a custom markdown parser.",
@@ -47,7 +46,7 @@ export const projects = [
       id: 3,
       title: "Todo app",
       description: "Simple todo app with dates and reminders",
-      imageSrc: "https://i.postimg.cc/t40jjq6g/color-banner-icon3.jpg",
+      imageSrc: "https://i.postimg.cc/RVkst3yt/pc-todo-app-mockup.webp",
       detailedDescription: "Developed with Next.js and Supabase .",
       technologies: [
         "Next.js", 
@@ -62,9 +61,10 @@ export const projects = [
         { href: "https://github.com/deveduar/todo-app", label: "GitHub", svg: GitHubIcon },
       ],
       gallery: [
-        "https://i.postimg.cc/kXSHpFSw/todo-1-min.png",
-        "https://i.postimg.cc/DfHD6YS8/todo-4-min.png",
-        "https://i.postimg.cc/ZYG7pBQN/todo-notes-7-min.png",
+        "https://i.postimg.cc/L8jy39Fb/iphone-todo-app-mockup.webp",
+        "https://i.postimg.cc/kMhhnYyf/laptop-todo-app-mockup.webp",
+        "https://i.postimg.cc/RVkst3yt/pc-todo-app-mockup.webp",
+        "https://i.postimg.cc/RV6pq1s9/tablet-todo-app-mockup.webp",
       ],
       features: [
         "Dates and reminders.",
@@ -98,7 +98,7 @@ export const projects = [
       id: 5,
       title: "Python Tools",
       description: "A collection of Python scripts for various file and media conversions.",
-      imageSrc: "https://i.postimg.cc/pTcw1RxR/color-banner-icon6.jpg",
+      imageSrc: "https://i.postimg.cc/HLT5MH2H/artem-sapegin-b18-TRXc8-UPQ-unsplash.jpg",
       detailedDescription: "Scripts developed to automate and simplify common tasks such as file conversions and media extraction.",
       technologies: ["Python", "Scripting", "Automation"],
       links: [
