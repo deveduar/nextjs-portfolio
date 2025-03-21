@@ -76,7 +76,7 @@ export const projects = [
       id: 4,
       title: "Inventory System",
       description: "Inventory management for dropshipping store created with angular.",
-      imageSrc: "https://i.postimg.cc/8zhVk2dm/color-banner-icon4.jpg",
+      imageSrc: "https://i.postimg.cc/xd9MxWZ5/tablet-sgi-mockup.webp",
       detailedDescription: "Developed with TypeScript, Angular, Node.js",
       technologies: ["Angular", "NodeJS", "Typescript", "SASS", "Express"],
       links: [
@@ -84,9 +84,9 @@ export const projects = [
         { href: "https://github.com/deveduar/inventory-backend.git", label: "GitHub Backend", svg: GitHubIcon },
       ],
       gallery: [
-        "https://i.postimg.cc/1zXXHTq8/localhost-4200-inventory-2-min.png",
-        "https://i.postimg.cc/QdXHBVNk/localhost-4200-inventory-6-min.png",
-        "https://i.postimg.cc/5ydtf2kz/localhost-4200-inventory-7-min.png",
+        "https://i.postimg.cc/xd9MxWZ5/tablet-sgi-mockup.webp",
+        "https://i.postimg.cc/hGMxH2WB/iphone-sgi-mockup.webp",
+        "https://i.postimg.cc/sgY5JVT1/laptop-sgi-mockup.webp",
       ],
       features: [
         "Backend connection with Printfull API.",
@@ -152,8 +152,8 @@ export const projects = [
       gallery: [
         "https://i.postimg.cc/5032x1kZ/pc-meraki-mockup.webp",
         "https://i.postimg.cc/jqJdfFtB/iphone-meraki-mockup.webp",
-        "https://i.postimg.cc/tRncx9yj/cera-2-images-proyectos.jpg",
-        "https://i.postimg.cc/jqJdfFtB/iphone-meraki-mockup.webp"
+        "https://i.postimg.cc/8z1HFJbt/laptop-meraki-mockup.webp",
+        "https://i.postimg.cc/NjpxRsJY/tablet-meraki-mockup.webp"
       ],
       features: [
         "Responsive and accessible design.",

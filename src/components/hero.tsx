@@ -168,7 +168,7 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
         </Link>
         <Link
           href="/projectsView"
-          className="bg-white dark:bg-gray-800 rounded-xl p-4 flex items-center justify-center font-bold hover:scale-105 transition-all duration-300 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+          className="bg-white dark:bg-gray-800 rounded-xl p-4 flex items-center justify-center font-bold hover:scale-105 transition-all duration-300 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700"
         >
           View My Work
         </Link>
