@@ -93,9 +93,9 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
                 <li key={index} className="leading-relaxed text-base text-gray-600 dark:text-gray-300">{feature}</li>
               ))}
             </ul>
-            <div className=' w-full pt-4'>
+         
           <Gallery images={project.gallery} />
-      </div>
+
           </div>
         </div>
         {/* Panel 2 Links - 1 columna */}
