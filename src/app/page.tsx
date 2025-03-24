@@ -52,7 +52,7 @@ const Home: React.FC = () => {
   return (
 <div className="flex flex-col w-full ">
       {/* Hero Section */}
-      <section className="h-[calc(100vh-6rem)]
+      <section className="h-2/4  
        md:h-[calc(100vh-6rem)] flex items-center justify-center" data-aos="fade-up">
         <div className="w-full">
           <Hero
@@ -115,14 +115,21 @@ const Home: React.FC = () => {
                   </div>
                   
                  
-                    <div className="flex  gap-2 overflow-x-clip">
-                      {project.technologies.map((tech, index) => (
+                  <div className="flex gap-2 overflow-x-clip">
+                      {project.technologies.slice(0, 5).map((tech, index) => (
                         <div key={index} className="flex-shrink-0">
                           <span className="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
                             {tech}
                           </span>
                         </div>
                       ))}
+                      {project.technologies.length > 5 && (
+                        <div className="flex-shrink-0">
+                          <span className="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                            +{project.technologies.length - 5}
+                          </span>
+                        </div>
+                      )}
                     </div>
 
               
