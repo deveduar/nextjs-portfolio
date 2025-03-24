@@ -6,7 +6,6 @@ import About from "@/components/about";
 import ContactForm from "@/components/contactForm";
 import Link from "next/link";
 import ProjectDetails from "@/components/projectDetails";
-import { projects } from "@/data/projects";
 // SVG variables
 import Connect from "@/components/connect";
 import ProjectList
@@ -16,6 +15,9 @@ import profile from '@/data/profile';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Image from 'next/image';
+import { readmes } from "@/data/readmes"; 
+import { FaGithub } from "react-icons/fa";
+import { BiLinkExternal } from "react-icons/bi";
 
 const Home: React.FC = () => {
 
@@ -27,9 +29,18 @@ const Home: React.FC = () => {
     });
   }, []);
 
-  const techStack = Array.from(new Set(projects.flatMap((project) => project.technologies)));
-  const recentProjects = projects.slice(-4).reverse();
- 
+  // Update to use readmes data
+  // const techStack = Array.from(new Set(
+  //   Object.values(readmes)
+  //     .flatMap((readme) => readme.technologies)
+  // ));
+
+  // Get recent projects from readmes
+  const recentProjects = [...Object.values(readmes)]
+    .sort((a, b) => b.id - a.id)
+    .slice(-4)
+    .reverse();
+
   return (
 <div className="flex flex-col w-full ">
       {/* Hero Section */}
@@ -85,11 +96,11 @@ const Home: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <div className="text-xs  font-medium">
-                          {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.svg}
+                        <div className="text-xs font-medium">
+                          <BiLinkExternal className="w-4 h-4" />
                         </div>
                         <span className="text-xs font-medium">
-                          {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.label}
+                          Demo
                         </span>
                       </Link>
                     )}
@@ -113,9 +124,9 @@ const Home: React.FC = () => {
                   </p>
                   
                   <div className="mt-auto flex items-center justify-between w-full gap-4 text-black dark:text-white pt-4">
-                    <div className="flex-1 flex items-center gap-2 min-w-0">
+                  <div className="flex-1 flex items-center gap-2 min-w-0">
                       {project.links
-                        .filter(link => !link.label.toLowerCase().includes('demo') && !link.label.toLowerCase().includes('live'))
+                        .filter(link => link.label.toLowerCase().includes('github'))
                         .slice(0, 2)
                         .map((link, idx) => (
                           <Link
@@ -123,16 +134,16 @@ const Home: React.FC = () => {
                             href={link.href}
                             className="flex items-center gap-1 py-1 truncate hover:text-gray-800 dark:hover:text-gray-400 transition-all duration-300"
                             target="_blank"
-                            rel="noopener noreferrer "
+                            rel="noopener noreferrer"
                           >
-                            <div className="flex-shrink-0 text-xs ">
-                              {link.svg}
+                            <div className="flex-shrink-0 text-xs">
+                              <FaGithub className="w-4 h-4" />
                             </div>
-                            <span className="text-xs font-medium truncate ">
+                            <span className="text-xs font-medium truncate">
                               {link.label}
                             </span>
                           </Link>
-                      ))}
+                        ))}
                     </div>
                     <Link
                       href={`/projects/${project.id}`}
@@ -167,8 +178,7 @@ const Home: React.FC = () => {
             About me
           </h2>
           <About 
-            technologies={techStack} 
-            profile={profile}
+              profile={profile}
           />
         </div>
       </section>
