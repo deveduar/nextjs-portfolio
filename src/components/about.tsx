@@ -8,7 +8,6 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Link from "next/link";
 
 interface AboutProps {
-  technologies: string[];
   profile: {
     name: string;
     specialty: string;
@@ -52,7 +51,7 @@ interface AboutProps {
   };
 }
 
-const About: React.FC<AboutProps> = ({ technologies, profile }) => {
+const About: React.FC<AboutProps> = ({ profile }) => {
   const marqueeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

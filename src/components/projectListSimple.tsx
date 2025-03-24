@@ -5,18 +5,21 @@ import Image from 'next/image';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { useState, useRef, TouchEvent, MouseEvent } from 'react';
 import { TbGripHorizontal } from "react-icons/tb";
+import { FaGithub } from "react-icons/fa";
+import { BiLinkExternal } from "react-icons/bi";
 
 interface ProjectListSimpleProps {
   projects: {
     id: number;
-    imageSrc: string;
+    repoId: string;
     title: string;
     description: string;
-    detailedDescription: string;
+    imageSrc: string;
     technologies: string[];
-    links: { href: string; label: string; svg: JSX.Element }[];
-    gallery: string[];
-    features?: string[];
+    links: {
+      href: string;
+      label: string;
+    }[];
   }[];
   variant?: 'detailed' | 'simple';
   onNext?: () => void;
@@ -394,19 +397,18 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
           <h4 className="text-xl font-semibold text-gray-900 dark:text-white ">
             {project.title}
           </h4>
-          {/* Live Demo Link */}
-          {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live')) && (
+            {/* Live Demo Link */}
+            {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live')) && (
             <Link
               href={project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.href || ''}
-              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-500 flex items-center gap-1 "
+              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-500 flex items-center gap-1"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="text-xs scale-75 font-medium">
-              {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.svg}
-              </div>
-  
-              <span className="text-xs font-medium">{project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.label}</span>
+              <BiLinkExternal className="w-4 h-4" />
+              <span className="text-xs font-medium">
+                {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.label}
+              </span>
             </Link>
           )}
              </div>
@@ -429,24 +431,22 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
 
                   <div className="flex items-center justify-between w-full sm:w-auto">
                   <div className="flex flex-wrap gap-1">
-                {project.links
-                  .filter(link => !link.label.toLowerCase().includes('demo') && !link.label.toLowerCase().includes('live'))
-                  .slice(0, 1)
-                  .map((link, idx) => (
-                    <Link
-                      key={idx}
-                      href={link.href}
-                      className="rounded-xl items-center gap-1 flex flex-row py-1"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <div className="text-xs scale-75">
-                        {link.svg}
-                      </div>
-                      <span className="text-xs font-medium whitespace-nowrap">{link.label}</span>
-                    </Link>
-                  ))}
-              </div>
+                    {project.links
+                    .filter(link => !link.label.toLowerCase().includes('demo') && !link.label.toLowerCase().includes('live'))
+                    .slice(0, 1)
+                    .map((link, idx) => (
+                      <Link
+                        key={idx}
+                        href={link.href}
+                        className="rounded-xl items-center gap-1 flex flex-row py-1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <FaGithub className="w-4 h-4" />
+                        <span className="text-xs font-medium whitespace-nowrap">{link.label}</span>
+                      </Link>
+                    ))}
+                  </div>
                     <Link
                       href={`/projects/${project.id}`}
                       className="rounded-xl items-center gap-3 flex flex-row py-1 sm:py-2 text-blue-600 dark:text-blue-400"

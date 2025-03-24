@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react'
 import Card from "@/components/card";
-import { projects } from "@/data/projects";
 import { IoSearchOutline } from "react-icons/io5";
+import { readmes } from '@/data/readmes';
 
 const ProjectList: React.FC = () => {
 
@@ -16,7 +16,7 @@ const ProjectList: React.FC = () => {
       .replace(/[\u0300-\u036f]/g, '');
   };
 
-  const filteredProjects = projects.filter(project => {
+  const filteredProjects = readmes.filter(project => {
     const searchContent = normalizeText(`
       ${project.title} 
       ${project.description} 
@@ -58,7 +58,7 @@ const ProjectList: React.FC = () => {
       />
     </div>
     <div className="w-full flex flex-wrap gap-4 md:gap-4 pt-4 -mb-12 sm:-mb-12 md:pb-12">
-        {filteredProjects.slice().reverse().map((project) => (
+        {filteredProjects.slice().map((project) => (
           <Card
             id={project.id}
             key={project.id}

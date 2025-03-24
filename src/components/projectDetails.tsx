@@ -4,19 +4,29 @@ import Link from 'next/link';
 import Image from "next/image";
 import Gallery from "@/components/gallery";
 import ProjectNavigation from '@/components/projectNavigation';
-import { projects } from "@/data/projects";
+// import { projects } from "@/data/projects";
+import { readmes } from '@/data/readmes';
+import { FaGithub } from "react-icons/fa";
+import { BiLinkExternal } from "react-icons/bi";
 
 interface ProjectDetailsProps {
   project: {
     id: number;
-    imageSrc: string;
+    repoId: string;
     title: string;
     description: string;
     detailedDescription: string;
+    imageSrc: string;
     technologies: string[];
-    links: { href: string; label: string; svg: JSX.Element }[];
-    gallery: string[]; 
-    features?: string[]; 
+    links: {
+      href: string;
+      label: string;
+    }[];
+    gallery?: string[];  // Make gallery optional
+    features?: string[];
+    readmeContent?: {
+      [key: string]: any;
+    };
   };
 }
 
@@ -63,9 +73,9 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="text-xs scale-75">
-                  {link.svg}
-                </div>
+               <div className="text-xs scale-75">
+  <FaGithub className="w-4 h-4" />
+</div>
                 <span className="text-xs font-medium whitespace-nowrap">{link.label}</span>
               </Link>
             ))}
@@ -79,8 +89,8 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
               rel="noopener noreferrer"
             >
               <div className="text-xs scale-75 font-medium">
-              {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.svg}
-              </div>
+              <BiLinkExternal className="w-4 h-4" />
+            </div>
   
               <span className="text-xs font-medium">{project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.label}</span>
             </Link>
@@ -94,14 +104,14 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
               ))}
             </ul>
          
-          <Gallery images={project.gallery} />
+            {project.gallery && <Gallery images={project.gallery} />}
 
           </div>
         </div>
         {/* Panel 2 Links - 1 columna */}
         <div className="md:col-span-1 lg:col-span-1 rounded-xl">
           {/* links 1 */}
-        <ProjectNavigation currentId={project.id} projects={projects} variant="vertical" />
+          <ProjectNavigation currentId={project.id} projects={Object.values(readmes)} variant="vertical" />
         {/* links 2 */}
         <div className="grid md:flex md:flex-col gap-4 mt-4 ">
             {project.links.map((link, index) => (
@@ -116,7 +126,10 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
                 rel="noopener noreferrer"
               >
                 <div className={`text-sm scale-125 flex-shrink-0 ${link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? 'text-blue-600 dark:text-blue-400' : ''}`}>
-                  {link.svg}
+                  {link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') 
+                    ? <BiLinkExternal className="w-4 h-4" />
+                    : <FaGithub className="w-4 h-4" />
+                  }
                 </div>
                 <span className="text-sm font-medium dark:text-white truncate max-w-[150px]">{link.label}</span>
               </Link>

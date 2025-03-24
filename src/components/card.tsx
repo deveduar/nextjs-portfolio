@@ -6,7 +6,6 @@ import Link from "next/link";
 interface LinkProps {
   href: string;
   label: string;
-  svg: JSX.Element;
 }
 
 interface CardProps {

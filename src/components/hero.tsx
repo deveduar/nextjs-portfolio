@@ -5,7 +5,7 @@ import Typewriter from 'typewriter-effect';
 import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 import Image from "next/image";
 import ProjectListSimple from '@/components/projectListSimple';
-import { projects } from "@/data/projects";
+import { readmes } from "@/data/readmes";
 
 interface HeroProps {
   name: string;
@@ -20,7 +20,10 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }) => {
 
-  const recentProjects = projects.slice(-4).reverse();
+  const recentProjects = [...readmes]
+  .sort((a, b) => b.id - a.id)
+  .slice(-4)
+  .reverse();
 
   return (
     <div className="w-full grid grid-cols-4 md:grid-cols-6 gap-4">
