@@ -1,11 +1,15 @@
+"use client";
+
 import { notFound } from 'next/navigation';
 import ProjectDetails from '@/components/projectDetails';
+
 import Card from "@/components/card";
 import About from "@/components/about";
 import Link from 'next/link';
 import { IoArrowBackCircleOutline, IoArrowForwardCircleOutline } from "react-icons/io5";
 import ProjectNavigation from '@/components/projectNavigation'
-import { readmes } from '@/data/readmes';
+// import { readmes } from '@/data/readmes';
+import { useReadmes } from '@/hooks/useReadmes';
 
 interface ProjectPageProps {
   params: {
@@ -14,13 +18,30 @@ interface ProjectPageProps {
 }
 
 const ProjectPage = ({ params }: ProjectPageProps) => {
+  const { readmes, loading, error } = useReadmes();
   const { id } = params;
-
   const projectId = parseInt(id);
-  const project = Object.values(readmes).find((proj) => proj.id === projectId);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-red-500">
+        Error loading projects: {error}
+      </div>
+    );
+  }
+
+  const project = readmes.find((proj) => proj.id === projectId);
 
   if (!project) {
-    return notFound(); 
+    return notFound();
   }
 
   return (

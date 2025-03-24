@@ -1,25 +1,20 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Card from "@/components/card";
 import Hero from "@/components/hero";
 import About from "@/components/about";
 import ContactForm from "@/components/contactForm";
 import Link from "next/link";
-import ProjectDetails from "@/components/projectDetails";
-// SVG variables
-import Connect from "@/components/connect";
-import ProjectList
- from "@/components/projectList";
-import ProjectListSimple from '@/components/projectListSimple';
 import profile from '@/data/profile';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Image from 'next/image';
-import { readmes } from "@/data/readmes"; 
+// import { readmes } from "@/data/readmes"; 
 import { FaGithub } from "react-icons/fa";
 import { BiLinkExternal } from "react-icons/bi";
+import { useReadmes } from '@/hooks/useReadmes';
 
 const Home: React.FC = () => {
+  const { readmes, loading, error } = useReadmes();
 
   useEffect(() => {
     AOS.init({
@@ -36,10 +31,23 @@ const Home: React.FC = () => {
   // ));
 
   // Get recent projects from readmes
-  const recentProjects = [...Object.values(readmes)]
+  const recentProjects = loading ? [] : [...readmes]
     .sort((a, b) => b.id - a.id)
     .slice(-4)
     .reverse();
+
+    if (loading) {
+      return <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+      </div>;
+    }
+  
+    if (error) {
+      return <div className="flex items-center justify-center min-h-screen text-red-500">
+        Error loading projects: {error}
+      </div>;
+    }
+  
 
   return (
 <div className="flex flex-col w-full ">
