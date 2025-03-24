@@ -15,8 +15,6 @@ links:
     label: "GitHub Repository"
   - href: "https://deveduar-portfolio.vercel.app"
     label: "Live Demo"
-gallery:
-  - "https://i.postimg.cc/HLT5MH2H/artem-sapegin-b18-TRXc8-UPQ-unsplash.jpg"
 features:
   - "Bento-style UI for a modern and structured layout."
   - "Dynamic project showcase integrated with GitHub README repository."
