@@ -1,3 +1,32 @@
+---
+title: "My Portfolio"
+description: "A Single Page Application (SPA) developed with Next.js 14, TypeScript, and Tailwind CSS to showcase my projects, skills, and experience."
+imageSrc: "https://i.postimg.cc/HLT5MH2H/artem-sapegin-b18-TRXc8-UPQ-unsplash.jpg"
+detailedDescription: "A modern portfolio built using Next.js 14, TypeScript, and Tailwind CSS. It features a project showcase, interactive modals, dark mode support, and performance optimizations."
+technologies:
+  - "Next.js 14"
+  - "TypeScript"
+  - "Tailwind CSS"
+  - "Vercel"
+links:
+  - href: "https://github.com/deveduar/nextjs-portfolio.git"
+    label: "GitHub Repository"
+  - href: "https://deveduar-portfolio.vercel.app"
+    label: "Live Demo"
+gallery:
+  - "https://i.postimg.cc/HLT5MH2H/artem-sapegin-b18-TRXc8-UPQ-unsplash.jpg"
+features:
+  - "Modern UI/UX with responsive design."
+  - "Dynamic project listing with details."
+  - "Optimized performance using next/image."
+  - "Interactive modals for project details."
+  - "Secure contact form."
+  - "Dark mode support."
+  - "Fully responsive design for all devices."
+  - "Deployed on Vercel for fast and reliable hosting."
+
+---
+
 # 🚀 My Portfolio  
 
 A **Single Page Application (SPA)** developed with **Next.js 14**, **TypeScript**, and **Tailwind CSS** to showcase my projects, skills, and experience.
