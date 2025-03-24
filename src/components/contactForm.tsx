@@ -164,47 +164,50 @@ export default function ContactForm() {
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 ">
         <div className="flex flex-row md:flex-col justify-between">
           <div className="flex flex-col justify-between w-full">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h3>
+          {/* <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h3> */}
           
-          <div className="flex flex-row md:flex-row items-center md:items-center gap-4 md:gap-6 w-full ">
-            <div className="flex-shrink-0 w-20 h-20">
+          <div className="flex flex-row items-center gap-4 md:gap-6 w-full align-middle flex-wrap-reverse justify-around">
+            <div className="flex flex-col gap-4 md:gap-3   ">
+              <div className="flex flex-col">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{profile.name}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{profile.specialty}</p>
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 text-sm truncate">
+                Based in Spain
+              </p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm truncate">
+                Available for projects
+              </p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm truncate">
+                Open to collaborations
+              </p>
+            </div>
+            <div className="flex-shrink-0 w-24 h-24">
               <Image
                 src="/images/profile.jpeg"
                 alt="Profile Avatar"
                 width={150}
                 height={150}
-                className="rounded-full shadow-lg"
+                className="rounded-full shadow-lg w-full h-full object-cover"
                 priority
               />
             </div>
-            <div className="flex flex-col items-center">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{profile.name}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{profile.specialty}</p>
-            </div>
           </div>
+ 
 
         <div className="flex  justify-between flex-row md:flex-col w-full">
-          <div className="flex flex-col gap-4 md:gap-3 mt-4">
-            <p className="text-gray-600 dark:text-gray-300 text-sm truncate">
-              📍 Based in Spain
-            </p>
-            <p className="text-gray-600 dark:text-gray-300 text-sm truncate">
-              🕒 Available for projects
-            </p>
-            <p className="text-gray-600 dark:text-gray-300 text-sm truncate">
-              💼 Open to collaborations
-            </p>
-          </div>
-          <div className="flex flex-col md:flex-row gap-2 md:gap-6 mt-4 md:mt-6 md:justify-center">
-            <Link href={profile.socialLinks.github} target="_blank" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
-              <FaGithub size={28} />
-            </Link>
-            <Link href={profile.socialLinks.linkedin} target="_blank" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
-              <FaLinkedin size={28} />
-            </Link>
-            <Link href={profile.socialLinks.twitter} target="_blank" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
-              <FaTwitter size={28} />
-            </Link>
+          <div className="flex flex-col flex-grow justify-between">
+            <div className="flex justify-center gap-6 mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+              <Link href={profile.socialLinks.github} target="_blank" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+                <FaGithub size={24} />
+              </Link>
+              <Link href={profile.socialLinks.linkedin} target="_blank" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+                <FaLinkedin size={24} />
+              </Link>
+              <Link href={profile.socialLinks.twitter} target="_blank" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+                <FaTwitter size={24} />
+              </Link>
+            </div>
           </div>
         </div>
 
