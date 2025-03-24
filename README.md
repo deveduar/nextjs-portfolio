@@ -1,5 +1,5 @@
 ---
-id: 7
+id: 6
 title: "My Portfolio"
 description: "A Single Page Application (SPA) developed with Next.js 14, TypeScript, and Tailwind CSS to showcase my projects, skills, and experience."
 imageSrc: "https://i.postimg.cc/HLT5MH2H/artem-sapegin-b18-TRXc8-UPQ-unsplash.jpg"
