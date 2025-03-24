@@ -5,7 +5,7 @@ import Typewriter from 'typewriter-effect';
 import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 import Image from "next/image";
 import ProjectListSimple from '@/components/projectListSimple';
-import { readmes } from "@/data/readmes";
+import { useReadmes } from '@/hooks/useReadmes';
 
 interface HeroProps {
   name: string;
@@ -20,10 +20,16 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }) => {
 
-  const recentProjects = [...readmes]
-  .sort((a, b) => b.id - a.id)
-  .slice(-4)
-  .reverse();
+  const { readmes, loading, error } = useReadmes();
+
+  const recentProjects = loading ? [] : [...readmes]
+    .sort((a, b) => b.id - a.id)
+    .slice(-4)
+    .reverse();
+
+  if (error) {
+    console.error('Error loading projects:', error);
+  }
 
   return (
     <div className="w-full grid grid-cols-4 md:grid-cols-6 gap-4">

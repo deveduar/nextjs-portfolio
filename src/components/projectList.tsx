@@ -3,11 +3,22 @@
 import React, { useState } from 'react'
 import Card from "@/components/card";
 import { IoSearchOutline } from "react-icons/io5";
-import { readmes } from '@/data/readmes';
+import { useReadmes } from '@/hooks/useReadmes';
 
 const ProjectList: React.FC = () => {
 
+  const { readmes, loading, error } = useReadmes();
   const [searchTerm, setSearchTerm] = useState('');
+
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+    </div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500">Error loading projects: {error}</div>;
+  }
 
   const normalizeText = (text: string) => {
     return text

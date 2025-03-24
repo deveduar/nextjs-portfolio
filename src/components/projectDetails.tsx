@@ -4,10 +4,9 @@ import Link from 'next/link';
 import Image from "next/image";
 import Gallery from "@/components/gallery";
 import ProjectNavigation from '@/components/projectNavigation';
-// import { projects } from "@/data/projects";
-import { readmes } from '@/data/readmes';
 import { FaGithub } from "react-icons/fa";
 import { BiLinkExternal } from "react-icons/bi";
+import { useReadmes } from '@/hooks/useReadmes';
 
 interface ProjectDetailsProps {
   project: {
@@ -31,7 +30,7 @@ interface ProjectDetailsProps {
 }
 
 const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
-
+  const { readmes } = useReadmes();
   return (
     <div className=" text-black rounded-xl dark:text-white">
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -111,7 +110,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
         {/* Panel 2 Links - 1 columna */}
         <div className="md:col-span-1 lg:col-span-1 rounded-xl">
           {/* links 1 */}
-          <ProjectNavigation currentId={project.id} projects={Object.values(readmes)} variant="vertical" />
+            <ProjectNavigation currentId={project.id} projects={readmes} variant="vertical" />
         {/* links 2 */}
         <div className="grid md:flex md:flex-col gap-4 mt-4 ">
             {project.links.map((link, index) => (
