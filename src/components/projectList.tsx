@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Card from "@/components/card";
 import { IoSearchOutline } from "react-icons/io5";
 import { useReadmes } from '@/hooks/useReadmes';
+import SearchInput from "@/components/searchInput";
 
 const ProjectList: React.FC = () => {
 
@@ -53,22 +54,11 @@ const ProjectList: React.FC = () => {
 
   return (
     <div className='flex flex-col'>
-    <div className="relative w-full max-w-xl  ">
-      <IoSearchOutline className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
-      <input
-        type="text"
-        placeholder="Search projects by title, description or technology..."
+      <SearchInput 
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-gray-800 
-          border border-gray-200 dark:border-gray-700
-          text-gray-900 dark:text-white
-          placeholder-gray-400 dark:placeholder-gray-500
-          focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400
-          transition-all duration-300"
+        onChange={setSearchTerm}
       />
-    </div>
-    <div className="w-full flex flex-wrap gap-4 md:gap-4 pt-4 -mb-12 sm:-mb-12 md:pb-12">
+    <div className="w-full flex flex-wrap gap-4 md:gap-4 pt-4 -mb-12 sm:-mb-12 md:pb-12" data-aos="fade-up">
         {filteredProjects.slice().map((project) => (
           <Card
             id={project.id}

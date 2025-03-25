@@ -268,7 +268,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                dark:bg-opacity-30  */}
                   <div className="p-2 md:px-3 opacity-1 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center h-full">
                     <div className='space-y-2 flex flex-col justify-center '>
-                      <Link href={`/projects/${project.id}`}>
+                      <Link href={`/project/${project.id}`}>
                         <h3 className="font-semibold text-xs md:text-lg text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-400 transition-colors line-clamp-1">
                           {project.title}
                         </h3>
@@ -325,7 +325,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
             <div className="flex-1">
               <div>
                 <Link 
-                  href={`/projects/${projects[projects.length - 1].id}`}
+                  href={`/project/${projects[projects.length - 1].id}`}
                   className="inline-block hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
                 >
                   <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
@@ -448,7 +448,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                     ))}
                   </div>
                     <Link
-                      href={`/projects/${project.id}`}
+                      href={`/project/${project.id}`}
                       className="rounded-xl items-center gap-3 flex flex-row py-1 sm:py-2 text-blue-600 dark:text-blue-400"
                       rel="noopener noreferrer"
                     >
@@ -469,7 +469,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
             <div className="flex-1">
               <div>
                 <Link 
-                  href={`/projects/${projects[0].id}`}
+                  href={`/project/${projects[0].id}`}
                   className="inline-block hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
                 >
                   <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">

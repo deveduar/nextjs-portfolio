@@ -72,8 +72,9 @@ const Home: React.FC = () => {
           </h2>
           <div className="flex flex-col gap-4">
             {recentProjects.map((project, index) => (
-              <div 
-                key={project.id} 
+              <Link 
+                key={project.id}
+                href={`/project/${project.id}`} 
                 className="flex  md:h-60 "
                 data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}
               >
@@ -92,8 +93,8 @@ const Home: React.FC = () => {
                 {/* Información */}
                 <div className="w-full md:w-3/5  space-y-4 p-4">
                   <div className="flex justify-between items-center">
-                  <Link href={`/projects/${project.id}`} className="">
-                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-1">
+                  <Link href={`/project/${project.id}`} className="">
+                      <h3 className="text-2xl font-bold text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-400 transition-colors line-clamp-1">
                         {project.title}
                       </h3>
                     </Link>
@@ -161,7 +162,7 @@ const Home: React.FC = () => {
                         ))}
                     </div>
                     <Link
-                      href={`/projects/${project.id}`}
+                      href={`/project/${project.id}`}
                       className="flex-shrink-0 flex items-center gap-3 py-1 sm:py-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-500"
                       rel="noopener noreferrer"
                     >
@@ -171,12 +172,12 @@ const Home: React.FC = () => {
                 </div>
               </div>
 
-              </div>
+              </Link>
             ))}
           </div>
           <div className="flex justify-center mt-8 px-4">
             <Link 
-              href="/projectsView" 
+              href="/projects" 
               className="bg-blue-200 dark:bg-blue-900 rounded-xl p-4 flex items-center justify-center font-bold hover:scale-105 transition-all duration-300 text-gray-900 dark:text-white"
             >
               View All Projects

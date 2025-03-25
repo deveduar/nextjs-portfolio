@@ -31,7 +31,7 @@ const Card: React.FC<CardProps> = ({
   
 }) => {
   return (
-    <Link href={`/projects/${id}`} className="w-full border  dark:border-gray-900 rounded-xl cursor-pointer transition-transform transform lg:hover:scale-105 hover:shadow-lg bg-white dark:bg-gray-800 
+    <Link href={`/project/${id}`} className="w-full border  dark:border-gray-900 rounded-xl cursor-pointer transition-transform transform lg:hover:scale-105 hover:shadow-lg bg-white dark:bg-gray-800 
     grow 
     basis-full min-w-[300px] max-w-full 
     
@@ -64,7 +64,7 @@ const Card: React.FC<CardProps> = ({
     <div className=" text-black dark:text-white ">
       <h3 className="font-bold text-md  text-black dark:text-white truncate">{title}</h3>
 
-      <p className="text-xs text-black dark:text-gray-300 line-clamp-1 lg:line-clamp-2  ">{description}</p>
+      <p className="text-sm text-black dark:text-gray-300 line-clamp-1 lg:line-clamp-2  ">{description}</p>
     </div>
 
 
@@ -73,12 +73,11 @@ const Card: React.FC<CardProps> = ({
         {technologies.length > 0 && (
           <div className="flex flex-wrap gap-2 p-2">
             {technologies.slice(0, 3).map((tech, index) => (
-              <span
-                key={index}
-                className="bg-gray-200 dark:bg-gray-700 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 rounded-lg"
-              >
-                {tech}
-              </span>
+                <div key={index} className="flex-shrink-0">
+                <span className="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  {tech}
+                </span>
+              </div>
             ))}
           </div>
         )}

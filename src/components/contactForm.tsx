@@ -184,7 +184,7 @@ export default function ContactForm() {
             </div>
             <div className="flex-shrink-0 w-24 h-24">
               <Image
-                src="/images/profile.jpeg"
+                src="/images/profile.webp"
                 alt="Profile Avatar"
                 width={150}
                 height={150}
