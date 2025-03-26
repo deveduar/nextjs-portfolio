@@ -70,9 +70,9 @@ const Navbar: React.FC = () => {
         </li>
         <li>
           <Link 
-            href="/projectsView" 
+            href="/projects" 
             className={`block py-2 px-3 rounded md:p-0 transition-colors
-              ${pathname === '/projectsView' 
+              ${pathname === '/projects' 
                 ? 'text-blue-600 dark:text-blue-400 hover:cursor-default' 
                 : 'text-gray-900 dark:text-white hover:bg-gray-300 md:hover:bg-transparent md:hover:text-blue-900  md:dark:hover:text-gray-400 dark:hover:bg-gray-700 md:dark:hover:bg-transparent'
               }`}

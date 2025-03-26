@@ -3,11 +3,10 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from "next/image";
 import Gallery from "@/components/gallery";
-import ProjectNavigation from '@/components/projectNavigation';
 import { FaGithub } from "react-icons/fa";
 import { BiLinkExternal } from "react-icons/bi";
-import { useReadmes } from '@/hooks/useReadmes';
-
+import Badge from "@/components/badge";
+import TechTags from "@/components/techTags";
 interface ProjectDetailsProps {
   project: {
     id: number;
@@ -21,7 +20,7 @@ interface ProjectDetailsProps {
       href: string;
       label: string;
     }[];
-    gallery?: string[];  // Make gallery optional
+    gallery?: string[]; 
     features?: string[];
     readmeContent?: {
       [key: string]: any;
@@ -30,116 +29,85 @@ interface ProjectDetailsProps {
 }
 
 const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
-  const { readmes } = useReadmes();
+
+  const demoLink = project.links.find(link => 
+    link.label.toLowerCase().includes('demo') || 
+    link.label.toLowerCase().includes('live')
+  );
+
   return (
-    <div className=" text-black rounded-xl dark:text-white">
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {/* Panel 1 Información Principal - 2 columnas en md */}
-        <div className="md:col-span-2 lg:col-span-3  bg-white dark:bg-gray-800  rounded-xl ">
-          {/* image */}
-          <div className=" rounded-t-xl overflow-hidden ">
-            <Image
-              width={1200}
-              height={800}
-              src={project.imageSrc}
-              alt="Project"
-              className="object-cover h-40 w-30"
-            />
-          </div>
-          {/* content */}
-          <div className="p-6 space-y-4">
-            <div className='flex flex-row justify-between'>
-            <h2 className="text-2xl font-bold">{project.title}</h2>
+  <div className="">
+    {/* image */}
+    <div className="rounded-t-xl overflow-hidden relative">
+          <Image
+            width={1200}
+            height={800}
+            src={project.imageSrc}
+            alt="Project"
+            className="object-cover h-36 "
+          />
+          <div className="absolute inset-0 
+            bg-white bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90
+            hover:bg-opacity-90 dark:hover:bg-opacity-90 
+            transition-all duration-300">
+            {/* Badge en esquina superior derecha */}
+            {demoLink && (
+              <div className="absolute top-2 right-2">
+                <Badge label={demoLink.label} href={demoLink.href} />
+              </div>
+            )}
+            {/* Contenido en la parte inferior */}
+            <div className="absolute bottom-0 left-0 right-0 p-4 space-y-2">
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">{project.title}</h2>
+              <TechTags 
+                technologies={project.technologies} 
+                limit={6}
+                colorful={true}
+                overlayStyle={true}
+                className='flex-wrap'
+              />
             </div>
-
-            <div className="flex flex-wrap gap-2">
-              {project.technologies.map((tech, index) => (
-                <div key={index} className="flex gap-2">
-                  <span className="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">{tech}</span>
-                </div>
-              ))}
-            </div>
-            <div className="flex items-center justify-between w-full sm:w-auto">
-            <div className="flex flex-wrap gap-1">
-          {project.links
-            .filter(link => !link.label.toLowerCase().includes('demo') && !link.label.toLowerCase().includes('live'))
-        
-            .map((link, idx) => (
-              <Link
-                key={idx}
-                href={link.href}
-                className="rounded-xl items-center gap-1 flex flex-row py-1"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-               <div className="text-xs scale-75">
-  <FaGithub className="w-4 h-4" />
-</div>
-                <span className="text-xs font-medium whitespace-nowrap">{link.label}</span>
-              </Link>
-            ))}
-        </div>
-        
-        {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live')) && (
-            <Link
-              href={project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.href || ''}
-              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-500 flex items-center gap-1 "
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="text-xs scale-75 font-medium">
-              <BiLinkExternal className="w-4 h-4" />
-            </div>
-  
-              <span className="text-xs font-medium">{project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.label}</span>
-            </Link>
-          )}
-            </div>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{project.description}</p>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{project.detailedDescription}</p>
-            <ul className="list-disc leading-relaxed list-inside space-y-2 ">
-              {project.features?.map((feature, index) => (
-                <li key={index} className="leading-relaxed text-base text-gray-600 dark:text-gray-300">{feature}</li>
-              ))}
-            </ul>
-         
-            {project.gallery && <Gallery images={project.gallery} />}
-
           </div>
         </div>
-        {/* Panel 2 Links - 1 columna */}
-        <div className="md:col-span-1 lg:col-span-1 rounded-xl">
-          {/* links 1 */}
-            <ProjectNavigation currentId={project.id} projects={readmes} variant="vertical" />
-        {/* links 2 */}
-        <div className="grid md:flex md:flex-col gap-4 mt-4 ">
-            {project.links.map((link, index) => (
-              <Link
-                key={index}
-                href={link.href}
-                className={`p-4 rounded-xl hover:scale-105 mr-2transition-all duration-300 flex items-center gap-2 w-full 
-                  ${link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live')
-                    ? 'bg-blue-100 dark:bg-blue-900' 
-                    : 'bg-white dark:bg-gray-800'}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className={`text-sm scale-125 flex-shrink-0 ${link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? 'text-blue-600 dark:text-blue-400' : ''}`}>
-                  {link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') 
-                    ? <BiLinkExternal className="w-4 h-4" />
-                    : <FaGithub className="w-4 h-4" />
-                  }
-                </div>
-                <span className="text-sm font-medium dark:text-white truncate max-w-[150px]">{link.label}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-        </div>
-  
-    </div>
-
+    {/* content */}
+    <div className="p-6 space-y-4">
+      <div className="flex items-center justify-between w-full sm:w-auto">
+      <div className="flex items-center gap-4 flex-wrap">
+        {project.links.map((link, idx) => (
+          <Link
+            key={idx}
+            href={link.href}
+            className={`rounded-xl items-center gap-1 flex flex-row py-1 ${
+              link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live')
+                ? 'text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-500'
+                : 'hover:text-gray-800 dark:hover:text-gray-400 transition-all duration-3000'
+            }`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="flex-shrink-0 text-xs">
+              {link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') 
+                ? <BiLinkExternal className="w-4 h-4" />
+                : <FaGithub className="w-4 h-4" />
+              }
+            </div>
+            <span className="text-xs font-medium whitespace-nowrap">{link.label}</span>
+          </Link>
+        ))}
+      </div>
+      </div>
+      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{project.description}</p>
+      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{project.detailedDescription}</p>
+      <ul className="list-disc leading-relaxed list-inside space-y-2 ">
+        {project.features?.map((feature, index) => (
+          <li key={index} className="leading-relaxed text-base text-gray-600 dark:text-gray-300">{feature}</li>
+        ))}
+      </ul>
     
+      {project.gallery && <Gallery images={project.gallery} />}
+
+    </div>
+  </div>
   );
 };
 

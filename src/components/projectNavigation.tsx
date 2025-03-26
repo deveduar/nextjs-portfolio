@@ -14,29 +14,26 @@ const ProjectNavigation: React.FC<ProjectNavigationProps> = ({ currentId, projec
   const isVertical = variant === 'vertical';
   
   return (
-    <div className={`flex w-full ${isVertical ? 'md:flex-col ' : 'justify-between'} items-center gap-4  text-black dark:text-white ${isVertical ? '' : 'mb-6'}`}>
-      <Link
-        href={`/projects/${currentId < projects.length ? currentId + 1 : 1}`}
-        className={`flex items-center gap-2 hover:scale-105 transition-all duration-300 ${isVertical ? 'w-full justify-start bg-white dark:bg-gray-800 p-4 rounded-xl' : ''}`}
+    <div className={`flex w-full ${isVertical ? 'md:flex-col ' : 'justify-between'} items-center gap-4  text-black dark:text-white ${isVertical ? '' : ''}`}>
+        <Link
+        href={`/project/${currentId < projects.length ? currentId + 1 : 1}`}
+        className={`flex items-center gap-2 hover:scale-105 transition-all duration-300 ${isVertical ? 'w-full justify-start bg-white dark:bg-gray-800 p-4 rounded-xl' : 'justify-end  p-4 rounded-xl min-w-40 max-w-50'}`}
       >
-        <div className="flex-shrink-0">
-          <IoArrowBackCircleOutline size={20} />
-        </div>
-        <span className="text-sm font-medium min-w-0 truncate">
+        <IoArrowBackCircleOutline size={20} />
+        <span className={`text-sm font-medium truncate ${isVertical ? '' : 'min-w-32 max-w-40' }`}>
           {projects.find(p => p.id === (currentId < projects.length ? currentId + 1 : 1))?.title}
         </span>
       </Link>
       
       <Link
-        href={`/projects/${currentId > 1 ? currentId - 1 : projects.length}`}
-        className={`flex items-center gap-2 hover:scale-105 transition-all duration-300 ${isVertical ? 'w-full justify-start bg-white dark:bg-gray-800 p-4 rounded-xl' : ''}`}
+        href={`/project/${currentId > 1 ? currentId - 1 : projects.length}`}
+        className={`flex items-center gap-2 hover:scale-105 transition-all duration-300 ${isVertical ? 'w-full justify-start bg-white dark:bg-gray-800 p-4 rounded-xl' : ' justify-end  p-4 rounded-xl min-w-40 max-w-50'}`}
       >
-        <div className="flex-shrink-0">
-          <IoArrowForwardCircleOutline size={20} />
-        </div>
-        <span className="text-sm font-medium min-w-0 truncate">
+        <span className={`text-sm font-medium truncate ${isVertical ? '' : 'min-w-32 max-w-40 text-right' }`}>
           {projects.find(p => p.id === (currentId > 1 ? currentId - 1 : projects.length))?.title}
         </span>
+        <IoArrowForwardCircleOutline size={20} />
+
       </Link>
     </div>
   );

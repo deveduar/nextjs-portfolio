@@ -4,38 +4,25 @@ import React, { useState } from 'react'
 import Card from "@/components/card";
 import { IoSearchOutline } from "react-icons/io5";
 import { useReadmes } from '@/hooks/useReadmes';
+import SearchInput from "@/components/searchInput";
 
-const ProjectList: React.FC = () => {
+interface ProjectListProps {
+  projects: Array<{
+    id: number;
+    title: string;
+    description: string;
+    detailedDescription: string;
+    imageSrc: string;
+    links: Array<{ href: string; label: string }>;
+    technologies: string[];
+  }>;
+}
 
-  const { readmes, loading, error } = useReadmes();
-  const [searchTerm, setSearchTerm] = useState('');
+const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
 
-  if (loading) {
-    return <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
-    </div>;
-  }
 
-  if (error) {
-    return <div className="text-red-500">Error loading projects: {error}</div>;
-  }
 
-  const normalizeText = (text: string) => {
-    return text
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '');
-  };
 
-  const filteredProjects = readmes.filter(project => {
-    const searchContent = normalizeText(`
-      ${project.title} 
-      ${project.description} 
-      ${project.technologies.join(' ')}
-    `);
-    
-    return searchContent.includes(normalizeText(searchTerm));
-  });
 
   const placeholders = Array(3).fill(null).map((_, index) => (
     <div key={`placeholder-${index}`} className=" grow 
@@ -52,37 +39,20 @@ const ProjectList: React.FC = () => {
   ));
 
   return (
-    <div className='flex flex-col'>
-    <div className="relative w-full max-w-xl  ">
-      <IoSearchOutline className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
-      <input
-        type="text"
-        placeholder="Search projects by title, description or technology..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-gray-800 
-          border border-gray-200 dark:border-gray-700
-          text-gray-900 dark:text-white
-          placeholder-gray-400 dark:placeholder-gray-500
-          focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400
-          transition-all duration-300"
-      />
-    </div>
-    <div className="w-full flex flex-wrap gap-4 md:gap-4 pt-4 -mb-12 sm:-mb-12 md:pb-12">
-        {filteredProjects.slice().map((project) => (
-          <Card
-            id={project.id}
-            key={project.id}
-            title={project.title}
-            description={project.description}
-            imageSrc={project.imageSrc}
-            detailedDescription={project.detailedDescription}
-            links={project.links}
-            technologies={project.technologies}
-          />
-        ))}
-        {placeholders}
-    </div>
+    <div className="w-full flex flex-wrap gap-4 md:gap-4 pt-4 -mb-12 sm:-mb-12 md:pb-12" data-aos="fade-up">
+    {projects.map((project) => (
+        <Card
+          id={project.id}
+          key={project.id}
+          title={project.title}
+          description={project.description}
+          imageSrc={project.imageSrc}
+          detailedDescription={project.detailedDescription}
+          links={project.links}
+          technologies={project.technologies}
+        />
+      ))}
+      {placeholders}
     </div>
   );
 };

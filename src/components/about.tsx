@@ -87,7 +87,7 @@ const About: React.FC<AboutProps> = ({ profile }) => {
             <div className="flex  flex-row  gap-4 w-full">
               <div className="flex items-center  gap-4">
                 <Image
-                  src="/images/profile.jpeg"
+                  src="/images/profile.webp"
                   width={80}
                   height={80}
                   alt="Profile Picture"
@@ -273,7 +273,7 @@ const About: React.FC<AboutProps> = ({ profile }) => {
   
           {/* <div className="flex gap-4">
             <Link
-              href="/projectsView"
+              href="/projects"
               className="bg-gray-100 dark:bg-gray-700 rounded-xl px-3 py-1.5 flex items-center justify-center gap-1 font-medium hover:scale-105 transition-all duration-300"
             >
               <span className="text-xs font-medium text-gray-900 dark:text-white">View Work</span>

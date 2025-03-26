@@ -16,7 +16,7 @@ export default function Connect() {
               Let&apos;s Connect
             </Link>
             <Link
-              href="/projectsView"
+              href="/projects"
               className="px-6 py-3 bg-white text-gray-900 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
             >
               View My Work

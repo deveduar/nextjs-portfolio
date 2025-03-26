@@ -39,7 +39,7 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
           <div className="flex-1 flex flex-col gap-4">
             <div className="flex items-center gap-4">
               <Image
-                src="/images/profile.jpeg"
+                src="/images/profile.webp"
                 alt="Profile Avatar"
                 width={80}
                 height={80}
@@ -76,7 +76,7 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
               </div>
               <div className="space-y-4 sm:text-sm md:text-md ">
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                Welcome to my portfolio! I&#39;m a Full Stack Developer with over 5 years of experience crafting innovative and functional web applications. Here, you&#39;ll find some of my key projects and insights into my approach to clean code and efficient solutions. Enjoy exploring!
+                Welcome to my portfolio! I&#39;m a Full Stack Developer with over 5 years of experience crafting innovative and functional web applications. Here, you&#39;ll find some of my key projects and insights into my approach to efficient solutions. Enjoy exploring!
               </p>
             </div>
             {/* Social Links */}
@@ -176,7 +176,7 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
           Let&#39;s Connect
         </Link>
         <Link
-          href="/projectsView"
+          href="/projects"
           className="bg-white dark:bg-gray-800 rounded-xl p-4 flex items-center justify-center font-bold hover:scale-105 transition-all duration-300 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700"
         >
           View My Work
