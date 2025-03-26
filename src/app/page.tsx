@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { FaGithub } from "react-icons/fa";
 import { BiLinkExternal } from "react-icons/bi";
 import { useReadmes } from '@/hooks/useReadmes';
+import TechTags from "@/components/techTags";
 
 const Home: React.FC = () => {
   const { readmes, loading, error } = useReadmes();
@@ -116,22 +117,7 @@ const Home: React.FC = () => {
                   </div>
                   
                  
-                  <div className="flex gap-2 overflow-x-clip">
-                      {project.technologies.slice(0, 5).map((tech, index) => (
-                        <div key={index} className="flex-shrink-0">
-                          <span className="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-                            {tech}
-                          </span>
-                        </div>
-                      ))}
-                      {project.technologies.length > 5 && (
-                        <div className="flex-shrink-0">
-                          <span className="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-                            +{project.technologies.length - 5}
-                          </span>
-                        </div>
-                      )}
-                    </div>
+                  <TechTags technologies={project.technologies}   colorful={true}/>
 
               
                   

@@ -13,6 +13,7 @@ import { useReadmes } from '@/hooks/useReadmes';
 import { BiLinkExternal } from "react-icons/bi";
 import { FaGithub } from "react-icons/fa";
 import Breadcrumb from '@/components/breadcrumb';
+import ProjectList from "@/components/projectList";
 
 interface ProjectPageProps {
   params: {
@@ -52,7 +53,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
       <Breadcrumb projectTitle={project.title} />
       <section className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
         {/* Panel 1 Información Principal - 2 columnas en md */}
-        <div className="md:col-span-2 lg:col-span-3  bg-white dark:bg-gray-800  rounded-xl">
+        <div className="md:col-span-2 lg:col-span-3  bg-white bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90  rounded-xl">
         <ProjectDetails project={project} />
         <div className="flex flex-col px-2 pb-4">
           <ProjectNavigation currentId={project.id} projects={readmes} variant="horizontal" />
@@ -90,22 +91,9 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
        <section id="related-projects" className="  py-4 space-y-2 rounded-xl ">
         <h1 className="text-2xl font-bold text-black dark:text-white mb-4 ">Related Projects</h1>
         <div className="w-full flex flex-wrap gap-6 md:gap-6  -mb-12  sm:-mb-12 md:pb-12 ">
-        {readmes
-          .filter((proj) => proj.id !== projectId)
-          .slice()
-          .map((project) => (
-            <Card
-              id={project.id}
-              key={project.id}
-              title={project.title}
-              description={project.description}
-              imageSrc={project.imageSrc}
-              detailedDescription={project.detailedDescription}
-              links={project.links}
-              technologies={project.technologies}
-          
-            />
-          ))}
+        <ProjectList 
+          projects={readmes.filter((proj) => proj.id !== projectId)} 
+        />
         </div>
       </section>
     </div>
