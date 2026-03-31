@@ -36,68 +36,68 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
   );
 
   return (
-      <section className="overflow-hidden rounded-[32px] border border-slate-200/70 bg-white shadow-xl dark:border-slate-700 dark:bg-gray-950">
-        <div className="p-5">
-          <div className="flex flex-col gap-4">
-            <div className="flex items-start justify-between gap-4">
-              <div className="min-w-0">
-                <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">
-                  {project.title}
-                </h1>
-                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                  {project.description}
-                </p>
+    <section className="bg-gray-100 dark:bg-gray-950 -mx-2 px-2 md:-mx-12 md:px-12 lg:-mx-50 lg:px-50 xl:-mx-60 xl:px-60">
+      <div className="py-4">
+        <div className="flex flex-col gap-4">
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">
+                {project.title}
+              </h1>
+              <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                {project.description}
+              </p>
+            </div>
+            {demoLink && (
+              <div className="shrink-0">
+                <Badge label={demoLink.label} href={demoLink.href} />
               </div>
-              {demoLink && (
-                <div className="shrink-0">
-                  <Badge label={demoLink.label} href={demoLink.href} />
-                </div>
-              )}
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <TechTags
-                technologies={project.technologies}
-                limit={8}
-                colorful={true}
-                overlayStyle={false}
-                className="flex-wrap gap-2"
-              />
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {project.links.map((link, index) => (
-                <Link
-                  key={index}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:bg-slate-800"
-                >
-                  <span>{link.label}</span>
-                  <span className="text-slate-500 dark:text-slate-400">
-                    {link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? (
-                      <BiLinkExternal className="h-4 w-4" />
-                    ) : (
-                      <FaGithub className="h-4 w-4" />
-                    )}
-                  </span>
-                </Link>
-              ))}
-            </div>
+            )}
           </div>
 
-          {project.gallery && (
-            <div className="mt-4">
-              <Gallery images={project.gallery} />
-            </div>
-          )}
+          <div className="flex flex-wrap gap-2">
+            <TechTags
+              technologies={project.technologies}
+              limit={8}
+              colorful={true}
+              overlayStyle={false}
+              className="flex-wrap gap-2"
+            />
+          </div>
 
-          <div className="mt-6">
-            <ProjectReadmeContent readmeContent={project.readmeContent} />
+          <div className="flex flex-wrap gap-2">
+            {project.links.map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:bg-slate-800"
+              >
+                <span>{link.label}</span>
+                <span className="text-slate-500 dark:text-slate-400">
+                  {link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? (
+                    <BiLinkExternal className="h-4 w-4" />
+                  ) : (
+                    <FaGithub className="h-4 w-4" />
+                  )}
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
-      </section>
+
+        {project.gallery && (
+          <div className="mt-4">
+            <Gallery images={project.gallery} />
+          </div>
+        )}
+
+        <div className="mt-6">
+          <ProjectReadmeContent readmeContent={project.readmeContent} />
+        </div>
+      </div>
+    </section>
   );
 };
 
