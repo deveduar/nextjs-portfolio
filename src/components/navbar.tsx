@@ -117,17 +117,13 @@ const Navbar: React.FC = () => {
     { href: "/contactView", icon: IoMailOutline, label: "Contact" },
   ];
 
-  const currentProject = isProjectDetail 
-    ? readmes.find(p => `/project/${p.id}` === pathname)
-    : null;
-
   return (
     <>
       <nav 
         className="fixed top-0 left-0 right-0 h-14 bg-gray-100/95 dark:bg-gray-950/95 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800 z-40"
       >
         <div className="h-full px-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <button 
               onClick={(e) => { e.stopPropagation(); toggleSidebar(); }}
               className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
@@ -141,31 +137,22 @@ const Navbar: React.FC = () => {
               <span className="text-lg font-semibold text-gray-900 dark:text-white">Dev</span>
             </Link>
 
-            {isProjectsPage && (
-              <div className="hidden md:flex items-center ml-4">
-                <IoChevronForward size={12} className="text-gray-400" />
-                <Link href="/projects" className="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors ml-1">
-                  Projects
+            <div className="hidden md:flex items-center gap-1 ml-2" onClick={(e) => e.stopPropagation()}>
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`p-2 rounded-lg transition-colors
+                    ${pathname === item.href 
+                      ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 
+                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800'
+                    }`}
+                  title={item.label}
+                >
+                  <item.icon size={18} />
                 </Link>
-              </div>
-            )}
-            
-            {isProjectDetail && (
-              <div className="hidden md:flex items-center ml-4">
-                <IoChevronForward size={12} className="text-gray-400" />
-                <Link href="/projects" className="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors ml-1">
-                  Projects
-                </Link>
-                {currentProject && (
-                  <>
-                    <IoChevronForward size={12} className="text-gray-400 ml-2" />
-                    <span className="text-sm text-blue-600 dark:text-blue-400 font-medium ml-1 truncate max-w-[150px]">
-                      {currentProject.title}
-                    </span>
-                  </>
-                )}
-              </div>
-            )}
+              ))}
+            </div>
           </div>
 
           <div className="flex items-center gap-1">
@@ -208,26 +195,12 @@ const Navbar: React.FC = () => {
               </button>
             )}
 
-            <div className="hidden md:flex items-center gap-1 mr-2" onClick={(e) => e.stopPropagation()}>
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`p-2 rounded-lg transition-colors
-                    ${pathname === item.href 
-                      ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 
-                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800'
-                    }`}
-                  title={item.label}
-                >
-                  <item.icon size={18} />
-                </Link>
-              ))}
-            </div>
-
-            <div className="p-1.5" onClick={(e) => e.stopPropagation()}>
+            <button 
+              onClick={(e) => { e.stopPropagation(); }}
+              className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+            >
               <ThemeSwitch />
-            </div>
+            </button>
           </div>
         </div>
       </nav>

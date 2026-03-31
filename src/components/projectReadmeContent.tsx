@@ -177,7 +177,7 @@ const renderTextBlock = (text: string, key: string | number) => {
                   </svg>
                 )}
               </span>
-              <span className={isChecked ? 'line-through text-slate-400 dark:text-slate-500' : ''}>
+              <span className={`flex-1 ${isChecked ? 'line-through text-slate-400 dark:text-slate-500' : ''}`}>
                 {parseInlineText(content)}
               </span>
             </li>
@@ -189,12 +189,13 @@ const renderTextBlock = (text: string, key: string | number) => {
 
   if (isRegularList) {
     return (
-      <ul key={key} className="list-disc list-inside space-y-2 text-slate-700 dark:text-slate-300">
+      <ul key={key} className="space-y-2 text-slate-700 dark:text-slate-300">
         {lines.map((line, index) => {
           const content = line.replace(/^\s*([-*]|\d+\.|[✅✔•])\s*/u, '');
           return (
-            <li key={index} className="leading-relaxed break-words">
-              {parseInlineText(content)}
+            <li key={index} className="flex items-start gap-2 leading-relaxed break-words">
+              <span className="text-slate-400 mt-1 select-none">•</span>
+              <span className="flex-1">{parseInlineText(content)}</span>
             </li>
           );
         })}

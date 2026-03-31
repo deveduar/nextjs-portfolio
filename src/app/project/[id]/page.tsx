@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import ProjectDetails from '@/components/projectDetails';
 import { useReadmes } from '@/hooks/useReadmes';
 import ProjectNavBar from '@/components/projectNavBar';
+import ProjectBreadcrumb from '@/components/projectBreadcrumb';
 import RelatedProjects from '@/components/relatedProjects';
 
 interface ProjectPageProps {
@@ -41,6 +42,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
 
   return (
     <div className="w-full mx-auto text-black dark:text-white pb-16">
+      <ProjectBreadcrumb projectTitle={project.title} />
       <section className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
         <ProjectDetails project={project} />
       </section>
