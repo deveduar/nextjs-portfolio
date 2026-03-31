@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useState } from 'react'
+import React from 'react'
 import Card from "@/components/card";
-import { IoSearchOutline } from "react-icons/io5";
 import { useReadmes } from '@/hooks/useReadmes';
-import SearchInput from "@/components/searchInput";
 
 interface ProjectListProps {
-  projects: Array<{
+  projects?: Array<{
     id: number;
     title: string;
     description: string;
@@ -16,31 +14,49 @@ interface ProjectListProps {
     links: Array<{ href: string; label: string }>;
     technologies: string[];
   }>;
+  searchFilter?: string;
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
+const ProjectList: React.FC<ProjectListProps> = ({ projects, searchFilter = '' }) => {
+  const { readmes, loading, error } = useReadmes();
 
+  const normalizeText = (text: string) => 
+    text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
+  let displayProjects = projects || readmes;
 
+  if (searchFilter.trim()) {
+    displayProjects = readmes.filter(project => {
+      const searchContent = normalizeText(`
+        ${project.title} 
+        ${project.description} 
+        ${project.technologies.join(' ')}
+      `);
+      return searchContent.includes(normalizeText(searchFilter));
+    });
+  }
 
+  if (loading) {
+    return (
+      <div className="w-full flex flex-wrap gap-4 md:gap-4 pt-4">
+        {Array(3).fill(null).map((_, index) => (
+          <div key={`placeholder-${index}`} className="grow basis-full min-w-[300px] max-w-full md:basis-[calc(50%-1rem)] lg:basis-[calc(25%-1rem)] opacity-0" />
+        ))}
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="text-red-500">Error loading projects: {error}</div>;
+  }
 
   const placeholders = Array(3).fill(null).map((_, index) => (
-    <div key={`placeholder-${index}`} className=" grow 
-    basis-full min-w-[300px] max-w-full 
-    
-    md:basis-[calc(50%-1rem)] md:min-w-[calc(50%-1rem)] md:max-w-[calc(50%-1rem)]
-    
-    lg:basis-[calc(25%-1rem)] lg:min-w-[calc(25%-1rem)] lg:max-w-[calc(40%-1rem)]
-    
-    xl:basis-[calc(25%-1rem)] xl:min-w-[calc(25%-1rem)] xl:max-w-[calc(40%-1rem)]
-    
-    2xl:basis-[calc(25%-1rem)] 2xl:min-w-[calc(20%-1rem)] 2xl:max-w-[calc(40%-1rem)]  
-    opacity-0" />
+    <div key={`placeholder-${index}`} className="grow basis-full min-w-[300px] max-w-full md:basis-[calc(50%-1rem)] lg:basis-[calc(25%-1rem)] opacity-0" />
   ));
 
   return (
     <div className="w-full flex flex-wrap gap-4 md:gap-4 pt-4 -mb-12 sm:-mb-12 md:pb-12" data-aos="fade-up">
-    {projects.map((project) => (
+      {displayProjects.map((project) => (
         <Card
           id={project.id}
           key={project.id}

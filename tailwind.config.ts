@@ -55,6 +55,22 @@ const config: Config = {
         menuSlideDown: {
           '0%': { opacity: '0', transform: 'translateY(-10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' }
+        },
+        sidebarSlideIn: {
+          '0%': { transform: 'translateX(-100%)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' }
+        },
+        sidebarSlideOut: {
+          '0%': { transform: 'translateX(0)', opacity: '1' },
+          '100%': { transform: 'translateX(-100%)', opacity: '0' }
+        },
+        overlayFadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        },
+        overlayFadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' }
         }
       },
       animation: {
@@ -67,6 +83,11 @@ const config: Config = {
         modalSlideInLeft: 'modalSlideInLeft 0.4s ease-in-out',
         modalSlideInRight: 'modalSlideInRight 0.4s ease-in-out',
         menuSlideDown: 'menuSlideDown 0.3s ease-in-out',
+
+        sidebarSlideIn: 'sidebarSlideIn 0.3s ease-out',
+        sidebarSlideOut: 'sidebarSlideOut 0.3s ease-in',
+        overlayFadeIn: 'overlayFadeIn 0.2s ease-out',
+        overlayFadeOut: 'overlayFadeOut 0.2s ease-in'
 
       }
     },

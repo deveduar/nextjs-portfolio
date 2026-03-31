@@ -2,17 +2,9 @@
 
 import { notFound } from 'next/navigation';
 import ProjectDetails from '@/components/projectDetails';
-
-import Card from "@/components/card";
-import About from "@/components/about";
-import Link from 'next/link';
-import { IoArrowBackCircleOutline, IoArrowForwardCircleOutline } from "react-icons/io5";
-import ProjectNavigation from '@/components/projectNavigation'
-// import { readmes } from '@/data/readmes';
 import { useReadmes } from '@/hooks/useReadmes';
-import { BiLinkExternal } from "react-icons/bi";
-import { FaGithub } from "react-icons/fa";
-import Breadcrumb from '@/components/breadcrumb';
+import ProjectNavBar from '@/components/projectNavBar';
+import ProjectNavigation from '@/components/projectNavigation';
 import ProjectList from "@/components/projectList";
 
 interface ProjectPageProps {
@@ -50,15 +42,14 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
 
   return (
     <div className="w-full mx-auto text-black dark:text-white">
-      <Breadcrumb projectTitle={project.title} />
+      <ProjectNavBar 
+        project={project} 
+        projects={readmes} 
+      />
       <section className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
         {/* Panel 1 Información Principal - 2 columnas en md */}
         <ProjectDetails project={project} />
-        <div className="flex flex-col px-2 pb-4">
-          <ProjectNavigation currentId={project.id} projects={readmes} variant="horizontal" />
-        </div>
 
-        {/* Panel 2 Links - 1 columna */}
         {/* <div className="md:col-span-1 lg:col-span-1 rounded-xl">
           <ProjectNavigation currentId={project.id} projects={readmes} variant="vertical" />
           <div className="grid md:flex md:flex-col gap-4 mt-4 ">
