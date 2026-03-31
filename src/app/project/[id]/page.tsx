@@ -49,15 +49,13 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
   }
 
   return (
-    <div className="w-full mx-auto  text-black  dark:text-white">
+    <div className="w-full mx-auto text-black dark:text-white">
       <Breadcrumb projectTitle={project.title} />
       <section className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
         {/* Panel 1 Información Principal - 2 columnas en md */}
-        <div className="md:col-span-2 lg:col-span-3  bg-white bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90  rounded-xl">
         <ProjectDetails project={project} />
         <div className="flex flex-col px-2 pb-4">
           <ProjectNavigation currentId={project.id} projects={readmes} variant="horizontal" />
-        </div>
         </div>
 
         {/* Panel 2 Links - 1 columna */}

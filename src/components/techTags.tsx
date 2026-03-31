@@ -45,17 +45,17 @@ const techColors: { [key: string]: string } = {
     };
 
     return (
-        <div className={`flex gap-1 items-center ${className}`}>
+        <div className={`flex flex-wrap gap-1 items-center ${className}`}>
             {technologies.slice(0, limit).map((tech, index) => (
-                <div key={index} className="flex-shrink-0">
-                    <span className={`px-2 py-0.5 text-xs rounded-md ${getTagStyle(tech)} ${showMore ? '' : 'max-w-[5rem] min-w-[1rem]'} inline-block truncate text-center align-middle max-w-[100px] min-w-[40px]`}>
+                <div key={index}>
+                    <span className={`px-2 py-0.5 text-xs rounded-md ${getTagStyle(tech)} inline-block whitespace-nowrap text-center align-middle min-w-[40px]`}>
                         {tech}
                     </span>
                 </div>
             ))}
             {showMore && technologies.length > limit && (
-                <div className="flex-shrink-0">
-                    <span className={`px-2 py-0.5 text-xs rounded-md ${overlayStyle ? 'bg-black/30 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'} inline-block text-center align-middle`}>
+                <div>
+                    <span className={`px-2 py-0.5 text-xs rounded-md ${overlayStyle ? 'bg-black/30 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'} inline-block whitespace-nowrap text-center align-middle`}>
                         +{technologies.length - limit}
                     </span>
                 </div>
