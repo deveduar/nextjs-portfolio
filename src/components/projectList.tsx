@@ -18,7 +18,7 @@ interface ProjectListProps {
 
 const ProjectList: React.FC<ProjectListProps> = ({ searchFilter = '' }) => {
   const { readmes, loading, error } = useReadmes();
-  const [viewMode, setViewMode] = useState<ViewMode>('grid');
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [sortOption, setSortOption] = useState<SortOption>('name-asc');
   const [localSearch, setLocalSearch] = useState('');
 

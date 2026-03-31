@@ -50,8 +50,6 @@ const Card: React.FC<CardProps> = ({
           width={500}
           height={200}
         />
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
         
         {demoLink && (
           <div className="absolute top-2 right-2">
@@ -59,8 +57,8 @@ const Card: React.FC<CardProps> = ({
           </div>
         )}
         
-        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
-          <h3 className="font-semibold text-white text-sm line-clamp-1 drop-shadow-lg">{title}</h3>
+        <div className="absolute bottom-0 left-0 right-0 p-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm">
+          <h3 className="font-semibold text-slate-900 dark:text-white text-sm line-clamp-1">{title}</h3>
         </div>
       </div>
       

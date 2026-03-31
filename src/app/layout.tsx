@@ -22,7 +22,7 @@ export default function RootLayout({
         <ClientLayout>
         <SearchProvider>
           <Navbar />
-          <main className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-950 px-2 md:px-12 lg:px-50 xl:px-60 pt-4">
+          <main className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-950 px-2 md:px-12 lg:px-50 xl:px-60 pt-4 pb-20">
             {children}
           </main>
           <Footer />
