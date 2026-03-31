@@ -156,9 +156,38 @@ const renderTextBlock = (text: string, key: string | number) => {
   }
 
   const lines = trimmed.split(/\r?\n/).filter(Boolean);
-  const isList = lines.every((line) => /^\s*([-*]|\d+\.|[✅✔•])/u.test(line.trim()));
+  
+  const isCheckboxList = lines.every((line) => /^\s*\[([ xX])\]\s*/u.test(line.trim()));
+  const isRegularList = lines.every((line) => /^\s*([-*]|\d+\.|[✅✔•])/u.test(line.trim()));
 
-  if (isList) {
+  if (isCheckboxList) {
+    return (
+      <ul key={key} className="space-y-2 text-slate-700 dark:text-slate-300">
+        {lines.map((line, index) => {
+          const match = line.match(/^\s*\[([ xX])\]\s*(.*)$/u);
+          const isChecked = match && match[1].toLowerCase() === 'x';
+          const content = match ? match[2] : line;
+          
+          return (
+            <li key={index} className="flex items-start gap-2 leading-relaxed break-words">
+              <span className={`mt-0.5 w-4 h-4 rounded border flex-shrink-0 flex items-center justify-center ${isChecked ? 'bg-green-500 border-green-500' : 'border-slate-400 dark:border-slate-500'}`}>
+                {isChecked && (
+                  <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </span>
+              <span className={isChecked ? 'line-through text-slate-400 dark:text-slate-500' : ''}>
+                {parseInlineText(content)}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
+
+  if (isRegularList) {
     return (
       <ul key={key} className="list-disc list-inside space-y-2 text-slate-700 dark:text-slate-300">
         {lines.map((line, index) => {

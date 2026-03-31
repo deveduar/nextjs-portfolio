@@ -55,7 +55,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, searchFilter = '' }
   ));
 
   return (
-    <div className="w-full flex flex-wrap gap-4 md:gap-4 pt-4 -mb-12 sm:-mb-12 md:pb-12" data-aos="fade-up">
+    <div className="w-full flex flex-wrap gap-4 md:gap-4 pt-4 -mb-12 sm:-mb-12 md:pb-12">
       {displayProjects.map((project) => (
         <Card
           id={project.id}
