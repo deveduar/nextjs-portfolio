@@ -156,36 +156,6 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-1">
-            {isProjectsPage && (
-              <div className="relative hidden md:block mr-2" ref={searchContainerRef} onClick={(e) => e.stopPropagation()}>
-                <div className="relative">
-                  <IoSearchOutline className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    placeholder="Filter..."
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    onFocus={() => searchValue.trim() && setShowDropdown(true)}
-                    className="w-40 lg:w-48 pl-8 pr-7 py-1.5 rounded-lg bg-white dark:bg-gray-900 
-                      border border-gray-200/30 dark:border-gray-700/30
-                      text-gray-900 dark:text-white text-xs
-                      placeholder-gray-400 dark:placeholder-gray-500
-                      focus:outline-none focus:ring-1 focus:ring-blue-500/30 dark:focus:ring-blue-400/30
-                      transition-all duration-300"
-                  />
-                  {searchValue && (
-                    <button
-                      onClick={handleClearSearch}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                    >
-                      <IoClose size={12} />
-                    </button>
-                  )}
-                </div>
-              </div>
-            )}
-
             {!isProjectsPage && (
               <button 
                 onClick={(e) => { e.stopPropagation(); toggleSearch(); }}
