@@ -156,14 +156,12 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-1">
-            {!isProjectsPage && (
-              <button 
-                onClick={(e) => { e.stopPropagation(); toggleSearch(); }}
-                className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-              >
-                <IoSearchOutline size={18} className="text-gray-700 dark:text-gray-300" />
-              </button>
-            )}
+            <button 
+              onClick={(e) => { e.stopPropagation(); toggleSearch(); }}
+              className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+            >
+              <IoSearchOutline size={18} className="text-gray-700 dark:text-gray-300" />
+            </button>
 
             <button 
               onClick={(e) => { e.stopPropagation(); }}
@@ -228,10 +226,11 @@ const Navbar: React.FC = () => {
         </div>
       )}
 
-      {!isProjectsPage && searchOpen && (
+      {searchOpen && (
         <div className="fixed inset-0 z-50" onClick={handleOverlayClick}>
           <div className="absolute top-14 bottom-0 left-0 right-0 bg-black/50 animate-overlayFadeIn cursor-pointer" />
           <div 
+            ref={searchContainerRef}
             className="absolute top-14 left-0 right-0 p-4 bg-gray-100 dark:bg-gray-950 border-b border-gray-200/50 dark:border-gray-800 animate-overlayFadeIn"
             onClick={(e) => e.stopPropagation()}
           >
@@ -270,18 +269,18 @@ const Navbar: React.FC = () => {
               </div>
               
               {showDropdown && filteredProjects.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-2 py-2 rounded-xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-700 shadow-xl max-h-80 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-2 py-2 rounded-xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-700 shadow-xl max-h-80 overflow-y-auto custom-scrollbar">
                   {filteredProjects.map((p) => (
                     <button
                       key={p.id}
                       onClick={(e) => { e.stopPropagation(); handleProjectClick(p.id); }}
                       className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center justify-between group"
                     >
-                      <div>
-                        <span className="text-sm font-medium text-gray-900 dark:text-white">{p.title}</span>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">{p.description}</p>
+                      <div className="min-w-0 flex-1 mr-2">
+                        <span className="block text-sm font-medium text-gray-900 dark:text-white truncate">{p.title}</span>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{p.description}</p>
                       </div>
-                      <IoChevronForward size={16} className="text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+                      <IoChevronForward size={16} className="text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 shrink-0" />
                     </button>
                   ))}
                 </div>

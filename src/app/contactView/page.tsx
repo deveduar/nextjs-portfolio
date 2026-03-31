@@ -6,7 +6,7 @@ import profile from "@/data/profile";
 export default function ContactView() {
 
     return (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col">
         <ProjectBreadcrumb />
         <div className="bg-gray-100 dark:bg-gray-950 -mx-2 px-2 md:-mx-12 md:px-12 lg:-mx-50 lg:px-50 xl:-mx-60 xl:px-60 py-4">
           <div className="mb-6">
