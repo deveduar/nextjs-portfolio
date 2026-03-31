@@ -1,11 +1,9 @@
 "use client"
-import React, { useEffect, useRef } from "react";
-import StackIcon from "tech-stack-icons";
-import Image from "next/image";
+import React from "react";
 import { FaTrophy, FaCode, FaUsers } from "react-icons/fa";
-import Typewriter from 'typewriter-effect';
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Link from "next/link";
+import ProfileHeader from "./profileHeader";
 
 interface AboutProps {
   profile: {
@@ -52,89 +50,15 @@ interface AboutProps {
 }
 
 const About: React.FC<AboutProps> = ({ profile }) => {
-  const marqueeRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const marquee = marqueeRef.current;
-    let animationFrameId: number;
-
-    if (marquee) {
-      const scrollMarquee = () => {
-        if (marquee.scrollLeft >= marquee.scrollWidth / 2) {
-          marquee.scrollLeft = 0;
-        } else {
-          marquee.scrollLeft += 1;
-        }
-        animationFrameId = requestAnimationFrame(scrollMarquee);
-      };
-
-      animationFrameId = requestAnimationFrame(scrollMarquee);
-
-      return () => {
-        cancelAnimationFrame(animationFrameId);
-      };
-    }
-  }, []);
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-row gap-4 ">
-        <div className="flex  flex-row  gap-4 w-full">
-          <div className="flex items-center  gap-4">
-            <Image
-              src="/images/profile.webp"
-              width={80}
-              height={80}
-              alt="Profile Picture"
-              className="rounded-full shadow-lg"
-            />
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{profile.name}</h2>
-              <p className="text-gray-500 dark:text-gray-400">{profile.specialty}</p>
-            </div>
-          </div>
-       </div>
-        <div className=" rounded-full lg:rounded-s-full  marquee relative overflow-hidden whitespace-nowrap w-16 h-16 sm:w-full sm:h-full" ref={marqueeRef}>
-            <div className="inline-flex items-center animate-marquee  ">
-              <StackIcon name="nextjs" className="w-16 h-16 md:w-20 md:h-20 mx-2 dark:invert" />
-              <StackIcon name="reactjs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="typescript" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="js" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="css3" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="tailwindcss" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="sass" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="python" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="nodejs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="html5" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="github" className="w-16 h-16 md:w-20 md:h-20 mx-2 dark:invert" />
-              <StackIcon name="mysql" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="postgresql" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="mongodb" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="vuejs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
+      <ProfileHeader name={profile.name} specialty={profile.specialty} />
 
-              <StackIcon name="nextjs" className="w-16 h-16 md:w-20 md:h-20 mx-2 dark:invert" />
-              <StackIcon name="reactjs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="typescript" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="js" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="css3" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="tailwindcss" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="sass" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="python" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="nodejs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="html5" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="github" className="w-16 h-16 md:w-20 md:h-20 mx-2 dark:invert" />
-              <StackIcon name="mysql" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="postgresql" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="mongodb" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-              <StackIcon name="vuejs" className="w-16 h-16 md:w-20 md:h-20 mx-2" />
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-2 text-sm">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-300">My Resume</h3>
+      <div className="space-y-2">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-300">My Resume</h3>
           {profile.description.map((paragraph, index) => (
-            <p key={index} className="text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p key={index} className="text-sm leading-6 text-gray-600 dark:text-gray-300">
               {paragraph}
             </p>
           ))}
@@ -181,22 +105,22 @@ const About: React.FC<AboutProps> = ({ profile }) => {
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <h3 className="text-md font-bold mb-4 text-gray-900 dark:text-gray-300">Experience</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-300">Experience</h3>
             {profile.workExperience.map((exp, index) => (
               <div key={index} className="border-l-2 border-gray-200 dark:border-gray-700 pl-4">
                 <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-300">{exp.title}</h4>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{exp.company}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{exp.company}</p>
                 <p className="text-xs text-gray-400 dark:text-gray-500">{exp.period}</p>
               </div>
             ))}
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-md font-bold mb-4 text-gray-900 dark:text-gray-300">Education</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-300">Education</h3>
             {profile.education.slice(0, 3).map((edu, index) => (
               <div key={index} className="border-l-2 border-gray-200 dark:border-gray-700 pl-4">
                 <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-300">{edu.title}</h4>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{edu.institution}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{edu.institution}</p>
                 <p className="text-xs text-gray-400 dark:text-gray-500">{edu.year}</p>
               </div>
             ))}
@@ -205,7 +129,7 @@ const About: React.FC<AboutProps> = ({ profile }) => {
       </div>
 
       <div className="space-y-4">
-        <h3 className="text-md font-bold mb-4 text-gray-900 dark:text-gray-300">Skills</h3>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-300">Skills</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-300">Programming</h4>

@@ -137,7 +137,7 @@ const Navbar: React.FC = () => {
               <span className="text-lg font-semibold text-gray-900 dark:text-white">Dev</span>
             </Link>
 
-            <div className="hidden md:flex items-center gap-1 ml-2" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center gap-1 ml-2" onClick={(e) => e.stopPropagation()}>
               {navItems.map((item) => (
                 <Link
                   key={item.href}
