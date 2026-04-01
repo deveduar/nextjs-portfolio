@@ -4,6 +4,7 @@ interface ProjectReadmeContentProps {
     fileName?: string;
     sections?: Record<string, any>;
   };
+  size?: 'sm' | 'md';
 }
 
 let inlineKey = 0;
@@ -254,7 +255,36 @@ const renderSectionValue = (value: any, key: string | number) => {
   return renderTextBlock(String(value), key);
 };
 
-const ProjectReadmeContent = ({ readmeContent }: ProjectReadmeContentProps) => {
+const ProjectReadmeContent = ({ readmeContent, size = 'md' }: ProjectReadmeContentProps) => {
+  const textSize = size === 'sm' ? 'text-[10px]' : 'text-xs';
+  const headingSize = size === 'sm' ? 'text-xs' : 'text-sm';
+  const padding = size === 'sm' ? 'p-1' : 'p-2';
+  
+  const renderSimple = () => {
+    if (!readmeContent?.sections || Object.keys(readmeContent.sections).length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="space-y-1">
+        {Object.entries(readmeContent.sections).map(([sectionTitle, sectionValue]) => (
+          <div key={sectionTitle} className={`${padding} rounded bg-gray-100 dark:bg-gray-800`}>
+            <h4 className={`${headingSize} font-semibold text-gray-700 dark:text-gray-300 mb-1`}>
+              {sectionTitle}
+            </h4>
+            <div className={`${textSize} text-gray-600 dark:text-gray-400`}>
+              {renderSectionValue(sectionValue, sectionTitle)}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  if (size === 'sm') {
+    return renderSimple();
+  }
+
   if (!readmeContent?.sections || Object.keys(readmeContent.sections).length === 0) {
     return null;
   }

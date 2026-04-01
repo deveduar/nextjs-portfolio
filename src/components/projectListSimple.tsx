@@ -25,11 +25,12 @@ interface ProjectListSimpleProps {
     };
   }[];
   variant?: 'detailed' | 'simple';
+  compact?: boolean;
   onNext?: () => void;
   onPrev?: () => void;
 }
 
-const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant = 'detailed', onNext, onPrev }) => {
+const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant = 'detailed', compact = false, onNext, onPrev }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -305,7 +306,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
               <div className="flex-1 overflow-y-auto custom-scrollbar p-2 bg-transparent">
                 <p className="text-xs text-gray-600 dark:text-gray-300 mb-2">{project.description}</p>
                 {project.readmeContent && (
-                  <ProjectReadmeContent readmeContent={project.readmeContent} />
+                  <ProjectReadmeContent readmeContent={project.readmeContent} size={compact ? 'sm' : 'md'} />
                 )}
               </div>
             </div>
