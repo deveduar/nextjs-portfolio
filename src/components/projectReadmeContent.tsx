@@ -13,6 +13,8 @@ const createInlineKey = () => `${Date.now()}-${inlineKey++}`;
 
 const parseInlineText = (text: string): Array<string | JSX.Element> => {
   const patterns = [
+    { type: 'wikiImage', regex: /!\[([^\]]*)\]\(\[\[([^\]]+)\]\]\)/ },
+    { type: 'image', regex: /!\[([^\]]*)\]\(([^)]+)\)/ },
     { type: 'link', regex: /\[([^\]]+)\]\(([^)]+)\)/ },
     { type: 'code', regex: /`([^`]+)`/ },
     { type: 'strong', regex: /\*\*([^*]+)\*\*/ },
@@ -45,7 +47,17 @@ const parseInlineText = (text: string): Array<string | JSX.Element> => {
     const [fullMatch, content, href] = match;
     const rest = remaining.slice(index + fullMatch.length);
 
-    if (type === 'link') {
+    if (type === 'wikiImage' || type === 'image') {
+      const imgSrc = type === 'wikiImage' ? match[2] : match[2].split(' ')[0];
+      nodes.push(
+        <img
+          key={createInlineKey()}
+          src={imgSrc}
+          alt={content || 'Image'}
+          className="max-w-full h-auto rounded-lg my-2"
+        />
+      );
+    } else if (type === 'link') {
       nodes.push(
         <a
           key={createInlineKey()}
