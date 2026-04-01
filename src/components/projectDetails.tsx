@@ -39,6 +39,18 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
     <section className="bg-gray-100 dark:bg-gray-950 -mx-2 px-2 md:-mx-12 md:px-12 lg:-mx-50 lg:px-50 xl:-mx-60 xl:px-60">
       <div className="py-4">
         <div className="flex flex-col gap-4">
+          {project.imageSrc && (
+            <div className="relative w-full h-32 md:h-48 lg:h-56 rounded-xl overflow-hidden">
+              <Image
+                src={project.imageSrc}
+                alt={project.title}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          )}
+          
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
               <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">
