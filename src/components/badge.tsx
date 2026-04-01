@@ -8,10 +8,9 @@ interface BadgeProps {
 
 const Badge: React.FC<BadgeProps> = ({ label, href }) => {
   const content = (
-    <div className=" bg-green-500 dark:bg-green-500 text-white px-2 py-1 rounded-lg text-xs font-medium flex items-center gap-1 backdrop-blur-sm justify-center text-center">
-      <BiLinkExternal className="w-3 h-3" />
+    <div className="bg-green-500 text-white px-1.5 py-0.5 rounded text-[10px] font-medium flex items-center gap-0.5">
+      <BiLinkExternal className="w-2.5 h-2.5" />
       <span>{label}</span>
-      {/* <span className="text-xs">Live</span> */}
     </div>
   );
 

@@ -29,7 +29,8 @@ export const useReadmes = () => {
       try {
         const cached = localStorage.getItem('readmes');
         const cachedTimestamp = localStorage.getItem('readmesTimestamp');
-        const ONE_HOUR = 60 * 60 * 1000;
+        // const ONE_HOUR = 60 * 60 * 1000;
+        const ONE_HOUR = 60; // 1 minuto para pruebas rápidas
   
         console.log('🕒 Timestamp cache:', cachedTimestamp);
         console.log('⏱ Diferencia actual - timestamp:', Date.now() - Number(cachedTimestamp));
@@ -42,7 +43,7 @@ export const useReadmes = () => {
         }
   
         console.log('🌐 Haciendo fetch a GitHub...');
-        const response = await fetch('https://raw.githubusercontent.com/deveduar/readme-to-obj/refs/heads/main/src/data/readmes.ts');
+        const response = await fetch('https://raw.githubusercontent.com/deveduar/readme-to-obj/main/src/data/readmes.ts');
         const text = await response.text();
   
         const readmesMatch = text.match(/export const readmes = (\[[\s\S]*\])/);

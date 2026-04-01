@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import ClientLayout from '../components/ClientLayout';
 import "./globals.css";
 import Navbar from "@/components/navbar";
-import Footer from "@/components/footer"
+import Footer from "@/components/footer";
+import { SearchProvider } from "@/components/navbar";
 
 
 export const metadata: Metadata = {
@@ -18,12 +19,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <ClientLayout>
-      <Navbar />
-        <main className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-950 px-2 md:px-12 lg:px-50 xl:px-60">
-          {children}
-        </main>
-        <Footer />
+        <ClientLayout>
+        <SearchProvider>
+          <Navbar />
+          <main className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-950 px-2 md:px-12 lg:px-50 xl:px-60 pt-4 pb-20">
+            {children}
+          </main>
+          <Footer />
+        </SearchProvider>
         </ClientLayout>
 
       </body>
