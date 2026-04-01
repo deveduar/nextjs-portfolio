@@ -33,17 +33,17 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
   return (
     <div className="flex flex-col lg:flex-row gap-4">
       <div className="w-full lg:w-1/2 flex flex-col gap-4">
-        <div className="rounded-xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 p-6">
+        <div className="rounded-x p-6">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
-              <Image
+              {/* <Image
                 src="/images/profile.webp"
                 alt="Profile Avatar"
                 width={80}
                 height={80}
                 className="rounded-full shadow-lg"
                 priority
-              />
+              /> */}
               <div className="flex flex-col text-left">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                   Hey, I am {name}
@@ -70,13 +70,17 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-300">
               <p className="leading-relaxed">
-                Welcome to my portfolio! I&apos;m a Full Stack Developer with over 5 years of experience crafting innovative and functional web applications. Here, you&apos;ll find some of my key projects and insights into my approach to efficient solutions. Enjoy exploring!
+                Welcome to my portfolio.
+
+                Here you&apos;ll find a selection of projects focused on performance, scalability, and real-world reliability — from modern frontend applications to backend services and automated deployments.
+
+                Enjoy exploring!
               </p>
             </div>
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <span className="text-sm text-gray-500 dark:text-gray-400">📍 Spain</span>
               <span className="text-sm text-gray-500 dark:text-gray-400">💼 Available for projects</span>
-            </div>
+            </div> */}
           </div>
         </div>
 
