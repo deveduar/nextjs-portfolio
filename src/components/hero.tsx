@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import Typewriter from 'typewriter-effect';
-import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+import { FaLinkedin, FaTwitter, FaGithub, FaUser } from "react-icons/fa";
 import Image from "next/image";
 import RecentProjectItem from '@/components/recentProjectItem';
 import { useReadmes } from '@/hooks/useReadmes';
@@ -33,17 +33,17 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
   return (
     <div className="flex flex-col lg:flex-row gap-4">
       <div className="w-full lg:w-1/2 flex flex-col gap-4">
-        <div className="rounded-x p-6">
+        <div className="rounded-xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 p-6 flex-1">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
-              {/* <Image
+              <Image
                 src="/images/profile.webp"
                 alt="Profile Avatar"
                 width={80}
                 height={80}
                 className="rounded-full shadow-lg"
                 priority
-              /> */}
+              />
               <div className="flex flex-col text-left">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                   Hey, I am {name}
@@ -77,47 +77,49 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
                 Enjoy exploring!
               </p>
             </div>
-            {/* <div className="flex gap-4">
-              <span className="text-sm text-gray-500 dark:text-gray-400">📍 Spain</span>
-              <span className="text-sm text-gray-500 dark:text-gray-400">💼 Available for projects</span>
-            </div> */}
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-4 gap-2">
           <Link 
             href={socialLinks.linkedin}
             target="_blank" 
-            className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:scale-105 transition-all duration-300"
+            className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
             <FaLinkedin className="w-5 h-5 text-gray-900 dark:text-white" />
           </Link>
           <Link 
             href={socialLinks.twitter}
             target="_blank" 
-            className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:scale-105 transition-all duration-300"
+            className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
             <FaTwitter className="w-5 h-5 text-gray-900 dark:text-white" />
           </Link>
           <Link 
             href={socialLinks.github}
             target="_blank" 
-            className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:scale-105 transition-all duration-300"
+            className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
             <FaGithub className="w-5 h-5 text-gray-900 dark:text-white" />
+          </Link>
+          <Link 
+            href="/about"
+            className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          >
+            <FaUser className="w-5 h-5 text-gray-900 dark:text-white" />
           </Link>
         </div>
 
         <div className="flex gap-2">
           <Link 
             href="/contact" 
-            className="flex-1 bg-blue-200 dark:bg-blue-900 rounded-lg px-4 py-3 flex items-center justify-center font-medium hover:scale-105 transition-all duration-300 text-gray-900 dark:text-white text-sm"
+            className="flex-1 bg-blue-200 dark:bg-blue-900 rounded-lg px-4 py-3 flex items-center justify-center font-medium hover:opacity-80 transition-opacity text-gray-900 dark:text-white text-sm"
           >
             Let&apos;s Connect
           </Link>
           <Link
             href="/projects"
-            className="flex-1 bg-gray-100 dark:bg-gray-800 rounded-lg px-4 py-3 flex items-center justify-center font-medium hover:scale-105 transition-all duration-300 text-gray-900 dark:text-white text-sm"
+            className="flex-1 bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-lg px-4 py-3 flex items-center justify-center font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-900 dark:text-white text-sm"
           >
             View My Work
           </Link>
@@ -125,11 +127,11 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
       </div>
 
       <div className="w-full lg:w-1/2">
-        <div className="rounded-xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 overflow-hidden">
+        <div className="rounded-xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 overflow-hidden h-full">
           <div className="p-3 border-b border-gray-200/50 dark:border-gray-800">
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Recent Projects</h3>
           </div>
-          <div className="p-2 space-y-2 max-h-[350px] overflow-y-auto custom-scrollbar">
+          <div className="p-2 space-y-2 max-h-[350px] lg:max-h-[400px] overflow-y-auto custom-scrollbar">
             {recentProjects.length > 0 ? (
               recentProjects.map((project) => (
                 <RecentProjectItem key={project.id} project={project} />
