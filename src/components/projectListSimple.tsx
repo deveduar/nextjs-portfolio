@@ -2,11 +2,11 @@
 import React, {useEffect} from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
-import { useState, useRef, TouchEvent, MouseEvent } from 'react';
-import { TbGripHorizontal } from "react-icons/tb";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaArrowRight } from "react-icons/fa";
 import { BiLinkExternal } from "react-icons/bi";
+import { TbGripHorizontal } from "react-icons/tb";
+import { useState, useRef, TouchEvent, MouseEvent } from 'react';
+import ProjectReadmeContent from './projectReadmeContent';
 
 interface ProjectListSimpleProps {
   projects: {
@@ -20,6 +20,9 @@ interface ProjectListSimpleProps {
       href: string;
       label: string;
     }[];
+    readmeContent?: {
+      [key: string]: any;
+    };
   }[];
   variant?: 'detailed' | 'simple';
   onNext?: () => void;
@@ -215,17 +218,10 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
 
   if (variant === 'simple') {
     return (
-      <div className="overflow-hidden rounded-xl   h-full">
-       <div 
+      <div className="overflow-hidden rounded-xl h-full w-full">
+        <div 
           className="flex items-stretch w-full h-full"
           ref={cardRef}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
           style={{ 
             userSelect: 'none',
             transform: `translateX(-${currentIndex * 103}%)`,
@@ -233,60 +229,85 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
             gap: '3%'
           }}
         >
-     {projects.map((project) => (
-             <div
+          {projects.map((project) => (
+            <div
               key={project.id}
-              className="flex-shrink-0 w-full relative group overflow-hidden rounded-xl 
-             "
+              className="flex-shrink-0 w-full relative group overflow-hidden rounded-xl bg-transparent dark:bg-transparent flex flex-col"
+              style={{ height: '100%' }}
             >
-              <div className="relative w-full h-full">
+              <div 
+                className="relative w-full h-28 shrink-0 rounded-lg overflow-hidden cursor-grab active:cursor-grabbing select-none group"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+              >
                 <Image
                   src={project.imageSrc}
                   alt={project.title}
                   fill
-                  className="object-cover  "
-                  //  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover pointer-events-none"
                   priority
                 />
-
-              </div>
-              <div className="absolute inset-0    
-              
-              group-hover:bg-opacity-80 
-              dark:group-hover:bg-opacity-60 
-              transition-all duration-300
-              
-              bg-white 
-              bg-opacity-80
-               dark:bg-gray-800 
-               dark:bg-opacity-60 
-              ">
-                {/*   bg-gradient-to-b 
-              bg-white 
-              bg-opacity-90
-               dark:bg-gray-800 dark:from-black/70 dark:to-black/90
-               dark:bg-opacity-30  */}
-                  <div className="p-2 md:px-3 opacity-1 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center h-full">
-                    <div className='space-y-2 flex flex-col justify-center '>
-                      <Link href={`/project/${project.id}`}>
-                        <h3 className="font-semibold text-xs md:text-lg text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-400 transition-colors line-clamp-1">
-                          {project.title}
-                        </h3>
-                      </Link>
-                      <p className="text-gray-800 dark:text-gray-200 text-xs md:text-md line-clamp-2">{project.description}</p>
-                      <div className="flex flex-wrap gap-1">
-                        {project.technologies.slice(0, 3).map((tech) => (
-                          <span 
-                            key={tech}
-                            className="px-1 py-0.5 text-xs md:text-md rounded bg-gray-100 dark:bg-white/10 text-gray-800 dark:text-white dark:backdrop-blur-sm"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <div className="bg-black/50 rounded-full p-2">
+                    <TbGripHorizontal className="w-5 h-5 text-white" />
                   </div>
                 </div>
+              </div>
+              
+              <div className="shrink-0 bg-gray-50/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
+                <div className="flex items-center justify-between gap-2">
+                  <Link href={`/project/${project.id}`} className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-sm text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-1">
+                      {project.title}
+                    </h3>
+                  </Link>
+                  <div className="flex items-center gap-1 shrink-0">
+                    {project.links.map((link, idx) => (
+                      <Link
+                        key={idx}
+                        href={link.href}
+                        className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white p-1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? (
+                          <BiLinkExternal className="w-4 h-4" />
+                        ) : (
+                          <FaGithub className="w-4 h-4" />
+                        )}
+                      </Link>
+                    ))}
+                    <Link
+                      href={`/project/${project.id}`}
+                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-500 p-1"
+                    >
+                      <FaArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {project.technologies.slice(0, 4).map((tech) => (
+                    <span 
+                      key={tech}
+                      className="px-1.5 py-0.5 text-xs rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+               
+              <div className="flex-1 overflow-y-auto custom-scrollbar p-2 bg-transparent">
+                <p className="text-xs text-gray-600 dark:text-gray-300 mb-2">{project.description}</p>
+                {project.readmeContent && (
+                  <ProjectReadmeContent readmeContent={project.readmeContent} />
+                )}
+              </div>
             </div>
           ))}
         </div>
