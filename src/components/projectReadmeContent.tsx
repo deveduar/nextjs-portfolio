@@ -18,14 +18,10 @@ const parseInlineText = (text: string): string => {
   s = s.replace(/&#39;/g, "'");
   s = s.replace(/&quot;/g, '"');
   
-  // Bold FIRST: **text**
   s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  
-  // Then italic: *text*  
   s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-  
   s = s.replace(/`(.+?)`/g, '<code>$1</code>');
-  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-blue-600 hover:underline">$1</a>');
   
   return s;
 };
@@ -36,24 +32,37 @@ const isTableText = (text: string) => {
 };
 
 const renderMarkdownTable = (text: string, key: string | number) => {
-  const rows = text.trim().split(/\r?\n/).filter(Boolean)
-    .map((row) => row.replace(/^\s*\|?/, '').replace(/\|?\s*$/, '').split(/\s*\|\s*/));
-
-  if (rows.length < 2) {
-    return <pre key={key} className="overflow-x-auto rounded-2xl bg-slate-100 p-4 text-sm text-slate-900 dark:bg-gray-700">{text.trim()}</pre>;
+  const allRows = text.trim().split(/\r?\n/).filter(Boolean);
+  
+  const filteredRows = allRows.filter((row) => {
+    const cleaned = row.replace(/\|/g, '').trim();
+    return !/^[-:]+$/.test(cleaned) && !/^[-:\s]+$/.test(cleaned);
+  });
+  
+  if (filteredRows.length < 2) {
+    return <pre key={key} className="overflow-x-auto rounded-xl bg-slate-100 dark:bg-gray-800 p-4 text-sm font-mono">{text.trim()}</pre>;
   }
 
-  const [headerRow, ...bodyRows] = rows;
+  const [headerRow, ...bodyRows] = filteredRows;
+  const headers = headerRow.replace(/^\s*\|?/, '').replace(/\|?\s*$/, '').split(/\s*\|\s*/);
+  const rows = bodyRows.map((row) => row.replace(/^\s*\|?/, '').replace(/\|?\s*$/, '').split(/\s*\|\s*/));
+
   return (
-    <div key={key} className="overflow-x-auto rounded-3xl border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-gray-800">
-      <table className="min-w-full table-auto text-sm">
-        <thead className="bg-slate-100 dark:bg-gray-700">
-          <tr>{headerRow.map((cell, i) => <th key={i} className="border-b px-4 py-3 text-left font-semibold">{parseInlineText(cell.trim())}</th>)}</tr>
+    <div key={key} className="overflow-x-auto my-4">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-slate-200 dark:border-slate-700">
+            {headers.map((cell, i) => (
+              <th key={i} className="px-3 py-2 text-left font-semibold text-slate-900 dark:text-white" dangerouslySetInnerHTML={{ __html: parseInlineText(cell.trim()) }} />
+            ))}
+          </tr>
         </thead>
         <tbody>
-          {bodyRows.map((row, ri) => (
-            <tr key={ri} className={ri % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-slate-50 dark:bg-gray-700'}>
-              {row.map((cell, ci) => <td key={ci} className="border-b px-4 py-3">{parseInlineText(cell.trim())}</td>)}
+          {rows.map((row, ri) => (
+            <tr key={ri} className="border-b border-slate-100 dark:border-slate-800">
+              {row.map((cell, ci) => (
+                <td key={ci} className="px-3 py-2 text-slate-700 dark:text-slate-300" dangerouslySetInnerHTML={{ __html: parseInlineText(cell.trim()) }} />
+              ))}
             </tr>
           ))}
         </tbody>
@@ -62,7 +71,51 @@ const renderMarkdownTable = (text: string, key: string | number) => {
   );
 };
 
+const isTaskList = (lines: string[]) => {
+  return lines.some((line) => /^\[\s*[ x]\s*\]/.test(line));
+};
+
+const renderTaskList = (lines: string[], key: string | number): JSX.Element => {
+  return (
+    <ul key={key} className="space-y-2 ml-4">
+      {lines.map((line, idx) => {
+        const match = line.match(/^\[\s*([ x])\s*\]\s*(.*)$/i);
+        if (!match) {
+          const content = line.replace(/^[\s]*[-*][\s]*/, '');
+          return (
+            <li key={idx} className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
+              <span className="text-slate-400">•</span>
+              <span dangerouslySetInnerHTML={{ __html: parseInlineText(content) }} />
+            </li>
+          );
+        }
+        
+        const checked = match[1].toLowerCase() === 'x';
+        const text = match[2] || '';
+        
+        return (
+          <li key={idx} className="flex items-start gap-3">
+            <input
+              type="checkbox"
+              checked={checked}
+              readOnly
+              className="mt-1 w-4 h-4 rounded border-slate-300 dark:border-slate-600 accent-blue-600"
+            />
+            <span className={`flex-1 leading-relaxed ${checked ? 'text-slate-500 line-through dark:text-slate-500' : 'text-slate-700 dark:text-slate-300'}`}>
+              <span dangerouslySetInnerHTML={{ __html: parseInlineText(text) }} />
+            </span>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
 const renderList = (lines: string[], key: string | number): JSX.Element => {
+  if (isTaskList(lines)) {
+    return renderTaskList(lines, key);
+  }
+  
   return (
     <ul key={key} className="space-y-2 text-slate-700 dark:text-slate-300 ml-4">
       {lines.map((line, idx) => {
@@ -96,15 +149,59 @@ const renderList = (lines: string[], key: string | number): JSX.Element => {
   );
 };
 
+const renderCode = (codeObj: { type: string; lang?: string; value?: string }, key: string | number): JSX.Element => {
+  const code = codeObj.value || '';
+  const lang = codeObj.lang || '';
+  
+  return (
+    <pre key={key} className="overflow-x-auto rounded-xl bg-slate-900 dark:bg-black p-4 my-3 text-sm">
+      {lang && <span className="text-xs text-slate-500 uppercase mb-2 block">{lang}</span>}
+      <code className="text-slate-200 font-mono text-sm">{code}</code>
+    </pre>
+  );
+};
+
 const renderSectionValue = (value: any, key: string | number): JSX.Element => {
   if (Array.isArray(value)) {
-    const hasListMarkers = value.some((item) => typeof item === 'string' && (/^\s*[-*]/.test(item) || /^\s*\*\*/.test(item)));
-    if (hasListMarkers) {
+    const taskListItems = value.filter((item) => typeof item === 'string' && /^\[\s*[ x]\s*\]/.test(item));
+    const codeItems = value.filter((item) => typeof item === 'object' && item?.type === 'code');
+    const listItems = value.filter((item) => typeof item === 'string' && (/^\s*[-*]/.test(item) || /^\s*\*\*/.test(item)));
+    
+    if (taskListItems.length > 0 || (listItems.length > 0 && taskListItems.length > 0)) {
+      const allLines = value.map((item) => String(item)).join('\n');
+      const lines = allLines.split('\n').filter(Boolean);
+      return renderList(lines, key);
+    }
+    
+    if (codeItems.length > 0 && codeItems.length === value.length) {
+      return (
+        <div key={key} className="space-y-3">
+          {codeItems.map((item, idx) => renderCode(item, `${key}-${idx}`))}
+        </div>
+      );
+    }
+    
+    if (listItems.length > 0) {
       const allLines = value.map((item) => String(item)).join('\n');
       const lines = allLines.split('\n').filter(Boolean);
       const isList = lines.some((line) => /^\s*[-*]/.test(line) || /^\s*\*\*/.test(line));
       if (isList) return renderList(lines, key);
     }
+    
+    if (codeItems.length > 0) {
+      const otherItems = value.filter((item) => !(typeof item === 'object' && item?.type === 'code'));
+      return (
+        <div key={key} className="space-y-3">
+          {value.map((item, idx) => {
+            if (typeof item === 'object' && item?.type === 'code') {
+              return renderCode(item, `${key}-${idx}`);
+            }
+            return <div key={idx} className="text-slate-700 dark:text-slate-300">{renderSectionValue(item, `${key}-${idx}`)}</div>;
+          })}
+        </div>
+      );
+    }
+    
     return (
       <div key={key} className="space-y-3">
         {value.map((item, idx) => <div key={idx}>{renderSectionValue(item, `${key}-${idx}`)}</div>)}
@@ -113,7 +210,7 @@ const renderSectionValue = (value: any, key: string | number): JSX.Element => {
   }
 
   if (value && typeof value === 'object') {
-    if (value.type === 'code') return <pre key={key} className="rounded-2xl bg-slate-100 p-4 text-sm dark:bg-gray-700"><code>{value.value}</code></pre>;
+    if (value.type === 'code') return renderCode(value, key);
     return (
       <div key={key} className="space-y-4">
         {Object.entries(value).map(([title, val]) => (
