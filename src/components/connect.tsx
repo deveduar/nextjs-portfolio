@@ -11,7 +11,7 @@ export default function Connect() {
         Beyond my technical abilities, I&apos;m a lifelong learner who thrives in a fast-paced, ever-changing environment. I&apos;m passionate about continuous improvement, both as a developer and as a team member. I am driven to contribute to meaningful projects that make a positive impact.
       </p>
       <div className="flex gap-4 pt-2">
-        <Link href="/contactView" className="px-4 py-2 bg-blue-200 text-gray-900 rounded-lg font-medium hover:bg-blue-300 transition-all duration-300 dark:bg-blue-900 dark:text-white dark:hover:bg-blue-800 text-sm">
+        <Link href="/contact" className="px-4 py-2 bg-blue-200 text-gray-900 rounded-lg font-medium hover:bg-blue-300 transition-all duration-300 dark:bg-blue-900 dark:text-white dark:hover:bg-blue-800 text-sm">
           Let&apos;s Connect
         </Link>
         <Link

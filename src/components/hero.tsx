@@ -4,7 +4,7 @@ import Link from "next/link";
 import Typewriter from 'typewriter-effect';
 import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 import Image from "next/image";
-import ProjectListSimple from '@/components/projectListSimple';
+import RecentProjectItem from '@/components/recentProjectItem';
 import { useReadmes } from '@/hooks/useReadmes';
 
 interface HeroProps {
@@ -106,7 +106,7 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
 
         <div className="flex gap-2">
           <Link 
-            href="/contactView" 
+            href="/contact" 
             className="flex-1 bg-blue-200 dark:bg-blue-900 rounded-lg px-4 py-3 flex items-center justify-center font-medium hover:scale-105 transition-all duration-300 text-gray-900 dark:text-white text-sm"
           >
             Let&apos;s Connect
@@ -121,18 +121,21 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
       </div>
 
       <div className="w-full lg:w-1/2">
-        <div className="h-[400px] rounded-xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 overflow-hidden">
-          {recentProjects.length > 0 ? (
-            <ProjectListSimple 
-              projects={recentProjects} 
-              variant="simple" 
-              compact
-            />
-          ) : (
-            <div className="h-full flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm p-6">
-              No projects to display
-            </div>
-          )}
+        <div className="rounded-xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 overflow-hidden">
+          <div className="p-3 border-b border-gray-200/50 dark:border-gray-800">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Recent Projects</h3>
+          </div>
+          <div className="p-2 space-y-2 max-h-[350px] overflow-y-auto custom-scrollbar">
+            {recentProjects.length > 0 ? (
+              recentProjects.map((project) => (
+                <RecentProjectItem key={project.id} project={project} />
+              ))
+            ) : (
+              <div className="text-center text-gray-500 dark:text-gray-400 text-sm py-4">
+                No projects to display
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

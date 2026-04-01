@@ -113,8 +113,8 @@ const Navbar: React.FC = () => {
   const navItems = [
     { href: "/", icon: IoHomeOutline, label: "Home" },
     { href: "/projects", icon: IoFolderOutline, label: "Projects" },
-    { href: "/aboutView", icon: IoPersonOutline, label: "About" },
-    { href: "/contactView", icon: IoMailOutline, label: "Contact" },
+    { href: "/about", icon: IoPersonOutline, label: "About" },
+    { href: "/contact", icon: IoMailOutline, label: "Contact" },
   ];
 
   return (

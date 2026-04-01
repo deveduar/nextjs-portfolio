@@ -14,7 +14,9 @@ const ProjectBreadcrumb: React.FC<ProjectBreadcrumbProps> = ({ projectTitle }) =
   const getPathName = (path: string) => {
     const pathMap: { [key: string]: string } = {
       'projects': 'Projects',
-      'project': 'Projects'
+      'project': 'Projects',
+      'about': 'About',
+      'contact': 'Contact'
     };
     return pathMap[path.toLowerCase()] || path.charAt(0).toUpperCase() + path.slice(1);
   };
@@ -22,7 +24,9 @@ const ProjectBreadcrumb: React.FC<ProjectBreadcrumbProps> = ({ projectTitle }) =
   const getHref = (path: string) => {
     const hrefMap: { [key: string]: string } = {
       'projects': '/projects',
-      'project': '/projects'
+      'project': '/projects',
+      'about': '/about',
+      'contact': '/contact'
     };
     return hrefMap[path.toLowerCase()] || `/${path}`;
   };
