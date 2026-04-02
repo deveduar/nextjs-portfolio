@@ -15,6 +15,7 @@ import {
   IoChevronForward
 } from "react-icons/io5";
 import ContactModal from "./contactModal";
+import { slugify } from '@/lib/slug';
 
 interface SearchContextType {
   searchValue: string;
@@ -94,17 +95,19 @@ const Navbar: React.FC = () => {
     text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
   const filteredProjects = searchValue.trim() && readmes
-    ? readmes.filter(p => 
-        normalizeText(p.title).includes(normalizeText(searchValue)) ||
-        normalizeText(p.description || '').includes(normalizeText(searchValue))
-      ).slice(0, 6)
+    ? readmes.filter(p => {
+        const search = normalizeText(searchValue);
+        return normalizeText(p.title).includes(search) ||
+          normalizeText(p.description || '').includes(search) ||
+          p.technologies.some(t => normalizeText(t).includes(search));
+      }).slice(0, 6)
     : [];
 
-  const handleProjectClick = (id: number) => {
+  const handleProjectClick = (slug: string) => {
     setSearchValue('');
     setShowDropdown(false);
     setSearchOpen(false);
-    router.push(`/project/${id}`);
+    router.push(`/project/${slug}`);
   };
 
   const handleClearSearch = () => {
@@ -123,7 +126,6 @@ const Navbar: React.FC = () => {
   };
 
   const navItems = [
-    { href: "/", icon: IoHomeOutline, label: "Home" },
     { href: "/projects", icon: IoFolderOutline, label: "Projects" },
   ];
 
@@ -146,8 +148,10 @@ const Navbar: React.FC = () => {
             <Link href="/" className="md:hidden flex items-center gap-2">
               <span className="text-lg font-semibold text-gray-900 dark:text-white">Dev</span>
             </Link>
+          </div>
 
-            <div className="flex items-center gap-1 ml-2" onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -163,10 +167,7 @@ const Navbar: React.FC = () => {
                 </Link>
               ))}
             </div>
-          </div>
-
-          <div className="flex items-center gap-1">
-            <button 
+            <button
               onClick={handleContactClick}
               className="p-2 rounded-lg transition-colors text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800"
               title="Contact"
@@ -297,7 +298,7 @@ const Navbar: React.FC = () => {
                   {filteredProjects.map((p) => (
                     <button
                       key={p.id}
-                      onClick={(e) => { e.stopPropagation(); handleProjectClick(p.id); }}
+                      onClick={(e) => { e.stopPropagation(); handleProjectClick(slugify(p.title)); }}
                       className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center justify-between group"
                     >
                       <div className="min-w-0 flex-1 mr-2">
