@@ -25,7 +25,6 @@ const ProjectBreadcrumb: React.FC<ProjectBreadcrumbProps> = ({ projectTitle }) =
     const hrefMap: { [key: string]: string } = {
       'projects': '/projects',
       'project': '/projects',
-      'about': '/about',
       'contact': '/contact'
     };
     return hrefMap[path.toLowerCase()] || `/${path}`;

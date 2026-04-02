@@ -125,7 +125,6 @@ const Navbar: React.FC = () => {
   const navItems = [
     { href: "/", icon: IoHomeOutline, label: "Home" },
     { href: "/projects", icon: IoFolderOutline, label: "Projects" },
-    { href: "/about", icon: IoPersonOutline, label: "About" },
   ];
 
   return (

@@ -40,7 +40,7 @@ const renderMarkdownTable = (text: string, key: string | number) => {
   });
   
   if (filteredRows.length < 2) {
-    return <pre key={key} className="overflow-x-auto rounded-xl bg-slate-100 dark:bg-gray-800 p-4 text-sm font-mono">{text.trim()}</pre>;
+    return <pre key={key} className="overflow-x-auto rounded-xl bg-white dark:bg-gray-800 border border-gray-200/50 dark:border-gray-800 p-4 text-sm font-mono">{text.trim()}</pre>;
   }
 
   const [headerRow, ...bodyRows] = filteredRows;
@@ -153,10 +153,27 @@ const renderCode = (codeObj: { type: string; lang?: string; value?: string }, ke
   const code = codeObj.value || '';
   const lang = codeObj.lang || '';
   
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+  
   return (
-    <pre key={key} className="overflow-x-auto rounded-xl bg-slate-900 dark:bg-black p-4 my-3 text-sm">
-      {lang && <span className="text-xs text-slate-500 uppercase mb-2 block">{lang}</span>}
-      <code className="text-slate-200 font-mono text-sm">{code}</code>
+    <pre key={key} className="overflow-x-auto rounded-xl bg-white dark:bg-gray-800 border border-gray-200/50 dark:border-gray-800 p-4 my-3 text-sm relative group">
+      {lang && <span className="text-xs text-gray-500 dark:text-gray-400 uppercase mb-2 block">{lang}</span>}
+      <code className="text-gray-800 dark:text-gray-200 font-mono text-sm">{code}</code>
+      <button
+        onClick={copyToClipboard}
+        className="absolute top-2 right-2 p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 opacity-0 group-hover:opacity-100 transition-opacity"
+        aria-label="Copy code"
+      >
+        <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      </button>
     </pre>
   );
 };
