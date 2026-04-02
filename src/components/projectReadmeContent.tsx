@@ -271,7 +271,7 @@ const ProjectReadmeContent = ({ readmeContent, size = 'md' }: ProjectReadmeConte
       {Object.entries(readmeContent.sections).map(([title, value]) => (
         <section key={title} className="space-y-3">
           <h4 className="text-lg font-semibold text-slate-900 dark:text-white">{title}</h4>
-          <div className="border-l-2 border-slate-200 pl-4 dark:border-slate-700">{renderSectionValue(value, title)}</div>
+          <div className="pl-4">{renderSectionValue(value, title)}</div>
         </section>
       ))}
     </div>

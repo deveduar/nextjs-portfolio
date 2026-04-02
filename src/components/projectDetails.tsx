@@ -48,10 +48,15 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
                 className="object-cover"
                 priority
               />
+              {demoLink && (
+                <div className="absolute top-3 right-3 z-10">
+                  <Badge label={demoLink.label} href={demoLink.href} />
+                </div>
+              )}
             </div>
           )}
-          
-          <div className="flex items-start justify-between gap-4">
+
+          <div className="flex items-start gap-4">
             <div className="min-w-0">
               <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">
                 {project.title}
@@ -60,11 +65,6 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
                 {project.description}
               </p>
             </div>
-            {demoLink && (
-              <div className="shrink-0">
-                <Badge label={demoLink.label} href={demoLink.href} />
-              </div>
-            )}
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -101,7 +101,10 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
         {project.gallery && (
           <div className="mt-4">
-            <Gallery images={project.gallery} />
+            <h4 className="text-lg font-semibold text-slate-900 dark:text-white">Images</h4>
+            <div className="mt-3">
+              <Gallery images={project.gallery} />
+            </div>
           </div>
         )}
 
