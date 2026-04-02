@@ -72,14 +72,14 @@ const renderMarkdownTable = (text: string, key: string | number) => {
 };
 
 const isTaskList = (lines: string[]) => {
-  return lines.some((line) => /^\[\s*[ x]\s*\]/.test(line));
+  return lines.some((line) => /^\s*[-*]?\s*\[\s*[ x]\s*\]/.test(line));
 };
 
 const renderTaskList = (lines: string[], key: string | number): JSX.Element => {
   return (
     <ul key={key} className="space-y-2 ml-4">
       {lines.map((line, idx) => {
-        const match = line.match(/^\[\s*([ x])\s*\]\s*(.*)$/i);
+        const match = line.match(/^\s*[-*]?\s*\[\s*([ x])\s*\]\s*(.*)$/i);
         if (!match) {
           const content = line.replace(/^[\s]*[-*][\s]*/, '');
           return (
@@ -89,10 +89,10 @@ const renderTaskList = (lines: string[], key: string | number): JSX.Element => {
             </li>
           );
         }
-        
+
         const checked = match[1].toLowerCase() === 'x';
         const text = match[2] || '';
-        
+
         return (
           <li key={idx} className="flex items-start gap-3">
             <input
@@ -178,18 +178,27 @@ const renderCode = (codeObj: { type: string; lang?: string; value?: string }, ke
   );
 };
 
+const isListItem = (item: string): boolean => {
+  return /^\s*[-*]\s/.test(item);
+};
+
+const isTaskItem = (item: string): boolean => {
+  return /^\s*[-*]?\s*\[\s*[ x]\s*\]/.test(item);
+};
+
 const renderSectionValue = (value: any, key: string | number): JSX.Element => {
   if (Array.isArray(value)) {
-    const taskListItems = value.filter((item) => typeof item === 'string' && /^\[\s*[ x]\s*\]/.test(item));
     const codeItems = value.filter((item) => typeof item === 'object' && item?.type === 'code');
-    const listItems = value.filter((item) => typeof item === 'string' && (/^\s*[-*]/.test(item) || /^\s*\*\*/.test(item)));
+    const taskItems = value.filter((item) => typeof item === 'string' && isTaskItem(item));
+    const listItems = value.filter((item) => typeof item === 'string' && isListItem(item));
     
-    if (taskListItems.length > 0 || (listItems.length > 0 && taskListItems.length > 0)) {
-      const allLines = value.map((item) => String(item)).join('\n');
-      const lines = allLines.split('\n').filter(Boolean);
-      return renderList(lines, key);
+    // Pure task list
+    if (taskItems.length > 0 && taskItems.length === value.length) {
+      const lines = value.map((item) => String(item));
+      return renderTaskList(lines, key);
     }
     
+    // Pure code items
     if (codeItems.length > 0 && codeItems.length === value.length) {
       return (
         <div key={key} className="space-y-3">
@@ -198,22 +207,72 @@ const renderSectionValue = (value: any, key: string | number): JSX.Element => {
       );
     }
     
-    if (listItems.length > 0) {
-      const allLines = value.map((item) => String(item)).join('\n');
-      const lines = allLines.split('\n').filter(Boolean);
-      const isList = lines.some((line) => /^\s*[-*]/.test(line) || /^\s*\*\*/.test(line));
-      if (isList) return renderList(lines, key);
-    }
-    
+    // Mixed content - render each item based on its type
     if (codeItems.length > 0) {
-      const otherItems = value.filter((item) => !(typeof item === 'object' && item?.type === 'code'));
       return (
         <div key={key} className="space-y-3">
           {value.map((item, idx) => {
             if (typeof item === 'object' && item?.type === 'code') {
               return renderCode(item, `${key}-${idx}`);
             }
+            if (typeof item === 'string' && isTaskItem(item)) {
+              return (
+                <ul key={idx} className="space-y-2 ml-4">
+                  {renderTaskList([item], `${key}-${idx}`)}
+                </ul>
+              );
+            }
+            if (typeof item === 'string' && isListItem(item)) {
+              const indentMatch = item.match(/^(\s*)/);
+              const indent = indentMatch ? indentMatch[1].length : 0;
+              const level = Math.floor(indent / 2);
+              const content = item.trim().replace(/^[-*]\s*/, '');
+              const bullet = level === 0 ? '•' : level === 1 ? '○' : '‣';
+              return (
+                <li key={idx} className="flex items-start gap-2 leading-relaxed text-slate-700 dark:text-slate-300" style={{ paddingLeft: level + 'rem' }}>
+                  <span className="text-slate-400 mt-1">{bullet}</span>
+                  <span className="flex-1" dangerouslySetInnerHTML={{ __html: parseInlineText(content) }} />
+                </li>
+              );
+            }
             return <div key={idx} className="text-slate-700 dark:text-slate-300">{renderSectionValue(item, `${key}-${idx}`)}</div>;
+          })}
+        </div>
+      );
+    }
+    
+    // Check if all items are list items
+    if (listItems.length === value.length && value.every((item: any) => typeof item === 'string')) {
+      const lines = value.map((item: string) => String(item));
+      return renderList(lines, key);
+    }
+    
+    // Mixed content - render each item based on its type
+    if (listItems.length > 0) {
+      return (
+        <div key={key} className="space-y-3">
+          {value.map((item: any, idx: number) => {
+            if (typeof item === 'string' && isTaskItem(item)) {
+              return (
+                <ul key={idx} className="space-y-2 ml-4">
+                  {renderTaskList([item], `${key}-${idx}`)}
+                </ul>
+              );
+            }
+            if (typeof item === 'string' && isListItem(item)) {
+              const indentMatch = item.match(/^(\s*)/);
+              const indent = indentMatch ? indentMatch[1].length : 0;
+              const level = Math.floor(indent / 2);
+              const content = item.trim().replace(/^[-*]\s*/, '');
+              const bullet = level === 0 ? '•' : level === 1 ? '○' : '‣';
+              return (
+                <li key={idx} className="flex items-start gap-2 leading-relaxed text-slate-700 dark:text-slate-300" style={{ paddingLeft: level + 'rem' }}>
+                  <span className="text-slate-400 mt-1">{bullet}</span>
+                  <span className="flex-1" dangerouslySetInnerHTML={{ __html: parseInlineText(content) }} />
+                </li>
+              );
+            }
+            return <div key={idx} className="leading-relaxed text-slate-700 dark:text-slate-300">{renderSectionValue(item, `${key}-${idx}`)}</div>;
           })}
         </div>
       );
