@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import { useState, useEffect, useRef, createContext, useContext, ReactNode } from 'react';
 import Link from "next/link";
 import { usePathname, useRouter } from 'next/navigation';
@@ -15,24 +14,32 @@ import {
   IoMenuOutline,
   IoChevronForward
 } from "react-icons/io5";
+import ContactModal from "./contactModal";
 
 interface SearchContextType {
   searchValue: string;
   setSearchValue: (value: string) => void;
+  openContactModal: () => void;
 }
 
 const SearchContext = createContext<SearchContextType>({
   searchValue: '',
   setSearchValue: () => {},
+  openContactModal: () => {},
 });
 
 export const useSearchContext = () => useContext(SearchContext);
 
 export function SearchProvider({ children }: { children: ReactNode }) {
   const [searchValue, setSearchValue] = useState('');
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+
+  const openContactModal = () => setContactModalOpen(true);
+
   return (
-    <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+    <SearchContext.Provider value={{ searchValue, setSearchValue, openContactModal }}>
       {children}
+      <ContactModal isOpen={contactModalOpen} onClose={() => setContactModalOpen(false)} />
     </SearchContext.Provider>
   );
 }
@@ -46,7 +53,7 @@ const Navbar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { readmes } = useReadmes();
-  const { searchValue, setSearchValue } = useSearchContext();
+  const { searchValue, setSearchValue, openContactModal } = useSearchContext();
 
   const isProjectsPage = pathname === '/projects';
   const isProjectDetail = pathname.startsWith('/project/') && pathname !== '/projects';
@@ -110,11 +117,14 @@ const Navbar: React.FC = () => {
     closeSidebar();
   };
 
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    openContactModal();
+  };
+
   const navItems = [
     { href: "/", icon: IoHomeOutline, label: "Home" },
     { href: "/projects", icon: IoFolderOutline, label: "Projects" },
-    { href: "/about", icon: IoPersonOutline, label: "About" },
-    { href: "/contact", icon: IoMailOutline, label: "Contact" },
   ];
 
   return (
@@ -156,6 +166,13 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-1">
+            <button 
+              onClick={handleContactClick}
+              className="p-2 rounded-lg transition-colors text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800"
+              title="Contact"
+            >
+              <IoMailOutline size={18} />
+            </button>
             <button 
               onClick={(e) => { e.stopPropagation(); toggleSearch(); }}
               className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
@@ -211,6 +228,13 @@ const Navbar: React.FC = () => {
                   <span className="text-sm font-medium">{item.label}</span>
                 </Link>
               ))}
+              <button
+                onClick={(e) => { e.stopPropagation(); openContactModal(); closeSidebar(); }}
+                className="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+              >
+                <IoMailOutline size={18} />
+                <span className="text-sm font-medium">Contact</span>
+              </button>
             </nav>
 
             <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200/50 dark:border-gray-800">

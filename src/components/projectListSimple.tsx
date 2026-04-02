@@ -7,6 +7,7 @@ import { BiLinkExternal } from "react-icons/bi";
 import { TbGripHorizontal } from "react-icons/tb";
 import { useState, useRef, TouchEvent, MouseEvent } from 'react';
 import ProjectReadmeContent from './projectReadmeContent';
+import { slugify } from '@/lib/slug';
 
 interface ProjectListSimpleProps {
   projects: {
@@ -262,7 +263,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
               
               <div className="shrink-0 bg-gray-50/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
                 <div className="flex items-center justify-between gap-2">
-                  <Link href={`/project/${project.id}`} className="flex-1 min-w-0">
+                  <Link href={`/project/${slugify(project.title)}`} className="flex-1 min-w-0">
                     <h3 className="font-semibold text-sm text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-1">
                       {project.title}
                     </h3>
@@ -284,7 +285,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                       </Link>
                     ))}
                     <Link
-                      href={`/project/${project.id}`}
+                      href={`/project/${slugify(project.title)}`}
                       className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-500 p-1"
                     >
                       <FaArrowRight className="w-4 h-4" />
@@ -470,7 +471,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                     ))}
                   </div>
                     <Link
-                      href={`/project/${project.id}`}
+                      href={`/project/${slugify(project.title)}`}
                       className="rounded-xl items-center gap-3 flex flex-row py-1 sm:py-2 text-blue-600 dark:text-blue-400"
                       rel="noopener noreferrer"
                     >

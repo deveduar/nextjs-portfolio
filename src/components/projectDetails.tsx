@@ -39,7 +39,24 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
     <section className="bg-gray-100 dark:bg-gray-950 -mx-2 px-2 md:-mx-12 md:px-12 lg:-mx-50 lg:px-50 xl:-mx-60 xl:px-60">
       <div className="py-4">
         <div className="flex flex-col gap-4">
-          <div className="flex items-start justify-between gap-4">
+          {project.imageSrc && (
+            <div className="relative w-full h-32 md:h-48 lg:h-56 rounded-xl overflow-hidden">
+              <Image
+                src={project.imageSrc}
+                alt={project.title}
+                fill
+                className="object-cover"
+                priority
+              />
+              {demoLink && (
+                <div className="absolute top-3 right-3 z-10">
+                  <Badge label={demoLink.label} href={demoLink.href} />
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="flex items-start gap-4">
             <div className="min-w-0">
               <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">
                 {project.title}
@@ -48,11 +65,6 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
                 {project.description}
               </p>
             </div>
-            {demoLink && (
-              <div className="shrink-0">
-                <Badge label={demoLink.label} href={demoLink.href} />
-              </div>
-            )}
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -89,7 +101,10 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
         {project.gallery && (
           <div className="mt-4">
-            <Gallery images={project.gallery} />
+            <h4 className="text-lg font-semibold text-slate-900 dark:text-white">Images</h4>
+            <div className="mt-3">
+              <Gallery images={project.gallery} />
+            </div>
           </div>
         )}
 
