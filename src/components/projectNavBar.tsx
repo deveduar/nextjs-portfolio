@@ -6,6 +6,7 @@ import { slugify } from '@/lib/slug';
 interface Project {
   id: number;
   title: string;
+  date?: string;
 }
 
 interface ProjectNavBarProps {
@@ -19,7 +20,11 @@ const ProjectNavBar: React.FC<ProjectNavBarProps> = ({
 }) => {
   const currentId = project.id;
 
-  const sortedProjects = [...projects].sort((a, b) => a.id - b.id);
+  const sortedProjects = [...projects].sort((a, b) => {
+    const dateA = a.date ? new Date(a.date).getTime() : 0;
+    const dateB = b.date ? new Date(b.date).getTime() : 0;
+    return dateB - dateA;
+  });
   const currentIndex = sortedProjects.findIndex(p => p.id === currentId);
   
   const prevProject = currentIndex > 0 ? sortedProjects[currentIndex - 1] : sortedProjects[sortedProjects.length - 1];

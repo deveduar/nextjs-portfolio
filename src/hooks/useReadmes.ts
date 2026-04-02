@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 export interface Readme {
   id: number;
+  date: string;
   repoId: string;
   title: string;
   description: string;

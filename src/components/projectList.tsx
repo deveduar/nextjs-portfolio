@@ -48,9 +48,9 @@ const ProjectList: React.FC<ProjectListProps> = ({ searchFilter = '' }) => {
         case 'name-desc':
           return b.title.localeCompare(a.title);
         case 'date-asc':
-          return a.id - b.id;
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
         case 'date-desc':
-          return b.id - a.id;
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
         default:
           return 0;
       }

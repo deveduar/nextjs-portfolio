@@ -27,7 +27,7 @@ const Hero: React.FC<HeroProps> = ({ name, specialty, description, socialLinks }
   const { openContactModal } = useSearchContext();
 
   const recentProjects = loading ? [] : [...readmes]
-    .sort((a, b) => b.id - a.id)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(-4)
     .reverse();
 
