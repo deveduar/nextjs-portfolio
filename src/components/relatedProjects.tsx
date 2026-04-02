@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { IoChevronForward } from "react-icons/io5";
+import { slugify } from '@/lib/slug';
 
 interface RelatedProjectsProps {
   projects: Array<{
@@ -28,7 +29,7 @@ const RelatedProjects: React.FC<RelatedProjectsProps> = ({ projects, currentProj
         {displayProjects.map((project) => (
           <Link
             key={project.id}
-            href={`/project/${project.id}`}
+            href={`/project/${slugify(project.title)}`}
             className="block group"
           >
             <div className="p-3 rounded-xl bg-slate-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">

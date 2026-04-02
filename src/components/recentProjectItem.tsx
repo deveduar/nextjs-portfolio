@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { IoChevronForward } from "react-icons/io5";
+import { slugify } from '@/lib/slug';
 
 interface RecentProjectItemProps {
   project: {
@@ -14,7 +15,7 @@ interface RecentProjectItemProps {
 const RecentProjectItem: React.FC<RecentProjectItemProps> = ({ project }) => {
   return (
     <Link
-      href={`/project/${project.id}`}
+      href={`/project/${slugify(project.title)}`}
       className="block group"
     >
       <div className="p-2 rounded-lg bg-white dark:bg-gray-900 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-gray-200/50 dark:border-gray-800 transition-colors">

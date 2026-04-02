@@ -6,17 +6,17 @@ import { useReadmes } from '@/hooks/useReadmes';
 import ProjectNavBar from '@/components/projectNavBar';
 import ProjectBreadcrumb from '@/components/projectBreadcrumb';
 import RelatedProjects from '@/components/relatedProjects';
+import { slugify } from '@/lib/slug';
 
 interface ProjectPageProps {
   params: {
-    id: string;
+    slug: string;
   };
 }
 
 const ProjectPage = ({ params }: ProjectPageProps) => {
   const { readmes, loading, error } = useReadmes();
-  const { id } = params;
-  const projectId = parseInt(id);
+  const { slug } = params;
 
   if (loading) {
     return (
@@ -34,7 +34,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
     );
   }
 
-  const project = readmes.find((proj) => proj.id === projectId);
+  const project = readmes.find((proj) => slugify(proj.title) === slug);
 
   if (!project) {
     return notFound();
@@ -47,7 +47,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
         <ProjectDetails project={project} />
       </section>
       <section className="py-4">
-        <RelatedProjects projects={readmes} currentProjectId={projectId} />
+        <RelatedProjects projects={readmes} currentProjectId={project.id} />
       </section>
       <ProjectNavBar 
         project={project} 

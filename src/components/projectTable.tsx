@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { IoLink } from "react-icons/io5";
+import { slugify } from '@/lib/slug';
 
 interface ProjectTableProps {
   projects: Array<{
@@ -31,8 +32,8 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects }) => {
               className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors"
             >
               <td className="py-3 px-4">
-                <Link 
-                  href={`/project/${project.id}`}
+                <Link
+                  href={`/project/${slugify(project.title)}`}
                   className="font-medium text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   {project.title}
