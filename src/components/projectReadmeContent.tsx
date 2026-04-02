@@ -291,7 +291,7 @@ const renderSectionValue = (value: any, key: string | number): JSX.Element => {
       <div key={key} className="space-y-4">
         {Object.entries(value).map(([title, val]) => (
           <div key={title}>
-            <h5 className="font-semibold text-slate-900 dark:text-white mt-4">{title}</h5>
+            <h5 className="font-semibold text-slate-900 dark:text-white mt-4" dangerouslySetInnerHTML={{ __html: parseInlineText(title) }} />
             <div className="mt-2">{renderSectionValue(val, `${key}-${title}`)}</div>
           </div>
         ))}
@@ -303,7 +303,7 @@ const renderSectionValue = (value: any, key: string | number): JSX.Element => {
   if (isTableText(text)) return renderMarkdownTable(text, key);
   
   const lines = text.split('\n').filter(Boolean);
-  const isList = lines.length > 0 && lines.some((line) => /^\s*[-*]/.test(line) || /^\s*\*\*/.test(line));
+  const isList = lines.length > 0 && lines.some((line) => /^\s*[-*]\s/.test(line) || /^\s*\*\s/.test(line));
   if (isList) return renderList(lines, key);
 
   return <p key={key} className="leading-relaxed text-slate-700 dark:text-slate-300 whitespace-pre-line"><span dangerouslySetInnerHTML={{ __html: parseInlineText(text) }} /></p>;
@@ -317,7 +317,7 @@ const ProjectReadmeContent = ({ readmeContent, size = 'md' }: ProjectReadmeConte
       <div className="space-y-1">
         {Object.entries(readmeContent.sections).map(([title, value]) => (
           <div key={title} className="p-2 rounded bg-gray-100 dark:bg-gray-800">
-            <h4 className="text-xs font-semibold mb-1">{title}</h4>
+            <h4 className="text-xs font-semibold mb-1" dangerouslySetInnerHTML={{ __html: parseInlineText(title) }} />
             <div className="text-[10px]">{renderSectionValue(value, title)}</div>
           </div>
         ))}
@@ -329,7 +329,7 @@ const ProjectReadmeContent = ({ readmeContent, size = 'md' }: ProjectReadmeConte
     <div className="space-y-6">
       {Object.entries(readmeContent.sections).map(([title, value]) => (
         <section key={title} className="space-y-3">
-          <h4 className="text-lg font-semibold text-slate-900 dark:text-white">{title}</h4>
+          <h4 className="text-lg font-semibold text-slate-900 dark:text-white" dangerouslySetInnerHTML={{ __html: parseInlineText(title) }} />
           <div className="pl-4">{renderSectionValue(value, title)}</div>
         </section>
       ))}
