@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Badge from "@/components/badge";
+import { slugify } from "@/lib/slug";
 
 interface LinkProps {
   href: string;
@@ -35,7 +36,7 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <Link 
-      href={`/project/${id}`} 
+      href={`/project/${slugify(title)}`} 
       className="group w-full border border-gray-200/50 dark:border-gray-800 rounded-xl overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700 
       grow basis-full min-w-[280px] max-w-full 
       md:basis-[calc(50%-1rem)] md:min-w-[calc(50%-1rem)] md:max-w-[calc(50%-1rem)]
