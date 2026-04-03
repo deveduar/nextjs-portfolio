@@ -10,6 +10,7 @@ interface ProjectTableProps {
     description: string;
     technologies: string[];
     links: Array<{ href: string; label: string }>;
+    date?: string;
   }>;
 }
 
@@ -22,6 +23,7 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects }) => {
             <th className="text-left py-3 px-4 font-medium text-slate-600 dark:text-slate-400">Project</th>
             <th className="text-left py-3 px-4 font-medium text-slate-600 dark:text-slate-400 hidden md:table-cell">Description</th>
             <th className="text-left py-3 px-4 font-medium text-slate-600 dark:text-slate-400">Technologies</th>
+            <th className="text-left py-3 px-4 font-medium text-slate-600 dark:text-slate-400 hidden sm:table-cell">Date</th>
             <th className="text-right py-3 px-4 font-medium text-slate-600 dark:text-slate-400">Links</th>
           </tr>
         </thead>
@@ -58,6 +60,9 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects }) => {
                     </span>
                   )}
                 </div>
+              </td>
+              <td className="py-3 px-4 text-slate-500 dark:text-slate-400 hidden sm:table-cell text-xs">
+                {project.date ? new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '-'}
               </td>
               <td className="py-3 px-4 text-right">
                 <div className="flex justify-end gap-2">
