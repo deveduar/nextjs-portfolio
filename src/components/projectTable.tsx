@@ -16,24 +16,23 @@ interface ProjectTableProps {
 
 const ProjectTable: React.FC<ProjectTableProps> = ({ projects }) => {
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-sm">
+    <table className="w-full min-w-[600px] text-sm">
         <thead>
-          <tr className="border-b border-gray-200 dark:border-gray-800">
-            <th className="text-left py-3 px-4 font-medium text-slate-600 dark:text-slate-400">Project</th>
-            <th className="text-left py-3 px-4 font-medium text-slate-600 dark:text-slate-400 hidden md:table-cell">Description</th>
-            <th className="text-left py-3 px-4 font-medium text-slate-600 dark:text-slate-400">Technologies</th>
-            <th className="text-left py-3 px-4 font-medium text-slate-600 dark:text-slate-400 hidden sm:table-cell">Date</th>
-            <th className="text-right py-3 px-4 font-medium text-slate-600 dark:text-slate-400">Links</th>
+          <tr className="border-b border-slate-200 dark:border-slate-700">
+            <th className="px-3 py-2 text-left font-semibold text-slate-900 dark:text-white">Project</th>
+            <th className="px-3 py-2 text-left font-semibold text-slate-900 dark:text-white hidden md:table-cell">Description</th>
+            <th className="px-3 py-2 text-left font-semibold text-slate-900 dark:text-white">Technologies</th>
+            <th className="px-3 py-2 text-left font-semibold text-slate-900 dark:text-white hidden sm:table-cell">Date</th>
+            <th className="px-3 py-2 text-right font-semibold text-slate-900 dark:text-white">Links</th>
           </tr>
         </thead>
         <tbody>
           {projects.map((project) => (
             <tr 
               key={project.id}
-              className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors"
+              className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
             >
-              <td className="py-3 px-4">
+              <td className="px-3 py-2">
                 <Link
                   href={`/project/${slugify(project.title)}`}
                   className="font-medium text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -41,10 +40,10 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects }) => {
                   {project.title}
                 </Link>
               </td>
-              <td className="py-3 px-4 text-slate-500 dark:text-slate-400 hidden md:table-cell max-w-[300px]">
+              <td className="px-3 py-2 text-slate-500 dark:text-slate-400 hidden md:table-cell max-w-[300px]">
                 <span className="line-clamp-1">{project.description}</span>
               </td>
-              <td className="py-3 px-4">
+              <td className="px-3 py-2">
                 <div className="flex flex-wrap gap-1">
                   {project.technologies.slice(0, 3).map((tech, index) => (
                     <span
@@ -61,10 +60,10 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects }) => {
                   )}
                 </div>
               </td>
-              <td className="py-3 px-4 text-slate-500 dark:text-slate-400 hidden sm:table-cell text-xs">
+              <td className="px-3 py-2 text-slate-500 dark:text-slate-400 hidden sm:table-cell text-xs">
                 {project.date ? new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '-'}
               </td>
-              <td className="py-3 px-4 text-right">
+              <td className="px-3 py-2 text-right">
                 <div className="flex justify-end gap-2">
                   {project.links.slice(0, 2).map((link, index) => (
                     <Link
@@ -83,8 +82,7 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects }) => {
           ))}
         </tbody>
       </table>
-    </div>
-  );
-};
+    );
+  };
 
 export default ProjectTable;
