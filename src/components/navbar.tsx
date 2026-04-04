@@ -16,6 +16,8 @@ import {
 } from "react-icons/io5";
 import ContactModal from "./contactModal";
 import { slugify } from '@/lib/slug';
+import profile from '@/data/profile';
+import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 
 interface SearchContextType {
   searchValue: string;
@@ -49,6 +51,8 @@ const Navbar: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [sidebarSearch, setSidebarSearch] = useState('');
+  const [projectsExpanded, setProjectsExpanded] = useState(true);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -195,10 +199,10 @@ const Navbar: React.FC = () => {
         <div className="fixed inset-0 z-50" onClick={handleOverlayClick}>
           <div className="absolute top-14 bottom-0 left-0 right-0 bg-black/50 animate-overlayFadeIn cursor-pointer" />
           <aside 
-            className="sidebar-content absolute top-0 left-0 bottom-0 w-72 bg-gray-100 dark:bg-gray-950 border-r border-gray-200/50 dark:border-gray-800 animate-sidebarSlideIn z-60"
+            className="sidebar-content absolute top-0 left-0 bottom-0 w-72 bg-gray-100 dark:bg-gray-950 border-r border-gray-200/50 dark:border-gray-800 animate-sidebarSlideIn z-60 flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-gray-800">
+            <div className="flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-gray-800 shrink-0">
               <div className="flex items-center gap-2">
                 <button 
                   onClick={(e) => { e.stopPropagation(); closeSidebar(); }}
@@ -213,22 +217,80 @@ const Navbar: React.FC = () => {
               <span className="text-xs text-gray-500 dark:text-gray-400">Portfolio</span>
             </div>
 
-            <nav className="p-4 space-y-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => e.stopPropagation()}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors
-                    ${pathname === item.href 
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+              <nav className="p-4 space-y-1">
+                <button
+                  onClick={(e) => { e.stopPropagation(); setProjectsExpanded(!projectsExpanded); }}
+                  className={`flex items-center justify-between w-full px-3 py-2.5 rounded-lg transition-colors
+                    ${pathname === '/projects'
                       ? 'bg-blue-600 text-white' 
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800'
                     }`}
                 >
-                  <item.icon size={18} />
-                  <span className="text-sm font-medium">{item.label}</span>
-                </Link>
-              ))}
+                  <div className="flex items-center gap-3">
+                    <IoFolderOutline size={18} />
+                    <span className="text-sm font-medium">Projects</span>
+                  </div>
+                  <IoChevronForward 
+                    size={16} 
+                    className={`transition-transform ${projectsExpanded ? 'rotate-90' : ''}`} 
+                  />
+                </button>
+                
+                {projectsExpanded && readmes && readmes.length > 0 && (
+                  <div className="mt-2 ml-2 space-y-2">
+                    <div className="relative">
+                      <IoSearchOutline className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" size={12} />
+                      <input
+                        type="text"
+                        placeholder="Filter projects..."
+                        value={sidebarSearch}
+                        onChange={(e) => setSidebarSearch(e.target.value)}
+                        className="w-full pl-7 pr-6 py-1.5 text-xs rounded-lg bg-white dark:bg-gray-900 
+                          border border-gray-200/30 dark:border-gray-700/30
+                          text-gray-900 dark:text-white
+                          placeholder-gray-400 dark:placeholder-gray-500
+                          focus:outline-none focus:ring-1 focus:ring-blue-500/30"
+                      />
+                      {sidebarSearch && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setSidebarSearch(''); }}
+                          className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                        >
+                          <IoClose size={12} />
+                        </button>
+                      )}
+                    </div>
+                    <div className="space-y-1 max-h-48 overflow-y-auto custom-scrollbar">
+                      {readmes
+                        .filter(p => {
+                          const search = normalizeText(sidebarSearch);
+                          return !sidebarSearch || 
+                            normalizeText(p.title).includes(search) ||
+                            normalizeText(p.description || '').includes(search) ||
+                            p.technologies.some(t => normalizeText(t).includes(search));
+                        })
+                        .map(project => (
+                          <Link
+                            key={project.id}
+                            href={`/project/${slugify(project.title)}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className={`block px-2 py-1.5 text-xs rounded-lg truncate transition-colors
+                              ${pathname === `/project/${slugify(project.title)}`
+                                ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 font-medium'
+                                : 'text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                              }`}
+                          >
+                            {project.title}
+                          </Link>
+                        ))}
+                    </div>
+                  </div>
+                )}
+              </nav>
+            </div>
+
+            <div className="p-4 border-t border-gray-200/50 dark:border-gray-800 shrink-0 space-y-3">
               <button
                 onClick={(e) => { e.stopPropagation(); openContactModal(); closeSidebar(); }}
                 className="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
@@ -236,16 +298,30 @@ const Navbar: React.FC = () => {
                 <IoMailOutline size={18} />
                 <span className="text-sm font-medium">Contact</span>
               </button>
-            </nav>
-
-            <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200/50 dark:border-gray-800">
-              <button 
-                onClick={(e) => { e.stopPropagation(); toggleSearch(); closeSidebar(); }}
-                className="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-              >
-                <IoSearchOutline size={18} />
-                <span className="text-sm font-medium">Search projects</span>
-              </button>
+              
+              <div className="flex items-center justify-center gap-3">
+                <Link 
+                  href={profile.socialLinks.linkedin} 
+                  target="_blank"
+                  className="p-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+                >
+                  <FaLinkedin className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+                </Link>
+                <Link 
+                  href={profile.socialLinks.twitter} 
+                  target="_blank"
+                  className="p-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+                >
+                  <FaTwitter className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+                </Link>
+                <Link 
+                  href={profile.socialLinks.github} 
+                  target="_blank"
+                  className="p-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+                >
+                  <FaGithub className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+                </Link>
+              </div>
             </div>
           </aside>
         </div>
