@@ -10,6 +10,7 @@ import Link from "next/link";
 
 const SCROLL_THRESHOLD = 150;
 const SNAP_DURATION = 300;
+const TOUCH_THRESHOLD = 0;
 
 export default function Home() {
   const { readmes, loading } = useReadmes();
@@ -17,6 +18,11 @@ export default function Home() {
   const activeSectionRef = useRef(0);
   const scrollAccumulator = useRef(0);
   const lastScrollTime = useRef(0);
+  
+  const touchStartY = useRef(0);
+  const touchAccumulator = useRef(0);
+  const touchCooldown = useRef(false);
+  const touchStartSection = useRef(0);
 
   const heroRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
@@ -144,6 +150,60 @@ export default function Home() {
     }
   }, [totalSections, snapToSection, aboutSectionIndex]);
 
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+    touchStartSection.current = activeSectionRef.current;
+  }, []);
+
+  const handleTouchMove = useCallback((e: TouchEvent) => {
+    if (touchCooldown.current) return;
+    
+    const startSection = touchStartSection.current;
+    
+    if (startSection === aboutSectionIndex) {
+      return;
+    }
+
+    const currentY = e.touches[0].clientY;
+    const deltaY = touchStartY.current - currentY;
+    touchAccumulator.current = deltaY;
+  }, [aboutSectionIndex]);
+
+  const handleTouchEnd = useCallback(() => {
+    if (touchCooldown.current) {
+      touchAccumulator.current = 0;
+      return;
+    }
+    
+    const startSection = touchStartSection.current;
+    
+    if (startSection === aboutSectionIndex) {
+      touchAccumulator.current = 0;
+      return;
+    }
+
+    const distance = Math.abs(touchAccumulator.current);
+    
+    if (distance >= TOUCH_THRESHOLD) {
+      const direction = touchAccumulator.current > 0 ? 1 : -1;
+      let nextSection;
+      
+      if (direction > 0) {
+        nextSection = Math.min(startSection + 1, totalSections - 1);
+      } else {
+        nextSection = Math.max(startSection - 1, 0);
+      }
+
+      touchCooldown.current = true;
+      snapToSection(nextSection);
+      setTimeout(() => {
+        touchCooldown.current = false;
+      }, 300);
+    }
+    
+    touchAccumulator.current = 0;
+  }, [totalSections, snapToSection, aboutSectionIndex]);
+
   const updateActiveSection = useCallback(() => {
     const scrollY = window.scrollY;
     const viewportHeight = window.innerHeight;
@@ -181,11 +241,17 @@ export default function Home() {
   useEffect(() => {
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
     return () => {
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [handleWheel, updateActiveSection]);
+  }, [handleWheel, updateActiveSection, handleTouchStart, handleTouchMove, handleTouchEnd]);
 
   return (
     <>
