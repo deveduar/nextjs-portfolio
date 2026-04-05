@@ -158,34 +158,38 @@ export default function Home() {
   const handleTouchMove = useCallback((e: TouchEvent) => {
     if (touchCooldown.current) return;
     
-    const startSection = touchStartSection.current;
-    
-    if (startSection === aboutSectionIndex) {
-      return;
-    }
-
     const currentY = e.touches[0].clientY;
     const deltaY = touchStartY.current - currentY;
     touchAccumulator.current = deltaY;
-  }, [aboutSectionIndex]);
+  }, []);
 
   const handleTouchEnd = useCallback(() => {
     if (touchCooldown.current) {
-      touchAccumulator.current = 0;
       return;
     }
     
     const startSection = touchStartSection.current;
+    const distance = touchAccumulator.current;
     
     if (startSection === aboutSectionIndex) {
-      touchAccumulator.current = 0;
+      if (distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD) {
+        if (aboutRef.current) {
+          const aboutTop = aboutRef.current.offsetTop - 56;
+          const viewportTop = window.scrollY;
+          
+          if (viewportTop > aboutTop + 150) {
+            window.scrollTo({ top: aboutTop, behavior: "smooth" });
+          } else {
+            const lastProjectIndex = totalSections - 2;
+            snapToSection(lastProjectIndex);
+          }
+        }
+      }
       return;
     }
 
-    const distance = Math.abs(touchAccumulator.current);
-    
-    if (distance >= TOUCH_THRESHOLD) {
-      const direction = touchAccumulator.current > 0 ? 1 : -1;
+    if (Math.abs(distance) >= TOUCH_THRESHOLD) {
+      const direction = distance > 0 ? 1 : -1;
       let nextSection;
       
       if (direction > 0) {
@@ -200,8 +204,6 @@ export default function Home() {
         touchCooldown.current = false;
       }, 300);
     }
-    
-    touchAccumulator.current = 0;
   }, [totalSections, snapToSection, aboutSectionIndex]);
 
   const updateActiveSection = useCallback(() => {
