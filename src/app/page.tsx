@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const SCROLL_THRESHOLD = 150;
 const SNAP_DURATION = 300;
-const TOUCH_THRESHOLD = 0;
+const TOUCH_THRESHOLD = 2;
 
 export default function Home() {
   const { readmes, loading } = useReadmes();
@@ -153,6 +153,8 @@ export default function Home() {
   const handleTouchStart = useCallback((e: TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
     touchStartSection.current = activeSectionRef.current;
+    touchAccumulator.current = 0;
+    touchCooldown.current = false;
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
