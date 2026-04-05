@@ -26,7 +26,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ socialLinks, onScrollToProjec
       <TechMarquee />
       
       <div className="flex-1 flex flex-col justify-center">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl mx-auto">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Welcome to my portfolio.
           </h1>

@@ -1,138 +1,129 @@
 "use client"
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FaLinkedin, FaTwitter, FaGithub, FaChevronUp } from "react-icons/fa";
 import profile from "@/data/profile";
-import Typewriter from 'typewriter-effect';
-import Image from "next/image";
+import TechTags from "@/components/techTags";
 
 interface AboutSectionProps {
-  scrollToTopRef?: React.RefObject<HTMLDivElement>;
   onScrollToTop?: () => void;
 }
 
-const AboutSection: React.FC<AboutSectionProps> = ({ scrollToTopRef, onScrollToTop }) => {
-  
-  const scrollToTop = () => {
-    onScrollToTop?.();
-  };
-
+const AboutSection: React.FC<AboutSectionProps> = ({ onScrollToTop }) => {
   return (
-    <section className="flex flex-col px-4 py-8 min-h-screen snap-start">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">About</h2>
-        <button 
-          onClick={scrollToTop}
-          className="p-2 rounded-full bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 shadow hover:shadow-md transition-all"
-        >
-          <FaChevronUp className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-        </button>
-      </div>
-      <div className="rounded-xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 overflow-hidden">
-        <div className="p-4 border-b border-gray-200/50 dark:border-gray-800">
-          <div className="flex items-center gap-3">
+    <section className="flex flex-col justify-between px-4 py-8 min-h-screen">
+      <div className="flex-1 flex flex-col justify-center">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center gap-4 mb-6">
             <Image
               src="/images/profile.webp"
-              width={56}
-              height={56}
+              width={100}
+              height={100}
               alt="Profile"
               className="rounded-full"
             />
             <div>
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white">{profile.name}</h2>
-              <p className="text-sm text-blue-600 dark:text-blue-400">
-                <Typewriter
-                  options={{ autoStart: true, loop: true }}
-                  onInit={(typewriter) => {
-                    typewriter
-                      .typeString("Full Stack Developer")
-                      .pauseFor(2000)
-                      .deleteAll()
-                      .pauseFor(500)
-                      .typeString("System Administrator")
-                      .pauseFor(2000)
-                      .deleteAll()
-                      .start();
-                  }}
-                />
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
+                {profile.name}
+              </h1>
+              <p className="text-lg md:text-xl text-blue-600 dark:text-blue-400 font-medium">
+                Full Stack Developer & System Administrator
               </p>
             </div>
           </div>
-        </div>
 
-        <div className="p-4 space-y-4">
-          <div className="space-y-2">
+          <div className="space-y-4 mb-6">
             {profile.description.map((paragraph, i) => (
-              <p key={i} className="text-sm leading-6 text-gray-600 dark:text-gray-400">{paragraph}</p>
+              <p key={i} className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                {paragraph}
+              </p>
             ))}
           </div>
-          
-          <div className="flex items-center gap-2 text-sm">
+
+          <div className="flex items-center gap-2 text-lg mb-8">
             <span className="text-gray-500 dark:text-gray-400">📍 Spain</span>
             <span className="text-gray-500 dark:text-gray-400">•</span>
             <span className="text-blue-600 dark:text-blue-400 font-medium">Available for projects</span>
           </div>
 
-          <div className="flex gap-2">
-            <Link href={profile.socialLinks.linkedin} target="_blank" className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
-              <FaLinkedin className="w-4 h-4 text-gray-700 dark:text-gray-300" />
-            </Link>
-            <Link href={profile.socialLinks.twitter} target="_blank" className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
-              <FaTwitter className="w-4 h-4 text-gray-700 dark:text-gray-300" />
-            </Link>
-            <Link href={profile.socialLinks.github} target="_blank" className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
-              <FaGithub className="w-4 h-4 text-gray-700 dark:text-gray-300" />
-            </Link>
+          <div className="mb-8">
+            <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-300 mb-3">Skills</h3>
+            <TechTags
+              technologies={[
+                ...profile.skills.programmingLanguages,
+                ...profile.skills.frontend.frameworks,
+                ...profile.skills.frontend.styles,
+                ...profile.skills.backend.frameworks,
+                ...profile.skills.backend.databases,
+                ...profile.skills.devOps
+              ]}
+              limit={20}
+              colorful={true}
+              overlayStyle={false}
+              className="flex-wrap gap-2 text-sm"
+            />
           </div>
 
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-300 mb-2">Experience</h3>
-            <div className="space-y-2">
-              {profile.workExperience.map((exp, i) => (
-                <div key={i} className="border-l-2 border-blue-500 dark:border-blue-400 pl-3">
-                  <p className="text-sm font-medium text-gray-900 dark:text-gray-200">{exp.title}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{exp.company} • {exp.period}</p>
-                </div>
-              ))}
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div>
+              <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-300 mb-3">Experience</h3>
+              <div className="space-y-3">
+                {profile.workExperience.map((exp, i) => (
+                  <div key={i} className="border-l-2 border-blue-500 dark:border-blue-400 pl-3">
+                    <p className="text-base font-medium text-gray-900 dark:text-gray-200">{exp.title}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{exp.company} • {exp.period}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-300 mb-3">Education</h3>
+              <div className="space-y-3">
+                {profile.education.map((edu, i) => (
+                  <div key={i} className="border-l-2 border-purple-500 dark:border-purple-400 pl-3">
+                    <p className="text-base font-medium text-gray-900 dark:text-gray-200">{edu.title}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{edu.institution} • {edu.year}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-300 mb-2">Education</h3>
-            <div className="space-y-2">
-              {profile.education.map((edu, i) => (
-                <div key={i} className="border-l-2 border-purple-500 dark:border-purple-400 pl-3">
-                  <p className="text-sm font-medium text-gray-900 dark:text-gray-200">{edu.title}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{edu.institution} • {edu.year}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-300 mb-2">Skills</h3>
-            <div className="flex flex-wrap gap-1.5">
-              {profile.skills.programmingLanguages.map((s, i) => (
-                <span key={i} className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">{s}</span>
-              ))}
-              {profile.skills.frontend.frameworks.map((s, i) => (
-                <span key={i} className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">{s}</span>
-              ))}
-              {profile.skills.frontend.styles.map((s, i) => (
-                <span key={i} className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">{s}</span>
-              ))}
-              {profile.skills.backend.frameworks.map((s, i) => (
-                <span key={i} className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">{s}</span>
-              ))}
-              {profile.skills.backend.databases.map((s, i) => (
-                <span key={i} className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">{s}</span>
-              ))}
-              {profile.skills.devOps.map((s, i) => (
-                <span key={i} className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">{s}</span>
-              ))}
-            </div>
+          <div className="flex gap-3">
+            <Link 
+              href={profile.socialLinks.linkedin}
+              target="_blank" 
+              className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            >
+              <FaLinkedin className="w-5 h-5 text-gray-900 dark:text-white" />
+            </Link>
+            <Link 
+              href={profile.socialLinks.twitter}
+              target="_blank" 
+              className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            >
+              <FaTwitter className="w-5 h-5 text-gray-900 dark:text-white" />
+            </Link>
+            <Link 
+              href={profile.socialLinks.github}
+              target="_blank" 
+              className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            >
+              <FaGithub className="w-5 h-5 text-gray-900 dark:text-white" />
+            </Link>
           </div>
         </div>
+      </div>
+
+      <div className="flex justify-center pb-8">
+        <button 
+          onClick={onScrollToTop}
+          className="p-3 rounded-full bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 shadow-lg hover:shadow-xl transition-all"
+        >
+          <FaChevronUp className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+        </button>
       </div>
     </section>
   );
