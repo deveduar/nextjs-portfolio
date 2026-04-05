@@ -37,24 +37,34 @@ export default function Home() {
     const navHeight = 56;
     
     if (index === 0 && heroRef.current) {
-      return { top: heroRef.current.offsetTop - navHeight };
+      return { top: heroRef.current.offsetTop - navHeight, height: heroRef.current.offsetHeight };
     } else if (index === totalSections - 1 && aboutRef.current) {
-      return { top: aboutRef.current.offsetTop - navHeight };
+      return { top: aboutRef.current.offsetTop - navHeight, height: aboutRef.current.offsetHeight };
     } else {
       const projectIndex = index - 1;
       const projectEl = projectRefs.current[projectIndex];
       if (projectEl) {
-        return { top: projectEl.offsetTop - navHeight };
+        return { top: projectEl.offsetTop - navHeight, height: projectEl.offsetHeight };
       }
     }
-    return { top: 0 };
+    return { top: 0, height: 0 };
   }, [totalSections]);
 
   const snapToSection = useCallback((index: number) => {
     if (index < 0 || index >= totalSections) return;
     if (isScrolling.current) return;
 
-    const { top } = getSectionPosition(index);
+    const { top, height } = getSectionPosition(index);
+    const viewportHeight = window.innerHeight;
+    const navHeight = 56;
+    const availableSpace = viewportHeight - navHeight;
+    
+    let scrollTop = top;
+    
+    if (height < availableSpace) {
+      const offset = (availableSpace - height) / 2;
+      scrollTop = top - offset;
+    }
     
     isScrolling.current = true;
     activeSectionRef.current = index;
@@ -62,7 +72,7 @@ export default function Home() {
     lastScrollTime.current = Date.now();
     
     window.scrollTo({
-      top,
+      top: scrollTop,
       behavior: "smooth"
     });
     
@@ -202,7 +212,7 @@ export default function Home() {
         <section 
           key={project.id}
           ref={el => { projectRefs.current[index] = el; }}
-          className="min-h-screen flex items-center justify-center px-4 md:px-8 py-4"
+          className="min-h-screen px-4 md:px-8 py-4"
         >
           <HomeProjectCard project={project} />
         </section>
