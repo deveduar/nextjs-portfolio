@@ -8,12 +8,15 @@ import { useReadmes } from "@/hooks/useReadmes";
 import profile from "@/data/profile";
 import Link from "next/link";
 
+const SCROLL_THRESHOLD = 150;
+const SNAP_DURATION = 300;
+
 export default function Home() {
   const { readmes, loading } = useReadmes();
   const isScrolling = useRef(false);
   const activeSectionRef = useRef(0);
+  const scrollAccumulator = useRef(0);
   const lastScrollTime = useRef(0);
-  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const heroRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
@@ -28,6 +31,7 @@ export default function Home() {
   }, [readmes, loading]);
 
   const totalSections = recentProjects.length + 2;
+  const aboutSectionIndex = totalSections - 1;
 
   const getSectionPosition = useCallback((index: number) => {
     const navHeight = 56;
@@ -54,6 +58,8 @@ export default function Home() {
     
     isScrolling.current = true;
     activeSectionRef.current = index;
+    scrollAccumulator.current = 0;
+    lastScrollTime.current = Date.now();
     
     window.scrollTo({
       top,
@@ -62,7 +68,7 @@ export default function Home() {
     
     setTimeout(() => {
       isScrolling.current = false;
-    }, 400);
+    }, SNAP_DURATION);
   }, [totalSections, getSectionPosition]);
 
   const scrollToProjects = useCallback(() => {
@@ -70,33 +76,94 @@ export default function Home() {
   }, [snapToSection]);
 
   const handleWheel = useCallback((e: WheelEvent) => {
-    if (isScrolling.current) return;
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    
+    const aboutTop = aboutRef.current?.offsetTop ? aboutRef.current.offsetTop - 56 : 0;
+    const aboutBottom = aboutTop + (aboutRef.current?.clientHeight || 0);
+    const viewportCenter = scrollY + viewportHeight / 2;
+    
+    const trulyInAbout = scrollY >= aboutTop - 100 && scrollY <= aboutBottom - 100;
+
+    if (trulyInAbout) {
+      return;
+    }
+
+    if (isScrolling.current) {
+      e.preventDefault();
+      return;
+    }
 
     const now = Date.now();
-    if (now - lastScrollTime.current < 350) return;
-    lastScrollTime.current = now;
-
-    const direction = e.deltaY > 0 ? 1 : -1;
-    const currentSection = activeSectionRef.current;
-    const nextSection = direction > 0 
-      ? Math.min(currentSection + 1, totalSections - 1)
-      : Math.max(currentSection - 1, 0);
-
-    if (nextSection !== currentSection) {
+    if (now - lastScrollTime.current < 300) {
       e.preventDefault();
-      snapToSection(nextSection);
+      return;
+    }
+
+    scrollAccumulator.current += e.deltaY;
+    e.preventDefault();
+
+    if (Math.abs(scrollAccumulator.current) >= SCROLL_THRESHOLD) {
+      const direction = scrollAccumulator.current > 0 ? 1 : -1;
+      const currentSection = activeSectionRef.current;
+      
+      let nextSection;
+      if (direction > 0) {
+        nextSection = Math.min(currentSection + 1, totalSections - 1);
+      } else {
+        nextSection = Math.max(currentSection - 1, 0);
+      }
+
+      if (nextSection !== currentSection) {
+        snapToSection(nextSection);
+      } else {
+        scrollAccumulator.current = 0;
+      }
     }
   }, [totalSections, snapToSection]);
 
+  const updateActiveSection = useCallback(() => {
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const viewportCenter = scrollY + viewportHeight / 2;
+    const navHeight = 56;
+
+    if (heroRef.current) {
+      const top = heroRef.current.offsetTop - navHeight;
+      const bottom = top + heroRef.current.clientHeight;
+      if (viewportCenter >= top && viewportCenter <= bottom) {
+        activeSectionRef.current = 0;
+        return;
+      }
+    }
+
+    projectRefs.current.forEach((el, i) => {
+      if (el) {
+        const top = el.offsetTop - navHeight;
+        const bottom = top + el.clientHeight;
+        if (viewportCenter >= top && viewportCenter <= bottom) {
+          activeSectionRef.current = i + 1;
+        }
+      }
+    });
+
+    if (aboutRef.current) {
+      const top = aboutRef.current.offsetTop - navHeight;
+      const bottom = top + aboutRef.current.clientHeight;
+      if (viewportCenter >= top && viewportCenter <= bottom) {
+        activeSectionRef.current = aboutSectionIndex;
+      }
+    }
+  }, [aboutSectionIndex]);
+
   useEffect(() => {
     window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
     return () => {
       window.removeEventListener("wheel", handleWheel);
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current);
-      }
+      window.removeEventListener("scroll", updateActiveSection);
     };
-  }, [handleWheel]);
+  }, [handleWheel, updateActiveSection]);
 
   return (
     <>
