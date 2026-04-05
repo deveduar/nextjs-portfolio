@@ -8,15 +8,12 @@ import { useReadmes } from "@/hooks/useReadmes";
 import profile from "@/data/profile";
 import Link from "next/link";
 
-const SNAP_DURATION = 400;
-const SCROLL_CHECK_INTERVAL = 200;
-
 export default function Home() {
   const { readmes, loading } = useReadmes();
   const isScrolling = useRef(false);
-  const lastScrollTime = useRef(0);
-  const scrollCheckTimer = useRef<NodeJS.Timeout | null>(null);
   const activeSectionRef = useRef(0);
+  const lastScrollTime = useRef(0);
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const heroRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
@@ -36,40 +33,18 @@ export default function Home() {
     const navHeight = 56;
     
     if (index === 0 && heroRef.current) {
-      return { top: heroRef.current.offsetTop - navHeight, height: heroRef.current.clientHeight };
+      return { top: heroRef.current.offsetTop - navHeight };
     } else if (index === totalSections - 1 && aboutRef.current) {
-      return { top: aboutRef.current.offsetTop - navHeight, height: aboutRef.current.clientHeight };
+      return { top: aboutRef.current.offsetTop - navHeight };
     } else {
       const projectIndex = index - 1;
       const projectEl = projectRefs.current[projectIndex];
       if (projectEl) {
-        return { top: projectEl.offsetTop - navHeight, height: projectEl.clientHeight };
+        return { top: projectEl.offsetTop - navHeight };
       }
     }
-    return { top: 0, height: 0 };
+    return { top: 0 };
   }, [totalSections]);
-
-  const getNearestSection = useCallback(() => {
-    const scrollTop = window.scrollY;
-    const viewportHeight = window.innerHeight;
-    const viewportCenter = scrollTop + (viewportHeight / 2);
-
-    let nearestIndex = 0;
-    let minDistance = Infinity;
-
-    for (let i = 0; i < totalSections; i++) {
-      const { top, height } = getSectionPosition(i);
-      const sectionCenter = top + (height / 2);
-      const distance = Math.abs(viewportCenter - sectionCenter);
-
-      if (distance < minDistance) {
-        minDistance = distance;
-        nearestIndex = i;
-      }
-    }
-
-    return nearestIndex;
-  }, [totalSections, getSectionPosition]);
 
   const snapToSection = useCallback((index: number) => {
     if (index < 0 || index >= totalSections) return;
@@ -87,43 +62,41 @@ export default function Home() {
     
     setTimeout(() => {
       isScrolling.current = false;
-    }, SNAP_DURATION);
+    }, 400);
   }, [totalSections, getSectionPosition]);
 
   const scrollToProjects = useCallback(() => {
     snapToSection(1);
   }, [snapToSection]);
 
-  const handleScroll = useCallback(() => {
-    const currentScrollY = window.scrollY;
-    lastScrollTime.current = Date.now();
+  const handleWheel = useCallback((e: WheelEvent) => {
+    if (isScrolling.current) return;
 
-    if (scrollCheckTimer.current) {
-      clearTimeout(scrollCheckTimer.current);
+    const now = Date.now();
+    if (now - lastScrollTime.current < 350) return;
+    lastScrollTime.current = now;
+
+    const direction = e.deltaY > 0 ? 1 : -1;
+    const currentSection = activeSectionRef.current;
+    const nextSection = direction > 0 
+      ? Math.min(currentSection + 1, totalSections - 1)
+      : Math.max(currentSection - 1, 0);
+
+    if (nextSection !== currentSection) {
+      e.preventDefault();
+      snapToSection(nextSection);
     }
-
-    scrollCheckTimer.current = setTimeout(() => {
-      const timeSinceLastScroll = Date.now() - lastScrollTime.current;
-      
-      if (timeSinceLastScroll >= SCROLL_CHECK_INTERVAL && !isScrolling.current) {
-        const nearestSection = getNearestSection();
-        
-        if (nearestSection !== activeSectionRef.current) {
-          snapToSection(nearestSection);
-        }
-      }
-    }, SCROLL_CHECK_INTERVAL + 50);
-  }, [totalSections, getNearestSection, snapToSection]);
+  }, [totalSections, snapToSection]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("wheel", handleWheel, { passive: false });
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (scrollCheckTimer.current) {
-        clearTimeout(scrollCheckTimer.current);
+      window.removeEventListener("wheel", handleWheel);
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
       }
     };
-  }, [handleScroll]);
+  }, [handleWheel]);
 
   return (
     <>
