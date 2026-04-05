@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useCallback, useMemo } from "react";
+import React, { useRef, useEffect, useCallback, useMemo, useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import HomeProjectCard from "@/components/HomeProjectCard";
 import AboutSection from "@/components/AboutSection";
@@ -25,6 +25,7 @@ export default function Home() {
   const touchStartSection = useRef(0);
 
   const heroRef = useRef<HTMLElement>(null);
+  const viewAllRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
   const projectRefs = useRef<(HTMLElement | null)[]>([]);
 
@@ -36,7 +37,8 @@ export default function Home() {
       .reverse();
   }, [readmes, loading]);
 
-  const totalSections = recentProjects.length + 2;
+  const totalSections = recentProjects.length + 3;
+  const viewAllSectionIndex = totalSections - 2;
   const aboutSectionIndex = totalSections - 1;
 
   const getSectionPosition = useCallback((index: number) => {
@@ -44,7 +46,9 @@ export default function Home() {
     
     if (index === 0 && heroRef.current) {
       return { top: heroRef.current.offsetTop - navHeight, height: heroRef.current.offsetHeight };
-    } else if (index === totalSections - 1 && aboutRef.current) {
+    } else if (index === viewAllSectionIndex && viewAllRef.current) {
+      return { top: viewAllRef.current.offsetTop - navHeight, height: viewAllRef.current.offsetHeight };
+    } else if (index === aboutSectionIndex && aboutRef.current) {
       return { top: aboutRef.current.offsetTop - navHeight, height: aboutRef.current.offsetHeight };
     } else {
       const projectIndex = index - 1;
@@ -54,7 +58,7 @@ export default function Home() {
       }
     }
     return { top: 0, height: 0 };
-  }, [totalSections]);
+  }, [viewAllSectionIndex, aboutSectionIndex]);
 
   const snapToSection = useCallback((index: number) => {
     if (index < 0 || index >= totalSections) return;
@@ -107,14 +111,19 @@ export default function Home() {
         if (viewportTop > aboutTop + threshold) {
           window.scrollTo({ top: aboutTop, behavior: "smooth" });
         } else {
-          const lastProjectIndex = totalSections - 2;
-          snapToSection(lastProjectIndex);
+          snapToSection(viewAllSectionIndex);
         }
       }
       return;
     }
 
     if (currentSection === aboutSectionIndex) {
+      return;
+    }
+
+    if (currentSection === viewAllSectionIndex && e.deltaY < 0) {
+      const lastProjectIndex = totalSections - 3;
+      snapToSection(lastProjectIndex);
       return;
     }
 
@@ -148,7 +157,7 @@ export default function Home() {
         scrollAccumulator.current = 0;
       }
     }
-  }, [totalSections, snapToSection, aboutSectionIndex]);
+  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex]);
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
@@ -182,11 +191,20 @@ export default function Home() {
           if (viewportTop > aboutTop + 150) {
             window.scrollTo({ top: aboutTop, behavior: "smooth" });
           } else {
-            const lastProjectIndex = totalSections - 2;
-            snapToSection(lastProjectIndex);
+            snapToSection(viewAllSectionIndex);
           }
         }
       }
+      return;
+    }
+
+    if (startSection === viewAllSectionIndex && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD) {
+      snapToSection(aboutSectionIndex);
+      return;
+    }
+
+    if (startSection === viewAllSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD) {
+      snapToSection(totalSections - 3);
       return;
     }
 
@@ -206,7 +224,7 @@ export default function Home() {
         touchCooldown.current = false;
       }, 300);
     }
-  }, [totalSections, snapToSection, aboutSectionIndex]);
+  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex]);
 
   const updateActiveSection = useCallback(() => {
     const scrollY = window.scrollY;
@@ -233,6 +251,15 @@ export default function Home() {
       }
     });
 
+    if (viewAllRef.current) {
+      const top = viewAllRef.current.offsetTop - navHeight;
+      const bottom = top + viewAllRef.current.clientHeight;
+      if (viewportCenter >= top && viewportCenter <= bottom) {
+        activeSectionRef.current = viewAllSectionIndex;
+        return;
+      }
+    }
+
     if (aboutRef.current) {
       const top = aboutRef.current.offsetTop - navHeight;
       const bottom = top + aboutRef.current.clientHeight;
@@ -240,7 +267,7 @@ export default function Home() {
         activeSectionRef.current = aboutSectionIndex;
       }
     }
-  }, [aboutSectionIndex]);
+  }, [viewAllSectionIndex, aboutSectionIndex]);
 
   useEffect(() => {
     window.addEventListener("wheel", handleWheel, { passive: false });
@@ -267,16 +294,6 @@ export default function Home() {
         />
       </section>
 
-      {/* Projects Header */}
-      <div className="py-8 px-4">
-        <div className="flex justify-between items-center max-w-4xl mx-auto mb-8">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Recent Projects</h2>
-          <Link href="/projects" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
-            See All
-          </Link>
-        </div>
-      </div>
-
       {/* Projects */}
       {!loading && recentProjects.map((project, index) => (
         <section 
@@ -290,6 +307,19 @@ export default function Home() {
           </div>
         </section>
       ))}
+
+      {/* View All Projects Section */}
+      <section 
+        ref={viewAllRef}
+        className="h-[30vh] flex items-center justify-center"
+      >
+        <Link 
+          href="/projects" 
+          className="px-8 py-4 bg-blue-600 text-white rounded-full font-medium text-lg hover:bg-blue-700 transition-colors shadow-lg"
+        >
+          View All Projects
+        </Link>
+      </section>
 
       {/* About Section */}
       <section ref={aboutRef} className="min-h-screen">

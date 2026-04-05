@@ -5,12 +5,15 @@ import Image from "next/image";
 import { FaLinkedin, FaTwitter, FaGithub, FaChevronUp } from "react-icons/fa";
 import profile from "@/data/profile";
 import TechTags from "@/components/techTags";
+import { useSearchContext } from "@/components/navbar";
 
 interface AboutSectionProps {
   onScrollToTop?: () => void;
 }
 
 const AboutSection: React.FC<AboutSectionProps> = ({ onScrollToTop }) => {
+  const { openContactModal } = useSearchContext();
+
   return (
     <section className="flex flex-col justify-between px-4 py-8 min-h-screen">
       <div className="flex-1 flex flex-col justify-center">
@@ -91,7 +94,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onScrollToTop }) => {
             </div>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-center">
             <Link 
               href={profile.socialLinks.linkedin}
               target="_blank" 
@@ -113,6 +116,12 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onScrollToTop }) => {
             >
               <FaGithub className="w-5 h-5 text-gray-900 dark:text-white" />
             </Link>
+            <button 
+              onClick={openContactModal}
+              className="bg-blue-200 dark:bg-blue-900 rounded-lg px-6 py-3 flex items-center justify-center font-medium hover:opacity-80 transition-opacity text-gray-900 dark:text-white text-sm ml-2"
+            >
+              Let&apos;s Connect
+            </button>
           </div>
         </div>
       </div>
