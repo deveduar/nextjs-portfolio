@@ -76,6 +76,10 @@ export default function Home() {
   }, [snapToSection]);
 
   const handleWheel = useCallback((e: WheelEvent) => {
+    if (e.ctrlKey) {
+      return;
+    }
+    
     const currentSection = activeSectionRef.current;
     
     if (currentSection === aboutSectionIndex && e.deltaY < 0) {
@@ -198,11 +202,9 @@ export default function Home() {
         <section 
           key={project.id}
           ref={el => { projectRefs.current[index] = el; }}
-          className="min-h-screen flex items-center py-8"
+          className="min-h-screen flex items-center justify-center px-4 md:px-8 py-4"
         >
-          <div className="w-full max-w-4xl px-4">
-            <HomeProjectCard project={project} />
-          </div>
+          <HomeProjectCard project={project} />
         </section>
       ))}
 
