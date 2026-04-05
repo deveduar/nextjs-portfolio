@@ -212,9 +212,12 @@ export default function Home() {
         <section 
           key={project.id}
           ref={el => { projectRefs.current[index] = el; }}
-          className="min-h-screen px-4 md:px-8 py-4"
+          style={{ minHeight: 'calc(100vh - 56px)' }}
+          className="flex items-stretch px-4 md:px-8 py-4"
         >
-          <HomeProjectCard project={project} />
+          <div className="w-full h-auto">
+            <HomeProjectCard project={project} />
+          </div>
         </section>
       ))}
 

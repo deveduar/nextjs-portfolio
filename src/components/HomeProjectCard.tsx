@@ -31,13 +31,13 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({ project }) => {
   );
 
   return (
-    <div className="w-full max-w-4xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg">
-      <div className="relative w-full aspect-[16/9] max-h-[40vh]">
+    <div className="w-full min-h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg">
+      <div className="relative w-full h-[50vh] flex-shrink-0">
         <Image
           src={project.imageSrc}
           alt={project.title}
           fill
-          className="object-cover"
+          className="object-cover object-top"
           priority
         />
         {demoLink && (
@@ -47,7 +47,7 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({ project }) => {
         )}
       </div>
 
-      <div className="p-4 md:p-5">
+      <div className="flex-1 flex flex-col justify-between p-4 md:p-5 overflow-auto">
         <div>
           <h2 className="text-lg md:text-xl font-semibold text-slate-900 dark:text-white">
             {project.title}
