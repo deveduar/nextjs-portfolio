@@ -79,9 +79,17 @@ export default function Home() {
     const currentSection = activeSectionRef.current;
     
     if (currentSection === aboutSectionIndex && e.deltaY < 0) {
-      const lastProjectIndex = totalSections - 2;
-      if (!isScrolling.current) {
-        snapToSection(lastProjectIndex);
+      if (!isScrolling.current && aboutRef.current) {
+        const aboutTop = aboutRef.current.offsetTop - 56;
+        const viewportTop = window.scrollY;
+        const threshold = 200;
+        
+        if (viewportTop > aboutTop + threshold) {
+          window.scrollTo({ top: aboutTop, behavior: "smooth" });
+        } else {
+          const lastProjectIndex = totalSections - 2;
+          snapToSection(lastProjectIndex);
+        }
       }
       return;
     }
