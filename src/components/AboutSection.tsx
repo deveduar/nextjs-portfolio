@@ -1,24 +1,21 @@
 "use client"
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { FaLinkedin, FaTwitter, FaGithub, FaChevronUp } from "react-icons/fa";
+import { FaChevronUp } from "react-icons/fa";
 import profile from "@/data/profile";
 import TechTags from "@/components/techTags";
-import { useSearchContext } from "@/components/navbar";
 
 interface AboutSectionProps {
   onScrollToTop?: () => void;
 }
 
 const AboutSection: React.FC<AboutSectionProps> = ({ onScrollToTop }) => {
-  const { openContactModal } = useSearchContext();
 
   return (
     <section className="flex flex-col justify-between px-4 py-8 min-h-screen">
       <div className="flex-1 flex flex-col justify-center">
         <div className="max-w-2xl mx-auto">
-          <div className="flex items-center gap-4 mb-6">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-6">
             <Image
               src="/images/profile.webp"
               width={100}
@@ -92,36 +89,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onScrollToTop }) => {
                 ))}
               </div>
             </div>
-          </div>
-
-          <div className="flex gap-3 items-center">
-            <Link 
-              href={profile.socialLinks.linkedin}
-              target="_blank" 
-              className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-            >
-              <FaLinkedin className="w-5 h-5 text-gray-900 dark:text-white" />
-            </Link>
-            <Link 
-              href={profile.socialLinks.twitter}
-              target="_blank" 
-              className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-            >
-              <FaTwitter className="w-5 h-5 text-gray-900 dark:text-white" />
-            </Link>
-            <Link 
-              href={profile.socialLinks.github}
-              target="_blank" 
-              className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-            >
-              <FaGithub className="w-5 h-5 text-gray-900 dark:text-white" />
-            </Link>
-            <button 
-              onClick={openContactModal}
-              className="bg-blue-200 dark:bg-blue-900 rounded-lg px-6 py-3 flex items-center justify-center font-medium hover:opacity-80 transition-opacity text-gray-900 dark:text-white text-sm ml-2"
-            >
-              Let&apos;s Connect
-            </button>
           </div>
         </div>
       </div>
