@@ -32,7 +32,7 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({ project }) => {
 
   return (
     <div className="w-full min-h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg">
-      <div className="relative w-full h-[50vh] flex-shrink-0">
+      <div className="relative w-full h-[35vh] md:h-[45vh] lg:h-[50vh] flex-shrink-0">
         <Image
           src={project.imageSrc}
           alt={project.title}
