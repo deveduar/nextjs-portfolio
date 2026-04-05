@@ -76,16 +76,17 @@ export default function Home() {
   }, [snapToSection]);
 
   const handleWheel = useCallback((e: WheelEvent) => {
-    const scrollY = window.scrollY;
-    const viewportHeight = window.innerHeight;
+    const currentSection = activeSectionRef.current;
     
-    const aboutTop = aboutRef.current?.offsetTop ? aboutRef.current.offsetTop - 56 : 0;
-    const aboutBottom = aboutTop + (aboutRef.current?.clientHeight || 0);
-    const viewportCenter = scrollY + viewportHeight / 2;
-    
-    const trulyInAbout = scrollY >= aboutTop - 100 && scrollY <= aboutBottom - 100;
+    if (currentSection === aboutSectionIndex && e.deltaY < 0) {
+      const lastProjectIndex = totalSections - 2;
+      if (!isScrolling.current) {
+        snapToSection(lastProjectIndex);
+      }
+      return;
+    }
 
-    if (trulyInAbout) {
+    if (currentSection === aboutSectionIndex) {
       return;
     }
 
@@ -95,7 +96,7 @@ export default function Home() {
     }
 
     const now = Date.now();
-    if (now - lastScrollTime.current < 300) {
+    if (now - lastScrollTime.current < 150) {
       e.preventDefault();
       return;
     }
@@ -105,7 +106,6 @@ export default function Home() {
 
     if (Math.abs(scrollAccumulator.current) >= SCROLL_THRESHOLD) {
       const direction = scrollAccumulator.current > 0 ? 1 : -1;
-      const currentSection = activeSectionRef.current;
       
       let nextSection;
       if (direction > 0) {
@@ -120,7 +120,7 @@ export default function Home() {
         scrollAccumulator.current = 0;
       }
     }
-  }, [totalSections, snapToSection]);
+  }, [totalSections, snapToSection, aboutSectionIndex]);
 
   const updateActiveSection = useCallback(() => {
     const scrollY = window.scrollY;
