@@ -30,6 +30,7 @@ export default function Home() {
   const viewAllRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
+  const backToTopRef = useRef<HTMLElement>(null);
   const projectRefs = useRef<(HTMLElement | null)[]>([]);
 
   const recentProjects = useMemo(() => {
@@ -40,10 +41,11 @@ export default function Home() {
       .reverse();
   }, [readmes, loading]);
 
-  const totalSections = recentProjects.length + 4;
-  const viewAllSectionIndex = totalSections - 3;
-  const aboutSectionIndex = totalSections - 2;
-  const contactSectionIndex = totalSections - 1;
+  const totalSections = recentProjects.length + 5;
+  const viewAllSectionIndex = totalSections - 4;
+  const aboutSectionIndex = totalSections - 3;
+  const contactSectionIndex = totalSections - 2;
+  const backToTopSectionIndex = totalSections - 1;
 
   const getSectionPosition = useCallback((index: number) => {
     const navHeight = 56;
@@ -56,6 +58,8 @@ export default function Home() {
       return { top: aboutRef.current.offsetTop - navHeight, height: aboutRef.current.offsetHeight };
     } else if (index === contactSectionIndex && contactRef.current) {
       return { top: contactRef.current.offsetTop - navHeight, height: contactRef.current.offsetHeight };
+    } else if (index === backToTopSectionIndex && backToTopRef.current) {
+      return { top: backToTopRef.current.offsetTop - navHeight, height: backToTopRef.current.offsetHeight };
     } else {
       const projectIndex = index - 1;
       const projectEl = projectRefs.current[projectIndex];
@@ -64,7 +68,7 @@ export default function Home() {
       }
     }
     return { top: 0, height: 0 };
-  }, [viewAllSectionIndex, aboutSectionIndex, contactSectionIndex]);
+  }, [viewAllSectionIndex, aboutSectionIndex, contactSectionIndex, backToTopSectionIndex]);
 
   const snapToSection = useCallback((index: number) => {
     if (index < 0 || index >= totalSections) return;
@@ -108,12 +112,22 @@ export default function Home() {
     
     const currentSection = activeSectionRef.current;
     
+    if (currentSection === backToTopSectionIndex && e.deltaY < 0) {
+      snapToSection(contactSectionIndex);
+      return;
+    }
+    
+    if (currentSection === backToTopSectionIndex && e.deltaY > 0) {
+      return;
+    }
+    
     if (currentSection === contactSectionIndex && e.deltaY < 0) {
       snapToSection(aboutSectionIndex);
       return;
     }
     
     if (currentSection === contactSectionIndex && e.deltaY > 0) {
+      snapToSection(backToTopSectionIndex);
       return;
     }
     
@@ -183,7 +197,7 @@ export default function Home() {
         scrollAccumulator.current = 0;
       }
     }
-  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex, contactSectionIndex]);
+  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex, contactSectionIndex, backToTopSectionIndex]);
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
@@ -208,7 +222,28 @@ export default function Home() {
     const startSection = touchStartSection.current;
     const distance = touchAccumulator.current;
     
+    if (startSection === backToTopSectionIndex && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
+      snapToSection(contactSectionIndex);
+      return;
+    }
+
     if (startSection === contactSectionIndex && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
+      if (contactRef.current) {
+        const contactTop = contactRef.current.offsetTop - 56;
+        const contactHeight = contactRef.current.offsetHeight;
+        const viewportTop = window.scrollY;
+        const viewportHeight = window.innerHeight;
+        
+        if (viewportTop + viewportHeight >= contactTop + contactHeight - 150) {
+          snapToSection(backToTopSectionIndex);
+        } else {
+          snapToSection(aboutSectionIndex);
+        }
+      }
+      return;
+    }
+
+    if (startSection === contactSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
       snapToSection(aboutSectionIndex);
       return;
     }
@@ -250,7 +285,7 @@ export default function Home() {
     }
 
     if (startSection === viewAllSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
-      snapToSection(totalSections - 4);
+      snapToSection(totalSections - 5);
       return;
     }
 
@@ -270,7 +305,7 @@ export default function Home() {
         touchCooldown.current = false;
       }, 300);
     }
-  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex, contactSectionIndex]);
+  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex, contactSectionIndex, backToTopSectionIndex]);
 
   const updateActiveSection = useCallback(() => {
     const scrollY = window.scrollY;
@@ -320,9 +355,18 @@ export default function Home() {
       const bottom = top + contactRef.current.clientHeight;
       if (viewportCenter >= top && viewportCenter <= bottom) {
         activeSectionRef.current = contactSectionIndex;
+        return;
       }
     }
-  }, [viewAllSectionIndex, aboutSectionIndex, contactSectionIndex]);
+
+    if (backToTopRef.current) {
+      const top = backToTopRef.current.offsetTop - navHeight;
+      const bottom = top + backToTopRef.current.clientHeight;
+      if (viewportCenter >= top && viewportCenter <= bottom) {
+        activeSectionRef.current = backToTopSectionIndex;
+      }
+    }
+  }, [viewAllSectionIndex, aboutSectionIndex, contactSectionIndex, backToTopSectionIndex]);
 
   useEffect(() => {
     window.addEventListener("wheel", handleWheel, { passive: false });
@@ -378,12 +422,28 @@ export default function Home() {
 
       {/* About Section */}
       <section ref={aboutRef} className="min-h-screen">
-        <AboutSection onScrollToTop={scrollToProjects} />
+        <AboutSection />
       </section>
 
       {/* Contact Section */}
       <section ref={contactRef} className="min-h-screen">
         <ContactSection />
+      </section>
+
+      {/* Back to Top Section */}
+      <section 
+        ref={backToTopRef}
+        className="h-[30vh] flex items-center justify-center"
+      >
+        <button 
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="px-8 py-4 bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white rounded-full font-medium text-lg hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-lg flex items-center gap-2"
+        >
+          <span>Back to Top</span>
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </button>
       </section>
     </>
   );

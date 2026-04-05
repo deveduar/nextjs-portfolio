@@ -1,16 +1,10 @@
 "use client"
 import React from "react";
 import Image from "next/image";
-import { FaChevronUp } from "react-icons/fa";
 import profile from "@/data/profile";
 import TechTags from "@/components/techTags";
 
-interface AboutSectionProps {
-  onScrollToTop?: () => void;
-}
-
-const AboutSection: React.FC<AboutSectionProps> = ({ onScrollToTop }) => {
-
+const AboutSection: React.FC = () => {
   return (
     <section className="flex flex-col justify-between px-4 py-8 min-h-screen">
       <div className="flex-1 flex flex-col justify-center">
@@ -91,15 +85,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onScrollToTop }) => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="flex justify-center pb-8">
-        <button 
-          onClick={onScrollToTop}
-          className="p-3 rounded-full bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 shadow-lg hover:shadow-xl transition-all"
-        >
-          <FaChevronUp className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-        </button>
       </div>
     </section>
   );
