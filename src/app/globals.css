@@ -27,11 +27,11 @@ em {
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    to bottom,
+    transparent,
+    rgb(var(--background-end-rgb))
+  ) rgb(var(--background-start-rgb));
+  margin: 0;
 }
 
 @layer utilities {
@@ -47,21 +47,13 @@ body {
   }
   
   @keyframes slideLeft {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-100%);
-    }
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
   }
   
   @keyframes slideRight {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(100%);
-    }
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
   }
 
   .custom-scrollbar::-webkit-scrollbar {
@@ -90,9 +82,3 @@ body {
     background-color: #475569;
   }
 }
-
-
-
-/* .dark {
-  @apply bg-gray-900 text-white;
-} */

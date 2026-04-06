@@ -11,22 +11,22 @@ interface HeroSectionProps {
     twitter: string;
     github: string;
   };
-  nextSectionRef: React.RefObject<HTMLDivElement>;
+  onScrollToProjects?: () => void;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ socialLinks, nextSectionRef }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ socialLinks, onScrollToProjects }) => {
   const { openContactModal } = useSearchContext();
 
   const scrollToNext = () => {
-    nextSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    onScrollToProjects?.();
   };
 
   return (
-    <section className="min-h-screen flex flex-col justify-between px-4 py-8">
+    <section className="flex flex-col justify-between px-4 py-8 min-h-screen">
       <TechMarquee />
       
       <div className="flex-1 flex flex-col justify-center">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl mx-auto">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Welcome to my portfolio.
           </h1>
