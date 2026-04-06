@@ -14,6 +14,7 @@ const SCROLL_THRESHOLD = 150;
 const SNAP_DURATION = 300;
 const NAV_HEIGHT = 56;
 const ABOUT_EDGE_THRESHOLD = 12;
+const ABOUT_SNAP_VISIBLE_RATIO = 0.2;
 const TOUCH_THRESHOLD_SMALL = 2;
 const TOUCH_THRESHOLD_LARGE = 200;
 const TOUCH_SCROLL_TOLERANCE = 24;
@@ -85,12 +86,155 @@ export default function Home() {
     const viewportTop = window.scrollY;
     const viewportBottom = viewportTop + window.innerHeight;
     const bottom = top + height;
+    const visibleTop = Math.max(top, viewportTop);
+    const visibleBottom = Math.min(bottom, viewportBottom);
+    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
 
     return {
+      top,
+      bottom,
+      viewportTop,
+      viewportBottom,
+      visibleHeight,
+      visibleRatio: height > 0 ? visibleHeight / height : 0,
+      isIntersecting: bottom > viewportTop && top < viewportBottom,
       isNearTop: viewportTop <= top + ABOUT_EDGE_THRESHOLD,
       isNearBottom: viewportBottom >= bottom - ABOUT_EDGE_THRESHOLD,
+      isAboveViewport: bottom <= viewportTop,
+      isBelowViewport: top >= viewportBottom,
     };
   }, []);
+
+  const sectionIntersectsViewport = useCallback((section: HTMLElement | null) => {
+    if (!section) return false;
+
+    const top = section.offsetTop - NAV_HEIGHT;
+    const bottom = top + section.offsetHeight;
+    const viewportTop = window.scrollY;
+    const viewportBottom = viewportTop + window.innerHeight;
+
+    return bottom > viewportTop && top < viewportBottom;
+  }, []);
+
+  const sectionContainsTouchPoint = useCallback((section: HTMLElement | null, clientX: number, clientY: number) => {
+    if (!section) return false;
+
+    const touchedElement = document.elementFromPoint(clientX, clientY);
+    if (touchedElement && section.contains(touchedElement)) {
+      return true;
+    }
+
+    const rect = section.getBoundingClientRect();
+    return clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
+  }, []);
+
+  const getViewportSectionIndex = useCallback(() => {
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const viewportCenter = scrollY + viewportHeight / 2;
+    const navHeight = NAV_HEIGHT;
+
+    if (heroRef.current) {
+      const top = heroRef.current.offsetTop - navHeight;
+      const bottom = top + heroRef.current.clientHeight;
+      if (viewportCenter >= top && viewportCenter <= bottom) {
+        return 0;
+      }
+    }
+
+    for (let i = 0; i < projectRefs.current.length; i += 1) {
+      const el = projectRefs.current[i];
+      if (!el) continue;
+
+      const top = el.offsetTop - navHeight;
+      const bottom = top + el.clientHeight;
+      if (viewportCenter >= top && viewportCenter <= bottom) {
+        return i + 1;
+      }
+    }
+
+    if (viewAllRef.current) {
+      const top = viewAllRef.current.offsetTop - navHeight;
+      const bottom = top + viewAllRef.current.clientHeight;
+      if (viewportCenter >= top && viewportCenter <= bottom) {
+        return viewAllSectionIndex;
+      }
+    }
+
+    if (contactRef.current) {
+      const top = contactRef.current.offsetTop - navHeight;
+      const bottom = top + contactRef.current.clientHeight;
+      if (viewportCenter >= top && viewportCenter <= bottom) {
+        return contactSectionIndex;
+      }
+    }
+
+    if (backToTopRef.current) {
+      const top = backToTopRef.current.offsetTop - navHeight;
+      const bottom = top + backToTopRef.current.clientHeight;
+      if (viewportCenter >= top && viewportCenter <= bottom) {
+        return backToTopSectionIndex;
+      }
+    }
+
+    if (sectionIntersectsViewport(viewAllRef.current)) {
+      return viewAllSectionIndex;
+    }
+
+    if (sectionIntersectsViewport(contactRef.current)) {
+      return contactSectionIndex;
+    }
+
+    if (sectionIntersectsViewport(backToTopRef.current)) {
+      return backToTopSectionIndex;
+    }
+
+    // When short sections are not centered anymore, keep About active while it
+    // still intersects the viewport so edge snaps resolve to immediate neighbors.
+    if (sectionIntersectsViewport(aboutRef.current)) {
+      return aboutSectionIndex;
+    }
+
+    if (sectionIntersectsViewport(aboutRef2.current)) {
+      return aboutSectionIndex2;
+    }
+
+    return activeSectionRef.current;
+  }, [sectionIntersectsViewport, aboutSectionIndex, aboutSectionIndex2, viewAllSectionIndex, contactSectionIndex, backToTopSectionIndex]);
+
+  const getTouchStartSectionIndex = useCallback((clientX: number, clientY: number) => {
+    if (sectionContainsTouchPoint(viewAllRef.current, clientX, clientY)) {
+      return viewAllSectionIndex;
+    }
+
+    if (sectionContainsTouchPoint(aboutRef.current, clientX, clientY)) {
+      return aboutSectionIndex;
+    }
+
+    if (sectionContainsTouchPoint(aboutRef2.current, clientX, clientY)) {
+      return aboutSectionIndex2;
+    }
+
+    if (sectionContainsTouchPoint(contactRef.current, clientX, clientY)) {
+      return contactSectionIndex;
+    }
+
+    if (sectionContainsTouchPoint(backToTopRef.current, clientX, clientY)) {
+      return backToTopSectionIndex;
+    }
+
+    if (sectionContainsTouchPoint(heroRef.current, clientX, clientY)) {
+      return 0;
+    }
+
+    for (let i = 0; i < projectRefs.current.length; i += 1) {
+      if (sectionContainsTouchPoint(projectRefs.current[i], clientX, clientY)) {
+        return i + 1;
+      }
+    }
+
+    return getViewportSectionIndex();
+  }, [sectionContainsTouchPoint, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, getViewportSectionIndex]);
 
   const snapToSection = useCallback((index: number) => {
     if (index < 0 || index >= totalSections) return;
@@ -232,11 +376,11 @@ export default function Home() {
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
-    touchStartSection.current = activeSectionRef.current;
+    touchStartSection.current = getTouchStartSectionIndex(e.touches[0].clientX, e.touches[0].clientY);
     touchAccumulator.current = 0;
     touchCooldown.current = false;
     touchStartScrollY.current = window.scrollY;
-  }, []);
+  }, [getTouchStartSectionIndex]);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
     if (touchCooldown.current) return;
@@ -248,6 +392,7 @@ export default function Home() {
 
   const handleAboutTouch = useCallback((
     section: HTMLElement | null,
+    currentSectionIndex: number,
     distance: number,
     didNativeScroll: boolean,
     previousSectionIndex: number,
@@ -257,13 +402,45 @@ export default function Home() {
       return;
     }
 
-    if (didNativeScroll) {
-      return;
-    }
-
     const sectionInfo = getSectionViewportInfo(section);
     if (!sectionInfo) {
       return;
+    }
+
+    if (didNativeScroll) {
+      if (distance < 0 && currentSectionIndex < previousSectionIndex + 1) {
+        completeTouchSnap(previousSectionIndex);
+        return;
+      }
+
+      if (distance > 0 && currentSectionIndex > nextSectionIndex - 1) {
+        completeTouchSnap(nextSectionIndex);
+        return;
+      }
+    }
+
+    if (didNativeScroll && !sectionInfo.isIntersecting) {
+      if (distance < 0 && sectionInfo.isBelowViewport) {
+        completeTouchSnap(previousSectionIndex);
+        return;
+      }
+
+      if (distance > 0 && sectionInfo.isAboveViewport) {
+        completeTouchSnap(nextSectionIndex);
+        return;
+      }
+    }
+
+    if (didNativeScroll && sectionInfo.visibleRatio <= ABOUT_SNAP_VISIBLE_RATIO) {
+      if (distance < 0 && sectionInfo.viewportTop < sectionInfo.top) {
+        completeTouchSnap(previousSectionIndex);
+        return;
+      }
+
+      if (distance > 0 && sectionInfo.viewportBottom > sectionInfo.bottom) {
+        completeTouchSnap(nextSectionIndex);
+        return;
+      }
     }
 
     if (distance < 0 && sectionInfo.isNearTop) {
@@ -282,15 +459,18 @@ export default function Home() {
     }
     
     const startSection = touchStartSection.current;
+    const currentSection = getViewportSectionIndex();
     const distance = touchAccumulator.current;
+    const absDistance = Math.abs(distance);
     const didNativeScroll = Math.abs(window.scrollY - touchStartScrollY.current) > TOUCH_SCROLL_TOLERANCE;
+    const lastProjectIndex = totalSections - 6;
     
-    if (startSection === backToTopSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
+    if (startSection === backToTopSectionIndex && distance < 0 && absDistance >= TOUCH_THRESHOLD_SMALL) {
       completeTouchSnap(contactSectionIndex);
       return;
     }
 
-    if (startSection === contactSectionIndex && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
+    if (startSection === contactSectionIndex && distance > 0 && absDistance >= TOUCH_THRESHOLD_SMALL) {
       if (contactRef.current) {
         const contactTop = contactRef.current.offsetTop - NAV_HEIGHT;
         const contactHeight = contactRef.current.offsetHeight;
@@ -306,14 +486,30 @@ export default function Home() {
       return;
     }
 
-    if (startSection === contactSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
+    if (startSection === contactSectionIndex && distance < 0 && absDistance >= TOUCH_THRESHOLD_SMALL) {
       completeTouchSnap(aboutSectionIndex2);
+      return;
+    }
+
+    if ((startSection === aboutSectionIndex || currentSection === aboutSectionIndex) && distance < 0 && absDistance >= TOUCH_THRESHOLD_SMALL && sectionIntersectsViewport(viewAllRef.current)) {
+      completeTouchSnap(viewAllSectionIndex);
+      return;
+    }
+
+    if ((startSection === viewAllSectionIndex || currentSection === viewAllSectionIndex) && distance < 0 && absDistance >= TOUCH_THRESHOLD_SMALL) {
+      completeTouchSnap(lastProjectIndex);
+      return;
+    }
+
+    if ((startSection === viewAllSectionIndex || currentSection === viewAllSectionIndex) && distance > 0 && absDistance >= TOUCH_THRESHOLD_SMALL) {
+      completeTouchSnap(aboutSectionIndex);
       return;
     }
 
     if (startSection === aboutSectionIndex2) {
       handleAboutTouch(
         aboutRef2.current,
+        getViewportSectionIndex(),
         distance,
         didNativeScroll,
         aboutSectionIndex,
@@ -325,6 +521,7 @@ export default function Home() {
     if (startSection === aboutSectionIndex) {
       handleAboutTouch(
         aboutRef.current,
+        getViewportSectionIndex(),
         distance,
         didNativeScroll,
         viewAllSectionIndex,
@@ -333,7 +530,7 @@ export default function Home() {
       return;
     }
 
-    if (startSection === aboutSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_LARGE) {
+    if (startSection === aboutSectionIndex && distance < 0 && absDistance >= TOUCH_THRESHOLD_LARGE) {
       if (aboutRef.current) {
         const aboutTop = aboutRef.current.offsetTop - 56;
         const viewportTop = window.scrollY;
@@ -347,17 +544,7 @@ export default function Home() {
       return;
     }
 
-    if (startSection === viewAllSectionIndex && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
-      completeTouchSnap(aboutSectionIndex);
-      return;
-    }
-
-    if (startSection === viewAllSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
-      completeTouchSnap(totalSections - 7);
-      return;
-    }
-
-    if (Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
+    if (absDistance >= TOUCH_THRESHOLD_SMALL) {
       const direction = distance > 0 ? 1 : -1;
       let nextSection;
       
@@ -369,77 +556,11 @@ export default function Home() {
 
       completeTouchSnap(nextSection);
     }
-  }, [totalSections, snapToSection, completeTouchSnap, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, handleAboutTouch]);
+  }, [totalSections, snapToSection, completeTouchSnap, getViewportSectionIndex, sectionIntersectsViewport, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, handleAboutTouch]);
 
   const updateActiveSection = useCallback(() => {
-    const scrollY = window.scrollY;
-    const viewportHeight = window.innerHeight;
-    const viewportCenter = scrollY + viewportHeight / 2;
-    const navHeight = NAV_HEIGHT;
-
-    if (heroRef.current) {
-      const top = heroRef.current.offsetTop - navHeight;
-      const bottom = top + heroRef.current.clientHeight;
-      if (viewportCenter >= top && viewportCenter <= bottom) {
-        activeSectionRef.current = 0;
-        return;
-      }
-    }
-
-    projectRefs.current.forEach((el, i) => {
-      if (el) {
-        const top = el.offsetTop - navHeight;
-        const bottom = top + el.clientHeight;
-        if (viewportCenter >= top && viewportCenter <= bottom) {
-          activeSectionRef.current = i + 1;
-        }
-      }
-    });
-
-    if (viewAllRef.current) {
-      const top = viewAllRef.current.offsetTop - navHeight;
-      const bottom = top + viewAllRef.current.clientHeight;
-      if (viewportCenter >= top && viewportCenter <= bottom) {
-        activeSectionRef.current = viewAllSectionIndex;
-        return;
-      }
-    }
-
-    if (aboutRef.current) {
-      const top = aboutRef.current.offsetTop - navHeight;
-      const bottom = top + aboutRef.current.clientHeight;
-      if (viewportCenter >= top && viewportCenter <= bottom) {
-        activeSectionRef.current = aboutSectionIndex;
-        return;
-      }
-    }
-
-    if (aboutRef2.current) {
-      const top = aboutRef2.current.offsetTop - navHeight;
-      const bottom = top + aboutRef2.current.clientHeight;
-      if (viewportCenter >= top && viewportCenter <= bottom) {
-        activeSectionRef.current = aboutSectionIndex2;
-        return;
-      }
-    }
-
-    if (contactRef.current) {
-      const top = contactRef.current.offsetTop - navHeight;
-      const bottom = top + contactRef.current.clientHeight;
-      if (viewportCenter >= top && viewportCenter <= bottom) {
-        activeSectionRef.current = contactSectionIndex;
-        return;
-      }
-    }
-
-    if (backToTopRef.current) {
-      const top = backToTopRef.current.offsetTop - navHeight;
-      const bottom = top + backToTopRef.current.clientHeight;
-      if (viewportCenter >= top && viewportCenter <= bottom) {
-        activeSectionRef.current = backToTopSectionIndex;
-      }
-    }
-  }, [viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex]);
+    activeSectionRef.current = getViewportSectionIndex();
+  }, [getViewportSectionIndex]);
 
   useEffect(() => {
     window.addEventListener("wheel", handleWheel, { passive: false });
