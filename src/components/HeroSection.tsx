@@ -23,15 +23,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ socialLinks, onScrollToProjec
 
   return (
     <section className="flex flex-col justify-between px-4 py-8 min-h-screen">
-      <TechMarquee />
+      {/* <TechMarquee /> */}
       
       <div className="flex-1 flex flex-col justify-center">
         <div className="max-w-2xl mx-auto">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Welcome to my portfolio.
+            Welcome! I&apos;m Eduardo.
           </h1>
           <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-            Here you&apos;ll find a selection of projects focused on performance, scalability, and real-world reliability — from modern frontend applications to backend services and automated deployments.
+           This portfolio showcases a selection of projects focused on building efficient, scalable, and production-ready applications — from modern frontend interfaces to backend services and deployment workflows.
+
           </p>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
             Enjoy exploring!
