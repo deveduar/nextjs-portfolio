@@ -347,25 +347,6 @@ export default function Home() {
       return;
     }
 
-    if (startSection === aboutSectionIndex && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_LARGE) {
-      if (aboutRef.current) {
-        const aboutTop = aboutRef.current.offsetTop - 56;
-        const aboutHeight = aboutRef.current.offsetHeight;
-        const viewportTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const threshold = 100;
-        
-        if (viewportTop <= aboutTop + threshold) {
-          // AT TOP - allow free scroll (do nothing)
-          return;
-        } else if (viewportTop + viewportHeight >= aboutTop + aboutHeight - threshold) {
-          // AT BOTTOM - go to AboutBottom
-          snapToSection(aboutSectionIndex2);
-        }
-      }
-      return;
-    }
-
     if (startSection === viewAllSectionIndex && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
       completeTouchSnap(aboutSectionIndex);
       return;
@@ -388,7 +369,7 @@ export default function Home() {
 
       completeTouchSnap(nextSection);
     }
-  }, [totalSections, completeTouchSnap, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, handleAboutTouch]);
+  }, [totalSections, snapToSection, completeTouchSnap, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, handleAboutTouch]);
 
   const updateActiveSection = useCallback(() => {
     const scrollY = window.scrollY;
