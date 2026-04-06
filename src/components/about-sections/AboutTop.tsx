@@ -5,9 +5,9 @@ import profile from "@/data/profile";
 
 export default function AboutTop() {
   return (
-    <section className="flex flex-col justify-between px-4 py-8 min-h-screen">
-      <div className="flex-1 flex flex-col justify-center">
-        <div className="max-w-2xl mx-auto">
+    <section className="flex flex-col justify-between px-4 py-8 min-h-[calc(100vh-56px)]">
+      <div className="flex-1 flex flex-col justify-center w-full">
+        <div className="max-w-2xl mx-auto w-full overflow-auto">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-6">
             <Image
               src="/images/profile.webp"

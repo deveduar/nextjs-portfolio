@@ -5,9 +5,9 @@ import profile from "@/data/profile";
 
 export default function AboutBottom() {
   return (
-    <section className="flex flex-col justify-between px-4 py-8 min-h-screen">
-      <div className="flex-1 flex flex-col justify-center">
-        <div className="max-w-2xl mx-auto">
+    <section className="flex flex-col justify-between px-4 py-8 min-h-[calc(100vh-56px)]">
+      <div className="flex-1 flex flex-col justify-center w-full">
+        <div className="max-w-2xl mx-auto w-full overflow-auto">
           <div className="mb-8">
             <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-300 mb-3">Skills</h3>
             <TechTags
