@@ -126,6 +126,14 @@ export default function Home() {
     snapToSection(1);
   }, [snapToSection]);
 
+  const completeTouchSnap = useCallback((index: number) => {
+    touchCooldown.current = true;
+    snapToSection(index);
+    setTimeout(() => {
+      touchCooldown.current = false;
+    }, 300);
+  }, [snapToSection]);
+
   const handleWheel = useCallback((e: WheelEvent) => {
     if (e.ctrlKey) {
       return;
@@ -238,6 +246,36 @@ export default function Home() {
     touchAccumulator.current = deltaY;
   }, []);
 
+  const handleAboutTouch = useCallback((
+    section: HTMLElement | null,
+    distance: number,
+    didNativeScroll: boolean,
+    previousSectionIndex: number,
+    nextSectionIndex: number
+  ) => {
+    if (Math.abs(distance) < TOUCH_THRESHOLD_SMALL) {
+      return;
+    }
+
+    if (didNativeScroll) {
+      return;
+    }
+
+    const sectionInfo = getSectionViewportInfo(section);
+    if (!sectionInfo) {
+      return;
+    }
+
+    if (distance < 0 && sectionInfo.isNearTop) {
+      completeTouchSnap(previousSectionIndex);
+      return;
+    }
+
+    if (distance > 0 && sectionInfo.isNearBottom) {
+      completeTouchSnap(nextSectionIndex);
+    }
+  }, [completeTouchSnap, getSectionViewportInfo]);
+
   const handleTouchEnd = useCallback(() => {
     if (touchCooldown.current) {
       return;
@@ -248,72 +286,50 @@ export default function Home() {
     const didNativeScroll = Math.abs(window.scrollY - touchStartScrollY.current) > TOUCH_SCROLL_TOLERANCE;
     
     if (startSection === backToTopSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
-      snapToSection(contactSectionIndex);
+      completeTouchSnap(contactSectionIndex);
       return;
     }
 
     if (startSection === contactSectionIndex && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
       if (contactRef.current) {
-        const contactTop = contactRef.current.offsetTop - 56;
+        const contactTop = contactRef.current.offsetTop - NAV_HEIGHT;
         const contactHeight = contactRef.current.offsetHeight;
         const viewportTop = window.scrollY;
         const viewportHeight = window.innerHeight;
         
         if (viewportTop + viewportHeight >= contactTop + contactHeight - 150) {
-          snapToSection(backToTopSectionIndex);
+          completeTouchSnap(backToTopSectionIndex);
         } else {
-          snapToSection(aboutSectionIndex2);
+          completeTouchSnap(aboutSectionIndex2);
         }
       }
       return;
     }
 
     if (startSection === contactSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
-      snapToSection(aboutSectionIndex2);
+      completeTouchSnap(aboutSectionIndex2);
       return;
     }
 
-    if (startSection === aboutSectionIndex2 && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_LARGE) {
-      if (didNativeScroll) {
-        return;
-      }
-
-      if (getSectionViewportInfo(aboutRef2.current)?.isNearBottom) {
-        snapToSection(contactSectionIndex);
-      }
+    if (startSection === aboutSectionIndex2) {
+      handleAboutTouch(
+        aboutRef2.current,
+        distance,
+        didNativeScroll,
+        aboutSectionIndex,
+        contactSectionIndex
+      );
       return;
     }
 
-    if (startSection === aboutSectionIndex2 && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_LARGE) {
-      if (didNativeScroll) {
-        return;
-      }
-
-      if (getSectionViewportInfo(aboutRef2.current)?.isNearTop) {
-        snapToSection(aboutSectionIndex);
-      }
-      return;
-    }
-
-    if (startSection === aboutSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_LARGE) {
-      if (didNativeScroll) {
-        return;
-      }
-
-      if (getSectionViewportInfo(aboutRef.current)?.isNearTop) {
-        snapToSection(viewAllSectionIndex);
-      }
-      return;
-    }
-
-    if (startSection === aboutSectionIndex && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_LARGE) {
-      if (didNativeScroll) {
-        return;
-      }
-
-      if (getSectionViewportInfo(aboutRef.current)?.isNearBottom) {
-        snapToSection(aboutSectionIndex2);
-      }
+    if (startSection === aboutSectionIndex) {
+      handleAboutTouch(
+        aboutRef.current,
+        distance,
+        didNativeScroll,
+        viewAllSectionIndex,
+        aboutSectionIndex2
+      );
       return;
     }
 
@@ -351,12 +367,12 @@ export default function Home() {
     }
 
     if (startSection === viewAllSectionIndex && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
-      snapToSection(aboutSectionIndex);
+      completeTouchSnap(aboutSectionIndex);
       return;
     }
 
     if (startSection === viewAllSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
-      snapToSection(totalSections - 7);
+      completeTouchSnap(totalSections - 7);
       return;
     }
 
@@ -370,13 +386,9 @@ export default function Home() {
         nextSection = Math.max(startSection - 1, 0);
       }
 
-      touchCooldown.current = true;
-      snapToSection(nextSection);
-      setTimeout(() => {
-        touchCooldown.current = false;
-      }, 300);
+      completeTouchSnap(nextSection);
     }
-  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, getSectionViewportInfo]);
+  }, [totalSections, completeTouchSnap, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, handleAboutTouch]);
 
   const updateActiveSection = useCallback(() => {
     const scrollY = window.scrollY;
