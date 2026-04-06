@@ -12,8 +12,11 @@ import ContactSection from "@/components/ContactSection";
 
 const SCROLL_THRESHOLD = 150;
 const SNAP_DURATION = 300;
+const NAV_HEIGHT = 56;
+const ABOUT_EDGE_THRESHOLD = 12;
 const TOUCH_THRESHOLD_SMALL = 2;
 const TOUCH_THRESHOLD_LARGE = 200;
+const TOUCH_SCROLL_TOLERANCE = 24;
 
 export default function Home() {
   const { readmes, loading } = useReadmes();
@@ -26,6 +29,7 @@ export default function Home() {
   const touchAccumulator = useRef(0);
   const touchCooldown = useRef(false);
   const touchStartSection = useRef(0);
+  const touchStartScrollY = useRef(0);
 
   const heroRef = useRef<HTMLElement>(null);
   const viewAllRef = useRef<HTMLElement>(null);
@@ -51,29 +55,42 @@ export default function Home() {
   const backToTopSectionIndex = totalSections - 1;
 
   const getSectionPosition = useCallback((index: number) => {
-    const navHeight = 56;
-    
     if (index === 0 && heroRef.current) {
-      return { top: heroRef.current.offsetTop - navHeight, height: heroRef.current.offsetHeight };
+      return { top: heroRef.current.offsetTop - NAV_HEIGHT, height: heroRef.current.offsetHeight };
     } else if (index === viewAllSectionIndex && viewAllRef.current) {
-      return { top: viewAllRef.current.offsetTop - navHeight, height: viewAllRef.current.offsetHeight };
+      return { top: viewAllRef.current.offsetTop - NAV_HEIGHT, height: viewAllRef.current.offsetHeight };
     } else if (index === aboutSectionIndex && aboutRef.current) {
-      return { top: aboutRef.current.offsetTop - navHeight, height: aboutRef.current.offsetHeight };
+      return { top: aboutRef.current.offsetTop - NAV_HEIGHT, height: aboutRef.current.offsetHeight };
     } else if (index === aboutSectionIndex2 && aboutRef2.current) {
-      return { top: aboutRef2.current.offsetTop - navHeight, height: aboutRef2.current.offsetHeight };
+      return { top: aboutRef2.current.offsetTop - NAV_HEIGHT, height: aboutRef2.current.offsetHeight };
     } else if (index === contactSectionIndex && contactRef.current) {
-      return { top: contactRef.current.offsetTop - navHeight, height: contactRef.current.offsetHeight };
+      return { top: contactRef.current.offsetTop - NAV_HEIGHT, height: contactRef.current.offsetHeight };
     } else if (index === backToTopSectionIndex && backToTopRef.current) {
-      return { top: backToTopRef.current.offsetTop - navHeight, height: backToTopRef.current.offsetHeight };
+      return { top: backToTopRef.current.offsetTop - NAV_HEIGHT, height: backToTopRef.current.offsetHeight };
     } else {
       const projectIndex = index - 1;
       const projectEl = projectRefs.current[projectIndex];
       if (projectEl) {
-        return { top: projectEl.offsetTop - navHeight, height: projectEl.offsetHeight };
+        return { top: projectEl.offsetTop - NAV_HEIGHT, height: projectEl.offsetHeight };
       }
     }
     return { top: 0, height: 0 };
   }, [viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex]);
+
+  const getSectionViewportInfo = useCallback((section: HTMLElement | null) => {
+    if (!section) return null;
+
+    const top = section.offsetTop - NAV_HEIGHT;
+    const height = section.offsetHeight;
+    const viewportTop = window.scrollY;
+    const viewportBottom = viewportTop + window.innerHeight;
+    const bottom = top + height;
+
+    return {
+      isNearTop: viewportTop <= top + ABOUT_EDGE_THRESHOLD,
+      isNearBottom: viewportBottom >= bottom - ABOUT_EDGE_THRESHOLD,
+    };
+  }, []);
 
   const snapToSection = useCallback((index: number) => {
     if (index < 0 || index >= totalSections) return;
@@ -81,8 +98,7 @@ export default function Home() {
 
     const { top, height } = getSectionPosition(index);
     const viewportHeight = window.innerHeight;
-    const navHeight = 56;
-    const availableSpace = viewportHeight - navHeight;
+    const availableSpace = viewportHeight - NAV_HEIGHT;
     
     let scrollTop = top;
     
@@ -137,101 +153,33 @@ export default function Home() {
     }
 
     if (currentSection === aboutSectionIndex && e.deltaY > 0) {
-      if (!isScrolling.current && aboutRef.current) {
-        const aboutTop = aboutRef.current.offsetTop - 56;
-        const aboutHeight = aboutRef.current.offsetHeight;
-        const viewportTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const threshold = 100;
-        
-        if (viewportTop + viewportHeight >= aboutTop + aboutHeight - threshold) {
+      if (!isScrolling.current && getSectionViewportInfo(aboutRef.current)?.isNearBottom) {
+        e.preventDefault();
           snapToSection(aboutSectionIndex2);
-        }
       }
       return;
     }
     
     if (currentSection === aboutSectionIndex && e.deltaY < 0) {
-      if (!isScrolling.current && aboutRef.current) {
-        const aboutTop = aboutRef.current.offsetTop - 56;
-        const aboutHeight = aboutRef.current.offsetHeight;
-        const viewportTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const threshold = 100;
-        
-        if (viewportTop <= aboutTop + threshold) {
-          // AT TOP - allow free scroll (do nothing)
-          return;
-        } else if (viewportTop + viewportHeight >= aboutTop + aboutHeight - threshold) {
-          // AT BOTTOM - go to AboutBottom
-          snapToSection(aboutSectionIndex2);
-        } else {
-          // MIDDLE - allow free scroll (do nothing)
-          return;
-        }
+      if (!isScrolling.current && getSectionViewportInfo(aboutRef.current)?.isNearTop) {
+        e.preventDefault();
+        snapToSection(viewAllSectionIndex);
       }
       return;
     }
     
     if (currentSection === aboutSectionIndex2 && e.deltaY > 0) {
-      if (!isScrolling.current && aboutRef2.current) {
-        const aboutTop = aboutRef2.current.offsetTop - 56;
-        const aboutHeight = aboutRef2.current.offsetHeight;
-        const viewportTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const threshold = 100;
-        
-        if (viewportTop <= aboutTop + threshold) {
-          // AT TOP - allow free scroll (do nothing)
-          return;
-        } else if (viewportTop + viewportHeight >= aboutTop + aboutHeight - threshold) {
-          // AT BOTTOM - go to Contact
+      if (!isScrolling.current && getSectionViewportInfo(aboutRef2.current)?.isNearBottom) {
+        e.preventDefault();
           snapToSection(contactSectionIndex);
-        }
       }
       return;
     }
     
     if (currentSection === aboutSectionIndex2 && e.deltaY < 0) {
-      if (!isScrolling.current && aboutRef2.current) {
-        const aboutTop = aboutRef2.current.offsetTop - 56;
-        const aboutHeight = aboutRef2.current.offsetHeight;
-        const viewportTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const threshold = 100;
-        
-        if (viewportTop <= aboutTop + threshold) {
-          // AT TOP - go to AboutTop
-          snapToSection(aboutSectionIndex);
-        } else if (viewportTop + viewportHeight >= aboutTop + aboutHeight - threshold) {
-          // AT BOTTOM - allow free scroll (do nothing)
-          return;
-        } else {
-          // MIDDLE - go to Contact
-          window.scrollTo({ top: aboutTop + aboutHeight, behavior: "smooth" });
-        }
-      }
-      return;
-    }
-    
-    if (currentSection === aboutSectionIndex2 && e.deltaY < 0) {
-      if (!isScrolling.current && aboutRef2.current) {
-        const aboutTop = aboutRef2.current.offsetTop - 56;
-        const aboutHeight = aboutRef2.current.offsetHeight;
-        const viewportTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const threshold = 100;
-        
-        if (viewportTop <= aboutTop + threshold) {
-          // AT TOP - go to AboutTop
-          snapToSection(aboutSectionIndex);
-        } else if (viewportTop + viewportHeight >= aboutTop + aboutHeight - threshold) {
-          // AT BOTTOM - allow free scroll (do nothing)
-          return;
-        } else {
-          // MIDDLE - go to Contact
-          window.scrollTo({ top: aboutTop + aboutHeight, behavior: "smooth" });
-        }
+      if (!isScrolling.current && getSectionViewportInfo(aboutRef2.current)?.isNearTop) {
+        e.preventDefault();
+        snapToSection(aboutSectionIndex);
       }
       return;
     }
@@ -272,13 +220,14 @@ export default function Home() {
         scrollAccumulator.current = 0;
       }
     }
-  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex]);
+  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, getSectionViewportInfo]);
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
     touchStartSection.current = activeSectionRef.current;
     touchAccumulator.current = 0;
     touchCooldown.current = false;
+    touchStartScrollY.current = window.scrollY;
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
@@ -296,6 +245,7 @@ export default function Home() {
     
     const startSection = touchStartSection.current;
     const distance = touchAccumulator.current;
+    const didNativeScroll = Math.abs(window.scrollY - touchStartScrollY.current) > TOUCH_SCROLL_TOLERANCE;
     
     if (startSection === backToTopSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_SMALL) {
       snapToSection(contactSectionIndex);
@@ -324,83 +274,45 @@ export default function Home() {
     }
 
     if (startSection === aboutSectionIndex2 && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_LARGE) {
-      if (aboutRef2.current) {
-        const aboutTop = aboutRef2.current.offsetTop - 56;
-        const aboutHeight = aboutRef2.current.offsetHeight;
-        const viewportTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const threshold = 100;
-        
-        if (viewportTop <= aboutTop + threshold) {
-          // AT TOP - allow free scroll (do nothing)
-          return;
-        } else if (viewportTop + viewportHeight >= aboutTop + aboutHeight - threshold) {
-          // AT BOTTOM - go to Contact
-          snapToSection(contactSectionIndex);
-        }
+      if (didNativeScroll) {
+        return;
+      }
+
+      if (getSectionViewportInfo(aboutRef2.current)?.isNearBottom) {
+        snapToSection(contactSectionIndex);
       }
       return;
     }
 
     if (startSection === aboutSectionIndex2 && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_LARGE) {
-      if (aboutRef2.current) {
-        const aboutTop = aboutRef2.current.offsetTop - 56;
-        const aboutHeight = aboutRef2.current.offsetHeight;
-        const viewportTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const threshold = 100;
-        
-        if (viewportTop <= aboutTop + threshold) {
-          // AT TOP - go to AboutTop
-          snapToSection(aboutSectionIndex);
-        } else if (viewportTop + viewportHeight >= aboutTop + aboutHeight - threshold) {
-          // AT BOTTOM - allow free scroll (do nothing)
-          return;
-        } else {
-          // MIDDLE - go to Contact
-          window.scrollTo({ top: aboutTop + aboutHeight, behavior: "smooth" });
-        }
+      if (didNativeScroll) {
+        return;
+      }
+
+      if (getSectionViewportInfo(aboutRef2.current)?.isNearTop) {
+        snapToSection(aboutSectionIndex);
       }
       return;
     }
 
     if (startSection === aboutSectionIndex && distance < 0 && Math.abs(distance) >= TOUCH_THRESHOLD_LARGE) {
-      if (aboutRef.current) {
-        const aboutTop = aboutRef.current.offsetTop - 56;
-        const aboutHeight = aboutRef.current.offsetHeight;
-        const viewportTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const threshold = 100;
-        
-        if (viewportTop <= aboutTop + threshold) {
-          // AT TOP - go to ViewAll
-          snapToSection(viewAllSectionIndex);
-        } else if (viewportTop + viewportHeight >= aboutTop + aboutHeight - threshold) {
-          // AT BOTTOM - allow free scroll (do nothing)
-          return;
-        } else {
-          // MIDDLE - go to AboutBottom
-          snapToSection(aboutSectionIndex2);
-        }
+      if (didNativeScroll) {
+        return;
+      }
+
+      if (getSectionViewportInfo(aboutRef.current)?.isNearTop) {
+        snapToSection(viewAllSectionIndex);
       }
       return;
     }
 
     if (startSection === aboutSectionIndex && distance > 0 && Math.abs(distance) >= TOUCH_THRESHOLD_LARGE) {
-      if (aboutRef.current) {
-        const aboutTop = aboutRef.current.offsetTop - 56;
-        const aboutHeight = aboutRef.current.offsetHeight;
-        const viewportTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const threshold = 100;
-        
-        if (viewportTop <= aboutTop + threshold) {
-          // AT TOP - allow free scroll (do nothing)
-          return;
-        } else if (viewportTop + viewportHeight >= aboutTop + aboutHeight - threshold) {
-          // AT BOTTOM - go to AboutBottom
-          snapToSection(aboutSectionIndex2);
-        }
+      if (didNativeScroll) {
+        return;
+      }
+
+      if (getSectionViewportInfo(aboutRef.current)?.isNearBottom) {
+        snapToSection(aboutSectionIndex2);
       }
       return;
     }
@@ -464,13 +376,13 @@ export default function Home() {
         touchCooldown.current = false;
       }, 300);
     }
-  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex]);
+  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, getSectionViewportInfo]);
 
   const updateActiveSection = useCallback(() => {
     const scrollY = window.scrollY;
     const viewportHeight = window.innerHeight;
     const viewportCenter = scrollY + viewportHeight / 2;
-    const navHeight = 56;
+    const navHeight = NAV_HEIGHT;
 
     if (heroRef.current) {
       const top = heroRef.current.offsetTop - navHeight;
