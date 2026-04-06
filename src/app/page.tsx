@@ -28,7 +28,6 @@ export default function Home() {
     heroRef,
     viewAllRef,
     aboutRef,
-    aboutRef2,
     contactRef,
     backToTopRef,
     projectRefs,
@@ -44,36 +43,52 @@ export default function Home() {
         />
       </section>
 
-      {!loading && recentProjects.map((project, index) => (
-        <section
-          key={project.id}
-          ref={(el) => { projectRefs.current[index] = el; }}
-          style={{ height: `calc(100vh - ${SNAP_NAV_HEIGHT}px)` }}
-          className="relative flex items-center px-4 py-4 md:px-8 overflow-hidden pb-14 md:pb-0"
-        >
-          <div className="w-full h-full flex items-center">
-            <HomeProjectCard project={project} />
-          </div>
-        </section>
-      ))}
+      {!loading && recentProjects.map((project, index) => {
+        const gradientClasses = [
+          "from-blue-100 to-indigo-100 dark:from-blue-950 dark:to-indigo-950",
+          "from-purple-100 to-pink-100 dark:from-purple-950 dark:to-pink-950",
+          "from-emerald-100 to-teal-100 dark:from-emerald-950 dark:to-teal-950",
+          "from-cyan-100 to-sky-100 dark:from-cyan-950 dark:to-sky-950",
+          "from-sky-100 to-indigo-100 dark:from-sky-950 dark:to-indigo-950",
+        ];
+        const gradientIndex = index % gradientClasses.length;
+        const gradient = gradientClasses[gradientIndex];
+        
+        return (
+          <section
+            key={project.id}
+            ref={(el) => { projectRefs.current[index] = el; }}
+            style={{ height: `calc(100vh - ${SNAP_NAV_HEIGHT}px)` }}
+            className={`relative flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-hidden pb-14 md:pb-0 bg-gradient-to-br ${gradient}`}
+          >
+            <div className="w-full h-full max-w-6xl">
+              <HomeProjectCard project={project} />
+            </div>
+          </section>
+        );
+      })}
 
-      <section
-        ref={viewAllRef}
-        className="flex h-[30vh] items-center justify-center"
-      >
-        <Link
-          href="/projects"
-          className="rounded-full bg-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg transition-colors hover:bg-blue-700"
-        >
-          View All Projects
-        </Link>
-      </section>
+      {!loading && recentProjects.map((project, index) => {
+        if (index !== recentProjects.length - 1) return null;
+        
+        return (
+          <section
+            ref={viewAllRef}
+            key="view-all"
+            className="flex h-[30vh] items-center justify-center"
+          >
+            <Link
+              href="/projects"
+              className="rounded-full bg-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg transition-colors hover:bg-blue-700"
+            >
+              View All Projects
+            </Link>
+          </section>
+        );
+      })}
 
-      <section ref={aboutRef} className="min-h-screen">
+      <section ref={aboutRef} className="min-h-screen flex flex-col bg-violet-100 dark:bg-violet-950/40">
         <AboutTop />
-      </section>
-
-      <section ref={aboutRef2} className="min-h-screen">
         <AboutBottom />
       </section>
 
@@ -83,7 +98,7 @@ export default function Home() {
 
       <section
         ref={backToTopRef}
-        className="flex h-[30vh] items-center justify-center"
+        className="flex h-[30vh] items-center justify-center bg-violet-100 dark:bg-violet-950/40"
       >
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

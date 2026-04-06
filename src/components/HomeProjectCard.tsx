@@ -32,89 +32,93 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({ project, isProjectSec
   );
 
   return (
-    <div className="w-full max-w-full overflow-hidden">
-      {/* Layout responsive: texto e imagen en línea para desktop, apilados para móvil */}
-      <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 items-stretch h-full max-h-[calc(100vh-120px)]">
+    <div className="w-full h-full flex flex-col gap-4">
+      <div className="flex-1 flex flex-col sm:flex-row gap-4 sm:gap-6 items-stretch">
         
-        {/* Sección de texto - primero en mobile, izquierda en desktop */}
-        <div className="flex-1 flex flex-col justify-center min-w-0 py-2 overflow-hidden">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-2 line-clamp-2">
+        {/* Sección de texto */}
+        <div className="flex-1 flex flex-col justify-center min-w-0">
+          <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-2 sm:mb-3 line-clamp-1 sm:line-clamp-2">
             {project.title}
           </h2>
-          <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 mb-3 line-clamp-3 lg:line-clamp-4 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-3 leading-relaxed">
             {project.description}
           </p>
           
-          <div className="flex flex-wrap gap-1.5 mb-3">
+          <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
             <TechTags
               technologies={project.technologies}
               limit={4}
               colorful={true}
               overlayStyle={false}
-              className="flex-wrap gap-1 text-xs"
+              className="flex-wrap gap-1.5 text-sm sm:text-xs"
             />
           </div>
 
           {/* Enlaces */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-3">
             {project.links.map((link, index) => (
               <Link
                 key={index}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400"
+                className="inline-flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400"
               >
                 <span className="flex items-center gap-1">
                   {link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? (
-                    <BiLinkExternal className="h-3 w-3" />
+                    <BiLinkExternal className="h-4 w-4" />
                   ) : (
-                    <FaGithub className="h-3 w-3" />
+                    <FaGithub className="h-4 w-4" />
                   )}
                   <span className="underline underline-offset-2">{link.label}</span>
                 </span>
               </Link>
             ))}
           </div>
+
+          {/* Details button - solo visible en desktop */}
+          {isProjectSection && (
+            <div className="hidden sm:block mt-4">
+              <Link
+                href={`/project/${slugify(project.title)}`}
+                className="inline-flex items-center gap-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-all"
+              >
+                View Project Details
+                <BiLinkExternal className="h-4 w-4" />
+              </Link>
+            </div>
+          )}
         </div>
 
-        {/* Imagen - abajo en mobile, derecha en desktop */}
-        <div className="w-full md:flex-1 md:w-auto md:max-w-[45%] lg:max-w-[50%] min-w-0">
-          <div className="relative w-full h-full min-h-[250px] md:min-h-0 rounded-lg overflow-hidden shadow-md group">
+        {/* Imagen */}
+        <div className="w-full sm:w-2/5 md:w-1/2 lg:w-[45%] min-w-0 flex items-center">
+          <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px] max-h-[55vh] w-full rounded-xl overflow-hidden shadow-lg group">
             <Image
               src={project.imageSrc}
               alt={project.title}
               fill
-              className="object-contain md:object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              className="object-contain sm:object-cover transition-transform duration-500 group-hover:scale-[1.02]"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             {demoLink && (
-              <div className="absolute top-2 right-2 z-10">
+              <div className="absolute top-3 right-3 z-10">
                 <Badge label={demoLink.label} href={demoLink.href} />
               </div>
             )}
-            {/* Details en imagen - solo visible en desktop */}
-            <Link
-              href={`/project/${slugify(project.title)}`}
-              className="hidden md:inline-flex absolute bottom-2 right-2 items-center gap-1 text-xs font-medium text-white bg-blue-600/90 hover:bg-blue-600 px-2.5 py-1.5 rounded-md backdrop-blur-sm transition-all hover:scale-105"
-            >
-              Details
-              <BiLinkExternal className="h-3 w-3" />
-            </Link>
           </div>
         </div>
       </div>
 
-      {/* Details en footer de la sección - solo visible en mobile */}
+      {/* Details button en mobile */}
       {isProjectSection && (
-        <div className="md:hidden mt-4">
+        <div className="sm:hidden px-4 pt-4">
           <Link
             href={`/project/${slugify(project.title)}`}
-            className="flex items-center justify-center gap-2 text-sm font-medium text-white bg-blue-600 py-3 rounded-lg"
+            className="flex items-center justify-center gap-2 text-base font-medium text-white bg-blue-600 py-3.5 rounded-lg"
           >
             View Project Details
-            <BiLinkExternal className="h-4 w-4" />
+            <BiLinkExternal className="h-5 w-5" />
           </Link>
         </div>
       )}

@@ -33,15 +33,13 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
   const heroRef = useRef<HTMLElement>(null);
   const viewAllRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
-  const aboutRef2 = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
   const backToTopRef = useRef<HTMLElement>(null);
   const projectRefs = useRef<(HTMLElement | null)[]>([]);
 
-  const totalSections = projectCount + 6;
-  const viewAllSectionIndex = totalSections - 5;
-  const aboutSectionIndex = totalSections - 4;
-  const aboutSectionIndex2 = totalSections - 3;
+  const totalSections = projectCount + 5;
+  const viewAllSectionIndex = totalSections - 4;
+  const aboutSectionIndex = totalSections - 3;
   const contactSectionIndex = totalSections - 2;
   const backToTopSectionIndex = totalSections - 1;
 
@@ -56,10 +54,6 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
 
     if (index === aboutSectionIndex && aboutRef.current) {
       return { top: aboutRef.current.offsetTop - SNAP_NAV_HEIGHT, height: aboutRef.current.offsetHeight };
-    }
-
-    if (index === aboutSectionIndex2 && aboutRef2.current) {
-      return { top: aboutRef2.current.offsetTop - SNAP_NAV_HEIGHT, height: aboutRef2.current.offsetHeight };
     }
 
     if (index === contactSectionIndex && contactRef.current) {
@@ -77,7 +71,7 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
     }
 
     return { top: 0, height: 0 };
-  }, [viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex]);
+  }, [viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex, contactSectionIndex, backToTopSectionIndex]);
 
   const snapToSection = useCallback((index: number) => {
     if (index < 0 || index >= totalSections) return;
@@ -177,12 +171,12 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
       return aboutSectionIndex;
     }
 
-    if (sectionIntersectsViewport(aboutRef2.current, SNAP_NAV_HEIGHT)) {
-      return aboutSectionIndex2;
+    if (sectionIntersectsViewport(aboutRef.current, SNAP_NAV_HEIGHT)) {
+      return aboutSectionIndex;
     }
 
     return activeSectionRef.current;
-  }, [aboutSectionIndex, aboutSectionIndex2, viewAllSectionIndex, contactSectionIndex, backToTopSectionIndex]);
+  }, [aboutSectionIndex, aboutSectionIndex, viewAllSectionIndex, contactSectionIndex, backToTopSectionIndex]);
 
   const getTouchStartSectionIndex = useCallback((clientX: number, clientY: number) => {
     if (sectionContainsTouchPoint(viewAllRef.current, clientX, clientY)) {
@@ -193,8 +187,8 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
       return aboutSectionIndex;
     }
 
-    if (sectionContainsTouchPoint(aboutRef2.current, clientX, clientY)) {
-      return aboutSectionIndex2;
+    if (sectionContainsTouchPoint(aboutRef.current, clientX, clientY)) {
+      return aboutSectionIndex;
     }
 
     if (sectionContainsTouchPoint(contactRef.current, clientX, clientY)) {
@@ -216,7 +210,7 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
     }
 
     return getViewportSectionIndex();
-  }, [viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, getViewportSectionIndex]);
+  }, [viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex, contactSectionIndex, backToTopSectionIndex, getViewportSectionIndex]);
 
   const handleAboutTouch = useCallback((
     section: HTMLElement | null,
@@ -307,29 +301,11 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
       }
     }
 
-    if (sectionIntersectsViewport(aboutRef2.current, SNAP_NAV_HEIGHT)) {
-      if (e.deltaY > 0) {
-        if (!isScrolling.current && getSectionViewportInfo(aboutRef2.current, SNAP_NAV_HEIGHT)?.isNearBottom) {
-          e.preventDefault();
-          snapToSection(contactSectionIndex);
-        }
-        return;
-      }
-
-      if (e.deltaY < 0) {
-        if (!isScrolling.current && getSectionViewportInfo(aboutRef2.current, SNAP_NAV_HEIGHT)?.isNearTop) {
-          e.preventDefault();
-          snapToSection(aboutSectionIndex);
-        }
-        return;
-      }
-    }
-
     if (sectionIntersectsViewport(aboutRef.current, SNAP_NAV_HEIGHT)) {
       if (e.deltaY > 0) {
         if (!isScrolling.current && getSectionViewportInfo(aboutRef.current, SNAP_NAV_HEIGHT)?.isNearBottom) {
           e.preventDefault();
-          snapToSection(aboutSectionIndex2);
+          snapToSection(contactSectionIndex);
         }
         return;
       }
@@ -397,7 +373,7 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
     totalSections,
     getViewportSectionIndex,
     aboutSectionIndex,
-    aboutSectionIndex2,
+    aboutSectionIndex,
     contactSectionIndex,
     backToTopSectionIndex,
     viewAllSectionIndex,
@@ -452,14 +428,14 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
         if (viewportTop + viewportHeight >= contactTop + contactHeight - 150) {
           completeTouchSnap(backToTopSectionIndex);
         } else {
-          completeTouchSnap(aboutSectionIndex2);
+          completeTouchSnap(aboutSectionIndex);
         }
       }
       return;
     }
 
     if (startSection === contactSectionIndex && distance < 0 && absDistance >= TOUCH_THRESHOLD_SMALL) {
-      completeTouchSnap(aboutSectionIndex2);
+      completeTouchSnap(aboutSectionIndex);
       return;
     }
 
@@ -483,18 +459,6 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
       return;
     }
 
-    if (startSection === aboutSectionIndex2) {
-      handleAboutTouch(
-        aboutRef2.current,
-        getViewportSectionIndex(),
-        distance,
-        didNativeScroll,
-        aboutSectionIndex,
-        contactSectionIndex,
-      );
-      return;
-    }
-
     if (startSection === aboutSectionIndex) {
       handleAboutTouch(
         aboutRef.current,
@@ -502,7 +466,7 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
         distance,
         didNativeScroll,
         viewAllSectionIndex,
-        aboutSectionIndex2,
+        contactSectionIndex,
       );
       return;
     }
@@ -522,7 +486,6 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
     handleAboutTouch,
     viewAllSectionIndex,
     aboutSectionIndex,
-    aboutSectionIndex2,
     contactSectionIndex,
     backToTopSectionIndex,
   ]);
@@ -551,7 +514,7 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
     heroRef,
     viewAllRef,
     aboutRef,
-    aboutRef2,
+    aboutRef,
     contactRef,
     backToTopRef,
     projectRefs,

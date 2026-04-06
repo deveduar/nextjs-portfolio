@@ -53,7 +53,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ socialLinks, onScrollToProjec
             </Link>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 justify-center sm:justify-start">
             <Link 
               href={socialLinks.linkedin}
               target="_blank" 
