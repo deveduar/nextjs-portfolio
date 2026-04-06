@@ -283,7 +283,63 @@ export default function Home() {
       return;
     }
     
-    const currentSection = activeSectionRef.current;
+    const currentSection = getViewportSectionIndex();
+    const lastProjectIndex = totalSections - 6;
+    const viewAllInfo = getSectionViewportInfo(viewAllRef.current);
+    const viewportCenter = window.scrollY + window.innerHeight / 2;
+    const isViewAllDominant = !!viewAllInfo &&
+      ((viewAllInfo.visibleRatio >= 0.6) ||
+        (viewportCenter >= viewAllInfo.top && viewportCenter <= viewAllInfo.bottom));
+
+    if (isViewAllDominant) {
+      if (e.deltaY < 0) {
+        e.preventDefault();
+        snapToSection(lastProjectIndex);
+        return;
+      }
+
+      if (e.deltaY > 0) {
+        e.preventDefault();
+        snapToSection(aboutSectionIndex);
+        return;
+      }
+    }
+
+    if (sectionIntersectsViewport(aboutRef2.current)) {
+      if (e.deltaY > 0) {
+        if (!isScrolling.current && getSectionViewportInfo(aboutRef2.current)?.isNearBottom) {
+          e.preventDefault();
+          snapToSection(contactSectionIndex);
+        }
+        return;
+      }
+
+      if (e.deltaY < 0) {
+        if (!isScrolling.current && getSectionViewportInfo(aboutRef2.current)?.isNearTop) {
+          e.preventDefault();
+          snapToSection(aboutSectionIndex);
+        }
+        return;
+      }
+    }
+
+    if (sectionIntersectsViewport(aboutRef.current)) {
+      if (e.deltaY > 0) {
+        if (!isScrolling.current && getSectionViewportInfo(aboutRef.current)?.isNearBottom) {
+          e.preventDefault();
+          snapToSection(aboutSectionIndex2);
+        }
+        return;
+      }
+
+      if (e.deltaY < 0) {
+        if (!isScrolling.current && getSectionViewportInfo(aboutRef.current)?.isNearTop) {
+          e.preventDefault();
+          snapToSection(viewAllSectionIndex);
+        }
+        return;
+      }
+    }
     
     if (currentSection === backToTopSectionIndex && e.deltaY < 0) {
       snapToSection(contactSectionIndex);
@@ -304,40 +360,7 @@ export default function Home() {
       return;
     }
 
-    if (currentSection === aboutSectionIndex && e.deltaY > 0) {
-      if (!isScrolling.current && getSectionViewportInfo(aboutRef.current)?.isNearBottom) {
-        e.preventDefault();
-          snapToSection(aboutSectionIndex2);
-      }
-      return;
-    }
-    
-    if (currentSection === aboutSectionIndex && e.deltaY < 0) {
-      if (!isScrolling.current && getSectionViewportInfo(aboutRef.current)?.isNearTop) {
-        e.preventDefault();
-        snapToSection(viewAllSectionIndex);
-      }
-      return;
-    }
-    
-    if (currentSection === aboutSectionIndex2 && e.deltaY > 0) {
-      if (!isScrolling.current && getSectionViewportInfo(aboutRef2.current)?.isNearBottom) {
-        e.preventDefault();
-          snapToSection(contactSectionIndex);
-      }
-      return;
-    }
-    
-    if (currentSection === aboutSectionIndex2 && e.deltaY < 0) {
-      if (!isScrolling.current && getSectionViewportInfo(aboutRef2.current)?.isNearTop) {
-        e.preventDefault();
-        snapToSection(aboutSectionIndex);
-      }
-      return;
-    }
-
     if (currentSection === viewAllSectionIndex && e.deltaY < 0) {
-      const lastProjectIndex = totalSections - 6;
       snapToSection(lastProjectIndex);
       return;
     }
@@ -372,7 +395,7 @@ export default function Home() {
         scrollAccumulator.current = 0;
       }
     }
-  }, [totalSections, snapToSection, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, getSectionViewportInfo]);
+  }, [totalSections, snapToSection, getViewportSectionIndex, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, getSectionViewportInfo, sectionIntersectsViewport]);
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
@@ -465,7 +488,13 @@ export default function Home() {
     const didNativeScroll = Math.abs(window.scrollY - touchStartScrollY.current) > TOUCH_SCROLL_TOLERANCE;
     const lastProjectIndex = totalSections - 6;
     
-    if (startSection === backToTopSectionIndex && distance < 0 && absDistance >= TOUCH_THRESHOLD_SMALL) {
+    if (
+      (startSection === backToTopSectionIndex ||
+        currentSection === backToTopSectionIndex ||
+        sectionIntersectsViewport(backToTopRef.current)) &&
+      distance < 0 &&
+      absDistance >= TOUCH_THRESHOLD_SMALL
+    ) {
       completeTouchSnap(contactSectionIndex);
       return;
     }
@@ -530,7 +559,7 @@ export default function Home() {
       return;
     }
 
-    if (startSection === aboutSectionIndex && distance < 0 && absDistance >= TOUCH_THRESHOLD_LARGE) {
+    if (startSection === -1 && distance < 0 && absDistance >= TOUCH_THRESHOLD_LARGE) {
       if (aboutRef.current) {
         const aboutTop = aboutRef.current.offsetTop - 56;
         const viewportTop = window.scrollY;
@@ -556,7 +585,7 @@ export default function Home() {
 
       completeTouchSnap(nextSection);
     }
-  }, [totalSections, snapToSection, completeTouchSnap, getViewportSectionIndex, sectionIntersectsViewport, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, handleAboutTouch]);
+  }, [totalSections, completeTouchSnap, getViewportSectionIndex, sectionIntersectsViewport, viewAllSectionIndex, aboutSectionIndex, aboutSectionIndex2, contactSectionIndex, backToTopSectionIndex, handleAboutTouch]);
 
   const updateActiveSection = useCallback(() => {
     activeSectionRef.current = getViewportSectionIndex();

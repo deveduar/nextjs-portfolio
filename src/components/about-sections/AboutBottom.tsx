@@ -41,7 +41,7 @@ export default function AboutBottom() {
 
             <div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-300 mb-3">Education</h3>
-              <div className="space-y-3">
+              <div className="space-y-3 mb-5">
                 {profile.education.map((edu, i) => (
                   <div key={i} className="border-l-2 border-purple-500 dark:border-purple-400 pl-3">
                     <p className="text-base font-medium text-gray-900 dark:text-gray-200">{edu.title}</p>
