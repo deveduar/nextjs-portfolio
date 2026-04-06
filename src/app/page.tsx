@@ -48,10 +48,10 @@ export default function Home() {
         <section
           key={project.id}
           ref={(el) => { projectRefs.current[index] = el; }}
-          style={{ minHeight: `calc(100vh - ${SNAP_NAV_HEIGHT}px)` }}
-          className="flex items-stretch px-4 py-4 md:px-8"
+          style={{ height: `calc(100vh - ${SNAP_NAV_HEIGHT}px)` }}
+          className="relative flex items-center px-4 py-4 md:px-8 overflow-hidden pb-14 md:pb-0"
         >
-          <div className="h-auto w-full">
+          <div className="w-full h-full flex items-center">
             <HomeProjectCard project={project} />
           </div>
         </section>

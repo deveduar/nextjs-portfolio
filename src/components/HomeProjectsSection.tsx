@@ -67,7 +67,7 @@ const HomeProjectsSection: React.FC<HomeProjectsSectionProps> = ({ aboutRef }) =
           recentProjects.map((project) => (
             <div key={project.id} className="snap-center min-h-[80vh] flex items-center">
               <div className="w-full">
-                <HomeProjectCard project={project} />
+                <HomeProjectCard project={project} isProjectSection={false} />
               </div>
             </div>
           ))
