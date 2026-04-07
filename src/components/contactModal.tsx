@@ -105,20 +105,20 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[var(--color-foreground)]/50"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
       onClick={handleOverlayClick}
     >
-      <div className="relative w-full max-w-2xl bg-[var(--color-surface)] rounded-xl border border-[var(--color-border)] shadow-2xl animate-overlayFadeIn">
+      <div className="relative w-full max-w-2xl rounded-xl border border-border shadow-2xl animate-overlayFadeIn bg-background">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-lg hover:bg-[var(--color-surface-alt)] transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-lg hover:bg-surface-alt transition-colors"
         >
-          <IoClose size={20} className="text-[var(--color-foreground)]" />
+          <IoClose size={20} className="text-foreground" />
         </button>
 
         <div className="p-6">
-          <h2 className="text-xl font-bold text-[var(--color-foreground)] mb-2">Let&apos;s Connect</h2>
-          <p className="text-sm text-[var(--color-muted-foreground)] mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">Let&apos;s Connect</h2>
+          <p className="text-sm text-muted mb-6">
             Have a project in mind? I&apos;d love to hear about it. Send me a message!
           </p>
 
@@ -131,7 +131,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   value={userInput.name}
                   onChange={handleChange}
                   placeholder="Your Name"
-                  className="w-full p-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] focus:ring-2 focus:ring-[var(--color-accent)] placeholder:text-[var(--color-muted-foreground)]"
+                  className="w-full p-3 bg-background border border-border rounded-lg text-foreground focus:ring-2 focus:ring-accent placeholder:text-muted"
                   required
                 />
               </div>
@@ -142,7 +142,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   value={userInput.email}
                   onChange={handleChange}
                   placeholder="Your Email"
-                  className="w-full p-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] focus:ring-2 focus:ring-[var(--color-accent)] placeholder:text-[var(--color-muted-foreground)]"
+                  className="w-full p-3 bg-background border border-border rounded-lg text-foreground focus:ring-2 focus:ring-accent placeholder:text-muted"
                   required
                 />
               </div>
@@ -154,14 +154,14 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 value={userInput.message}
                 onChange={handleChange}
                 placeholder="Your Message"
-                className="w-full p-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] focus:ring-2 focus:ring-[var(--color-accent)] h-32 placeholder:text-[var(--color-muted-foreground)]"
+                className="w-full p-3 bg-background border border-border rounded-lg text-foreground focus:ring-2 focus:ring-accent h-32 placeholder:text-muted"
                 required
               />
             </div>
 
             <button 
               type="submit"
-              className="self-start px-6 py-3 bg-[var(--color-accent)] text-[var(--color-accent-foreground)] rounded-lg font-semibold hover:bg-[var(--color-accent-hover)] transition-all duration-300"
+              className="self-start px-6 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent-hover transition-all duration-300"
             >
               Send Message
             </button>

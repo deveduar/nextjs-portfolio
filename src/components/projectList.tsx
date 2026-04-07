@@ -81,25 +81,20 @@ const ProjectList: React.FC<ProjectListProps> = ({ searchFilter = '' }) => {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[var(--color-border)]/50">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4">
         <div className="relative w-full sm:max-w-xs">
-          <IoSearchOutline className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--color-muted-foreground)]" size={14} />
-          <input
-            type="text"
-            placeholder="Search projects..."
-            value={localSearch}
-            onChange={(e) => setLocalSearch(e.target.value)}
-            className="w-full pl-8 pr-8 py-1.5 rounded-lg bg-[var(--color-surface)] 
-              border border-[var(--color-border)]/30
-              text-[var(--color-foreground)] text-xs
-              placeholder:text-[var(--color-muted-foreground)]
-              focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]/30
-              transition-all duration-300"
-          />
+          <IoSearchOutline className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" size={14} />
+           <input
+             type="text"
+             placeholder="Search projects..."
+             value={localSearch}
+             onChange={(e) => setLocalSearch(e.target.value)}
+             className="w-full pl-8 pr-8 py-1.5 rounded-lg bg-surface border border-border/30 text-foreground text-xs placeholder:text-muted focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all duration-300"
+           />
           {localSearch && (
             <button
               onClick={handleClearSearch}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
             >
               <IoClose size={12} />
             </button>
@@ -107,7 +102,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ searchFilter = '' }) => {
         </div>
         
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-          <span className="text-sm text-[var(--color-muted-foreground)] whitespace-nowrap">
+          <span className="text-sm text-muted whitespace-nowrap">
             {filteredAndSortedProjects.length} project{filteredAndSortedProjects.length !== 1 ? 's' : ''}
           </span>
           <SortDropdown 

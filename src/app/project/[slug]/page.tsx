@@ -41,7 +41,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
   }
 
   return (
-    <div className="w-full mx-auto text-[var(--color-foreground)] pb-16 max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl px-3 sm:px-4">
+    <div className="w-full mx-auto text-[var(--color-foreground)] pb-16 max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl px-2 sm:px-3 md:px-4">
       <ProjectBreadcrumb projectTitle={project.title} />
       <section className="grid grid-cols-1 gap-4">
         <ProjectDetails project={project} />

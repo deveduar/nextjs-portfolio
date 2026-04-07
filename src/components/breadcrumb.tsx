@@ -25,7 +25,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ projectTitle }) => {
   };
 
   return (
-    <nav className="bg-[var(--color-surface)] rounded-xl p-4 mb-4">
+    <nav className="bg-[var(--color-surface)] rounded-xl p-4">
       <ol className="flex items-center flex-wrap gap-2">
         <li className="flex items-center">
           <Link 

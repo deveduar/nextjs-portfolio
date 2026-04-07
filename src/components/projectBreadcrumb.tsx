@@ -35,7 +35,7 @@ const ProjectBreadcrumb: React.FC<ProjectBreadcrumbProps> = ({ projectTitle }) =
   }
 
   return (
-    <div className="bg-[var(--color-surface)]/50 backdrop-blur-sm border-b border-[var(--color-border)]/50">
+    <div className="bg-[var(--color-surface)]/50 backdrop-blur-sm">
       <div className="py-2 px-3">
         <ol className="flex items-center flex-wrap gap-1 text-xs">
           <li className="flex items-center">

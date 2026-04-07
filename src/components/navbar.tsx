@@ -191,13 +191,15 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
 
-      {sidebarOpen && (
-        <div className="fixed inset-0 z-50" onClick={handleOverlayClick}>
-          <div className="absolute top-14 bottom-0 left-0 right-0 bg-black/50 animate-overlayFadeIn cursor-pointer" />
-          <aside 
-            className="sidebar-content absolute top-0 left-0 bottom-0 z-60 flex w-72 flex-col border-r border-border/70 bg-background animate-sidebarSlideIn"
-            onClick={(e) => e.stopPropagation()}
-          >
+       {sidebarOpen && (
+          <div className="fixed inset-0 z-50" onClick={handleOverlayClick} onTouchMove={(e) => e.preventDefault()} onWheel={(e) => e.preventDefault()}>
+            <div className="absolute top-14 bottom-0 left-0 right-0 bg-black/60 animate-overlayFadeIn cursor-pointer" onTouchMove={(e) => e.stopPropagation()} onWheel={(e) => e.stopPropagation()} />
+           <aside 
+             className="sidebar-content absolute top-0 left-0 bottom-0 z-60 flex w-72 flex-col border-r border-border/70 bg-background animate-sidebarSlideIn"
+             onClick={(e) => e.stopPropagation()}
+             onTouchMove={(e) => e.stopPropagation()}
+             onWheel={(e) => e.stopPropagation()}
+           >
             <div className="flex shrink-0 items-center justify-between border-b border-border/70 p-4">
               <div className="flex items-center gap-2">
                 <button 
@@ -233,8 +235,9 @@ const Navbar: React.FC = () => {
                   />
                 </button>
                 
-                {projectsExpanded && readmes && readmes.length > 0 && (
-                  <div className="mt-2 ml-2 space-y-2">
+                {/* Project search and list - only show when expanded */}
+                {projectsExpanded && (
+                  <div className="mt-2">
                     <div className="relative">
                       <IoSearchOutline className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" size={12} />
                       <input
@@ -253,7 +256,7 @@ const Navbar: React.FC = () => {
                         </button>
                       )}
                     </div>
-                    <div className="space-y-1 max-h-48 overflow-y-auto custom-scrollbar">
+                    <div className="space-y-2 mt-2 flex-1 min-h-0">
                       {readmes
                         .filter(p => {
                           const search = normalizeText(sidebarSearch);
@@ -266,7 +269,7 @@ const Navbar: React.FC = () => {
                           <Link
                             key={project.id}
                             href={`/project/${slugify(project.title)}`}
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => { e.stopPropagation(); closeSidebar(); }}
                             className={`block px-2 py-1.5 text-xs rounded-lg truncate transition-colors
                               ${pathname === `/project/${slugify(project.title)}`
                                 ? 'bg-accent/15 font-medium text-accent'
@@ -321,7 +324,7 @@ const Navbar: React.FC = () => {
 
       {searchOpen && (
         <div className="fixed inset-0 z-50" onClick={handleOverlayClick}>
-          <div className="absolute top-14 bottom-0 left-0 right-0 bg-black/50 animate-overlayFadeIn cursor-pointer" />
+          <div className="absolute top-14 bottom-0 left-0 right-0 bg-black/60 animate-overlayFadeIn cursor-pointer" />
           <div 
             ref={searchContainerRef}
             className="absolute top-14 left-0 right-0 border-b border-border/70 bg-background p-4 animate-overlayFadeIn"
