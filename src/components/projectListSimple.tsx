@@ -31,7 +31,7 @@ interface ProjectListSimpleProps {
   onPrev?: () => void;
 }
 
-const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant = 'detailed', compact = false, onNext, onPrev }) => {
+const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant = 'detailed', compact = false }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -39,7 +39,6 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
   const cardRef = useRef<HTMLDivElement>(null);
 
    const [autoPlay, setAutoPlay] = useState(true);
-   const [slideDirection, setSlideDirection] = useState<'right' | 'left' | null>(null);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -47,7 +46,6 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
     if (autoPlay) {
       intervalId = setInterval(() => {
         setIsTransitioning(true);
-        setSlideDirection('right');
         setCurrentIndex((prev) => (prev + 1) % projects.length);
       }, 9000); // Cambia de card cada 3 segundos
     }
@@ -261,10 +259,10 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                 </div>
               </div>
               
-              <div className="shrink-0 bg-gray-50/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
+              <div className="shrink-0 rounded-lg border border-border/70 bg-surface/90 p-2 backdrop-blur-sm">
                 <div className="flex items-center justify-between gap-2">
                   <Link href={`/project/${slugify(project.title)}`} className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-sm text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-1">
+                    <h3 className="line-clamp-1 text-sm font-semibold text-foreground transition-colors hover:text-accent">
                       {project.title}
                     </h3>
                   </Link>
@@ -273,7 +271,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                       <Link
                         key={idx}
                         href={link.href}
-                        className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white p-1"
+                        className="p-1 text-muted transition-colors hover:text-foreground"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -286,7 +284,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                     ))}
                     <Link
                       href={`/project/${slugify(project.title)}`}
-                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-500 p-1"
+                      className="p-1 text-accent transition-colors hover:text-accent-hover"
                     >
                       <FaArrowRight className="w-4 h-4" />
                     </Link>
@@ -296,7 +294,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                   {project.technologies.slice(0, 4).map((tech) => (
                     <span 
                       key={tech}
-                      className="px-1.5 py-0.5 text-xs rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                      className="rounded bg-surface-alt px-1.5 py-0.5 text-xs text-muted"
                     >
                       {tech}
                     </span>
@@ -305,7 +303,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
               </div>
                
               <div className="flex-1 overflow-y-auto custom-scrollbar p-2 bg-transparent">
-                <p className="text-xs text-gray-600 dark:text-gray-300 mb-2">{project.description}</p>
+                <p className="mb-2 text-xs text-muted">{project.description}</p>
                 {project.readmeContent && (
                   <ProjectReadmeContent readmeContent={project.readmeContent} size={compact ? 'sm' : 'md'} />
                 )}
@@ -316,14 +314,11 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
       </div>
     );
   }
-
-  const currentProject = projects[currentIndex];
-
   return (
     <div className="relative w-full overflow-hidden rounded-xl">
 
 <div 
-        className="flex items-center w-full text-black dark:text-white"
+        className="flex w-full items-center text-foreground"
         ref={cardRef}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -395,7 +390,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
       {projects.map((project) => (
         <div
           key={project.id}
-          className="flex-shrink-0 w-full  bg-white dark:bg-gray-800 rounded-xl relative group"
+          className="group relative w-full flex-shrink-0 rounded-xl border border-border/70 bg-surface"
         >
               {/* <div className="absolute left-1/2 -translate-x-1/2 top-2 text-gray-400 dark:text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity">
               <TbGripHorizontal className="w-5 h-5" />
@@ -417,14 +412,14 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
         <div className='flex flex-row justify-between mb-2'>
 
      
-          <h4 className="text-xl font-semibold text-gray-900 dark:text-white ">
+          <h4 className="text-xl font-semibold text-foreground">
             {project.title}
           </h4>
             {/* Live Demo Link */}
             {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live')) && (
             <Link
               href={project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.href || ''}
-              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-500 flex items-center gap-1"
+              className="flex items-center gap-1 text-accent transition-colors hover:text-accent-hover"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -440,14 +435,14 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                         {project.technologies.slice(0, 3).map((tech) => (
                           <span 
                             key={tech}
-                            className="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                            className="rounded-md bg-surface-alt px-2 py-1 text-xs text-muted"
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
                     </div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2 line-clamp-1  lg:h-auto">
+                    <p className="mb-2 line-clamp-1 text-sm text-muted lg:h-auto">
                       {project.description}
                     </p>
           
@@ -472,7 +467,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                   </div>
                     <Link
                       href={`/project/${slugify(project.title)}`}
-                      className="rounded-xl items-center gap-3 flex flex-row py-1 sm:py-2 text-blue-600 dark:text-blue-400"
+                      className="flex flex-row items-center gap-3 rounded-xl py-1 text-accent sm:py-2"
                       rel="noopener noreferrer"
                     >
                       <span className="text-sm font-medium whitespace-nowrap">View Details</span>

@@ -136,21 +136,21 @@ const Navbar: React.FC = () => {
   return (
     <>
       <nav 
-        className="fixed top-0 left-0 right-0 h-14 bg-gray-100/95 dark:bg-gray-950/95 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800 z-40"
+        className="fixed top-0 left-0 right-0 z-40 h-14 border-b border-border/70 bg-background/95 backdrop-blur-md"
       >
         <div className="h-full px-3 flex items-center justify-between">
           <div className="flex items-center gap-1">
             <button 
               onClick={(e) => { e.stopPropagation(); toggleSidebar(); }}
-              className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+              className="rounded-lg p-2 transition-colors hover:bg-surface"
             >
-              <IoMenuOutline size={20} className="text-gray-700 dark:text-gray-300" />
+              <IoMenuOutline size={20} className="text-muted" />
             </button>
             <Link href="/" className="hidden md:block flex items-center gap-2">
-              <span className="text-lg font-semibold text-gray-900 dark:text-white">Deveduar Portfolio</span>
+              <span className="text-lg font-semibold text-foreground">Deveduar Portfolio</span>
             </Link>
             <Link href="/" className="md:hidden flex items-center gap-2">
-              <span className="text-lg font-semibold text-gray-900 dark:text-white">Dev</span>
+              <span className="text-lg font-semibold text-foreground">Dev</span>
             </Link>
           </div>
 
@@ -162,8 +162,8 @@ const Navbar: React.FC = () => {
                   href={item.href}
                   className={`p-2 rounded-lg transition-colors
                     ${pathname === item.href 
-                      ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 
-                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800'
+                      ? 'bg-accent/15 text-accent' 
+                      : 'text-muted hover:bg-surface hover:text-foreground'
                     }`}
                   title={item.label}
                 >
@@ -173,24 +173,20 @@ const Navbar: React.FC = () => {
             </div>
             <button
               onClick={handleContactClick}
-              className="p-2 rounded-lg transition-colors text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800"
+              className="rounded-lg p-2 text-muted transition-colors hover:bg-surface hover:text-foreground"
               title="Contact"
             >
               <IoMailOutline size={18} />
             </button>
             <button 
               onClick={(e) => { e.stopPropagation(); toggleSearch(); }}
-              className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+              className="rounded-lg p-2 transition-colors hover:bg-surface"
             >
-              <IoSearchOutline size={18} className="text-gray-700 dark:text-gray-300" />
+              <IoSearchOutline size={18} className="text-muted" />
             </button>
-
-            <button 
-              onClick={(e) => { e.stopPropagation(); }}
-              className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-            >
+            <div onClick={(e) => { e.stopPropagation(); }}>
               <ThemeSwitch />
-            </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -199,22 +195,22 @@ const Navbar: React.FC = () => {
         <div className="fixed inset-0 z-50" onClick={handleOverlayClick}>
           <div className="absolute top-14 bottom-0 left-0 right-0 bg-black/50 animate-overlayFadeIn cursor-pointer" />
           <aside 
-            className="sidebar-content absolute top-0 left-0 bottom-0 w-72 bg-gray-100 dark:bg-gray-950 border-r border-gray-200/50 dark:border-gray-800 animate-sidebarSlideIn z-60 flex flex-col"
+            className="sidebar-content absolute top-0 left-0 bottom-0 z-60 flex w-72 flex-col border-r border-border/70 bg-background animate-sidebarSlideIn"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-gray-800 shrink-0">
+            <div className="flex shrink-0 items-center justify-between border-b border-border/70 p-4">
               <div className="flex items-center gap-2">
                 <button 
                   onClick={(e) => { e.stopPropagation(); closeSidebar(); }}
-                  className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                  className="rounded-lg p-1.5 transition-colors hover:bg-surface"
                 >
-                  <IoClose size={18} className="text-gray-700 dark:text-gray-300" />
+                  <IoClose size={18} className="text-muted" />
                 </button>
                 <Link href="/" onClick={closeSidebar} className="flex items-center gap-2">
-                  <span className="text-lg font-bold text-gray-900 dark:text-white">Deveduar</span>
+                  <span className="text-lg font-bold text-foreground">Deveduar</span>
                 </Link>
               </div>
-              <span className="text-xs text-gray-500 dark:text-gray-400">Portfolio</span>
+              <span className="text-xs text-muted">Portfolio</span>
             </div>
 
             <div className="flex-1 overflow-y-auto custom-scrollbar">
@@ -223,8 +219,8 @@ const Navbar: React.FC = () => {
                   onClick={(e) => { e.stopPropagation(); setProjectsExpanded(!projectsExpanded); }}
                   className={`flex items-center justify-between w-full px-3 py-2.5 rounded-lg transition-colors
                     ${pathname === '/projects'
-                      ? 'bg-blue-600 text-white' 
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800'
+                      ? 'bg-accent text-accent-foreground' 
+                      : 'text-foreground hover:bg-surface'
                     }`}
                 >
                   <div className="flex items-center gap-3">
@@ -240,22 +236,18 @@ const Navbar: React.FC = () => {
                 {projectsExpanded && readmes && readmes.length > 0 && (
                   <div className="mt-2 ml-2 space-y-2">
                     <div className="relative">
-                      <IoSearchOutline className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" size={12} />
+                      <IoSearchOutline className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" size={12} />
                       <input
                         type="text"
                         placeholder="Filter projects..."
                         value={sidebarSearch}
                         onChange={(e) => setSidebarSearch(e.target.value)}
-                        className="w-full pl-7 pr-6 py-1.5 text-xs rounded-lg bg-white dark:bg-gray-900 
-                          border border-gray-200/30 dark:border-gray-700/30
-                          text-gray-900 dark:text-white
-                          placeholder-gray-400 dark:placeholder-gray-500
-                          focus:outline-none focus:ring-1 focus:ring-blue-500/30"
+                        className="w-full rounded-lg border border-border/60 bg-surface py-1.5 pl-7 pr-6 text-xs text-foreground placeholder:text-muted focus:outline-none focus:ring-1 focus:ring-accent/40"
                       />
                       {sidebarSearch && (
                         <button
                           onClick={(e) => { e.stopPropagation(); setSidebarSearch(''); }}
-                          className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                          className="absolute right-2 top-1/2 -translate-y-1/2 text-muted transition-colors hover:text-foreground"
                         >
                           <IoClose size={12} />
                         </button>
@@ -277,8 +269,8 @@ const Navbar: React.FC = () => {
                             onClick={(e) => e.stopPropagation()}
                             className={`block px-2 py-1.5 text-xs rounded-lg truncate transition-colors
                               ${pathname === `/project/${slugify(project.title)}`
-                                ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 font-medium'
-                                : 'text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                ? 'bg-accent/15 font-medium text-accent'
+                                : 'text-muted hover:bg-surface hover:text-accent'
                               }`}
                           >
                             {project.title}
@@ -290,10 +282,10 @@ const Navbar: React.FC = () => {
               </nav>
             </div>
 
-            <div className="p-4 border-t border-gray-200/50 dark:border-gray-800 shrink-0 space-y-3">
+            <div className="shrink-0 space-y-3 border-t border-border/70 p-4">
               <button
                 onClick={(e) => { e.stopPropagation(); openContactModal(); closeSidebar(); }}
-                className="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-surface"
               >
                 <IoMailOutline size={18} />
                 <span className="text-sm font-medium">Contact</span>
@@ -303,23 +295,23 @@ const Navbar: React.FC = () => {
                 <Link 
                   href={profile.socialLinks.linkedin} 
                   target="_blank"
-                  className="p-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+                  className="rounded-lg bg-surface p-1.5 transition-colors hover:bg-surface-alt"
                 >
-                  <FaLinkedin className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+                  <FaLinkedin className="h-4 w-4 text-muted" />
                 </Link>
                 <Link 
                   href={profile.socialLinks.twitter} 
                   target="_blank"
-                  className="p-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+                  className="rounded-lg bg-surface p-1.5 transition-colors hover:bg-surface-alt"
                 >
-                  <FaTwitter className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+                  <FaTwitter className="h-4 w-4 text-muted" />
                 </Link>
                 <Link 
                   href={profile.socialLinks.github} 
                   target="_blank"
-                  className="p-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+                  className="rounded-lg bg-surface p-1.5 transition-colors hover:bg-surface-alt"
                 >
-                  <FaGithub className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+                  <FaGithub className="h-4 w-4 text-muted" />
                 </Link>
               </div>
             </div>
@@ -332,12 +324,12 @@ const Navbar: React.FC = () => {
           <div className="absolute top-14 bottom-0 left-0 right-0 bg-black/50 animate-overlayFadeIn cursor-pointer" />
           <div 
             ref={searchContainerRef}
-            className="absolute top-14 left-0 right-0 p-4 bg-gray-100 dark:bg-gray-950 border-b border-gray-200/50 dark:border-gray-800 animate-overlayFadeIn"
+            className="absolute top-14 left-0 right-0 border-b border-border/70 bg-background p-4 animate-overlayFadeIn"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="max-w-2xl mx-auto relative">
               <div className="relative">
-                <IoSearchOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                <IoSearchOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={18} />
                 <input
                   ref={searchInputRef}
                   type="text"
@@ -346,23 +338,19 @@ const Navbar: React.FC = () => {
                   onChange={(e) => setSearchValue(e.target.value)}
                   onFocus={() => searchValue.trim() && setShowDropdown(true)}
                   autoFocus
-                  className="w-full pl-10 pr-10 py-3 rounded-xl bg-white dark:bg-gray-900 
-                    border border-gray-200/50 dark:border-gray-700
-                    text-gray-900 dark:text-white text-sm
-                    placeholder-gray-400 dark:placeholder-gray-500
-                    focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                  className="w-full rounded-xl border border-border bg-surface py-3 pl-10 pr-10 text-sm text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/50"
                 />
                 {searchValue ? (
                   <button
                     onClick={handleClearSearch}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted transition-colors hover:text-foreground"
                   >
                     <IoClose size={18} />
                   </button>
                 ) : (
                   <button
                     onClick={() => setSearchOpen(false)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted transition-colors hover:text-foreground"
                   >
                     <IoClose size={18} />
                   </button>
@@ -370,26 +358,26 @@ const Navbar: React.FC = () => {
               </div>
               
               {showDropdown && filteredProjects.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-2 py-2 rounded-xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-700 shadow-xl max-h-80 overflow-y-auto custom-scrollbar">
+                <div className="absolute top-full left-0 right-0 mt-2 max-h-80 overflow-y-auto rounded-xl border border-border/70 bg-surface py-2 shadow-theme custom-scrollbar">
                   {filteredProjects.map((p) => (
                     <button
                       key={p.id}
                       onClick={(e) => { e.stopPropagation(); handleProjectClick(slugify(p.title)); }}
-                      className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center justify-between group"
+                      className="group flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-surface-alt"
                     >
                       <div className="min-w-0 flex-1 mr-2">
-                        <span className="block text-sm font-medium text-gray-900 dark:text-white truncate">{p.title}</span>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{p.description}</p>
+                        <span className="block truncate text-sm font-medium text-foreground">{p.title}</span>
+                        <p className="truncate text-xs text-muted">{p.description}</p>
                       </div>
-                      <IoChevronForward size={16} className="text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 shrink-0" />
+                      <IoChevronForward size={16} className="shrink-0 text-muted transition-colors group-hover:text-foreground" />
                     </button>
                   ))}
                 </div>
               )}
 
               {showDropdown && searchValue.trim() && filteredProjects.length === 0 && (
-                <div className="absolute top-full left-0 right-0 mt-2 py-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-700 shadow-xl text-center">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">No projects found</p>
+                <div className="absolute top-full left-0 right-0 mt-2 rounded-xl border border-border/70 bg-surface py-4 text-center shadow-theme">
+                  <p className="text-sm text-muted">No projects found</p>
                 </div>
               )}
             </div>

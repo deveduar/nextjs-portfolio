@@ -1,3 +1,8 @@
+"use client";
+
+import { useTheme } from "@/context/ThemeContext";
+import { getTechTone } from "@/lib/themes";
+
 interface TechTagsProps {
   technologies: string[];
   limit?: number;
@@ -6,25 +11,6 @@ interface TechTagsProps {
   showMore?: boolean;
   colorful?: boolean;
 }
-
-const techColors: { [key: string]: string } = {
-  "react": "bg-blue-400/30 text-blue-700 dark:text-blue-300",
-  "next.js": "bg-black/30 text-gray-700 dark:text-gray-300",
-  "typescript": "bg-blue-500/30 text-blue-800 dark:text-blue-200",
-  "javascript": "bg-yellow-400/30 text-yellow-700 dark:text-yellow-300",
-  "tailwind": "bg-cyan-400/30 text-cyan-700 dark:text-cyan-300",
-  "node.js": "bg-green-400/30 text-green-700 dark:text-green-300",
-  "express": "bg-gray-400/30 text-gray-700 dark:text-gray-300",
-  "mongodb": "bg-green-500/30 text-green-800 dark:text-green-200",
-  "postgresql": "bg-blue-600/30 text-blue-800 dark:text-blue-200",
-  "python": "bg-yellow-500/30 text-yellow-800 dark:text-yellow-200",
-  "django": "bg-green-600/30 text-green-800 dark:text-green-200",
-  "html": "bg-orange-400/30 text-orange-700 dark:text-orange-300",
-  "css": "bg-blue-400/30 text-blue-700 dark:text-blue-300",
-  "sass": "bg-pink-400/30 text-pink-700 dark:text-pink-300",
-  "docker": "bg-blue-400/30 text-blue-700 dark:text-blue-300",
-  "git": "bg-orange-500/30 text-orange-800 dark:text-orange-200",
-};
   
   const TechTags: React.FC<TechTagsProps> = ({ 
     technologies, 
@@ -34,28 +20,57 @@ const techColors: { [key: string]: string } = {
     showMore = true,
     colorful = false
   }) => {
-       const getTagStyle = (tech: string) => {
-        if (colorful) {
-            const normalizedTech = tech.toLowerCase();
-            return techColors[normalizedTech] || "bg-gray-400/30 text-gray-700 dark:text-gray-300";
-        }
-        return overlayStyle 
-            ? "bg-black/30 backdrop-blur-sm text-white"
-            : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300";
+    const { palette } = useTheme();
+
+    const getTagStyle = (tech: string) => {
+      if (colorful) {
+        const tone = getTechTone(tech, palette);
+
+        return {
+          backgroundColor: `${tone}33`,
+          color: tone,
+          borderColor: `${tone}55`,
+        };
+      }
+
+      if (overlayStyle) {
+        return {
+          backgroundColor: "rgb(var(--color-backgroundAlt) / 0.7)",
+          color: "rgb(var(--color-foreground))",
+          backdropFilter: "blur(10px)",
+          borderColor: "rgb(var(--color-border) / 0.55)",
+        };
+      }
+
+      return {
+        backgroundColor: "rgb(var(--color-surfaceAlt) / 0.85)",
+        color: "rgb(var(--color-mutedForeground))",
+        borderColor: "rgb(var(--color-border) / 0.6)",
+      };
     };
 
     return (
         <div className={`flex flex-wrap gap-1 items-center ${className}`}>
             {technologies.slice(0, limit).map((tech, index) => (
                 <div key={index}>
-                    <span className={`px-2 py-0.5 text-xs rounded-md ${getTagStyle(tech)} inline-block whitespace-nowrap text-center align-middle min-w-[40px]`}>
+                    <span
+                      className="inline-block min-w-[40px] whitespace-nowrap rounded-md border px-2 py-0.5 text-center align-middle text-xs"
+                      style={getTagStyle(tech)}
+                    >
                         {tech}
                     </span>
                 </div>
             ))}
             {showMore && technologies.length > limit && (
                 <div>
-                    <span className={`px-2 py-0.5 text-xs rounded-md ${overlayStyle ? 'bg-black/30 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'} inline-block whitespace-nowrap text-center align-middle`}>
+                    <span
+                      className="inline-block whitespace-nowrap rounded-md border px-2 py-0.5 text-center align-middle text-xs"
+                      style={overlayStyle ? getTagStyle("more") : {
+                        backgroundColor: "rgb(var(--color-surfaceAlt) / 0.85)",
+                        color: "rgb(var(--color-mutedForeground))",
+                        borderColor: "rgb(var(--color-border) / 0.6)",
+                      }}
+                    >
                         +{technologies.length - limit}
                     </span>
                 </div>

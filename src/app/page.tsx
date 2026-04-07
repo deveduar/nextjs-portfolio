@@ -11,9 +11,12 @@ import profile from "@/data/profile";
 import { useReadmes } from "@/hooks/useReadmes";
 import { useHomeSectionSnap } from "@/hooks/useHomeSectionSnap";
 import { SNAP_NAV_HEIGHT } from "@/lib/sectionSnap";
+import { useTheme } from "@/context/ThemeContext";
+import { getProjectSectionGradient } from "@/lib/themes";
 
 export default function Home() {
   const { readmes, loading } = useReadmes();
+  const { palette } = useTheme();
 
   const recentProjects = useMemo(() => {
     if (loading) return [];
@@ -44,22 +47,17 @@ export default function Home() {
       </section>
 
       {!loading && recentProjects.map((project, index) => {
-        const gradientClasses = [
-          "from-blue-100 to-indigo-100 dark:from-blue-950 dark:to-indigo-950",
-          "from-purple-100 to-pink-100 dark:from-purple-950 dark:to-pink-950",
-          "from-emerald-100 to-teal-100 dark:from-emerald-950 dark:to-teal-950",
-          "from-cyan-100 to-sky-100 dark:from-cyan-950 dark:to-sky-950",
-          "from-sky-100 to-indigo-100 dark:from-sky-950 dark:to-indigo-950",
-        ];
-        const gradientIndex = index % gradientClasses.length;
-        const gradient = gradientClasses[gradientIndex];
+        const gradient = getProjectSectionGradient(palette, index);
         
         return (
           <section
             key={project.id}
             ref={(el) => { projectRefs.current[index] = el; }}
-            style={{ height: `calc(100vh - ${SNAP_NAV_HEIGHT}px)` }}
-            className={`relative flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-hidden pb-14 md:pb-0 bg-gradient-to-br ${gradient}`}
+            className="relative flex items-center justify-center overflow-hidden p-4 pb-14 sm:p-6 md:p-8 md:pb-0"
+            style={{
+              height: `calc(100vh - ${SNAP_NAV_HEIGHT}px)`,
+              backgroundImage: `linear-gradient(135deg, ${gradient.from}, ${gradient.to})`,
+            }}
           >
             <div className="w-full h-full max-w-6xl">
               <HomeProjectCard project={project} />
@@ -79,7 +77,7 @@ export default function Home() {
           >
             <Link
               href="/projects"
-              className="rounded-full bg-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg transition-colors hover:bg-blue-700"
+              className="rounded-full bg-accent px-8 py-4 text-lg font-medium text-accent-foreground shadow-theme transition-colors hover:bg-accent-hover"
             >
               View All Projects
             </Link>
@@ -87,7 +85,13 @@ export default function Home() {
         );
       })}
 
-      <section ref={aboutRef} className="min-h-screen flex flex-col bg-violet-100 dark:bg-violet-950/40">
+      <section
+        ref={aboutRef}
+        className="min-h-screen flex flex-col"
+        style={{
+          backgroundImage: `linear-gradient(180deg, rgb(var(--color-background)) 0%, rgb(var(--color-surfaceMuted) / 0.7) 100%)`,
+        }}
+      >
         <AboutTop />
         <AboutBottom />
       </section>
@@ -98,11 +102,14 @@ export default function Home() {
 
       <section
         ref={backToTopRef}
-        className="flex h-[30vh] items-center justify-center bg-violet-100 dark:bg-violet-950/40"
+        className="flex h-[30vh] items-center justify-center"
+        style={{
+          backgroundImage: `linear-gradient(180deg, rgb(var(--color-surfaceMuted) / 0.7) 0%, rgb(var(--color-background)) 100%)`,
+        }}
       >
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center gap-2 rounded-full bg-gray-200 px-8 py-4 text-lg font-medium text-gray-900 shadow-lg transition-colors hover:bg-gray-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+          className="flex items-center gap-2 rounded-full border border-border/70 bg-surface px-8 py-4 text-lg font-medium text-foreground shadow-theme transition-colors hover:bg-surface-alt"
         >
           <span>Back to Top</span>
           <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

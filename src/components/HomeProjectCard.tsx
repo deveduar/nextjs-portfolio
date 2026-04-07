@@ -37,10 +37,10 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({ project, isProjectSec
         
         {/* Sección de texto */}
         <div className="flex-1 flex flex-col justify-center min-w-0">
-          <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-2 sm:mb-3 line-clamp-1 sm:line-clamp-2">
+          <h2 className="mb-2 line-clamp-1 text-xl font-bold tracking-tight text-foreground sm:mb-3 sm:line-clamp-2 sm:text-2xl md:text-2xl lg:text-3xl">
             {project.title}
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-3 leading-relaxed">
+          <p className="mb-3 line-clamp-2 text-sm leading-relaxed text-muted sm:mb-4 sm:line-clamp-3 sm:text-base">
             {project.description}
           </p>
           
@@ -62,7 +62,7 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({ project, isProjectSec
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400"
+                className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-accent"
               >
                 <span className="flex items-center gap-1">
                   {link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? (
@@ -81,7 +81,7 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({ project, isProjectSec
             <div className="hidden sm:block mt-4">
               <Link
                 href={`/project/${slugify(project.title)}`}
-                className="inline-flex items-center gap-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-all"
+                className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-hover"
               >
                 View Project Details
                 <BiLinkExternal className="h-4 w-4" />
@@ -92,7 +92,7 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({ project, isProjectSec
 
         {/* Imagen */}
         <div className="w-full sm:w-2/5 md:w-1/2 lg:w-[45%] min-w-0 flex items-center">
-          <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px] max-h-[55vh] w-full rounded-xl overflow-hidden shadow-lg group">
+          <div className="group relative h-[200px] max-h-[55vh] w-full overflow-hidden rounded-xl border border-border/70 shadow-theme sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px]">
             <Image
               src={project.imageSrc}
               alt={project.title}
@@ -115,7 +115,7 @@ const HomeProjectCard: React.FC<HomeProjectCardProps> = ({ project, isProjectSec
         <div className="sm:hidden px-4 pt-4">
           <Link
             href={`/project/${slugify(project.title)}`}
-            className="flex items-center justify-center gap-2 text-base font-medium text-white bg-blue-600 py-3.5 rounded-lg"
+            className="flex items-center justify-center gap-2 rounded-lg bg-accent py-3.5 text-base font-medium text-accent-foreground"
           >
             View Project Details
             <BiLinkExternal className="h-5 w-5" />

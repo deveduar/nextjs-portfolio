@@ -3,41 +3,105 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --color-background: 40 42 54;
+  --color-backgroundAlt: 33 34 44;
+  --color-surface: 52 55 70;
+  --color-surfaceAlt: 66 68 80;
+  --color-surfaceMuted: 25 26 33;
+  --color-border: 68 71 90;
+  --color-borderStrong: 98 114 164;
+  --color-foreground: 248 248 242;
+  --color-mutedForeground: 203 208 232;
+  --color-accent: 189 147 249;
+  --color-accentAlt: 255 121 198;
+  --color-accentHover: 214 172 255;
+  --color-accentForeground: 25 26 33;
+  --color-success: 80 250 123;
+  --color-warning: 255 184 108;
+  --color-danger: 255 85 85;
+  --color-info: 139 233 253;
+  --color-overlay: 68 71 90;
+  --color-shadow: 25 26 33;
+  --color-scrollbar: 98 114 164;
+  --color-scrollbarHover: 139 233 253;
 }
 
-strong {
-  font-weight: bold !important;
-}
+@layer base {
+  html {
+    color-scheme: dark;
+  }
 
-em {
-  font-style: italic !important;
-}
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image:
+      radial-gradient(circle at top, rgb(var(--color-accentAlt) / 0.08), transparent 28%),
+      radial-gradient(circle at bottom right, rgb(var(--color-info) / 0.12), transparent 22%);
+    margin: 0;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--color-scrollbar) / 0.85) transparent;
+  }
+
+  *::selection {
+    background: rgb(var(--color-accent) / 0.3);
+    color: rgb(var(--color-foreground));
+  }
+
+  strong {
+    font-weight: 700 !important;
+  }
+
+  em {
+    font-style: italic !important;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgb(var(--background-end-rgb))
-  ) rgb(var(--background-start-rgb));
-  margin: 0;
+@layer components {
+  .theme-card {
+    @apply rounded-xl border border-border/70 bg-surface text-foreground shadow-soft;
+  }
+
+  .theme-card-muted {
+    @apply rounded-xl border border-border/50 bg-surface/85 text-foreground shadow-soft;
+    backdrop-filter: blur(12px);
+  }
+
+  .theme-primary-button {
+    @apply rounded-lg bg-accent px-6 py-3 font-medium text-accent-foreground transition-colors hover:bg-accent-hover;
+  }
+
+  .theme-secondary-button {
+    @apply rounded-lg border border-border/70 bg-surface px-6 py-3 font-medium text-foreground transition-colors hover:bg-surface-alt;
+  }
+
+  .theme-icon-button {
+    @apply rounded-xl border border-border/70 bg-surface p-3 text-foreground transition-colors hover:bg-surface-alt;
+  }
+
+  .theme-input {
+    @apply w-full rounded-lg border border-border bg-surface px-3 py-3 text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/50;
+  }
+
+  .theme-chip {
+    @apply inline-flex items-center rounded-md bg-surface-alt px-2 py-1 text-xs text-muted;
+  }
+
+  .theme-chip-soft {
+    @apply inline-flex items-center rounded-md border border-border/60 bg-background-alt/75 px-2 py-1 text-xs text-muted;
+  }
+
+  .theme-link {
+    @apply text-accent transition-colors hover:text-accent-hover;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
   .slide-left {
     animation: slideLeft 0.3s ease-in-out;
   }
@@ -57,8 +121,8 @@ body {
   }
 
   .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
@@ -66,19 +130,11 @@ body {
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #e2e8f0;
-    border-radius: 2px;
-  }
-
-  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #334155;
+    background-color: rgb(var(--color-scrollbar) / 0.85);
+    border-radius: 9999px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #cbd5e1;
-  }
-
-  .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #475569;
+    background-color: rgb(var(--color-scrollbarHover) / 0.9);
   }
 }
