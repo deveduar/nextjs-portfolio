@@ -143,7 +143,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ searchFilter = '' }) => {
       )}
 
       {viewMode === 'table' && (
-        <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] overflow-x-auto custom-scrollbar">
+        <div className="rounded-xl border border-border/70 bg-surface-muted overflow-x-auto custom-scrollbar">
           <div className="min-w-full">
             <ProjectTable projects={filteredAndSortedProjects} />
           </div>
