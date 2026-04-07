@@ -38,7 +38,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
   const [isDragging, setIsDragging] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-   const [autoPlay, setAutoPlay] = useState(true);
+  const [autoPlay, setAutoPlay] = useState(true);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -47,7 +47,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
       intervalId = setInterval(() => {
         setIsTransitioning(true);
         setCurrentIndex((prev) => (prev + 1) % projects.length);
-      }, 9000); // Cambia de card cada 3 segundos
+      }, 9000);
     }
 
     return () => {
@@ -78,7 +78,6 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
 
     let offset = -(currentIndex * 103) - (limitedDiff / cardRef.current.offsetWidth * 100);
     
-    // Aplicar el desplazamiento
     cardRef.current.style.transform = `translateX(${offset}%)`;
     
     setTouchEnd(currentTouch);
@@ -93,26 +92,21 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
     const diff = touchStart - touchEnd;
     let threshold = 50;
 
-    // Aplicar un umbral del 100% si el usuario intenta mover el primer o último elemento en la dirección no permitida
     if (
-      (currentIndex === 0 && diff < 0) || // Primer elemento, movimiento a la derecha
-      (currentIndex === projects.length - 1 && diff > 0) // Último elemento, movimiento a la izquierda
+      (currentIndex === 0 && diff < 0) ||
+      (currentIndex === projects.length - 1 && diff > 0)
     ) {
       threshold = cardRef.current.offsetWidth;
     }
 
-    // Si el movimiento fue suficientemente grande, actualizar el índice
     if (Math.abs(diff) > threshold) {
       if (diff > 0) {
-        // Movimiento hacia la izquierda
         setCurrentIndex((prev) => Math.min(prev + 1, projects.length - 1));
       } else {
-        // Movimiento hacia la derecha
         setCurrentIndex((prev) => Math.max(prev - 1, 0));
       }
     }
 
-    // Restaurar a la posición original
     cardRef.current.style.transition = "transform 300ms ease-in-out";
     cardRef.current.style.transform = `translateX(-${currentIndex * 103}%)`;
   };
@@ -140,17 +134,6 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
   
     let offset = -(currentIndex * 103) - (limitedDiff / cardRef.current.offsetWidth * 100);
   
-    // // Bloquear movimiento del primer elemento hacia la derecha
-    // if (currentIndex === 0 && diff < 0) {
-    //   offset = -(currentIndex * 103); // Restaurar al primer elemento si se mueve mucho hacia la derecha
-    // }
-  
-    // // Bloquear movimiento del último elemento hacia la izquierda
-    // if (currentIndex === projects.length - 1 && diff > 0) {
-    //   offset = -(currentIndex * 103); // Restaurar al último elemento si se mueve mucho hacia la izquierda
-    // }
-  
-    // Aplicar el desplazamiento
     cardRef.current.style.transform = `translateX(${offset}%)`;
   
     setTouchEnd(e.clientX);
@@ -166,55 +149,28 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
     setIsTransitioning(true);
   
     const diff = touchStart - touchEnd;
-    let threshold = 50; // Umbral mínimo normal para movimientos permitidos
+    let threshold = 50;
   
-    // Aplicar un umbral del 100% si el usuario intenta mover el primer o último elemento en la dirección no permitida
     if (
-      (currentIndex === 0 && diff < 0) || // Primer elemento, movimiento a la derecha
-      (currentIndex === projects.length - 1 && diff > 0) // Último elemento, movimiento a la izquierda
+      (currentIndex === 0 && diff < 0) ||
+      (currentIndex === projects.length - 1 && diff > 0)
     ) {
-      threshold = cardRef.current ? cardRef.current.offsetWidth : 100; // Usar el 100% del ancho
+      threshold = cardRef.current ? cardRef.current.offsetWidth : 100;
     }
   
-    // Si el movimiento fue suficientemente grande, actualizar el índice
     if (Math.abs(diff) > threshold) {
       if (diff > 0) {
-        // Movimiento hacia la izquierda
-        setCurrentIndex((prev) => Math.min(prev + 1, projects.length - 1)); // No permitir ir más allá del último elemento
+        setCurrentIndex((prev) => Math.min(prev + 1, projects.length - 1));
       } else {
-        // Movimiento hacia la derecha
-        setCurrentIndex((prev) => Math.max(prev - 1, 0)); // No permitir ir más allá del primer elemento
+        setCurrentIndex((prev) => Math.max(prev - 1, 0));
       }
     } 
   
-    // Restaurar a la posición original si el movimiento no fue suficiente o si fue en una dirección bloqueada
     if (cardRef.current) {
       cardRef.current.style.transition = "transform 300ms ease-in-out";
       cardRef.current.style.transform = `translateX(-${currentIndex * 103}%)`;
     }
   };
-  
-  
-  
-  
-  
-  
-  // Efecto para reiniciar la posición cuando se alcanza el límite
-  // useEffect(() => {
-  //   if (!cardRef.current) return;
-  
-  //   if (currentIndex >= projects.length) {
-  //     setTimeout(() => {
-  //       setIsTransitioning(false);
-  //       setCurrentIndex(0);
-  //     }, 300);
-  //   } else if (currentIndex < 0) {
-  //     setTimeout(() => {
-  //       setIsTransitioning(false);
-  //       setCurrentIndex(projects.length - 1);
-  //     }, 300);
-  //   }
-  // }, [currentIndex]);
 
   if (variant === 'simple') {
     return (
@@ -232,7 +188,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
           {projects.map((project) => (
             <div
               key={project.id}
-              className="flex-shrink-0 w-full relative group overflow-hidden rounded-xl bg-transparent dark:bg-transparent flex flex-col"
+              className="flex-shrink-0 w-full relative group overflow-hidden rounded-xl bg-transparent flex flex-col"
               style={{ height: '100%' }}
             >
               <div 
@@ -252,17 +208,17 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                   className="object-cover pointer-events-none"
                   priority
                 />
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <div className="bg-black/50 rounded-full p-2">
-                    <TbGripHorizontal className="w-5 h-5 text-white" />
+                <div className="absolute inset-0 bg-[var(--color-foreground)]/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <div className="bg-[var(--color-foreground)]/50 rounded-full p-2">
+                    <TbGripHorizontal className="w-5 h-5 text-[var(--color-background)]" />
                   </div>
                 </div>
               </div>
               
-              <div className="shrink-0 rounded-lg border border-border/70 bg-surface/90 p-2 backdrop-blur-sm">
+              <div className="shrink-0 rounded-lg border border-[var(--color-border)]/70 bg-[var(--color-surface)]/90 p-2 backdrop-blur-sm">
                 <div className="flex items-center justify-between gap-2">
                   <Link href={`/project/${slugify(project.title)}`} className="flex-1 min-w-0">
-                    <h3 className="line-clamp-1 text-sm font-semibold text-foreground transition-colors hover:text-accent">
+                    <h3 className="line-clamp-1 text-sm font-semibold text-[var(--color-foreground)] transition-colors hover:text-[var(--color-accent)]">
                       {project.title}
                     </h3>
                   </Link>
@@ -271,7 +227,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                       <Link
                         key={idx}
                         href={link.href}
-                        className="p-1 text-muted transition-colors hover:text-foreground"
+                        className="p-1 text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -284,7 +240,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                     ))}
                     <Link
                       href={`/project/${slugify(project.title)}`}
-                      className="p-1 text-accent transition-colors hover:text-accent-hover"
+                      className="p-1 text-[var(--color-accent)] transition-colors hover:text-[var(--color-accent-hover)]"
                     >
                       <FaArrowRight className="w-4 h-4" />
                     </Link>
@@ -294,7 +250,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
                   {project.technologies.slice(0, 4).map((tech) => (
                     <span 
                       key={tech}
-                      className="rounded bg-surface-alt px-1.5 py-0.5 text-xs text-muted"
+                      className="rounded bg-[var(--color-surface-alt)] px-1.5 py-0.5 text-xs text-[var(--color-muted-foreground)]"
                     >
                       {tech}
                     </span>
@@ -303,7 +259,7 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
               </div>
                
               <div className="flex-1 overflow-y-auto custom-scrollbar p-2 bg-transparent">
-                <p className="mb-2 text-xs text-muted">{project.description}</p>
+                <p className="mb-2 text-xs text-[var(--color-muted-foreground)]">{project.description}</p>
                 {project.readmeContent && (
                   <ProjectReadmeContent readmeContent={project.readmeContent} size={compact ? 'sm' : 'md'} />
                 )}
@@ -317,8 +273,8 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
   return (
     <div className="relative w-full overflow-hidden rounded-xl">
 
-<div 
-        className="flex w-full items-center text-foreground"
+      <div 
+        className="flex w-full items-center text-[var(--color-foreground)]"
         ref={cardRef}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -333,70 +289,13 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
           transition: isTransitioning ? 'transform 300ms ease-in-out' : 'none',
           gap: '3%'
         }}
-    >
-      {/* Último elemento duplicado al principio */}
-      {/* <div
-          key={`${projects[projects.length - 1].id}-clone`}
-          className="flex-shrink-0 w-full p-6 bg-white dark:bg-gray-800 rounded-xl"
-        >
-          <div className="flex flex-col w-full">
-            <div className="flex-1">
-              <div>
-                <Link 
-                  href={`/project/${projects[projects.length - 1].id}`}
-                  className="inline-block hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
-                >
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    {projects[projects.length - 1].title}
-                  </h4>
-                </Link>
-                <div className="flex justify-between items-center mb-2">
-                  <div className="flex gap-2">
-                    {projects[projects.length - 1].technologies.slice(0, 3).map((tech) => (
-                      <span 
-                        key={tech}
-                        className="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                  {projects[projects.length - 1].description}
-                </p>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex flex-row gap-3 text-black dark:text-white">
-                  {projects[projects.length - 1].links.map((link, idx) => (
-                    <Link
-                      key={idx}
-                      href={link.href}
-                      className="rounded-xl items-center gap-3 flex flex-row py-2"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <div className={`text-sm ${link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? 'text-blue-600 dark:text-blue-400' : ''}`}>
-                        {link.svg}
-                      </div>
-                      <span className="text-sm font-medium dark:text-white whitespace-nowrap">{link.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-      {projects.map((project) => (
-        <div
-          key={project.id}
-          className="group relative w-full flex-shrink-0 rounded-xl border border-border/70 bg-surface"
-        >
-              {/* <div className="absolute left-1/2 -translate-x-1/2 top-2 text-gray-400 dark:text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity">
-              <TbGripHorizontal className="w-5 h-5" />
-            </div> */}
-             {/* Imagen del proyecto */}
-             <div className="w-full h-28  rounded-t-lg overflow-hidden">
+      >
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            className="group relative w-full flex-shrink-0 rounded-xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]"
+          >
+            <div className="w-full h-28 rounded-t-lg overflow-hidden">
                 <Image
                   src={project.imageSrc}
                   alt={`${project.title} preview`}
@@ -407,130 +306,70 @@ const ProjectListSimple: React.FC<ProjectListSimpleProps> = ({ projects, variant
               </div>
           <div className="flex flex-col w-full p-4">
             <div className="flex-1">
- 
-              
-        <div className='flex flex-row justify-between mb-2'>
-
-     
-          <h4 className="text-xl font-semibold text-foreground">
-            {project.title}
-          </h4>
-            {/* Live Demo Link */}
-            {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live')) && (
-            <Link
-              href={project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.href || ''}
-              className="flex items-center gap-1 text-accent transition-colors hover:text-accent-hover"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <BiLinkExternal className="w-4 h-4" />
-              <span className="text-xs font-medium">
-                {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.label}
-              </span>
-            </Link>
-          )}
-             </div>
-                    <div className="flex justify-between items-center mb-2">
-                      <div className="flex gap-2">
-                        {project.technologies.slice(0, 3).map((tech) => (
-                          <span 
-                            key={tech}
-                            className="rounded-md bg-surface-alt px-2 py-1 text-xs text-muted"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <p className="mb-2 line-clamp-1 text-sm text-muted lg:h-auto">
-                      {project.description}
-                    </p>
-          
-
-                  <div className="flex items-center justify-between w-full sm:w-auto">
-                  <div className="flex flex-wrap gap-1">
-                    {project.links
-                    .filter(link => !link.label.toLowerCase().includes('demo') && !link.label.toLowerCase().includes('live'))
-                    .slice(0, 1)
-                    .map((link, idx) => (
-                      <Link
-                        key={idx}
-                        href={link.href}
-                        className="rounded-xl items-center gap-1 flex flex-row py-1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaGithub className="w-4 h-4" />
-                        <span className="text-xs font-medium whitespace-nowrap">{link.label}</span>
-                      </Link>
-                    ))}
-                  </div>
-                    <Link
-                      href={`/project/${slugify(project.title)}`}
-                      className="flex flex-row items-center gap-3 rounded-xl py-1 text-accent sm:py-2"
-                      rel="noopener noreferrer"
-                    >
-                      <span className="text-sm font-medium whitespace-nowrap">View Details</span>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-          
-          </div>
-        ))}
-              {/* Primer elemento duplicado al final */}
-              {/* <div
-          key={`${projects[0].id}-clone`}
-          className="flex-shrink-0 w-full p-6 bg-white dark:bg-gray-800 rounded-xl"
-        >
-          <div className="flex flex-col w-full">
-            <div className="flex-1">
-              <div>
-                <Link 
-                  href={`/project/${projects[0].id}`}
-                  className="inline-block hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+              <div className='flex flex-row justify-between mb-2'>
+                <h4 className="text-xl font-semibold text-[var(--color-foreground)]">
+                  {project.title}
+                </h4>
+                {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live')) && (
+                <Link
+                  href={project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.href || ''}
+                  className="flex items-center gap-1 text-[var(--color-accent)] transition-colors hover:text-[var(--color-accent-hover)]"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    {projects[0].title}
-                  </h4>
+                  <BiLinkExternal className="w-4 h-4" />
+                  <span className="text-xs font-medium">
+                    {project.links.find(link => link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live'))?.label}
+                  </span>
                 </Link>
-                <div className="flex justify-between items-center mb-2">
-                  <div className="flex gap-2">
-                    {projects[0].technologies.slice(0, 3).map((tech) => (
-                      <span 
-                        key={tech}
-                        className="px-2 py-1 text-xs rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                  {projects[0].description}
-                </p>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex flex-row gap-3 text-black dark:text-white">
-                  {projects[0].links.map((link, idx) => (
-                    <Link
-                      key={idx}
-                      href={link.href}
-                      className="rounded-xl items-center gap-3 flex flex-row py-2"
-                      target="_blank"
-                      rel="noopener noreferrer"
+              )}
+             </div>
+              <div className="flex justify-between items-center mb-2">
+                <div className="flex gap-2">
+                  {project.technologies.slice(0, 3).map((tech) => (
+                    <span 
+                      key={tech}
+                      className="rounded-md bg-[var(--color-surface-alt)] px-2 py-1 text-xs text-[var(--color-muted-foreground)]"
                     >
-                      <div className={`text-sm ${link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? 'text-blue-600 dark:text-blue-400' : ''}`}>
-                        {link.svg}
-                      </div>
-                      <span className="text-sm font-medium dark:text-white whitespace-nowrap">{link.label}</span>
-                    </Link>
+                      {tech}
+                    </span>
                   ))}
                 </div>
               </div>
+              <p className="mb-2 line-clamp-1 text-sm text-[var(--color-muted-foreground)] lg:h-auto">
+                {project.description}
+              </p>
+
+              <div className="flex items-center justify-between w-full sm:w-auto">
+                <div className="flex flex-wrap gap-1">
+                  {project.links
+                  .filter(link => !link.label.toLowerCase().includes('demo') && !link.label.toLowerCase().includes('live'))
+                  .slice(0, 1)
+                  .map((link, idx) => (
+                    <Link
+                      key={idx}
+                      href={link.href}
+                      className="rounded-xl items-center gap-1 flex flex-row py-1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaGithub className="w-4 h-4" />
+                      <span className="text-xs font-medium whitespace-nowrap">{link.label}</span>
+                    </Link>
+                  ))}
+                </div>
+                <Link
+                  href={`/project/${slugify(project.title)}`}
+                  className="flex flex-row items-center gap-3 rounded-xl py-1 text-[var(--color-accent)] sm:py-2"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-sm font-medium whitespace-nowrap">View Details</span>
+                </Link>
+              </div>
             </div>
           </div>
-        </div> */}
+          </div>
+        ))}
       </div>
     </div>
   );

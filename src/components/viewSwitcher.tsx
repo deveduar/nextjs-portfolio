@@ -16,15 +16,15 @@ const ViewSwitcher: React.FC<ViewSwitcherProps> = ({ currentView, onViewChange }
   ];
 
   return (
-    <div className="flex items-center gap-0.5 p-0.5 bg-gray-100 dark:bg-gray-900 rounded-md">
+    <div className="flex items-center gap-0.5 p-0.5 bg-[var(--color-surface-alt)] rounded-md">
       {views.map(({ mode, icon, label }) => (
         <button
           key={mode}
           onClick={() => onViewChange(mode)}
           className={`p-1.5 rounded transition-colors ${
             currentView === mode
-              ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm'
-              : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              ? 'bg-[var(--color-surface)] text-[var(--color-accent)] shadow-sm'
+              : 'text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]'
           }`}
           title={label}
         >

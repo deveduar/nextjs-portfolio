@@ -65,41 +65,41 @@ const ProjectList: React.FC<ProjectListProps> = ({ searchFilter = '' }) => {
     return (
       <div className="w-full flex flex-wrap gap-4 md:gap-4 pt-4">
         {Array(3).fill(null).map((_, index) => (
-          <div key={`placeholder-${index}`} className="grow basis-full min-w-[300px] max-w-full md:basis-[calc(50%-1rem)] lg:basis-[calc(25%-1rem)] opacity-0" />
+          <div key={`placeholder-${index}`} className="grow basis-full min-w-[300px] max-w-full md:basis-[calc(50%-1rem)] lg:basis-[calc(25%-1rem)] bg-[var(--color-surface)]/10" />
         ))}
       </div>
     );
   }
 
   if (error) {
-    return <div className="text-red-500">Error loading projects: {error}</div>;
+    return <div className="text-[var(--color-danger)]">Error loading projects: {error}</div>;
   }
 
   const placeholders = Array(3).fill(null).map((_, index) => (
-    <div key={`placeholder-${index}`} className="grow basis-full min-w-[300px] max-w-full md:basis-[calc(50%-1rem)] lg:basis-[calc(25%-1rem)] opacity-0" />
+    <div key={`placeholder-${index}`} className="grow basis-full min-w-[300px] max-w-full md:basis-[calc(50%-1rem)] lg:basis-[calc(25%-1rem)] bg-[var(--color-surface)]/10" />
   ));
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-200/50 dark:border-gray-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[var(--color-border)]/50">
         <div className="relative w-full sm:max-w-xs">
-          <IoSearchOutline className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
+          <IoSearchOutline className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--color-muted-foreground)]" size={14} />
           <input
             type="text"
             placeholder="Search projects..."
             value={localSearch}
             onChange={(e) => setLocalSearch(e.target.value)}
-            className="w-full pl-8 pr-8 py-1.5 rounded-lg bg-white dark:bg-gray-900 
-              border border-gray-200/30 dark:border-gray-700/30
-              text-gray-900 dark:text-white text-xs
-              placeholder-gray-400 dark:placeholder-gray-500
-              focus:outline-none focus:ring-1 focus:ring-blue-500/30 dark:focus:ring-blue-400/30
+            className="w-full pl-8 pr-8 py-1.5 rounded-lg bg-[var(--color-surface)] 
+              border border-[var(--color-border)]/30
+              text-[var(--color-foreground)] text-xs
+              placeholder:text-[var(--color-muted-foreground)]
+              focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]/30
               transition-all duration-300"
           />
           {localSearch && (
             <button
               onClick={handleClearSearch}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]"
             >
               <IoClose size={12} />
             </button>
@@ -107,7 +107,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ searchFilter = '' }) => {
         </div>
         
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-          <span className="text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
+          <span className="text-sm text-[var(--color-muted-foreground)] whitespace-nowrap">
             {filteredAndSortedProjects.length} project{filteredAndSortedProjects.length !== 1 ? 's' : ''}
           </span>
           <SortDropdown 
@@ -148,7 +148,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ searchFilter = '' }) => {
       )}
 
       {viewMode === 'table' && (
-        <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-x-auto custom-scrollbar">
+        <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] overflow-x-auto custom-scrollbar">
           <div className="min-w-full">
             <ProjectTable projects={filteredAndSortedProjects} />
           </div>

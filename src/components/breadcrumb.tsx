@@ -25,25 +25,25 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ projectTitle }) => {
   };
 
   return (
-    <nav className="bg-white dark:bg-gray-800 rounded-xl p-4 mb-4">
+    <nav className="bg-[var(--color-surface)] rounded-xl p-4 mb-4">
       <ol className="flex items-center flex-wrap gap-2">
         <li className="flex items-center">
           <Link 
             href="/"
-            className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium transition-colors"
+            className="text-[var(--color-foreground)] hover:text-[var(--color-accent)] text-sm font-medium transition-colors"
           >
             Home
           </Link>
         </li>
         {paths.map((path, index) => (
           <li key={index} className="flex items-center">
-            <IoChevronForward className="mx-2 text-gray-400" />
+            <IoChevronForward className="mx-2 text-[var(--color-muted-foreground)]/50" />
             <Link
               href={getPathHref(path, index)}
               className={`${
                 index === paths.length - 1
-                  ? 'text-blue-600 dark:text-blue-400 cursor-default'
-                  : 'text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400'
+                  ? "text-[var(--color-accent)] cursor-default"
+                  : "text-[var(--color-foreground)] hover:text-[var(--color-accent)]"
               } text-sm font-medium transition-colors`}
             >
               {index === paths.length - 1 && projectTitle 

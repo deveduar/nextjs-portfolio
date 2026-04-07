@@ -514,7 +514,6 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
     heroRef,
     viewAllRef,
     aboutRef,
-    aboutRef,
     contactRef,
     backToTopRef,
     projectRefs,

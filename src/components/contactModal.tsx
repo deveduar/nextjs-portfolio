@@ -105,20 +105,20 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[var(--color-foreground)]/50"
       onClick={handleOverlayClick}
     >
-      <div className="relative w-full max-w-2xl bg-gray-100 dark:bg-gray-950 rounded-xl border border-gray-200/50 dark:border-gray-800 shadow-2xl animate-overlayFadeIn">
+      <div className="relative w-full max-w-2xl bg-[var(--color-surface)] rounded-xl border border-[var(--color-border)] shadow-2xl animate-overlayFadeIn">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-lg hover:bg-[var(--color-surface-alt)] transition-colors"
         >
-          <IoClose size={20} className="text-gray-700 dark:text-gray-300" />
+          <IoClose size={20} className="text-[var(--color-foreground)]" />
         </button>
 
         <div className="p-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Let&apos;s Connect</h2>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
+          <h2 className="text-xl font-bold text-[var(--color-foreground)] mb-2">Let&apos;s Connect</h2>
+          <p className="text-sm text-[var(--color-muted-foreground)] mb-6">
             Have a project in mind? I&apos;d love to hear about it. Send me a message!
           </p>
 
@@ -131,7 +131,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   value={userInput.name}
                   onChange={handleChange}
                   placeholder="Your Name"
-                  className="w-full p-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
+                  className="w-full p-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] focus:ring-2 focus:ring-[var(--color-accent)] placeholder:text-[var(--color-muted-foreground)]"
                   required
                 />
               </div>
@@ -142,7 +142,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   value={userInput.email}
                   onChange={handleChange}
                   placeholder="Your Email"
-                  className="w-full p-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
+                  className="w-full p-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] focus:ring-2 focus:ring-[var(--color-accent)] placeholder:text-[var(--color-muted-foreground)]"
                   required
                 />
               </div>
@@ -154,14 +154,14 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 value={userInput.message}
                 onChange={handleChange}
                 placeholder="Your Message"
-                className="w-full p-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 h-32 placeholder:text-gray-400"
+                className="w-full p-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] focus:ring-2 focus:ring-[var(--color-accent)] h-32 placeholder:text-[var(--color-muted-foreground)]"
                 required
               />
             </div>
 
             <button 
               type="submit"
-              className="self-start px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300"
+              className="self-start px-6 py-3 bg-[var(--color-accent)] text-[var(--color-accent-foreground)] rounded-lg font-semibold hover:bg-[var(--color-accent-hover)] transition-all duration-300"
             >
               Send Message
             </button>
