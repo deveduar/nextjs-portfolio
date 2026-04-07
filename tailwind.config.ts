@@ -55,6 +55,10 @@ const config: Config = {
           '0%': { opacity: '0', transform: 'scale(0.95)' },
           '100%': { opacity: '1', transform: 'scale(1)' }
         },
+        imageReveal: {
+          '0%': { opacity: '0', transform: 'scale(1.1)' },
+          '100%': { opacity: '1', transform: 'scale(1)' }
+        },
 
         modalSlideOutLeft: {
           '0%': { transform: 'translateX(0)', opacity: '1', visibility: 'visible' },
@@ -101,6 +105,7 @@ const config: Config = {
         slideRight: 'slideRight 0.5s ease-out',
         slideLeft: 'slideLeft 0.5s ease-out',
         zoomIn: 'zoomIn 0.5s ease-out',
+        imageReveal: 'imageReveal 0.4s ease-out forwards',
         
         modalSlideOutLeft: 'modalSlideOutLeft 0.4s ease-in-out',
         modalSlideOutRight: 'modalSlideOutRight 0.4s ease-in-out',

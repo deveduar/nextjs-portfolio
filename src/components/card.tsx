@@ -43,42 +43,36 @@ const Card: React.FC<CardProps> = ({
   return (
     <Link 
       href={`/project/${slugify(title)}`} 
-      className="group flex w-full cursor-pointer flex-col overflow-hidden rounded-xl border border-border/70 bg-surface-muted transition-all hover:border-accent/45 hover:shadow-[0_0_20px_var(--color-accent)]/15
+      className="group relative flex w-full cursor-pointer flex-col overflow-hidden rounded-xl border border-border/70 bg-surface-muted transition-all hover:border-accent/45 hover:shadow-[0_0_20px_var(--color-accent)]/15
       grow basis-full min-w-[280px] max-w-full 
       md:basis-[calc(50%-1rem)] md:min-w-[calc(50%-1rem)] md:max-w-[calc(50%-1rem)]
       lg:basis-[calc(33%-1rem)] lg:min-w-[calc(33%-1rem)] lg:max-w-[calc(33%-1rem)]
       xl:basis-[calc(25%-1rem)] xl:min-w-[calc(25%-1rem)] xl:max-w-[calc(25%-1rem)]"
     >
       {hasImage && (
-        <div className="relative h-28 w-full overflow-hidden flex-shrink-0 bg-surface-alt">
+        <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out">
           <Image
-            className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+            className="absolute inset-0 w-full h-full object-cover animate-imageReveal"
             src={imageSrc}
             alt={title}
-            width={500}
-            height={200}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
-          
+          <div className="absolute inset-0 bg-surface-muted/90" />
           {demoLink && (
             <div className="absolute top-2 right-2">
               <Badge label="Live" href={demoLink.href} />
             </div>
           )}
-          
-          <div className="absolute bottom-0 left-0 right-0 bg-surface/95 p-2 backdrop-blur-sm">
+          <div className="absolute bottom-0 left-0 right-0 p-2">
             <h3 className="line-clamp-1 text-sm font-semibold text-foreground">{title}</h3>
           </div>
         </div>
       )}
       
-      {!hasImage && (
-        <div className="p-3 flex-shrink-0">
-          <h3 className="line-clamp-1 text-sm font-semibold text-foreground">{title}</h3>
-        </div>
-      )}
-      
-      <div className="flex flex-1 flex-col p-3 bg-surface-muted">
-        <p className="mb-3 line-clamp-2 text-xs text-muted-foreground leading-relaxed">
+      <div className="flex flex-1 flex-col p-3 bg-surface-muted relative z-0">
+        <h3 className="line-clamp-1 text-sm font-semibold text-foreground">{title}</h3>
+        <p className="mb-3 line-clamp-2 text-xs text-muted-foreground leading-relaxed mt-1">
           {description}
         </p>
         
@@ -100,7 +94,7 @@ const Card: React.FC<CardProps> = ({
       </div>
 
       {(demoLink || githubLink) && (
-        <div className="flex items-center gap-2 px-3 pb-3 pt-0 mt-auto">
+        <div className="flex items-center gap-2 px-3 pb-3 pt-0 mt-auto relative z-0">
           {demoLink && (
             <span className="text-[10px] text-accent font-medium">Live Demo</span>
           )}
