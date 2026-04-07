@@ -17,10 +17,10 @@ export default function AboutTop() {
               className="rounded-full"
             />
             <div>
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
                 {profile.name}
               </h1>
-              <p className="text-lg md:text-xl text-blue-600 dark:text-blue-400 font-medium">
+              <p className="text-lg md:text-xl font-medium text-accent">
                 Full Stack Developer & System Administrator
               </p>
             </div>
@@ -28,16 +28,16 @@ export default function AboutTop() {
 
           <div className="space-y-4 mb-6">
             {profile.description.map((paragraph, i) => (
-              <p key={i} className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+              <p key={i} className="text-lg md:text-xl text-muted leading-relaxed">
                 {paragraph}
               </p>
             ))}
           </div>
 
           <div className="flex items-center gap-2 text-lg mb-8">
-            <span className="text-gray-500 dark:text-gray-400">📍 Spain</span>
-            <span className="text-gray-500 dark:text-gray-400">•</span>
-            <span className="text-blue-600 dark:text-blue-400 font-medium">Available for projects</span>
+            <span className="text-muted">📍 Spain</span>
+            <span className="text-muted">•</span>
+            <span className="font-medium text-accent">Available for projects</span>
           </div>
         </div>
       </div>

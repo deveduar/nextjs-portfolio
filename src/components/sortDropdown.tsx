@@ -18,22 +18,22 @@ const SortDropdown: React.FC<SortDropdownProps> = ({ currentSort, onSortChange }
 
   const getSortIcon = () => {
     if (currentSort.includes('asc')) {
-      return <IoArrowUp size={12} className="text-slate-400" />;
+      return <IoArrowUp size={12} className="text-[var(--color-muted-foreground)]" />;
     } else if (currentSort.includes('desc')) {
-      return <IoArrowDown size={12} className="text-slate-400" />;
+      return <IoArrowDown size={12} className="text-[var(--color-muted-foreground)]" />;
     }
-    return <IoArrowUp size={12} className="text-slate-400" />;
+    return <IoArrowUp size={12} className="text-[var(--color-muted-foreground)]" />;
   };
 
   return (
-    <div className="relative flex items-center bg-gray-100 dark:bg-gray-900 rounded-md overflow-hidden">
+    <div className="relative flex items-center bg-[var(--color-surface-alt)] rounded-md overflow-hidden">
       <select
         value={currentSort}
         onChange={(e) => onSortChange(e.target.value as SortOption)}
-        className="appearance-none bg-transparent border-none px-2 py-1.5 pr-6 text-xs text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none focus:ring-0"
+        className="appearance-none bg-transparent border-none px-2 py-1.5 pr-6 text-xs text-[var(--color-foreground)] cursor-pointer focus:outline-none focus:ring-0"
       >
         {options.map((option) => (
-          <option key={option.value} value={option.value} className="bg-white dark:bg-gray-800">
+          <option key={option.value} value={option.value} className="bg-[var(--color-surface)] text-[var(--color-foreground)]">
             {option.label}
           </option>
         ))}

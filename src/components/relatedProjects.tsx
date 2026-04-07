@@ -22,42 +22,42 @@ const RelatedProjects: React.FC<RelatedProjectsProps> = ({ projects, currentProj
 
   return (
     <section className="space-y-3">
-      <h4 className="text-lg font-semibold text-slate-900 dark:text-white">
+      <h4 className="text-lg font-semibold text-[var(--color-foreground)]">
         Related Projects
       </h4>
-      <div className="space-y-2 border-l-2 border-slate-200 dark:border-slate-700 pl-4">
+      <div className="space-y-2 border-l-2 border-[var(--color-border)] pl-4">
         {displayProjects.map((project) => (
           <Link
             key={project.id}
             href={`/project/${slugify(project.title)}`}
             className="block group"
           >
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+            <div className="p-3 rounded-xl bg-[var(--color-surface-alt)] hover:bg-[var(--color-accent)]/10 transition-colors">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
-                  <h5 className="text-sm font-medium text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <h5 className="text-sm font-medium text-[var(--color-foreground)] group-hover:text-[var(--color-accent)] transition-colors">
                     {project.title}
                   </h5>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-1">
+                  <p className="text-xs text-[var(--color-muted-foreground)] mt-1 line-clamp-1">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-1 mt-2">
                     {project.technologies.slice(0, 3).map((tech, index) => (
                       <span
                         key={index}
-                        className="px-1.5 py-0.5 text-[10px] rounded bg-slate-200 dark:bg-gray-700 text-slate-600 dark:text-slate-300"
+                        className="px-1.5 py-0.5 text-[10px] rounded bg-[var(--color-surface)] text-[var(--color-muted-foreground)]"
                       >
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 3 && (
-                      <span className="px-1.5 py-0.5 text-[10px] rounded bg-slate-200 dark:bg-gray-700 text-slate-500 dark:text-slate-400">
+                      <span className="px-1.5 py-0.5 text-[10px] rounded bg-[var(--color-surface)] text-[var(--color-muted-foreground)]/70">
                         +{project.technologies.length - 3}
                       </span>
                     )}
                   </div>
                 </div>
-                <IoChevronForward size={16} className="text-slate-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 shrink-0 mt-1" />
+                <IoChevronForward size={16} className="text-[var(--color-muted-foreground)] group-hover:text-[var(--color-accent)] shrink-0 mt-1" />
               </div>
             </div>
           </Link>

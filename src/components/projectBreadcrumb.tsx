@@ -35,26 +35,26 @@ const ProjectBreadcrumb: React.FC<ProjectBreadcrumbProps> = ({ projectTitle }) =
   }
 
   return (
-    <div className="bg-white/50 dark:bg-gray-950/50 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-800/50">
+    <div className="bg-[var(--color-surface)]/50 backdrop-blur-sm">
       <div className="py-2 px-3">
         <ol className="flex items-center flex-wrap gap-1 text-xs">
           <li className="flex items-center">
             <Link 
               href="/"
-              className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              className="text-[var(--color-muted-foreground)] hover:text-[var(--color-accent)] transition-colors"
             >
               Home
             </Link>
           </li>
           {paths.map((path, index) => (
             <li key={index} className="flex items-center">
-              <IoChevronForward className="mx-1 text-gray-400" size={10} />
+              <IoChevronForward className="mx-1 text-[var(--color-muted-foreground)]/50" size={10} />
               <Link
                 href={getHref(path)}
                 className={`${
                   index === paths.length - 1
-                    ? "text-blue-600 dark:text-blue-400 font-medium"
-                    : "text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                    ? "text-[var(--color-accent)] font-medium"
+                    : "text-[var(--color-muted-foreground)] hover:text-[var(--color-accent)]"
                 } transition-colors truncate max-w-[150px]`}
               >
                 {index === paths.length - 1 && projectTitle 

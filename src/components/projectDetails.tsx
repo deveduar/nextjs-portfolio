@@ -36,7 +36,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
   );
 
   return (
-    <section className="bg-gray-100 dark:bg-gray-950 -mx-2 px-2 md:-mx-12 md:px-12 lg:-mx-50 lg:px-50 xl:-mx-60 xl:px-60">
+    <section className="bg-[var(--color-surface-muted)] -mx-2 px-2 md:-mx-12 md:px-12 lg:-mx-50 lg:px-50 xl:-mx-60 xl:px-60">
       <div className="py-4">
         <div className="flex flex-col gap-4">
           {project.imageSrc && (
@@ -58,10 +58,10 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
           <div className="flex items-start gap-4">
             <div className="min-w-0">
-              <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">
+              <h1 className="text-3xl font-semibold text-[var(--color-foreground)]">
                 {project.title}
               </h1>
-              <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+              <p className="mt-2 text-sm leading-6 text-[var(--color-muted-foreground)]">
                 {project.description}
               </p>
             </div>
@@ -84,10 +84,10 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:bg-slate-800"
+                className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm font-medium text-[var(--color-foreground)] transition hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-alt)]"
               >
                 <span>{link.label}</span>
-                <span className="text-slate-500 dark:text-slate-400">
+                <span className="text-[var(--color-muted-foreground)]">
                   {link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? (
                     <BiLinkExternal className="h-4 w-4" />
                   ) : (
@@ -101,7 +101,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
         {project.gallery && (
           <div className="mt-4">
-            <h4 className="text-lg font-semibold text-slate-900 dark:text-white">Images</h4>
+            <h4 className="text-lg font-semibold text-[var(--color-foreground)]">Images</h4>
             <div className="mt-3">
               <Gallery images={project.gallery} />
             </div>

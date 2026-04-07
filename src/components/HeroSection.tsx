@@ -2,7 +2,6 @@
 import React from "react";
 import Link from "next/link";
 import { FaLinkedin, FaTwitter, FaGithub, FaChevronDown } from "react-icons/fa";
-import TechMarquee from "./techMarquee";
 import { useSearchContext } from "./navbar";
 
 interface HeroSectionProps {
@@ -23,56 +22,55 @@ const HeroSection: React.FC<HeroSectionProps> = ({ socialLinks, onScrollToProjec
 
   return (
     <section className="flex flex-col justify-between px-4 py-8 min-h-screen">
-      <TechMarquee />
-      
       <div className="flex-1 flex flex-col justify-center">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Welcome to my portfolio.
+          <h1 className="mb-4 text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
+            Welcome! I&apos;m Eduardo.
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-            Here you&apos;ll find a selection of projects focused on performance, scalability, and real-world reliability — from modern frontend applications to backend services and automated deployments.
+          <p className="mb-6 text-lg leading-relaxed text-muted md:text-xl">
+           This portfolio showcases a selection of projects focused on building efficient, scalable, and production-ready applications — from modern frontend interfaces to backend services and deployment workflows.
+
           </p>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+          <p className="mb-8 text-lg text-muted">
             Enjoy exploring!
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 mb-6">
             <button 
               onClick={openContactModal}
-              className="bg-blue-200 dark:bg-blue-900 rounded-lg px-6 py-3 flex items-center justify-center font-medium hover:opacity-80 transition-opacity text-gray-900 dark:text-white text-sm"
+              className="flex items-center justify-center rounded-lg bg-accent px-6 py-3 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-hover"
             >
               Let&apos;s Connect
             </button>
             <Link
               href="/projects"
-              className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-lg px-6 py-3 flex items-center justify-center font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-900 dark:text-white text-sm"
+              className="flex items-center justify-center rounded-lg border border-border/70 bg-surface px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface-alt"
             >
               View My Work
             </Link>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 justify-center sm:justify-start">
             <Link 
               href={socialLinks.linkedin}
               target="_blank" 
-              className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              className="flex items-center justify-center rounded-xl border border-border/70 bg-surface p-3 transition-colors hover:bg-surface-alt"
             >
-              <FaLinkedin className="w-5 h-5 text-gray-900 dark:text-white" />
+              <FaLinkedin className="h-5 w-5 text-foreground" />
             </Link>
             <Link 
               href={socialLinks.twitter}
               target="_blank" 
-              className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              className="flex items-center justify-center rounded-xl border border-border/70 bg-surface p-3 transition-colors hover:bg-surface-alt"
             >
-              <FaTwitter className="w-5 h-5 text-gray-900 dark:text-white" />
+              <FaTwitter className="h-5 w-5 text-foreground" />
             </Link>
             <Link 
               href={socialLinks.github}
               target="_blank" 
-              className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-3 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              className="flex items-center justify-center rounded-xl border border-border/70 bg-surface p-3 transition-colors hover:bg-surface-alt"
             >
-              <FaGithub className="w-5 h-5 text-gray-900 dark:text-white" />
+              <FaGithub className="h-5 w-5 text-foreground" />
             </Link>
           </div>
         </div>
@@ -81,9 +79,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ socialLinks, onScrollToProjec
       <div className="flex justify-center pb-8">
         <button 
           onClick={scrollToNext}
-          className="p-3 rounded-full bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 shadow-lg hover:shadow-xl transition-all animate-bounce"
+          className="animate-bounce rounded-full border border-border/70 bg-surface p-3 shadow-theme transition-colors hover:bg-surface-alt"
         >
-          <FaChevronDown className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+          <FaChevronDown className="h-5 w-5 text-muted" />
         </button>
       </div>
     </section>

@@ -14,12 +14,12 @@ const ProjectNavigation: React.FC<ProjectNavigationProps> = ({ currentId, projec
   const isVertical = variant === 'vertical';
   
   return (
-    <div className={`flex w-full ${isVertical ? 'md:flex-col ' : 'justify-between'} items-center gap-4  text-black dark:text-white ${isVertical ? '' : ''}`}>
+    <div className={`flex w-full ${isVertical ? 'md:flex-col ' : 'justify-between'} items-center gap-4  text-[var(--color-foreground)] ${isVertical ? '' : ''}`}>
         <Link
         href={`/project/${currentId < projects.length ? currentId + 1 : 1}`}
-        className={`flex items-center gap-2 hover:scale-105 transition-all duration-300 ${isVertical ? 'w-full justify-start bg-white dark:bg-gray-800 p-4 rounded-xl' : 'justify-end  p-4 rounded-xl min-w-40 max-w-50'}`}
+        className={`flex items-center gap-2 hover:scale-105 transition-all duration-300 ${isVertical ? 'w-full justify-start bg-[var(--color-surface)]/50 backdrop-blur-md border border-[var(--color-border)]/30 rounded-xl' : 'justify-end  p-4 rounded-xl min-w-40 max-w-50 bg-[var(--color-surface)]/50 backdrop-blur-md border border-[var(--color-border)]/30'}`}
       >
-        <IoArrowBackCircleOutline size={20} />
+        <IoArrowBackCircleOutline size={20} className="text-[var(--color-muted-foreground)] hover:text-[var(--color-accent)] transition-colors" />
         <span className={`text-sm font-medium truncate ${isVertical ? '' : 'min-w-32 max-w-40' }`}>
           {projects.find(p => p.id === (currentId < projects.length ? currentId + 1 : 1))?.title}
         </span>
@@ -27,13 +27,13 @@ const ProjectNavigation: React.FC<ProjectNavigationProps> = ({ currentId, projec
       
       <Link
         href={`/project/${currentId > 1 ? currentId - 1 : projects.length}`}
-        className={`flex items-center gap-2 hover:scale-105 transition-all duration-300 ${isVertical ? 'w-full justify-start bg-white dark:bg-gray-800 p-4 rounded-xl' : ' justify-end  p-4 rounded-xl min-w-40 max-w-50'}`}
+        className={`flex items-center gap-2 hover:scale-105 transition-all duration-300 ${isVertical ? 'w-full justify-start bg-[var(--color-surface)]/50 backdrop-blur-md border border-[var(--color-border)]/30 rounded-xl' : ' justify-end  p-4 rounded-xl min-w-40 max-w-50 bg-[var(--color-surface)]/50 backdrop-blur-md border border-[var(--color-border)]/30'}`}
       >
         <span className={`text-sm font-medium truncate ${isVertical ? '' : 'min-w-32 max-w-40 text-right' }`}>
           {projects.find(p => p.id === (currentId > 1 ? currentId - 1 : projects.length))?.title}
         </span>
-        <IoArrowForwardCircleOutline size={20} />
-
+        <IoArrowForwardCircleOutline size={20} className="text-[var(--color-muted-foreground)] hover:text-[var(--color-accent)] transition-colors" />
+      
       </Link>
     </div>
   );

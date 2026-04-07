@@ -67,19 +67,24 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="flex flex-col justify-center px-4 py-8 min-h-screen">
+    <section
+      className="flex min-h-screen flex-col justify-center px-4 py-8"
+      style={{
+        backgroundImage: "linear-gradient(180deg, rgb(var(--color-background)) 0%, rgb(var(--color-surfaceMuted) / 0.78) 100%)",
+      }}
+    >
       <div className="max-w-4xl mx-auto w-full">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+        <h2 className="mb-8 text-center text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
           Let&apos;s Connect
         </h2>
         
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto w-full">
           {/* Contact Form */}
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200/50 dark:border-gray-800 p-6">
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
+          <div className="flex flex-col gap-4">
+            <p className="text-sm text-muted">
               Have a project in mind? I&apos;d love to hear about it. Send me a message!
             </p>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <div>
                 <input
                   type="text"
@@ -87,7 +92,7 @@ export default function ContactSection() {
                   value={userInput.name}
                   onChange={handleChange}
                   placeholder="Your Name"
-                  className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
+                  className="theme-input bg-surface/85"
                   required
                 />
               </div>
@@ -98,7 +103,7 @@ export default function ContactSection() {
                   value={userInput.email}
                   onChange={handleChange}
                   placeholder="Your Email"
-                  className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
+                  className="theme-input bg-surface/85"
                   required
                 />
               </div>
@@ -108,13 +113,13 @@ export default function ContactSection() {
                   value={userInput.message}
                   onChange={handleChange}
                   placeholder="Your Message"
-                  className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 h-32 placeholder:text-gray-400"
+                  className="theme-input h-28 resize-none bg-surface/85"
                   required
                 />
               </div>
               <button 
                 type="submit"
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300"
+                className="self-start rounded-lg bg-accent px-6 py-3 font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
               >
                 Send Message
               </button>
@@ -123,31 +128,31 @@ export default function ContactSection() {
           </div>
 
           {/* Social Links */}
-          <div className="flex flex-col justify-center items-center md:items-start gap-6">
-            <p className="text-gray-600 dark:text-gray-300 text-center md:text-left">
+          <div className="flex flex-col justify-center items-center md:items-start gap-4">
+            <p className="text-center text-muted md:text-left">
               Connect with me on social media or check out my work on GitHub.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               <Link 
                 href={profile.socialLinks.linkedin}
                 target="_blank" 
-                className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-4 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center rounded-lg border border-border/70 bg-surface p-3 transition-colors hover:bg-surface-alt"
               >
-                <FaLinkedin className="w-6 h-6 text-gray-900 dark:text-white" />
+                <FaLinkedin className="h-6 w-6 text-foreground" />
               </Link>
               <Link 
                 href={profile.socialLinks.twitter}
                 target="_blank" 
-                className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-4 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center rounded-lg border border-border/70 bg-surface p-3 transition-colors hover:bg-surface-alt"
               >
-                <FaTwitter className="w-6 h-6 text-gray-900 dark:text-white" />
+                <FaTwitter className="h-6 w-6 text-foreground" />
               </Link>
               <Link 
                 href={profile.socialLinks.github}
                 target="_blank" 
-                className="bg-white dark:bg-gray-900 border border-gray-200/50 dark:border-gray-800 rounded-xl p-4 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center rounded-lg border border-border/70 bg-surface p-3 transition-colors hover:bg-surface-alt"
               >
-                <FaGithub className="w-6 h-6 text-gray-900 dark:text-white" />
+                <FaGithub className="h-6 w-6 text-foreground" />
               </Link>
             </div>
           </div>

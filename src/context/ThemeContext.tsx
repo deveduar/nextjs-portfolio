@@ -1,49 +1,106 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, ReactNode } from "react";
+import {
+  defaultThemeFamily,
+  getThemePalette,
+  hexToRgbChannels,
+  ThemeFamily,
+  ThemeMode,
+} from "@/lib/themes";
 
 interface ThemeContextProps {
+  themeFamily: ThemeFamily;
+  mode: ThemeMode;
+  setThemeFamily: (themeFamily: ThemeFamily) => void;
+  setMode: (mode: ThemeMode) => void;
+  toggleMode: () => void;
   darkMode: boolean;
   toggleDarkMode: () => void;
+  palette: ReturnType<typeof getThemePalette>;
 }
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [darkMode, setDarkMode] = useState<boolean | null>(null);
+  const [themeFamily, setThemeFamily] = useState<ThemeFamily>(defaultThemeFamily);
+  const [mode, setMode] = useState<ThemeMode | null>(null);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setDarkMode(savedTheme === "dark");
-    } else {
-      setDarkMode(true); // Modo oscuro por defecto si no hay tema guardado
+    const savedThemeFamily = localStorage.getItem("theme-family") as ThemeFamily | null;
+    const savedMode = localStorage.getItem("theme-mode") as ThemeMode | null;
+    const legacyMode = localStorage.getItem("theme");
+
+    const systemMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+
+    if (savedThemeFamily === "dracula" || savedThemeFamily === "catppuccin") {
+      setThemeFamily(savedThemeFamily);
     }
+
+    if (savedMode === "dark" || savedMode === "light") {
+      setMode(savedMode);
+      return;
+    }
+
+    if (legacyMode === "dark" || legacyMode === "light") {
+      setMode(legacyMode);
+      return;
+    }
+
+    setMode(systemMode);
   }, []);
 
-  useEffect(() => {
-    if (darkMode !== null) {
-      const bodyClass = window.document.body.classList;
-      if (darkMode) {
-        bodyClass.add("dark");
-        localStorage.setItem("theme", "dark");
-      } else {
-        bodyClass.remove("dark");
-        localStorage.setItem("theme", "light");
-      }
-    }
-  }, [darkMode]);
+  const palette = useMemo(() => getThemePalette(themeFamily, mode ?? "dark"), [themeFamily, mode]);
 
-  const toggleDarkMode = () => {
-    setDarkMode((prevMode) => !prevMode);
+  useEffect(() => {
+    if (!mode) {
+      return;
+    }
+
+    const root = window.document.documentElement;
+    const rootClassList = root.classList;
+
+    root.dataset.themeFamily = themeFamily;
+    root.dataset.themeMode = mode;
+
+    rootClassList.toggle("dark", mode === "dark");
+    rootClassList.toggle("light", mode === "light");
+
+    Object.entries(palette.colors).forEach(([token, value]) => {
+      root.style.setProperty(`--color-${token}`, hexToRgbChannels(value));
+    });
+
+    root.style.colorScheme = mode;
+
+    localStorage.setItem("theme-family", themeFamily);
+    localStorage.setItem("theme-mode", mode);
+    localStorage.setItem("theme", mode);
+  }, [mode, palette, themeFamily]);
+
+  const toggleMode = () => {
+    setMode((previousMode) => (previousMode === "dark" ? "light" : "dark"));
   };
 
-  if (darkMode === null) {
-    return null; // Renderiza un loader o nada hasta que se cargue el tema
+  const toggleDarkMode = toggleMode;
+  const darkMode = mode === "dark";
+
+  if (mode === null) {
+    return null;
   }
 
   return (
-    <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
+    <ThemeContext.Provider
+      value={{
+        themeFamily,
+        mode,
+        setThemeFamily,
+        setMode,
+        toggleMode,
+        darkMode,
+        toggleDarkMode,
+        palette,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );

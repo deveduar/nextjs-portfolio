@@ -122,7 +122,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
       )}
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80" onClick={closeModal}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90" onClick={closeModal}>
           <div className="absolute top-4 right-4 z-20 flex space-x-4" onClick={(e) => e.stopPropagation()}>
             <button className="text-white text-2xl" onClick={toggleZoom}>
               {isZoomed ? '-' : '+'}

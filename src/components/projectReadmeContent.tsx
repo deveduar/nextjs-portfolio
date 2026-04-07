@@ -21,7 +21,7 @@ const parseInlineText = (text: string): string => {
   s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
   s = s.replace(/`(.+?)`/g, '<code>$1</code>');
-  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-blue-600 hover:underline">$1</a>');
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-[var(--color-accent)] hover:underline">$1</a>');
   
   return s;
 };
@@ -40,7 +40,7 @@ const renderMarkdownTable = (text: string, key: string | number) => {
   });
   
   if (filteredRows.length < 2) {
-    return <pre key={key} className="overflow-x-auto rounded-xl bg-white dark:bg-gray-800 border border-gray-200/50 dark:border-gray-800 p-4 text-sm font-mono">{text.trim()}</pre>;
+    return <pre key={key} className="overflow-x-auto rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)]/50 p-4 text-sm font-mono">{text.trim()}</pre>;
   }
 
   const [headerRow, ...bodyRows] = filteredRows;
@@ -51,17 +51,17 @@ const renderMarkdownTable = (text: string, key: string | number) => {
     <div key={key} className="overflow-x-auto my-4">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-slate-200 dark:border-slate-700">
+          <tr className="border-b border-[var(--color-border)]">
             {headers.map((cell, i) => (
-              <th key={i} className="px-3 py-2 text-left font-semibold text-slate-900 dark:text-white" dangerouslySetInnerHTML={{ __html: parseInlineText(cell.trim()) }} />
+              <th key={i} className="px-3 py-2 text-left font-semibold text-[var(--color-foreground)]" dangerouslySetInnerHTML={{ __html: parseInlineText(cell.trim()) }} />
             ))}
           </tr>
         </thead>
         <tbody>
           {rows.map((row, ri) => (
-            <tr key={ri} className="border-b border-slate-100 dark:border-slate-800">
+            <tr key={ri} className="border-b border-[var(--color-border)]/50">
               {row.map((cell, ci) => (
-                <td key={ci} className="px-3 py-2 text-slate-700 dark:text-slate-300" dangerouslySetInnerHTML={{ __html: parseInlineText(cell.trim()) }} />
+                <td key={ci} className="px-3 py-2 text-[var(--color-muted-foreground)]" dangerouslySetInnerHTML={{ __html: parseInlineText(cell.trim()) }} />
               ))}
             </tr>
           ))}
@@ -83,8 +83,8 @@ const renderTaskList = (lines: string[], key: string | number): JSX.Element => {
         if (!match) {
           const content = line.replace(/^[\s]*[-*][\s]*/, '');
           return (
-            <li key={idx} className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
-              <span className="text-slate-400">•</span>
+            <li key={idx} className="flex items-start gap-2 text-[var(--color-muted-foreground)]">
+              <span className="text-[var(--color-muted-foreground)]/50">•</span>
               <span dangerouslySetInnerHTML={{ __html: parseInlineText(content) }} />
             </li>
           );
@@ -99,9 +99,9 @@ const renderTaskList = (lines: string[], key: string | number): JSX.Element => {
               type="checkbox"
               checked={checked}
               readOnly
-              className="mt-1 w-4 h-4 rounded border-slate-300 dark:border-slate-600 accent-blue-600"
+              className="mt-1 w-4 h-4 rounded border-[var(--color-border)] accent-[var(--color-accent)]"
             />
-            <span className={`flex-1 leading-relaxed ${checked ? 'text-slate-500 line-through dark:text-slate-500' : 'text-slate-700 dark:text-slate-300'}`}>
+            <span className={`flex-1 leading-relaxed ${checked ? 'text-[var(--color-muted-foreground)]/50 line-through' : 'text-[var(--color-muted-foreground)]'}`}>
               <span dangerouslySetInnerHTML={{ __html: parseInlineText(text) }} />
             </span>
           </li>
@@ -117,7 +117,7 @@ const renderList = (lines: string[], key: string | number): JSX.Element => {
   }
   
   return (
-    <ul key={key} className="space-y-2 text-slate-700 dark:text-slate-300 ml-4">
+    <ul key={key} className="space-y-2 text-[var(--color-muted-foreground)] ml-4">
       {lines.map((line, idx) => {
         const indentMatch = line.match(/^(\s*)/);
         const indent = indentMatch ? indentMatch[1].length : 0;
@@ -140,7 +140,7 @@ const renderList = (lines: string[], key: string | number): JSX.Element => {
         
         return (
           <li key={idx} className="flex items-start gap-2 leading-relaxed" style={{ paddingLeft: level + 'rem' }}>
-            <span className="text-slate-400 mt-1">{bullet}</span>
+            <span className="text-[var(--color-muted-foreground)]/50 mt-1">{bullet}</span>
             <span className="flex-1" dangerouslySetInnerHTML={{ __html: htmlContent }} />
           </li>
         );
@@ -162,15 +162,15 @@ const renderCode = (codeObj: { type: string; lang?: string; value?: string }, ke
   };
   
   return (
-    <pre key={key} className="overflow-x-auto rounded-xl bg-white dark:bg-gray-800 border border-gray-200/50 dark:border-gray-800 p-4 my-3 text-sm relative group">
-      {lang && <span className="text-xs text-gray-500 dark:text-gray-400 uppercase mb-2 block">{lang}</span>}
-      <code className="text-gray-800 dark:text-gray-200 font-mono text-sm">{code}</code>
+    <pre key={key} className="overflow-x-auto rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)]/50 p-4 my-3 text-sm relative group">
+      {lang && <span className="text-xs text-[var(--color-muted-foreground)] uppercase mb-2 block">{lang}</span>}
+      <code className="text-[var(--color-foreground)] font-mono text-sm">{code}</code>
       <button
         onClick={copyToClipboard}
-        className="absolute top-2 right-2 p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute top-2 right-2 p-2 rounded-lg bg-[var(--color-surface-alt)] hover:bg-[var(--color-surface)] opacity-0 group-hover:opacity-100 transition-opacity"
         aria-label="Copy code"
       >
-        <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 text-[var(--color-muted-foreground)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
         </svg>
       </button>
@@ -186,19 +186,21 @@ const isTaskItem = (item: string): boolean => {
   return /^\s*[-*]?\s*\[\s*[ x]\s*\]/.test(item);
 };
 
+const isPlainObject = (value: any): boolean => {
+  return value !== null && typeof value === 'object' && !Array.isArray(value) && value.type === undefined;
+};
+
 const renderSectionValue = (value: any, key: string | number): JSX.Element => {
   if (Array.isArray(value)) {
     const codeItems = value.filter((item) => typeof item === 'object' && item?.type === 'code');
     const taskItems = value.filter((item) => typeof item === 'string' && isTaskItem(item));
     const listItems = value.filter((item) => typeof item === 'string' && isListItem(item));
     
-    // Pure task list
     if (taskItems.length > 0 && taskItems.length === value.length) {
       const lines = value.map((item) => String(item));
       return renderTaskList(lines, key);
     }
     
-    // Pure code items
     if (codeItems.length > 0 && codeItems.length === value.length) {
       return (
         <div key={key} className="space-y-3">
@@ -207,7 +209,6 @@ const renderSectionValue = (value: any, key: string | number): JSX.Element => {
       );
     }
     
-    // Mixed content - render each item based on its type
     if (codeItems.length > 0) {
       return (
         <div key={key} className="space-y-3">
@@ -229,25 +230,23 @@ const renderSectionValue = (value: any, key: string | number): JSX.Element => {
               const content = item.trim().replace(/^[-*]\s*/, '');
               const bullet = level === 0 ? '•' : level === 1 ? '○' : '‣';
               return (
-                <li key={idx} className="flex items-start gap-2 leading-relaxed text-slate-700 dark:text-slate-300" style={{ paddingLeft: level + 'rem' }}>
-                  <span className="text-slate-400 mt-1">{bullet}</span>
+                <li key={idx} className="flex items-start gap-2 leading-relaxed text-[var(--color-muted-foreground)]" style={{ paddingLeft: level + 'rem' }}>
+                  <span className="text-[var(--color-muted-foreground)]/50 mt-1">{bullet}</span>
                   <span className="flex-1" dangerouslySetInnerHTML={{ __html: parseInlineText(content) }} />
                 </li>
               );
             }
-            return <div key={idx} className="text-slate-700 dark:text-slate-300">{renderSectionValue(item, `${key}-${idx}`)}</div>;
+            return <div key={idx} className="text-[var(--color-muted-foreground)]">{renderSectionValue(item, `${key}-${idx}`)}</div>;
           })}
         </div>
       );
     }
     
-    // Check if all items are list items
     if (listItems.length === value.length && value.every((item: any) => typeof item === 'string')) {
       const lines = value.map((item: string) => String(item));
       return renderList(lines, key);
     }
     
-    // Mixed content - render each item based on its type
     if (listItems.length > 0) {
       return (
         <div key={key} className="space-y-3">
@@ -266,13 +265,13 @@ const renderSectionValue = (value: any, key: string | number): JSX.Element => {
               const content = item.trim().replace(/^[-*]\s*/, '');
               const bullet = level === 0 ? '•' : level === 1 ? '○' : '‣';
               return (
-                <li key={idx} className="flex items-start gap-2 leading-relaxed text-slate-700 dark:text-slate-300" style={{ paddingLeft: level + 'rem' }}>
-                  <span className="text-slate-400 mt-1">{bullet}</span>
+                <li key={idx} className="flex items-start gap-2 leading-relaxed text-[var(--color-muted-foreground)]" style={{ paddingLeft: level + 'rem' }}>
+                  <span className="text-[var(--color-muted-foreground)]/50 mt-1">{bullet}</span>
                   <span className="flex-1" dangerouslySetInnerHTML={{ __html: parseInlineText(content) }} />
                 </li>
               );
             }
-            return <div key={idx} className="leading-relaxed text-slate-700 dark:text-slate-300">{renderSectionValue(item, `${key}-${idx}`)}</div>;
+            return <div key={idx} className="leading-relaxed text-[var(--color-muted-foreground)]">{renderSectionValue(item, `${key}-${idx}`)}</div>;
           })}
         </div>
       );
@@ -287,16 +286,19 @@ const renderSectionValue = (value: any, key: string | number): JSX.Element => {
 
   if (value && typeof value === 'object') {
     if (value.type === 'code') return renderCode(value, key);
-    return (
-      <div key={key} className="space-y-4">
-        {Object.entries(value).map(([title, val]) => (
-          <div key={title}>
-            <h5 className="font-semibold text-slate-900 dark:text-white mt-4" dangerouslySetInnerHTML={{ __html: parseInlineText(title) }} />
-            <div className="mt-2">{renderSectionValue(val, `${key}-${title}`)}</div>
-          </div>
-        ))}
-      </div>
-    );
+    
+    if (isPlainObject(value)) {
+      return (
+        <div key={key} className="space-y-4">
+          {Object.entries(value).map(([title, val]) => (
+            <div key={title}>
+              <h5 className="font-semibold text-[var(--color-foreground)] mt-4" dangerouslySetInnerHTML={{ __html: parseInlineText(title) }} />
+              <div className="mt-2">{renderSectionValue(val, `${key}-${title}`)}</div>
+            </div>
+          ))}
+        </div>
+      );
+    }
   }
 
   const text = String(value);
@@ -306,7 +308,7 @@ const renderSectionValue = (value: any, key: string | number): JSX.Element => {
   const isList = lines.length > 0 && lines.some((line) => /^\s*[-*]\s/.test(line) || /^\s*\*\s/.test(line));
   if (isList) return renderList(lines, key);
 
-  return <p key={key} className="leading-relaxed text-slate-700 dark:text-slate-300 whitespace-pre-line"><span dangerouslySetInnerHTML={{ __html: parseInlineText(text) }} /></p>;
+  return <p key={key} className="leading-relaxed text-[var(--color-muted-foreground)] whitespace-pre-line"><span dangerouslySetInnerHTML={{ __html: parseInlineText(text) }} /></p>;
 };
 
 const ProjectReadmeContent = ({ readmeContent, size = 'md' }: ProjectReadmeContentProps) => {
@@ -316,9 +318,9 @@ const ProjectReadmeContent = ({ readmeContent, size = 'md' }: ProjectReadmeConte
     return (
       <div className="space-y-1">
         {Object.entries(readmeContent.sections).map(([title, value]) => (
-          <div key={title} className="p-2 rounded bg-gray-100 dark:bg-gray-800">
-            <h4 className="text-xs font-semibold mb-1" dangerouslySetInnerHTML={{ __html: parseInlineText(title) }} />
-            <div className="text-[10px]">{renderSectionValue(value, title)}</div>
+          <div key={title} className="p-2 rounded bg-[var(--color-surface-alt)]">
+            <h4 className="text-xs font-semibold mb-1 text-[var(--color-foreground)]" dangerouslySetInnerHTML={{ __html: parseInlineText(title) }} />
+            <div className="text-[10px] text-[var(--color-muted-foreground)]">{renderSectionValue(value, title)}</div>
           </div>
         ))}
       </div>
@@ -329,7 +331,7 @@ const ProjectReadmeContent = ({ readmeContent, size = 'md' }: ProjectReadmeConte
     <div className="space-y-6">
       {Object.entries(readmeContent.sections).map(([title, value]) => (
         <section key={title} className="space-y-3">
-          <h4 className="text-lg font-semibold text-slate-900 dark:text-white" dangerouslySetInnerHTML={{ __html: parseInlineText(title) }} />
+          <h4 className="text-lg font-semibold text-[var(--color-foreground)]" dangerouslySetInnerHTML={{ __html: parseInlineText(title) }} />
           <div className="pl-4">{renderSectionValue(value, title)}</div>
         </section>
       ))}

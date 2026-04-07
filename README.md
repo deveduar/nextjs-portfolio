@@ -1,15 +1,16 @@
 # 🚀 My Portfolio
 
-A **Bento-style portfolio** developed with **Next.js 14**, **TypeScript**, and **Tailwind CSS** to showcase my projects, skills, and experience. Now featuring **AOS animations** and GitHub integration for dynamic project descriptions.
+A **Bento-style portfolio** developed with **Next.js 14**, **TypeScript**, and **Tailwind CSS** to showcase my projects, skills, and experience. Now featuring **smooth snap scrolling** and GitHub integration for dynamic project descriptions.
 
 ## 🌟 Features
 
-- ✅ **Modern UI/UX** – Bento-grid layout with smooth animations.
+- ✅ **Modern UI/UX** – Bento-grid layout with smooth snap scrolling navigation.
+- ✅ **Enhanced Navigation** – Intuitive section snapping with touch and mouse wheel support.
 - ✅ **Project showcase** – Integrated with a GitHub repository to fetch project details from READMEs.
 - ✅ **Optimized performance** – Uses `next/image` for fast loading.
 - ✅ **AOS Animations** – Smooth scrolling animations for a dynamic experience.
-- ✅ **Static site** – No longer a SPA, improved SEO and performance.
-- ✅ **Dark Mode** – Supports light and dark themes.
+- ✅ **Static site** – Improved SEO and performance with Next.js app router.
+- ✅ **Dark Mode** – Supports light and dark themes with system preference detection.
 - ✅ **Fully Responsive** – Works seamlessly on all devices.
 - ✅ **Deployed on Vercel** – Fast and reliable hosting.
 
@@ -49,11 +50,19 @@ Open **[http://localhost:3000](http://localhost:3000)** to view in the browser.
 
 🔴 **Check it out live:** [deveduar-portfolio.vercel.app](https://deveduar-portfolio.vercel.app/)
 
+## 📌 Recent Improvements
+
+- **Snap Scrolling**: Implemented smooth section snapping for both mouse wheel and touch interactions
+- **Enhanced Touch Support**: Improved touch handling for mobile navigation between sections
+- **Back to Top Optimization**: Fixed back to top functionality across all sections
+- **Section Separation**: Improved logic for about sections and contact section positioning
+- **Performance**: Optimized scroll event listeners and ref handling
+
 ## 📌 Future Improvements
 
-- 📌 Enhance filtering and search for projects.
 - 📌 Improve accessibility and mobile gestures.
-- 📌 Expand GitHub integration with more metadata.
+- 📌 Add project demo videos/screenshots.
+- 📌 Implement blog section for technical articles.
 
 ## 📞 Contact
 
@@ -62,4 +71,3 @@ If you have any questions or feedback, feel free to reach out!
 ## 📝 License
 
 This project is **MIT licensed**. Feel free to use and modify it!
-

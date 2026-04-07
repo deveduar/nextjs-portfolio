@@ -18,27 +18,27 @@ const RecentProjectItem: React.FC<RecentProjectItemProps> = ({ project }) => {
       href={`/project/${slugify(project.title)}`}
       className="block group"
     >
-      <div className="p-2 rounded-lg bg-white dark:bg-gray-900 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-gray-200/50 dark:border-gray-800 transition-colors">
+      <div className="rounded-lg border border-[var(--color-border)]/70 bg-[var(--color-surface)] p-2 transition-colors hover:bg-[var(--color-surface-alt)]">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
-            <h5 className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
+            <h5 className="line-clamp-1 text-sm font-semibold text-[var(--color-foreground)] transition-colors group-hover:text-[var(--color-accent)]">
               {project.title}
             </h5>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1">
+            <p className="mt-0.5 line-clamp-1 text-xs text-[var(--color-muted-foreground)]">
               {project.description}
             </p>
             <div className="flex flex-wrap gap-1 mt-1">
               {project.technologies.slice(0, 3).map((tech, index) => (
                 <span
                   key={index}
-                  className="px-1 py-0.5 text-[10px] rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"
+                  className="rounded bg-[var(--color-surface-alt)] px-1 py-0.5 text-[10px] text-[var(--color-muted-foreground)]"
                 >
                   {tech}
                 </span>
               ))}
             </div>
           </div>
-          <IoChevronForward size={14} className="text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 shrink-0 mt-0.5" />
+          <IoChevronForward size={14} className="mt-0.5 shrink-0 text-[var(--color-muted-foreground)] transition-colors group-hover:text-[var(--color-accent)]" />
         </div>
       </div>
     </Link>

@@ -9,10 +9,34 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        background: "rgb(var(--color-background) / <alpha-value>)",
+        "background-alt": "rgb(var(--color-backgroundAlt) / <alpha-value>)",
+        surface: "rgb(var(--color-surface) / <alpha-value>)",
+        "surface-alt": "rgb(var(--color-surfaceAlt) / <alpha-value>)",
+        "surface-muted": "rgb(var(--color-surfaceMuted) / <alpha-value>)",
+        border: "rgb(var(--color-border) / <alpha-value>)",
+        "border-strong": "rgb(var(--color-borderStrong) / <alpha-value>)",
+        foreground: "rgb(var(--color-foreground) / <alpha-value>)",
+        muted: "rgb(var(--color-mutedForeground) / <alpha-value>)",
+        accent: "rgb(var(--color-accent) / <alpha-value>)",
+        "accent-alt": "rgb(var(--color-accentAlt) / <alpha-value>)",
+        "accent-hover": "rgb(var(--color-accentHover) / <alpha-value>)",
+        "accent-foreground": "rgb(var(--color-accentForeground) / <alpha-value>)",
+        success: "rgb(var(--color-success) / <alpha-value>)",
+        warning: "rgb(var(--color-warning) / <alpha-value>)",
+        danger: "rgb(var(--color-danger) / <alpha-value>)",
+        info: "rgb(var(--color-info) / <alpha-value>)",
+        overlay: "rgb(var(--color-overlay) / <alpha-value>)",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      boxShadow: {
+        theme: "0 20px 40px rgb(var(--color-shadow) / 0.18)",
+        soft: "0 10px 30px rgb(var(--color-shadow) / 0.12)",
       },
       keyframes: {
         // fadeIn: {
