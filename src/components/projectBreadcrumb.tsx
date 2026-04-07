@@ -39,7 +39,7 @@ const ProjectBreadcrumb: React.FC<ProjectBreadcrumbProps> = ({ projectTitle }) =
 
   return (
     <div>
-      <div className="py-2 px-3 max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto">
+      <div className="py-2 px-3">
         <ol className="flex items-center flex-wrap gap-1 text-xs">
           <li className="flex items-center">
             <Link 

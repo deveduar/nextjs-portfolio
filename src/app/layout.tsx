@@ -21,7 +21,7 @@ export default function RootLayout({
         <ClientLayout>
         <SearchProvider>
           <Navbar />
-          <main className="min-h-screen bg-background pt-4 pb-4">
+          <main className="min-h-screen ">
             {children}
           </main>
           <Footer />

@@ -7,7 +7,7 @@ export default function ProjectsView() {
   return (
     <section 
       id="projects" 
-      className="flex flex-col rounded-xl max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto w-full px-2 sm:px-3"
+      className="flex flex-col rounded-xl w-full px-2 sm:px-4 md:px-6 lg:px-44 pt-6"
     >
       <ProjectBreadcrumb />
       <ProjectList searchFilter="" />

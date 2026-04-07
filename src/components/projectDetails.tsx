@@ -36,83 +36,79 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
   );
 
   return (
-    <section className="bg-surface-muted -mx-1 px-1 sm:-mx-2 sm:px-2 md:-mx-3 md:px-3 lg:-mx-4 lg:px-4">
-      <div className="py-4">
-        <div className="flex flex-col gap-4">
-          {project.imageSrc && (
-            <div className="relative w-full h-32 md:h-48 lg:h-56 rounded-xl overflow-hidden">
-              <Image
-                src={project.imageSrc}
-                alt={project.title}
-                fill
-                className="object-cover"
-                priority
-              />
-              {demoLink && (
-                <div className="absolute top-3 right-3 z-10">
-                  <Badge label={demoLink.label} href={demoLink.href} />
-                </div>
-              )}
+    <div className="flex flex-col gap-4">
+      {project.imageSrc && (
+        <div className="relative w-full h-32 md:h-48 lg:h-56 rounded-xl overflow-hidden">
+          <Image
+            src={project.imageSrc}
+            alt={project.title}
+            fill
+            className="object-cover"
+            priority
+          />
+          {demoLink && (
+            <div className="absolute top-3 right-3 z-10">
+              <Badge label={demoLink.label} href={demoLink.href} />
             </div>
           )}
-
-          <div className="flex items-start gap-4">
-            <div className="min-w-0">
-              <h1 className="text-3xl font-semibold text-[var(--color-foreground)]">
-                {project.title}
-              </h1>
-              <p className="mt-2 text-sm leading-6 text-[var(--color-muted-foreground)]">
-                {project.description}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            <TechTags
-              technologies={project.technologies}
-              limit={8}
-              colorful={true}
-              overlayStyle={false}
-              className="flex-wrap gap-2"
-            />
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {project.links.map((link, index) => (
-              <Link
-                key={index}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm font-medium text-[var(--color-foreground)] transition hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-alt)]"
-              >
-                <span>{link.label}</span>
-                <span className="text-[var(--color-muted-foreground)]">
-                  {link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? (
-                    <BiLinkExternal className="h-4 w-4" />
-                  ) : (
-                    <FaGithub className="h-4 w-4" />
-                  )}
-                </span>
-              </Link>
-            ))}
-          </div>
         </div>
+      )}
 
-        {project.gallery && (
-          <div className="mt-4">
-            <h4 className="text-lg font-semibold text-[var(--color-foreground)]">Images</h4>
-            <div className="mt-3">
-              <Gallery images={project.gallery} />
-            </div>
-          </div>
-        )}
-
-        <div className="mt-6">
-          <ProjectReadmeContent readmeContent={project.readmeContent} />
+      <div className="flex items-start gap-4">
+        <div className="min-w-0">
+          <h1 className="text-3xl font-semibold text-foreground">
+            {project.title}
+          </h1>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            {project.description}
+          </p>
         </div>
       </div>
-    </section>
+
+      <div className="flex flex-wrap gap-2">
+        <TechTags
+          technologies={project.technologies}
+          limit={8}
+          colorful={true}
+          overlayStyle={false}
+          className="flex-wrap gap-2"
+        />
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {project.links.map((link, index) => (
+          <Link
+            key={index}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-2 text-sm font-medium text-foreground transition hover:border-border-strong hover:bg-surface-alt"
+          >
+            <span>{link.label}</span>
+            <span className="text-muted-foreground">
+              {link.label.toLowerCase().includes('demo') || link.label.toLowerCase().includes('live') ? (
+                <BiLinkExternal className="h-4 w-4" />
+              ) : (
+                <FaGithub className="h-4 w-4" />
+              )}
+            </span>
+          </Link>
+        ))}
+      </div>
+
+      {project.gallery && (
+        <div className="mt-4">
+          <h4 className="text-lg font-semibold text-foreground">Images</h4>
+          <div className="mt-3">
+            <Gallery images={project.gallery} />
+          </div>
+        </div>
+      )}
+
+      <div className="mt-6">
+        <ProjectReadmeContent readmeContent={project.readmeContent} />
+      </div>
+    </div>
   );
 };
 

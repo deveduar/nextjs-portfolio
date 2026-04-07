@@ -41,21 +41,23 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
   }
 
   return (
-    <div className="w-full mx-auto text-[var(--color-foreground)]">
-      <ProjectBreadcrumb projectTitle={project.title} />
-      <div className="px-1 sm:px-2 md:px-3 max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto">
-        <section className="grid grid-cols-1 gap-4">
-          <ProjectDetails project={project} />
-        </section>
-        <section className="py-4">
-          <RelatedProjects projects={readmes} currentProjectId={project.id} />
-        </section>
-      </div>
-      <div className="mt-4 px-1 sm:px-2 md:px-3 max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto">
-        <ProjectNavBar 
-          project={project} 
-          projects={readmes} 
-        />
+    <div className="text-[var(--color-foreground)] bg-surface-muted min-h-screen pt-6 pb-6 px-2 sm:px-4 md:px-6 lg:px-44">
+      <div className="px-2 sm:px-4 md:px-6 lg:px-8">
+        <ProjectBreadcrumb projectTitle={project.title} />
+        <div className="w-full pt-4">
+          <section className="grid grid-cols-1 gap-4">
+            <ProjectDetails project={project} />
+          </section>
+          <section className="py-4">
+            <RelatedProjects projects={readmes} currentProjectId={project.id} />
+          </section>
+        </div>
+        <div className="mt-4 w-full">
+          <ProjectNavBar 
+            project={project} 
+            projects={readmes} 
+          />
+        </div>
       </div>
     </div>
   );
