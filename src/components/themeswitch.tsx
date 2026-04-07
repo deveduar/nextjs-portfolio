@@ -34,13 +34,13 @@ const ThemeSwitch: React.FC = () => {
       <button
         type="button"
         onClick={toggleDarkMode}
-        className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-2 text-foreground transition-colors hover:bg-surface-alt"
+        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 py-1 text-muted transition-colors hover:bg-surface-alt hover:text-foreground"
         aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
         title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
       >
-        {darkMode ? <IoSunnyOutline className="h-4 w-4" /> : <IoMoonOutline className="h-4 w-4" />}
-        <span className="hidden sm:inline text-xs font-medium">
-          {darkMode ? "Dark" : "Light"}
+        {darkMode ? <IoSunnyOutline className="h-3.5 w-3.5" /> : <IoMoonOutline className="h-3.5 w-3.5" />}
+        <span className="hidden sm:inline text-[11px] font-semibold">
+          {darkMode ? "Light" : "Dark"}
         </span>
       </button>
     </div>

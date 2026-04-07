@@ -36,7 +36,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
   );
 
   return (
-    <section className="bg-[var(--color-surface-muted)] -mx-2 px-2 md:-mx-12 md:px-12 lg:-mx-50 lg:px-50 xl:-mx-60 xl:px-60">
+    <section className="bg-surface-muted -mx-1 px-1 sm:-mx-2 sm:px-2 md:-mx-3 md:px-3 lg:-mx-4 lg:px-4">
       <div className="py-4">
         <div className="flex flex-col gap-4">
           {project.imageSrc && (

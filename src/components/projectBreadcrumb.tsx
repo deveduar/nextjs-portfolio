@@ -21,7 +21,10 @@ const ProjectBreadcrumb: React.FC<ProjectBreadcrumbProps> = ({ projectTitle }) =
     return pathMap[path.toLowerCase()] || path.charAt(0).toUpperCase() + path.slice(1);
   };
 
-  const getHref = (path: string) => {
+  const getHref = (path: string, index: number, totalPaths: number) => {
+    if (index === totalPaths - 1 && projectTitle) {
+      return `/project/${path}`;
+    }
     const hrefMap: { [key: string]: string } = {
       'projects': '/projects',
       'project': '/projects',
@@ -35,27 +38,27 @@ const ProjectBreadcrumb: React.FC<ProjectBreadcrumbProps> = ({ projectTitle }) =
   }
 
   return (
-    <div className="bg-[var(--color-surface)]/50 backdrop-blur-sm">
-      <div className="py-2 px-3">
+    <div>
+      <div className="py-2 px-3 max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto">
         <ol className="flex items-center flex-wrap gap-1 text-xs">
           <li className="flex items-center">
             <Link 
               href="/"
-              className="text-[var(--color-muted-foreground)] hover:text-[var(--color-accent)] transition-colors"
+              className="text-muted hover:text-accent transition-colors"
             >
               Home
             </Link>
           </li>
           {paths.map((path, index) => (
             <li key={index} className="flex items-center">
-              <IoChevronForward className="mx-1 text-[var(--color-muted-foreground)]/50" size={10} />
+              <IoChevronForward className="mx-1 text-muted/50" size={10} />
               <Link
-                href={getHref(path)}
+                href={getHref(path, index, paths.length)}
                 className={`${
                   index === paths.length - 1
-                    ? "text-[var(--color-accent)] font-medium"
-                    : "text-[var(--color-muted-foreground)] hover:text-[var(--color-accent)]"
-                } transition-colors truncate max-w-[150px]`}
+                    ? "text-accent font-medium truncate max-w-[150px] sm:max-w-none"
+                    : "text-muted hover:text-accent"
+                } transition-colors`}
               >
                 {index === paths.length - 1 && projectTitle 
                   ? projectTitle

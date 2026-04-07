@@ -5,8 +5,8 @@ import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 const Footer: React.FC = () => {
   return (
     <footer id="contact" className="relative z-30 mt-auto flex items-end justify-center bg-background">
-      <div className="w-full border-t border-border/70 bg-background/95 backdrop-blur-md px-2 md:px-12 lg:px-50 xl:px-60">
-        <div className="flex justify-between items-center py-4">
+      <div className="w-full border-t border-border/70 bg-background/95 backdrop-blur-md px-2 md:px-4 lg:px-6">
+        <div className="flex justify-between items-center py-3">
           <p className="text-sm text-muted">
             Personal portfolio developed by <Link href="/" className="font-bold text-foreground">deveduar</Link> - 2026.
           </p>

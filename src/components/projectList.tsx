@@ -81,7 +81,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ searchFilter = '' }) => {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4">
         <div className="relative w-full sm:max-w-xs">
           <IoSearchOutline className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" size={14} />
            <input
@@ -101,7 +101,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ searchFilter = '' }) => {
           )}
         </div>
         
-        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap">
           <span className="text-sm text-muted whitespace-nowrap">
             {filteredAndSortedProjects.length} project{filteredAndSortedProjects.length !== 1 ? 's' : ''}
           </span>
