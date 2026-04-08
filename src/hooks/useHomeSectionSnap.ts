@@ -280,6 +280,10 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
       return;
     }
 
+    if (e.target && (e.target as Element).closest('[data-prevent-snap]')) {
+      return;
+    }
+
     const currentSection = getViewportSectionIndex();
     const lastProjectIndex = totalSections - 6;
     const viewAllInfo = getSectionViewportInfo(viewAllRef.current, SNAP_NAV_HEIGHT);
@@ -381,6 +385,10 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
   ]);
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
+    if (e.target && (e.target as Element).closest('[data-prevent-snap]')) {
+      return;
+    }
+
     touchStartY.current = e.touches[0].clientY;
     touchStartSection.current = getTouchStartSectionIndex(e.touches[0].clientX, e.touches[0].clientY);
     touchAccumulator.current = 0;
@@ -389,13 +397,20 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
   }, [getTouchStartSectionIndex]);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
+    if (e.target && (e.target as Element).closest('[data-prevent-snap]')) {
+      return;
+    }
     if (touchCooldown.current) return;
 
     const currentY = e.touches[0].clientY;
     touchAccumulator.current = touchStartY.current - currentY;
   }, []);
 
-  const handleTouchEnd = useCallback(() => {
+  const handleTouchEnd = useCallback((e: TouchEvent) => {
+    if (e.target && (e.target as Element).closest('[data-prevent-snap]')) {
+      return;
+    }
+
     if (touchCooldown.current) {
       return;
     }
@@ -497,9 +512,9 @@ export const useHomeSectionSnap = ({ projectCount }: UseHomeSectionSnapArgs) => 
   useEffect(() => {
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("scroll", updateActiveSection, { passive: true });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
-    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd, { passive: false });
 
     return () => {
       window.removeEventListener("wheel", handleWheel);

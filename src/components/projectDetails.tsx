@@ -37,7 +37,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      {project.imageSrc && (
+      {/* {project.imageSrc && (
         <div className="relative w-full h-32 md:h-48 lg:h-56 rounded-xl overflow-hidden">
           <Image
             src={project.imageSrc}
@@ -52,7 +52,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
             </div>
           )}
         </div>
-      )}
+      )} */}
 
       <div className="flex items-start gap-4">
         <div className="min-w-0">
@@ -98,7 +98,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
       {project.gallery && (
         <div className="mt-4">
-          <h4 className="text-lg font-semibold text-foreground">Images</h4>
+          {/* <h4 className="text-lg font-semibold text-foreground">Images</h4> */}
           <div className="mt-3">
             <Gallery images={project.gallery} />
           </div>

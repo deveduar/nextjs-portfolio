@@ -18,52 +18,52 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects }) => {
   return (
     <table className="w-full min-w-[600px] text-sm">
         <thead>
-          <tr className="border-b border-[var(--color-border)]">
-            <th className="px-3 py-2 text-left font-semibold text-[var(--color-foreground)]">Project</th>
-            <th className="px-3 py-2 text-left font-semibold text-[var(--color-foreground)] hidden md:table-cell">Description</th>
-            <th className="px-3 py-2 text-left font-semibold text-[var(--color-foreground)]">Technologies</th>
-            <th className="px-3 py-2 text-left font-semibold text-[var(--color-foreground)] hidden sm:table-cell">Date</th>
-            <th className="px-3 py-2 text-right font-semibold text-[var(--color-foreground)]">Links</th>
+          <tr className="border-b border-border/30">
+            <th className="px-4 py-3 text-left font-semibold text-foreground border-r border-border/20">Project</th>
+            <th className="px-4 py-3 text-left font-semibold text-foreground hidden md:table-cell border-r border-border/20">Description</th>
+            <th className="px-4 py-3 text-left font-semibold text-foreground border-r border-border/20">Technologies</th>
+            <th className="px-4 py-3 text-left font-semibold text-foreground hidden sm:table-cell border-r border-border/20">Date</th>
+            <th className="px-4 py-3 text-right font-semibold text-foreground">Links</th>
           </tr>
         </thead>
         <tbody>
           {projects.map((project) => (
             <tr 
               key={project.id}
-              className="border-b border-[var(--color-border)]/50 hover:bg-[var(--color-surface)]/50 transition-colors"
+              className="border-b border-border/20 hover:bg-surface/40 transition-colors"
             >
-              <td className="px-3 py-2">
+              <td className="px-4 py-3 border-r border-border/10">
                 <Link
                   href={`/project/${slugify(project.title)}`}
-                  className="font-medium text-[var(--color-foreground)] hover:text-[var(--color-accent)] transition-colors"
+                  className="font-medium text-foreground hover:text-accent transition-colors"
                 >
                   {project.title}
                 </Link>
               </td>
-              <td className="px-3 py-2 text-[var(--color-muted-foreground)] hidden md:table-cell max-w-[300px]">
+              <td className="px-4 py-3 text-muted-foreground hidden md:table-cell max-w-[300px] border-r border-border/10">
                 <span className="line-clamp-1">{project.description}</span>
               </td>
-              <td className="px-3 py-2">
-                <div className="flex flex-wrap gap-1">
+              <td className="px-4 py-3 border-r border-border/10">
+                <div className="flex flex-wrap gap-1.5">
                   {project.technologies.slice(0, 3).map((tech, index) => (
                     <span
                       key={index}
-                      className="px-1.5 py-0.5 text-[10px] rounded bg-[var(--color-surface-alt)] text-[var(--color-muted-foreground)]"
+                      className="px-2 py-1 text-[10px] rounded bg-surface-alt text-muted-foreground font-medium"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 3 && (
-                    <span className="px-1.5 py-0.5 text-[10px] rounded bg-[var(--color-surface-alt)] text-[var(--color-muted-foreground)]/70">
+                    <span className="px-2 py-1 text-[10px] rounded bg-surface-alt text-muted-foreground/70 font-medium">
                       +{project.technologies.length - 3}
                     </span>
                   )}
                 </div>
               </td>
-              <td className="px-3 py-2 text-[var(--color-muted-foreground)] hidden sm:table-cell text-xs">
+              <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell text-xs border-r border-border/10">
                 {project.date ? new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '-'}
               </td>
-              <td className="px-3 py-2 text-right">
+              <td className="px-4 py-3 text-right">
                 <div className="flex justify-end gap-2">
                   {project.links.slice(0, 2).map((link, index) => (
                     <Link
@@ -71,7 +71,7 @@ const ProjectTable: React.FC<ProjectTableProps> = ({ projects }) => {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1 rounded hover:bg-[var(--color-surface-alt)] text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]"
+                      className="p-1.5 rounded hover:bg-surface-alt text-muted-foreground hover:text-foreground transition-colors"
                     >
                       <IoLink size={14} />
                     </Link>
