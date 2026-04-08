@@ -51,7 +51,9 @@ const ThemeSwitch: React.FC = () => {
 
 
   useEffect(() => {
-    if (isOpen) {
+    // Solo deshabilitamos el scroll del body en móviles (cuando es un Drawer inferior)
+    const isMobile = window.matchMedia("(max-width: 639px)").matches;
+    if (isOpen && isMobile) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -104,7 +106,7 @@ const ThemeSwitch: React.FC = () => {
               </button>
             </div>
 
-            <div className="p-4 space-y-5 flex-1 overflow-y-auto custom-scrollbar">
+            <div className="p-4 space-y-5 flex-1 overflow-y-auto overscroll-contain custom-scrollbar">
               {/* Dark Mode Toggle */}
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-muted">Appearance</span>
