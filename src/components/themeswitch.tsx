@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useSwipeDownToClose } from "@/hooks/useSwipeDownToClose";
 import { useTheme } from "../context/ThemeContext";
 import { 
   IoMoonOutline, 
@@ -15,6 +16,8 @@ const ThemeSwitch: React.FC = () => {
   
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
+
+  const headerRef = useSwipeDownToClose(() => setIsOpen(false), popoverRef, isOpen);
 
   const {
     darkMode,
@@ -47,7 +50,19 @@ const ThemeSwitch: React.FC = () => {
 
 
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const basePalette = getThemePalette(themeName, mode);
+  const showVariants = themeFamily === "catppuccin" && mode === "dark";
 
   return (
     <div className="relative">
@@ -72,9 +87,10 @@ const ThemeSwitch: React.FC = () => {
           {/* Drawer / Popover Container */}
           <div 
             ref={popoverRef}
-            className="absolute bottom-0 left-0 right-0 max-h-[85vh] overflow-y-auto rounded-t-2xl border border-border/70 bg-background shadow-theme animate-slideUp sm:static sm:w-80 sm:rounded-xl sm:border-border sm:animate-none sm:fade-in sm:zoom-in-95 flex flex-col custom-scrollbar"
+            data-prevent-snap="true"
+            className="absolute bottom-0 left-0 right-0 h-[360px] rounded-t-2xl border border-border/70 bg-background shadow-theme animate-slideUp sm:static sm:w-80 sm:h-[350px] sm:rounded-xl sm:border-border sm:animate-none sm:fade-in sm:zoom-in-95 flex flex-col overflow-hidden"
           >
-            <div className="flex items-center justify-between border-b border-border/70 p-4 shrink-0 bg-background/95 backdrop-blur-sm sticky top-0 z-10">
+            <div ref={headerRef} className="flex items-center justify-between border-b border-border/70 p-4 shrink-0 bg-background/95 backdrop-blur-sm z-10 touch-none cursor-grab active:cursor-grabbing sm:cursor-default" title="Arrastra hacia abajo para cerrar">
               <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
                 <IoColorPaletteOutline className="text-accent" />
                 Theme Settings
@@ -88,7 +104,7 @@ const ThemeSwitch: React.FC = () => {
               </button>
             </div>
 
-            <div className="p-4 space-y-5">
+            <div className="p-4 space-y-5 flex-1 overflow-y-auto custom-scrollbar">
               {/* Dark Mode Toggle */}
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-muted">Appearance</span>
@@ -128,9 +144,9 @@ const ThemeSwitch: React.FC = () => {
                 </div>
               </div>
 
-              {/* Individual Theme Selector (Only mostly for Catppuccin variants typically) */}
-              {familyThemes.length > 1 && (
-                <div className="space-y-2">
+              {/* Individual Theme Selector */}
+              {showVariants && (
+                <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
                   <span className="text-xs font-semibold text-muted">Variant</span>
                   <div className="flex flex-wrap gap-2">
                     {familyThemes.map((theme) => {
