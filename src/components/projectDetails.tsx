@@ -98,7 +98,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project }) => {
 
       {project.gallery && (
         <div className="mt-4">
-          <h4 className="text-lg font-semibold text-foreground">Images</h4>
+          {/* <h4 className="text-lg font-semibold text-foreground">Images</h4> */}
           <div className="mt-3">
             <Gallery images={project.gallery} />
           </div>
