@@ -1,5 +1,6 @@
 export type ThemeFamily = "dracula" | "catppuccin";
 export type ThemeMode = "light" | "dark";
+export type ColorSchemeName = "default" | "rosewater" | "flamingo" | "pink" | "mauve" | "red" | "maroon" | "peach" | "yellow" | "green" | "teal" | "sky" | "sapphire" | "blue" | "lavender";
 export type ThemeName =
   | "dracula-classic"
   | "alucard-classic"
@@ -39,6 +40,24 @@ export interface ThemePalette {
   projectAccents: string[];
   techTones: Record<string, string>;
 }
+
+export const colorSchemeOptions: Array<{ id: ColorSchemeName; label: string }> = [
+  { id: "default", label: "Default (Mauve)" },
+  { id: "rosewater", label: "Rosewater" },
+  { id: "flamingo", label: "Flamingo" },
+  { id: "pink", label: "Pink" },
+  { id: "mauve", label: "Mauve" },
+  { id: "red", label: "Red" },
+  { id: "maroon", label: "Maroon" },
+  { id: "peach", label: "Peach" },
+  { id: "yellow", label: "Yellow" },
+  { id: "green", label: "Green" },
+  { id: "teal", label: "Teal" },
+  { id: "sky", label: "Sky" },
+  { id: "sapphire", label: "Sapphire" },
+  { id: "blue", label: "Blue" },
+  { id: "lavender", label: "Lavender" },
+];
 
 const draculaDark: ThemePalette = {
   id: "dracula-classic",
@@ -331,6 +350,310 @@ const lightPairByTheme: Record<ThemeName, ThemeName> = {
 export function getThemePalette(themeName: ThemeName, mode: ThemeMode): ThemePalette {
   const resolvedThemeName = mode === "dark" ? darkPairByTheme[themeName] : lightPairByTheme[themeName];
   return canonicalThemeRegistry[resolvedThemeName];
+}
+
+const darkColorSchemeRegistry: Record<ColorSchemeName, Partial<ThemePalette["colors"]>> = {
+  default: {},
+  rosewater: {
+    accent: "#F5E0DC",
+    accentAlt: "#F2CDCD",
+    accentHover: "#EBC7D3",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#C9A090",
+  },
+  flamingo: {
+    accent: "#F2CDCD",
+    accentAlt: "#F5C2E7",
+    accentHover: "#E8B4BC",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#C99696",
+  },
+  pink: {
+    accent: "#F5C2E7",
+    accentAlt: "#CBA6F7",
+    accentHover: "#E8B4DC",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#C986B3",
+  },
+  mauve: {
+    accent: "#CBA6F7",
+    accentAlt: "#89B4FA",
+    accentHover: "#B4BEFE",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#9F85D4",
+  },
+  red: {
+    accent: "#F38BA8",
+    accentAlt: "#F5C2E7",
+    accentHover: "#E89AAD",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#D47A8C",
+  },
+  maroon: {
+    accent: "#EBA0AC",
+    accentAlt: "#F5C2E7",
+    accentHover: "#D7949A",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#C98791",
+  },
+  peach: {
+    accent: "#FAB387",
+    accentAlt: "#F9E2AF",
+    accentHover: "#E8C291",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#D4996C",
+  },
+  yellow: {
+    accent: "#F9E2AF",
+    accentAlt: "#FAB387",
+    accentHover: "#DFCE9A",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#D4C294",
+  },
+  green: {
+    accent: "#A6E3A1",
+    accentAlt: "#94E2D5",
+    accentHover: "#95CD8F",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#8BC285",
+  },
+  teal: {
+    accent: "#94E2D5",
+    accentAlt: "#89DCEB",
+    accentHover: "#8AD4C5",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#7DBCB0",
+  },
+  sky: {
+    accent: "#89DCEB",
+    accentAlt: "#89B4FA",
+    accentHover: "#82D0DC",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#74B8C2",
+  },
+  sapphire: {
+    accent: "#74C7EC",
+    accentAlt: "#89B4FA",
+    accentHover: "#6BB2D6",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#62A3C4",
+  },
+  blue: {
+    accent: "#89B4FA",
+    accentAlt: "#74C7EC",
+    accentHover: "#82A6E0",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#7498D0",
+  },
+  lavender: {
+    accent: "#B4BEFE",
+    accentAlt: "#CBA6F7",
+    accentHover: "#A8ADE8",
+    success: "#A6E3A1",
+    warning: "#FAB387",
+    danger: "#F38BA8",
+    info: "#89DCEB",
+    borderStrong: "#9AA2D0",
+  },
+};
+
+const lightColorSchemeRegistry: Record<ColorSchemeName, Partial<ThemePalette["colors"]>> = {
+  default: {},
+  rosewater: {
+    accent: "#dc8a78",
+    accentAlt: "#dd7878",
+    accentHover: "#c67c6c",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#bda8a3",
+  },
+  flamingo: {
+    accent: "#dd7878",
+    accentAlt: "#ea76cb",
+    accentHover: "#c76c6c",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#bda1a1",
+  },
+  pink: {
+    accent: "#ea76cb",
+    accentAlt: "#8839ef",
+    accentHover: "#d36ab7",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#c4a3b7",
+  },
+  mauve: {
+    accent: "#8839ef",
+    accentAlt: "#1e66f5",
+    accentHover: "#7a33d7",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#9f8ebe",
+  },
+  red: {
+    accent: "#d20f39",
+    accentAlt: "#ea76cb",
+    accentHover: "#bd0d33",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#b58790",
+  },
+  maroon: {
+    accent: "#e64553",
+    accentAlt: "#ea76cb",
+    accentHover: "#cf3e4a",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#bf9499",
+  },
+  peach: {
+    accent: "#fe640b",
+    accentAlt: "#df8e1d",
+    accentHover: "#e45a0a",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#c4a088",
+  },
+  yellow: {
+    accent: "#df8e1d",
+    accentAlt: "#fe640b",
+    accentHover: "#c8801a",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#b9a78e",
+  },
+  green: {
+    accent: "#40a02b",
+    accentAlt: "#179299",
+    accentHover: "#399026",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#84a67b",
+  },
+  teal: {
+    accent: "#179299",
+    accentAlt: "#04a5e5",
+    accentHover: "#14838a",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#7aabac",
+  },
+  sky: {
+    accent: "#04a5e5",
+    accentAlt: "#1e66f5",
+    accentHover: "#0394ce",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#75b0be",
+  },
+  sapphire: {
+    accent: "#209fb5",
+    accentAlt: "#1e66f5",
+    accentHover: "#1c8fa3",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#81aebd",
+  },
+  blue: {
+    accent: "#1e66f5",
+    accentAlt: "#209fb5",
+    accentHover: "#1b5cdd",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#809bd2",
+  },
+  lavender: {
+    accent: "#7287fd",
+    accentAlt: "#8839ef",
+    accentHover: "#6679e4",
+    success: "#40a02b",
+    warning: "#fe640b",
+    danger: "#d20f39",
+    info: "#04a5e5",
+    borderStrong: "#9aa3d4",
+  },
+};
+
+export function applyColorScheme(palette: ThemePalette, scheme: ColorSchemeName): ThemePalette {
+  if (scheme === "default") {
+    return palette;
+  }
+
+  const registry = palette.mode === "light" ? lightColorSchemeRegistry : darkColorSchemeRegistry;
+
+  return {
+    ...palette,
+    colors: {
+      ...palette.colors,
+      ...registry[scheme],
+    },
+  };
 }
 
 export function hexToRgbChannels(hex: string): string {

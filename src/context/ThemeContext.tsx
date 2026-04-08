@@ -2,6 +2,9 @@
 
 import { createContext, useContext, useEffect, useMemo, useState, ReactNode } from "react";
 import {
+  applyColorScheme,
+  colorSchemeOptions,
+  ColorSchemeName,
   defaultThemeName,
   getThemePalette,
   hexToRgbChannels,
@@ -23,6 +26,9 @@ interface ThemeContextProps {
   toggleDarkMode: () => void;
   palette: ReturnType<typeof getThemePalette>;
   familyThemes: Array<{ id: ThemeName; label: string; family: ThemeFamily }>;
+  colorScheme: ColorSchemeName;
+  setColorScheme: (colorScheme: ColorSchemeName) => void;
+  availableColorSchemes: Array<{ id: ColorSchemeName; label: string }>;
 }
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
@@ -30,11 +36,13 @@ const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [themeName, setThemeName] = useState<ThemeName>(defaultThemeName);
   const [mode, setMode] = useState<ThemeMode>("dark");
+  const [colorScheme, setColorScheme] = useState<ColorSchemeName>("default");
 
   useEffect(() => {
     const savedThemeName = localStorage.getItem("theme-name") as ThemeName | null;
     const savedThemeFamily = localStorage.getItem("theme-family") as ThemeFamily | null;
     const savedMode = localStorage.getItem("theme-mode") as ThemeMode | null;
+    const savedColorScheme = localStorage.getItem("theme-color-scheme") as ColorSchemeName | null;
     const legacyMode = localStorage.getItem("theme");
     const storedMode: ThemeMode = savedMode === "dark" || savedMode === "light"
       ? savedMode
@@ -43,6 +51,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         : "dark";
 
     setMode(storedMode);
+    if (savedColorScheme && colorSchemeOptions.some((scheme) => scheme.id === savedColorScheme)) {
+      setColorScheme(savedColorScheme);
+    }
     const validThemeName = savedThemeName && themeOptions.some((theme) => theme.id === savedThemeName);
 
     if (validThemeName) {
@@ -62,7 +73,8 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     setThemeName(defaultThemeName);
   }, []);
 
-  const palette = useMemo(() => getThemePalette(themeName, mode), [themeName, mode]);
+  const basePalette = useMemo(() => getThemePalette(themeName, mode), [themeName, mode]);
+  const palette = useMemo(() => applyColorScheme(basePalette, colorScheme), [basePalette, colorScheme]);
   const themeFamily = palette.family;
   const familyThemes = useMemo(
     () => themeOptions.filter((theme) => theme.family === themeFamily),
@@ -76,6 +88,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     root.dataset.themeName = themeName;
     root.dataset.themeFamily = themeFamily;
     root.dataset.themeMode = mode;
+    root.dataset.themeColorScheme = colorScheme;
 
     rootClassList.toggle("dark", mode === "dark");
     rootClassList.toggle("light", mode === "light");
@@ -90,7 +103,8 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("theme-family", themeFamily);
     localStorage.setItem("theme-mode", mode);
     localStorage.setItem("theme", mode);
-  }, [mode, palette, themeFamily, themeName]);
+    localStorage.setItem("theme-color-scheme", colorScheme);
+  }, [colorScheme, mode, palette, themeFamily, themeName]);
 
   const setThemeFamily = (family: ThemeFamily) => {
     const firstThemeInFamily = themeOptions.find((theme) => theme.family === family);
@@ -120,6 +134,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         toggleDarkMode,
         palette,
         familyThemes,
+        colorScheme,
+        setColorScheme,
+        availableColorSchemes: colorSchemeOptions,
       }}
     >
       {children}

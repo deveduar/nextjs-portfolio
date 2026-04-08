@@ -13,6 +13,9 @@ const ThemeSwitch: React.FC = () => {
     setThemeName,
     setThemeFamily,
     familyThemes,
+    colorScheme,
+    setColorScheme,
+    availableColorSchemes,
   } = useTheme();
 
   return (
@@ -64,6 +67,22 @@ const ThemeSwitch: React.FC = () => {
           })}
         </div>
       )}
+
+      <div className="hidden sm:flex items-center rounded-full border border-border bg-surface-muted px-2 py-1">
+        <select
+          value={colorScheme}
+          onChange={(e) => setColorScheme(e.target.value as typeof colorScheme)}
+          className="bg-transparent text-[11px] font-semibold text-foreground outline-none"
+          aria-label="Color Scheme"
+          title="Color Scheme"
+        >
+          {availableColorSchemes.map((scheme) => (
+            <option key={scheme.id} value={scheme.id} className="bg-surface text-foreground">
+              {scheme.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <button
         type="button"
