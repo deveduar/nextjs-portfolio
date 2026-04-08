@@ -40,7 +40,7 @@ const renderMarkdownTable = (text: string, key: string | number) => {
   });
   
   if (filteredRows.length < 2) {
-    return <pre key={key} className="overflow-x-auto rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)]/50 p-4 text-sm font-mono">{text.trim()}</pre>;
+    return <pre key={key} className="overflow-x-auto rounded-xl bg-[var(--color-surface)] border border-border/50 p-4 text-sm font-mono">{text.trim()}</pre>;
   }
 
   const [headerRow, ...bodyRows] = filteredRows;
@@ -51,7 +51,7 @@ const renderMarkdownTable = (text: string, key: string | number) => {
     <div key={key} className="overflow-x-auto my-4">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-[var(--color-border)]">
+          <tr className="border-b border-border">
             {headers.map((cell, i) => (
               <th key={i} className="px-3 py-2 text-left font-semibold text-[var(--color-foreground)]" dangerouslySetInnerHTML={{ __html: parseInlineText(cell.trim()) }} />
             ))}
@@ -59,7 +59,7 @@ const renderMarkdownTable = (text: string, key: string | number) => {
         </thead>
         <tbody>
           {rows.map((row, ri) => (
-            <tr key={ri} className="border-b border-[var(--color-border)]/50">
+            <tr key={ri} className="border-b border-border/50">
               {row.map((cell, ci) => (
                 <td key={ci} className="px-3 py-2 text-[var(--color-muted-foreground)]" dangerouslySetInnerHTML={{ __html: parseInlineText(cell.trim()) }} />
               ))}
@@ -99,7 +99,7 @@ const renderTaskList = (lines: string[], key: string | number): JSX.Element => {
               type="checkbox"
               checked={checked}
               readOnly
-              className="mt-1 w-4 h-4 rounded border-[var(--color-border)] accent-[var(--color-accent)]"
+              className="mt-1 w-4 h-4 rounded border-border accent-accent"
             />
             <span className={`flex-1 leading-relaxed ${checked ? 'text-[var(--color-muted-foreground)]/50 line-through' : 'text-[var(--color-muted-foreground)]'}`}>
               <span dangerouslySetInnerHTML={{ __html: parseInlineText(text) }} />
@@ -162,7 +162,7 @@ const renderCode = (codeObj: { type: string; lang?: string; value?: string }, ke
   };
   
   return (
-    <pre key={key} className="overflow-x-auto rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)]/50 p-4 my-3 text-sm relative group">
+    <pre key={key} className="overflow-x-auto rounded-xl bg-[var(--color-surface)] border border-border/50 p-4 my-3 text-sm relative group">
       {lang && <span className="text-xs text-[var(--color-muted-foreground)] uppercase mb-2 block">{lang}</span>}
       <code className="text-[var(--color-foreground)] font-mono text-sm">{code}</code>
       <button

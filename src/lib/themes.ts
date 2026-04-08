@@ -1,7 +1,15 @@
 export type ThemeFamily = "dracula" | "catppuccin";
 export type ThemeMode = "light" | "dark";
+export type ThemeName =
+  | "dracula-classic"
+  | "alucard-classic"
+  | "catppuccin-mocha"
+  | "catppuccin-macchiato"
+  | "catppuccin-frappe"
+  | "catppuccin-latte";
 
 export interface ThemePalette {
+  id: ThemeName;
   name: string;
   family: ThemeFamily;
   mode: ThemeMode;
@@ -33,6 +41,7 @@ export interface ThemePalette {
 }
 
 const draculaDark: ThemePalette = {
+  id: "dracula-classic",
   name: "Dracula",
   family: "dracula",
   mode: "dark",
@@ -74,6 +83,7 @@ const draculaDark: ThemePalette = {
 };
 
 const draculaLight: ThemePalette = {
+  id: "alucard-classic",
   name: "Alucard",
   family: "dracula",
   mode: "light",
@@ -114,7 +124,8 @@ const draculaLight: ThemePalette = {
   },
 };
 
-const catppuccinDark: ThemePalette = {
+const catppuccinMocha: ThemePalette = {
+  id: "catppuccin-mocha",
   name: "Catppuccin Mocha",
   family: "catppuccin",
   mode: "dark",
@@ -155,7 +166,92 @@ const catppuccinDark: ThemePalette = {
   },
 };
 
+const catppuccinMacchiato: ThemePalette = {
+  id: "catppuccin-macchiato",
+  name: "Catppuccin Macchiato",
+  family: "catppuccin",
+  mode: "dark",
+  colors: {
+    background: "#24273A",
+    backgroundAlt: "#1E2030",
+    surface: "#363A4F",
+    surfaceAlt: "#494D64",
+    surfaceMuted: "#181926",
+    border: "#5B6078",
+    borderStrong: "#8087A2",
+    foreground: "#CAD3F5",
+    mutedForeground: "#B8C0E0",
+    accent: "#C6A0F6",
+    accentAlt: "#8AADF4",
+    accentHover: "#B7BDF8",
+    accentForeground: "#181926",
+    success: "#A6DA95",
+    warning: "#F5A97F",
+    danger: "#ED8796",
+    info: "#91D7E3",
+    overlay: "#6E738D",
+    shadow: "#181926",
+    scrollbar: "#6E738D",
+    scrollbarHover: "#8AADF4",
+  },
+  projectAccents: ["#8AADF4", "#C6A0F6", "#A6DA95", "#F5BDE6", "#F5A97F"],
+  techTones: {
+    blue: "#8AADF4",
+    cyan: "#91D7E3",
+    green: "#A6DA95",
+    yellow: "#EED49F",
+    orange: "#F5A97F",
+    pink: "#F5BDE6",
+    purple: "#C6A0F6",
+    red: "#ED8796",
+    neutral: "#8087A2",
+  },
+};
+
+const catppuccinFrappe: ThemePalette = {
+  id: "catppuccin-frappe",
+  name: "Catppuccin Frappe",
+  family: "catppuccin",
+  mode: "dark",
+  colors: {
+    background: "#303446",
+    backgroundAlt: "#292C3C",
+    surface: "#414559",
+    surfaceAlt: "#51576D",
+    surfaceMuted: "#232634",
+    border: "#626880",
+    borderStrong: "#838BA7",
+    foreground: "#C6D0F5",
+    mutedForeground: "#B5BFE2",
+    accent: "#CA9EE6",
+    accentAlt: "#8CAAEE",
+    accentHover: "#BABBF1",
+    accentForeground: "#232634",
+    success: "#A6D189",
+    warning: "#EF9F76",
+    danger: "#E78284",
+    info: "#99D1DB",
+    overlay: "#737994",
+    shadow: "#232634",
+    scrollbar: "#737994",
+    scrollbarHover: "#8CAAEE",
+  },
+  projectAccents: ["#8CAAEE", "#CA9EE6", "#A6D189", "#F4B8E4", "#EF9F76"],
+  techTones: {
+    blue: "#8CAAEE",
+    cyan: "#99D1DB",
+    green: "#A6D189",
+    yellow: "#E5C890",
+    orange: "#EF9F76",
+    pink: "#F4B8E4",
+    purple: "#CA9EE6",
+    red: "#E78284",
+    neutral: "#838BA7",
+  },
+};
+
 const catppuccinLight: ThemePalette = {
+  id: "catppuccin-latte",
   name: "Catppuccin Latte",
   family: "catppuccin",
   mode: "light",
@@ -168,7 +264,7 @@ const catppuccinLight: ThemePalette = {
     border: "#ACB0BE",
     borderStrong: "#9CA0B0",
     foreground: "#4C4F69",
-    mutedForeground: "#6C6F85",
+    mutedForeground: "#5C5F77",
     accent: "#8839EF",
     accentAlt: "#1E66F5",
     accentHover: "#7287FD",
@@ -176,8 +272,8 @@ const catppuccinLight: ThemePalette = {
     success: "#40A02B",
     warning: "#FE640B",
     danger: "#D20F39",
-    info: "#179299",
-    overlay: "#CCD0DA",
+    info: "#04A5E5",
+    overlay: "#8C8FA1",
     shadow: "#ACB0BE",
     scrollbar: "#9CA0B0",
     scrollbarHover: "#1E66F5",
@@ -196,21 +292,45 @@ const catppuccinLight: ThemePalette = {
   },
 };
 
-export const themeRegistry: Record<ThemeFamily, Record<ThemeMode, ThemePalette>> = {
-  dracula: {
-    dark: draculaDark,
-    light: draculaLight,
-  },
-  catppuccin: {
-    dark: catppuccinDark,
-    light: catppuccinLight,
-  },
+const canonicalThemeRegistry: Record<ThemeName, ThemePalette> = {
+  "dracula-classic": draculaDark,
+  "alucard-classic": draculaLight,
+  "catppuccin-mocha": catppuccinMocha,
+  "catppuccin-macchiato": catppuccinMacchiato,
+  "catppuccin-frappe": catppuccinFrappe,
+  "catppuccin-latte": catppuccinLight,
 };
 
-export const defaultThemeFamily: ThemeFamily = "dracula";
+export const defaultThemeName: ThemeName = "catppuccin-mocha";
 
-export function getThemePalette(family: ThemeFamily, mode: ThemeMode): ThemePalette {
-  return themeRegistry[family][mode];
+export const themeOptions: Array<{ id: ThemeName; label: string; family: ThemeFamily }> = [
+  { id: "catppuccin-mocha", label: "Mocha", family: "catppuccin" },
+  { id: "catppuccin-macchiato", label: "Macchiato", family: "catppuccin" },
+  { id: "catppuccin-frappe", label: "Frappe", family: "catppuccin" },
+  { id: "dracula-classic", label: "Dracula", family: "dracula" },
+];
+
+const darkPairByTheme: Record<ThemeName, ThemeName> = {
+  "catppuccin-mocha": "catppuccin-mocha",
+  "catppuccin-macchiato": "catppuccin-macchiato",
+  "catppuccin-frappe": "catppuccin-frappe",
+  "catppuccin-latte": "catppuccin-latte",
+  "dracula-classic": "dracula-classic",
+  "alucard-classic": "dracula-classic",
+};
+
+const lightPairByTheme: Record<ThemeName, ThemeName> = {
+  "catppuccin-mocha": "catppuccin-latte",
+  "catppuccin-macchiato": "catppuccin-latte",
+  "catppuccin-frappe": "catppuccin-latte",
+  "catppuccin-latte": "catppuccin-latte",
+  "dracula-classic": "alucard-classic",
+  "alucard-classic": "alucard-classic",
+};
+
+export function getThemePalette(themeName: ThemeName, mode: ThemeMode): ThemePalette {
+  const resolvedThemeName = mode === "dark" ? darkPairByTheme[themeName] : lightPairByTheme[themeName];
+  return canonicalThemeRegistry[resolvedThemeName];
 }
 
 export function hexToRgbChannels(hex: string): string {

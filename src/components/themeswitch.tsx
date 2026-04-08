@@ -4,7 +4,16 @@ import { useTheme } from "../context/ThemeContext";
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 
 const ThemeSwitch: React.FC = () => {
-  const { darkMode, toggleDarkMode, themeFamily, setThemeFamily } = useTheme();
+  const {
+    darkMode,
+    mode,
+    toggleDarkMode,
+    themeName,
+    themeFamily,
+    setThemeName,
+    setThemeFamily,
+    familyThemes,
+  } = useTheme();
 
   return (
     <div className="flex items-center gap-2">
@@ -30,6 +39,31 @@ const ThemeSwitch: React.FC = () => {
           );
         })}
       </div>
+
+      {themeFamily === "catppuccin" && mode === "dark" && (
+        <div className="hidden sm:flex items-center rounded-full border border-border bg-surface-muted p-1">
+          {familyThemes.map((theme) => {
+            const active = theme.id === themeName;
+
+            return (
+              <button
+                key={theme.id}
+                type="button"
+                onClick={() => setThemeName(theme.id)}
+                className={`rounded-full px-2.5 py-1 text-[11px] font-semibold transition-colors ${
+                  active
+                    ? "bg-accent text-accent-foreground shadow-sm"
+                    : "text-muted hover:bg-surface hover:text-foreground"
+                }`}
+                aria-pressed={active}
+                title={theme.label}
+              >
+                {theme.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       <button
         type="button"
