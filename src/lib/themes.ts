@@ -737,6 +737,21 @@ export function applyColorScheme(palette: ThemePalette, scheme: ColorSchemeName)
   };
 }
 
+export function getSchemeAccentHex(basePalette: ThemePalette, scheme: ColorSchemeName): string {
+  if (scheme === "default") {
+    return basePalette.colors.accent;
+  }
+
+  let registry;
+  if (basePalette.family === "dracula") {
+    registry = basePalette.mode === "light" ? draculaLightColorSchemeRegistry : draculaDarkColorSchemeRegistry;
+  } else {
+    registry = basePalette.mode === "light" ? lightColorSchemeRegistry : darkColorSchemeRegistry;
+  }
+
+  return registry[scheme]?.accent || basePalette.colors.accent;
+}
+
 export function hexToRgbChannels(hex: string): string {
   const normalized = hex.replace("#", "");
   const value = normalized.length === 3
