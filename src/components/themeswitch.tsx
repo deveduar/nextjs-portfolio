@@ -6,18 +6,15 @@ import {
   IoMoonOutline, 
   IoSunnyOutline, 
   IoColorPaletteOutline, 
-  IoClose,
-  IoChevronForward
+  IoClose
 } from "react-icons/io5";
 import { getThemePalette, getSchemeAccentHex, ColorSchemeName } from "@/lib/themes";
 
 const ThemeSwitch: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [colorDropdownOpen, setColorDropdownOpen] = useState(false);
   
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
-  const colorDropdownRef = useRef<HTMLDivElement>(null);
 
   const {
     darkMode,
@@ -48,20 +45,9 @@ const ThemeSwitch: React.FC = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  useEffect(() => {
-    const handleClickOutsideColor = (event: MouseEvent) => {
-      if (colorDropdownRef.current && !colorDropdownRef.current.contains(event.target as Node)) {
-        setColorDropdownOpen(false);
-      }
-    };
-    if (colorDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutsideColor);
-    }
-    return () => document.removeEventListener("mousedown", handleClickOutsideColor);
-  }, [colorDropdownOpen]);
+
 
   const basePalette = getThemePalette(themeName, mode);
-  const currentSchemeOption = availableColorSchemes.find(s => s.id === colorScheme) || availableColorSchemes[0];
 
   return (
     <div className="relative">
@@ -168,59 +154,29 @@ const ThemeSwitch: React.FC = () => {
                 </div>
               )}
 
-              {/* Custom Color Dropdown */}
-              <div className="space-y-2">
+              {/* Inline Color Selection */}
+              <div className="space-y-3">
                 <span className="text-xs font-semibold text-muted">Color Accent</span>
-                
-                <div className="relative" ref={colorDropdownRef}>
-                  <button
-                    type="button"
-                    onClick={() => setColorDropdownOpen(!colorDropdownOpen)}
-                    className="flex w-full items-center justify-between rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground transition-all hover:bg-surface-alt focus:outline-none focus:ring-2 focus:ring-accent/50"
-                  >
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="h-3.5 w-3.5 rounded-full shadow-sm"
-                        style={{ backgroundColor: getSchemeAccentHex(basePalette, currentSchemeOption.id) }}
+                <div className="flex flex-wrap gap-2">
+                  {availableColorSchemes.map((option) => {
+                    const optionHex = getSchemeAccentHex(basePalette, option.id);
+                    const active = option.id === colorScheme;
+                    return (
+                      <button
+                        key={option.id}
+                        type="button"
+                        title={option.label}
+                        onClick={() => setColorScheme(option.id)}
+                        className={`h-6 w-6 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-accent/50 ${
+                          active 
+                            ? "scale-110 ring-2 ring-foreground/80 ring-offset-2 ring-offset-background shadow-md" 
+                            : "hover:scale-110 hover:shadow-sm opacity-80 hover:opacity-100"
+                        }`}
+                        style={{ backgroundColor: optionHex }}
+                        aria-label={option.label}
                       />
-                      <span className="font-medium text-xs">{currentSchemeOption.label}</span>
-                    </div>
-                    <IoChevronForward className={`text-muted transition-transform ${colorDropdownOpen ? 'rotate-90' : ''}`} size={14} />
-                  </button>
-
-                  <div
-                    className={`absolute left-0 right-0 top-[calc(100%+0.35rem)] z-20 max-h-48 overflow-y-auto rounded-lg border border-border/20 bg-surface shadow-soft transition-all custom-scrollbar origin-top ${
-                      colorDropdownOpen ? "scale-y-100 opacity-100 pointer-events-auto" : "scale-y-95 opacity-0 pointer-events-none"
-                    }`}
-                  >
-                    <ul role="listbox" className="p-1">
-                      {availableColorSchemes.map((option) => {
-                        const optionHex = getSchemeAccentHex(basePalette, option.id);
-                        return (
-                          <li key={option.id}>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setColorScheme(option.id);
-                                setColorDropdownOpen(false);
-                              }}
-                              className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs transition-colors ${
-                                option.id === colorScheme
-                                  ? "bg-accent/10 text-foreground font-semibold"
-                                  : "text-muted hover:bg-surface-alt hover:text-foreground"
-                              }`}
-                            >
-                              <div 
-                                className="h-3 w-3 rounded-full"
-                                style={{ backgroundColor: optionHex }}
-                              />
-                              <span>{option.label}</span>
-                            </button>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </div>
+                    );
+                  })}
                 </div>
               </div>
 
