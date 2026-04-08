@@ -3,7 +3,8 @@
 import { createContext, useContext, useEffect, useMemo, useState, ReactNode } from "react";
 import {
   applyColorScheme,
-  colorSchemeOptions,
+  catppuccinColorSchemeOptions,
+  draculaColorSchemeOptions,
   ColorSchemeName,
   defaultThemeName,
   getThemePalette,
@@ -51,7 +52,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         : "dark";
 
     setMode(storedMode);
-    if (savedColorScheme && colorSchemeOptions.some((scheme) => scheme.id === savedColorScheme)) {
+    if (savedColorScheme && (catppuccinColorSchemeOptions.some((scheme) => scheme.id === savedColorScheme) || draculaColorSchemeOptions.some((scheme) => scheme.id === savedColorScheme))) {
       setColorScheme(savedColorScheme);
     }
     const validThemeName = savedThemeName && themeOptions.some((theme) => theme.id === savedThemeName);
@@ -136,7 +137,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         familyThemes,
         colorScheme,
         setColorScheme,
-        availableColorSchemes: colorSchemeOptions,
+        availableColorSchemes: themeFamily === "dracula" ? draculaColorSchemeOptions : catppuccinColorSchemeOptions,
       }}
     >
       {children}

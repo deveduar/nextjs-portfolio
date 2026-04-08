@@ -1,6 +1,6 @@
 export type ThemeFamily = "dracula" | "catppuccin";
 export type ThemeMode = "light" | "dark";
-export type ColorSchemeName = "default" | "rosewater" | "flamingo" | "pink" | "mauve" | "red" | "maroon" | "peach" | "yellow" | "green" | "teal" | "sky" | "sapphire" | "blue" | "lavender";
+export type ColorSchemeName = "default" | "rosewater" | "flamingo" | "pink" | "mauve" | "red" | "maroon" | "peach" | "yellow" | "green" | "teal" | "sky" | "sapphire" | "blue" | "lavender" | "cyan";
 export type ThemeName =
   | "dracula-classic"
   | "alucard-classic"
@@ -41,12 +41,11 @@ export interface ThemePalette {
   techTones: Record<string, string>;
 }
 
-export const colorSchemeOptions: Array<{ id: ColorSchemeName; label: string }> = [
+export const catppuccinColorSchemeOptions: Array<{ id: ColorSchemeName; label: string }> = [
   { id: "default", label: "Default (Mauve)" },
   { id: "rosewater", label: "Rosewater" },
   { id: "flamingo", label: "Flamingo" },
   { id: "pink", label: "Pink" },
-  { id: "mauve", label: "Mauve" },
   { id: "red", label: "Red" },
   { id: "maroon", label: "Maroon" },
   { id: "peach", label: "Peach" },
@@ -57,6 +56,15 @@ export const colorSchemeOptions: Array<{ id: ColorSchemeName; label: string }> =
   { id: "sapphire", label: "Sapphire" },
   { id: "blue", label: "Blue" },
   { id: "lavender", label: "Lavender" },
+];
+
+export const draculaColorSchemeOptions: Array<{ id: ColorSchemeName; label: string }> = [
+  { id: "default", label: "Default (Purple)" },
+  { id: "red", label: "Red" },
+  { id: "green", label: "Green" },
+  { id: "yellow", label: "Yellow" },
+  { id: "pink", label: "Pink" },
+  { id: "cyan", label: "Cyan" },
 ];
 
 const draculaDark: ThemePalette = {
@@ -352,7 +360,7 @@ export function getThemePalette(themeName: ThemeName, mode: ThemeMode): ThemePal
   return canonicalThemeRegistry[resolvedThemeName];
 }
 
-const darkColorSchemeRegistry: Record<ColorSchemeName, Partial<ThemePalette["colors"]>> = {
+const darkColorSchemeRegistry: Record<string, Partial<ThemePalette["colors"]>> = {
   default: {},
   rosewater: {
     accent: "#F5E0DC",
@@ -496,7 +504,7 @@ const darkColorSchemeRegistry: Record<ColorSchemeName, Partial<ThemePalette["col
   },
 };
 
-const lightColorSchemeRegistry: Record<ColorSchemeName, Partial<ThemePalette["colors"]>> = {
+const lightColorSchemeRegistry: Record<string, Partial<ThemePalette["colors"]>> = {
   default: {},
   rosewater: {
     accent: "#dc8a78",
@@ -640,12 +648,85 @@ const lightColorSchemeRegistry: Record<ColorSchemeName, Partial<ThemePalette["co
   },
 };
 
+const draculaDarkColorSchemeRegistry: Record<string, Partial<ThemePalette["colors"]>> = {
+  default: {},
+  red: {
+    accent: "#FF5555",
+    accentAlt: "#FF6E6E",
+    accentHover: "#FF6E6E",
+    borderStrong: "#FF5555",
+  },
+  green: {
+    accent: "#50FA7B",
+    accentAlt: "#69FF94",
+    accentHover: "#69FF94",
+    borderStrong: "#50FA7B",
+  },
+  yellow: {
+    accent: "#F1FA8C",
+    accentAlt: "#FFFFA5",
+    accentHover: "#FFFFA5",
+    borderStrong: "#F1FA8C",
+  },
+  pink: {
+    accent: "#FF79C6",
+    accentAlt: "#FF92DF",
+    accentHover: "#FF92DF",
+    borderStrong: "#FF79C6",
+  },
+  cyan: {
+    accent: "#8BE9FD",
+    accentAlt: "#A4FFFF",
+    accentHover: "#A4FFFF",
+    borderStrong: "#8BE9FD",
+  },
+};
+
+const draculaLightColorSchemeRegistry: Record<string, Partial<ThemePalette["colors"]>> = {
+  default: {},
+  red: {
+    accent: "#CB3A2A",
+    accentAlt: "#D74C3D",
+    accentHover: "#D74C3D",
+    borderStrong: "#CB3A2A",
+  },
+  green: {
+    accent: "#14710A",
+    accentAlt: "#198D0C",
+    accentHover: "#198D0C",
+    borderStrong: "#14710A",
+  },
+  yellow: {
+    accent: "#846E15",
+    accentAlt: "#9E841A",
+    accentHover: "#9E841A",
+    borderStrong: "#846E15",
+  },
+  pink: {
+    accent: "#A3144D",
+    accentAlt: "#BF185A",
+    accentHover: "#BF185A",
+    borderStrong: "#A3144D",
+  },
+  cyan: {
+    accent: "#036A96",
+    accentAlt: "#047FB4",
+    accentHover: "#047FB4",
+    borderStrong: "#036A96",
+  },
+};
+
 export function applyColorScheme(palette: ThemePalette, scheme: ColorSchemeName): ThemePalette {
   if (scheme === "default") {
     return palette;
   }
 
-  const registry = palette.mode === "light" ? lightColorSchemeRegistry : darkColorSchemeRegistry;
+  let registry;
+  if (palette.family === "dracula") {
+    registry = palette.mode === "light" ? draculaLightColorSchemeRegistry : draculaDarkColorSchemeRegistry;
+  } else {
+    registry = palette.mode === "light" ? lightColorSchemeRegistry : darkColorSchemeRegistry;
+  }
 
   return {
     ...palette,
