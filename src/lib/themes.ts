@@ -787,19 +787,20 @@ export function mixHex(baseHex: string, blendHex: string, weight: number): strin
   return `#${mixed.map((channel) => channel.toString(16).padStart(2, "0")).join("")}`;
 }
 
-export function getProjectSectionGradient(palette: ThemePalette, index: number): {
+export function getProjectSectionGradient(palette: ThemePalette, _index: number): {
   from: string;
   to: string;
 } {
-  const accent = palette.projectAccents[index % palette.projectAccents.length];
-  const accentAlt = palette.projectAccents[(index + 1) % palette.projectAccents.length];
+  // Mismo degradado estático en todos los proyectos basado en el color seleccionado
+  const accent = palette.colors.accent;
+  
   const blendTarget = palette.mode === "dark" ? "#000000" : "#FFFFFF";
   const accentWeight = palette.mode === "dark" ? 0.78 : 0.88;
-  const accentAltWeight = palette.mode === "dark" ? 0.7 : 0.84;
+  const accentAltWeight = palette.mode === "dark" ? 0.70 : 0.84;
 
   return {
     from: mixHex(accent, palette.colors.background, accentWeight),
-    to: mixHex(accentAlt, blendTarget, accentAltWeight),
+    to: mixHex(accent, blendTarget, accentAltWeight),
   };
 }
 

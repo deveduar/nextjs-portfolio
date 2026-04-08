@@ -18,13 +18,10 @@ export default function Home() {
   const { readmes, loading } = useReadmes();
   const { palette } = useTheme();
 
-  const recentProjects = useMemo(() => {
+  const featuredProjects = useMemo(() => {
     if (loading) return [];
 
-    return [...readmes]
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(-5)
-      .reverse();
+    return readmes.filter(project => project.status === "🌟");
   }, [readmes, loading]);
 
   const {
@@ -35,7 +32,7 @@ export default function Home() {
     backToTopRef,
     projectRefs,
     scrollToProjects,
-  } = useHomeSectionSnap({ projectCount: recentProjects.length });
+  } = useHomeSectionSnap({ projectCount: featuredProjects.length });
 
   return (
     <>
@@ -46,7 +43,7 @@ export default function Home() {
         />
       </section>
 
-      {!loading && recentProjects.map((project, index) => {
+      {!loading && featuredProjects.map((project, index) => {
         const gradient = getProjectSectionGradient(palette, index);
         
         return (
@@ -66,8 +63,8 @@ export default function Home() {
         );
       })}
 
-      {!loading && recentProjects.map((project, index) => {
-        if (index !== recentProjects.length - 1) return null;
+      {!loading && featuredProjects.map((project, index) => {
+        if (index !== featuredProjects.length - 1) return null;
         
         return (
           <section

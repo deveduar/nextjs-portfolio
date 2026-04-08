@@ -18,6 +18,7 @@ export interface Readme {
   readmeContent?: {
     [key: string]: any;
   };
+  status?: string;
 }
 
 export const useReadmes = () => {
@@ -69,6 +70,5 @@ export const useReadmes = () => {
     fetchReadmes();
   }, []);
   
-
   return { readmes, loading, error };
 };
